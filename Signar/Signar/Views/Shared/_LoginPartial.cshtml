@@ -1,0 +1,46 @@
+﻿@*@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}*@
+
+    <ul class="nav navbar-nav navbar-header pull-right">
+        <li>
+            <form class="navbar-form hidden-sm" role="search">
+                <div class="form-group" style="display: none;" id="searchText">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <img src="~/Content/img/search_icon.png" class="navSearchIcon" onclick="showSearch()" />
+            </form>
+        </li>
+    @*<li class="navTextH">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "navTextH" })</li>*@
+    @*<li class="navTextH">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navTextH rightText" })</li>*@
+        <li onclick="showProfileDropMenu()">
+            <a href="#" class="navProfile rightM"><img src="~/Content/img/ava1.jpg" id="avatar" /> &nbsp;&nbsp; George Orwell</a>
+
+            <div class="dropdownProfile">
+                <ul>
+                    <li data-value="Profile">Profile</li>
+                    <li data-value="Sign_out">Sign out</li>
+                </ul>
+                <span class="icon-arrow1"></span>
+            </div>
+        </li>
+    </ul>
