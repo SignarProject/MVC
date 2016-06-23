@@ -1,9 +1,5 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-@{ 
-    Layout = null;
-}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +9,16 @@
     @Styles.Render("~/Content/Login")
 </head>
 <body>
-            
-        
-    
+
+
+
     <div id="parent">
         <form id="centerForm">
 
             <div class="row">
                 <div class="col-md-12">
                     <section id="loginForm">
-                        @RenderBody()
+                        @Html.Partial("~/Views/Account/Login.cshtml");
                     </section>
                     <div class="icon-biglogo1"></div>
                     <h1 class="white textLogo">Asignar</h1>

@@ -72,22 +72,27 @@ body {
 
 }
 
+ul {
+    padding: 0;
+}
+
+li {
+    display: inline;
+    text-align: center;
+}
 
 .icon-biglogo1 {
     color: white;
     font-size: 200px;
-    line-height: 186px;
-    position: relative;
-    bottom: 15px;
     margin-top: 40px;
+    text-align: center;
+    height: 160px;
+    margin-top: -370px; 
+}
 
-    position: fixed;
-    width: 500px;
-    height: 200px;
-    top: 50%;
-    left: 50%;
-    margin-top: -400px; /* Negative half of height. */
-    margin-left: -100px;
+.textLogo {
+    margin-top: -45px;
+    text-align: center;
 }
 
 .row {
@@ -139,16 +144,6 @@ a:hover {
     color:white;
 }
 
-.textLogo {
-position: fixed;
-width: 500px;
-height: 200px;
-top: 50%;
-left: 50%;
-margin-top: -180px;
-margin-left: -63px;
-}
-
 .text-danger {
     display: block;
     height: 10px;
@@ -173,18 +168,34 @@ margin-left: -63px;
 }
 
 #fgtPswrdText{
+    margin-top:10px;
     margin-bottom: 15px;
-    margin-top: 7px;
+    padding-top: 0px;
 }
 
-#fgtPswdSubmit{
-    margin-top: 23px;
-    color: #4D868D;
-    background-color: rgb(227, 240, 242);
-    width: 175px;
+.fgtPswdSubmit{
+    margin-top: 16px !important;
+    color: #4D868D  !important;
+    background-color: rgb(227, 240, 242)  !important;
+    width: 175px  !important;
 }
 
-#LoginLink {
-    text-decoration: underline;
-    margin-top: 5px;
+.LoginLink {
+    text-decoration: underline  !important;
+    line-height: 40px  !important;
 }
+
+.psswrd {
+    margin-top: 15px;
+}
+.dwnpsswrd{
+    margin-top: 24px;
+}
+
+/*@media (max-width: 768){
+    .icon-biglogo1{
+        display: none;
+        width :100px;
+        top: 20%;
+    }
+}*/

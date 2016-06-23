@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations;
 namespace Signar.Models
 {
 
+    public class LoginWrapperViewModel
+    {
+        
+    }
+
+
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }

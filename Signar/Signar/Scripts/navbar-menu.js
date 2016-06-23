@@ -9,7 +9,7 @@
             "border-width": "1px",
             "border-style": "solid"
         });
-        $("#navbarSeachField").focus();
+        $("#navbarSearchField").focus();
     } else {
         $("#navbarSearch").fadeOut(250);
         $("#navbarSearch").css({ 'display': "none" });
@@ -18,7 +18,7 @@
             "border-width": "0px",
             "border-style": "solid"
         });
-        $("#navbarSeachField").focus();
+        $("#navbarSearchField").focus();
     }
 }
 function showProfileDropMenu() {

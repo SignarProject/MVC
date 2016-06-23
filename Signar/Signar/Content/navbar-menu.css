@@ -9,17 +9,18 @@
 }
 
 .container{
-
+    margin: 0px 0px;
 }
+
 
 #bs-example-navbar-collapse-1{
     padding-right: 0px;
     padding-left: 0px;
 }
 
-.container-fluid {
-    margin: 0px;
-    padding: 0px;
+.navbar-collapse {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .divClass {
@@ -55,6 +56,10 @@
     background-color : #92C1BA!important;
 }
 
+.leftM{
+    padding-left:30px;
+}
+
 
 .navButton {
     margin: 5px 25px 0px 15px;
@@ -72,11 +77,14 @@
 .navLogo {
     margin: 0px 25px 0px 0px;
     padding: 5px 0px 5px 0px;
+    height: 40px;
 }
 
 .navSearchIcon{
-    margin: 3px 0px 0px 5px;
-    padding: 0px 0px 0px 0px;
+    padding: 12px 0px 0px 0px;
+    margin-left: +10px;
+    color: white;
+    font-size: 21px;
 }
 
 .navSearchIcon{
@@ -93,32 +101,26 @@
     margin: 0;
 }
 
-#navbarSeachField{
+#navbarSearchField{
     border-radius: 0px; 
     -webkit-box-shadow: none;
     box-shadow: none;
-    height: 23px;
-    min-height: 23px;
-    margin-top: 0px;
-    padding-top: 7px;
+    height: 30px;
+    min-height: 30px;
+    margin-top: -2px;
     border: 0px;
-    width: 121px;
     background-color: transparent;
     color: white;
-}
-
-№navbarSeachField:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
+    width: 121px;
 }
 
 
 .navbar-form{
     border: 0px;
-    padding-top: 5px;
+    padding-top: 0;
     margin: 5px 5px;
-    padding: 4px 4px;
+    padding: 0 0;
+    height: 30px;
 }
 
 .navbar-left{
@@ -144,7 +146,7 @@
 
 .icon-arrow1{
     position:relative;
-    left:+110px;
+    left:+130px;
     top:-12px;
     color: #92C1BA;
 }
@@ -219,7 +221,7 @@
     border: none !important;
 }
 
-@media (min-width: 992px) {
+@media handheld,screen (min-width: 992px) {
     .rightM{
         margin-right: 50px!important;
     }
@@ -231,7 +233,7 @@
     }
 }
 
-@media (max-width: 767px) {
+@media handheld,screen (max-width: 767px) {
     .dropdownProfile ul{
         
     }
@@ -243,9 +245,53 @@
     
 }
 
-@media (min-width: 1200) {
-    #navbarSeachField{
-    width: 200% !important;
+@media (max-width: 903px) and (min-width: 768px) {
+    .navbar-form > * {
+        display: none;
+        height: 0px;
+    }
+    .navbar-form {
+        display: none !important;
+        border-style: none;
+        border: 0px;
+        height:0px;
+    }
+}
+
+@media (min-width: 986px) {
+    .navbar-form {
+        width: 242px;
+    }
+    #navbarSearchField{
+        width: 200px;
+    }
+}
+
+@media (max-width: 224px) {
+    .navbar-form{
+        display:none  !important;
+    }
+    .leftM {
+    padding-left: 15px;
+    margin-right: 0px;
+}
+}
+/*@media handheld,screen (max-width: 1000) {
+    #navbarSearchField{
+    width: 121px !important;
     
     }
 }
+
+@media handheld,screen (min-width: 1000) {
+    #navbarSearchField{
+    width: 242px;
+    
+    }
+}
+
+@media handheld,screen (max-width: 883) {
+    #navbarSearch  > *{
+        display:none;
+    }
+}*/
