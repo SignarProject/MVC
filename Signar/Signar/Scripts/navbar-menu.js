@@ -1,23 +1,24 @@
 ﻿function showSearch() {
 
-    if ($("#searchText").css('display') == 'none') {
-        $("#searchText").css({ 'display': "visible" });
-        $("#searchText").fadeIn(250);
+    if ($("#navbarSearch").css('display') == 'none') {
+        $("#navbarSearch").css({ 'display': "visible" });
+        $("#navbarSearch").fadeIn(250);
         
         $(".navbar-form").css({
             "border-color": "#C1D6D8",
             "border-width": "1px",
             "border-style": "solid"
         });
-        $(".form-control").focus();
+        $("#navbarSeachField").focus();
     } else {
-        $("#searchText").fadeOut(250);
-        $("#searchText").css({ 'display': "none" });
+        $("#navbarSearch").fadeOut(250);
+        $("#navbarSearch").css({ 'display': "none" });
         $(".navbar-form").css({
             "border-color": "#C1D6D8",
             "border-width": "0px",
             "border-style": "solid"
-        })
+        });
+        $("#navbarSeachField").focus();
     }
 }
 function showProfileDropMenu() {
