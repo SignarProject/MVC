@@ -3,12 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Asignar</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/Login")
 </head>
 <body>
-        @RenderBody()
+        <div class="icon-biglogo1"></div>
+        <h1 class="white textLogo">Asignar</h1>
+    
+    <div id="parent">
+        <form id="centerForm">
+
+            
+            @RenderBody()
+
+        </form>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

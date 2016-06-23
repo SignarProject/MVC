@@ -11,17 +11,14 @@
 </head>
 
 
-<div id="parent">
-    <form id="centerForm">
 
-        <div class="icon-biglogo1"></div>
         <div class="row">
             <div class="col-md-12">
                 <section id="loginForm">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                         @Html.AntiForgeryToken()
-                        <h1 class="white">Asignar</h1>
+                        
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="Input">
 
@@ -54,15 +51,12 @@
 
                         </div>
                         
-                         @*Enable this once you have account confirmation enabled for password reset functionality*@
-                        
                     }
                 </section>
             </div>
         </div>
 
-    </form>
-</div>
+
 
 
 @section Scripts {

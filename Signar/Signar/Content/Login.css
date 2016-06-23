@@ -42,7 +42,7 @@ body {
 }
 
 .Input {
-    margin:auto;
+    margin:10px auto 0px auto;
     vertical-align: middle;
 }
 
@@ -78,8 +78,16 @@ body {
     font-size: 200px;
     line-height: 186px;
     position: relative;
-    bottom: 20px;
+    bottom: 15px;
     margin-top: 40px;
+
+    position: fixed;
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px; /* Negative half of height. */
+    margin-left: -100px;
 }
 
 .row {
@@ -91,7 +99,7 @@ body {
     font-size: 11px;
     vertical-align: central;
     align-items: center;
-    margin: 15px auto;
+    margin: 7px auto;
     height: 38px;
     width: 370px;
     max-width:400px;
@@ -116,7 +124,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
     width: 200px;
     height: 40px;
     color: #E3F0F2;
-    
+    background-color: #A3C2C6; 
 }
 
 .radio label, .checkbox label:hover {
@@ -131,3 +139,52 @@ a:hover {
     color:white;
 }
 
+.textLogo {
+position: fixed;
+width: 500px;
+height: 200px;
+top: 50%;
+left: 50%;
+margin-top: -180px;
+margin-left: -63px;
+}
+
+.text-danger {
+    display: block;
+    height: 10px;
+    color: rgb(220, 165, 148);
+    line-height: 1;
+}
+
+.text-danger  .validation-summary-errors{
+    display: block;
+    height: 10px;
+}
+
+.text-danger > ul {
+    list-style: none;
+    margin: 0px;
+}
+
+.field-validation-error{
+     color: rgb(220, 165, 148);
+     
+     
+}
+
+#fgtPswrdText{
+    margin-bottom: 15px;
+    margin-top: 7px;
+}
+
+#fgtPswdSubmit{
+    margin-top: 23px;
+    color: #4D868D;
+    background-color: rgb(227, 240, 242);
+    width: 175px;
+}
+
+#LoginLink {
+    text-decoration: underline;
+    margin-top: 5px;
+}
