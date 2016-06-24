@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1742fd2362147ada9d14bb729ef8bfb" Name="Diagram1">
+        <EntityTypeShape EntityType="BugTrackingDBModel.Attachments" Width="1.5" PointX="8.625" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.Bugs" Width="1.5" PointX="6.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.Filters" Width="1.5" PointX="2.125" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.Projects" Width="1.5" PointX="5.125" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.Users" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BugTrackingDBModel.UsersToProjects" Width="1.5" PointX="3.5" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="BugTrackingDBModel.FK__Attachmen__BugID__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackingDBModel.FK__Bugs__AssigneeID__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackingDBModel.FK__Bugs__ProjectID__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackingDBModel.FK__Filters__UserID__1ED998B2" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.5" PointY="7.0783902994791656" />
+          <ConnectorPoint PointX="1.5" PointY="7.5528125" />
+          <ConnectorPoint PointX="2.875" PointY="7.5528125" />
+          <ConnectorPoint PointX="2.875" PointY="7.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="BugTrackingDBModel.FK__UsersToPr__Proje__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="BugTrackingDBModel.FK__UsersToPr__UserI__1B0907CE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

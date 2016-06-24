@@ -6,7 +6,7 @@ create table Users
 [Login] nvarchar(MAX) not null,
 [Password] nvarchar(MAX) not null,
 [IsAdmin] bit not null,
-[Version] rowversion
+[Version] rowversion,
 )
 go
 
@@ -31,10 +31,18 @@ create table Bugs
 [ModificationDate] datetime not null,
 [BugStatus] tinyint not null,
 [Priority] tinyint not null,
-[AttachmentsPath] nvarchar(MAX),
 [Version] rowversion
 )
 go
+
+create table Attachments
+(
+[AttachmentID] int IDENTITY(1,1) not null PRIMARY KEY,
+[BugID] int not null FOREIGN KEY references Bugs(BugID),
+[Name] nvarchar(MAX) not null,
+[ContentPath] nvarchar(MAX),
+
+)
 
 
 create table UsersToProjects
