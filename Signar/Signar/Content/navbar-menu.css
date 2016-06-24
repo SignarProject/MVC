@@ -267,6 +267,24 @@
     }
 }
 
+@media (min-width: 1130px) {
+    .navbar-form {
+        width: 363px;
+    }
+    #navbarSearchField{
+        width: 267px;
+    }
+}
+
+@media (min-width: 1250px) {
+    .navbar-form {
+        width: 484px;
+    }
+    #navbarSearchField{
+        width: 400px;
+    }
+}
+
 @media (max-width: 224px) {
     .navbar-form{
         display:none  !important;

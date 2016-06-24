@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - Asignar</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/navbar-menu")
+    @Styles.Render("~/Content/asignar-styles")
+    @Styles.Render("~/Content/font-awesome")
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/navbar-menu")
 
@@ -58,7 +61,7 @@
             </div>
     </div>
     <div class="container body-content">
-        @*@RenderBody()*@
+        @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")

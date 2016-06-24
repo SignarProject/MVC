@@ -1,0 +1,133 @@
+﻿        .shadow-div {
+            background: #ffffff;
+            -moz-box-shadow: -5px -5px 5px #888;
+            -webkit-box-shadow: -5px -5px 5px #888;
+            box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
+            padding: 5px 10px 5px 10px;
+            margin: 20px 20px 20px 0px;
+        }
+
+        .prefix-style {
+            margin-bottom: 5px;
+            font-size: 65%;
+        }
+
+        .h4-zero-topmargin {
+            margin: 10px 0px 0px 0px;
+        }
+
+        p i, label {
+            color: #bbbbbb;
+            font-size: 100%;
+            margin: 5px 0px 5px 0px;
+        }
+
+        .short-info {
+            color: #bbbbbb;
+            font-size: 80%;
+            margin-left: 15px;
+        }
+
+        p label {
+            margin-right: 10px;
+        }
+
+        .zero-merg {
+            margin: 0px;
+        }
+
+
+        .a-links {
+            text-decoration: underline;
+            font-size: 75%;
+            margin-left: 10px;
+        }
+
+        .bugs-div {
+            margin: 5px;
+            border-bottom-style: ridge;
+            border-bottom-width: 3px;
+            border-bottom-color: rgba(255, 255, 255, 0.31);
+        }
+
+        .inner-bugs-label {
+            font-size: 80%;
+            color: black;
+            font-weight: initial;
+        }
+
+        .inner-bugs-div {
+            display:inline;
+            vertical-align: middle;
+        }
+
+
+        .bugs-descrip {
+            font-size: 75%;
+        }
+
+        .bug-status-todo {
+            font-size: 60%;
+            border: solid 1px #4D868D;
+            color: #4D868D;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .bug-status-in {
+            font-size: 60%;
+            border: solid 1px #F69C00;
+            color: #F69C00;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .bug-status-done_close {
+            font-size: 60%;
+            border: solid 1px #55B924;
+            color: #55B924;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+
+        .profile-desc {
+            font-size: 80%;
+            font-weight: initial;
+        }
+
+        .profile-av {
+            margin: 0px 5px 20px 0px !important;
+            padding: 0px !important;
+            width: 50px;
+            height: 50px;
+            -webkit-border-radius: 60px;
+            -webkit-box-shadow: 0 0 5px #92C1BA;
+        }
+
+        .fontbutton-style {
+            border: solid 1px;
+            padding: 5px;
+            border-radius: 30px;
+            margin: 5px;
+            color: #4D868D;
+            font-size: 120%;
+        }
+
+        .search-bar {
+            border: solid 1px;
+            color: #dbdbdb;
+            border-radius: 0;
+            max-width: 200px;
+            max-height: 30px;
+            : -webkit-input-placeholder;
+        }

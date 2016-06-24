@@ -208,13 +208,19 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\asignar-styles.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\img\ava1.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\search_icon.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\navbar-menu.css" />
+    <Content Include="Content\Priority_img\critical_prior.png" />
+    <Content Include="Content\Priority_img\exclamation_prior.png" />
+    <Content Include="Content\Priority_img\major_prior.png" />
+    <Content Include="Content\Priority_img\minor_prior.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\icomoon\icomoon.svg" />
@@ -254,9 +260,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
@@ -276,6 +279,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\LoginWrapper.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Home\DashBoard.cshtml" />
+    <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Home\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

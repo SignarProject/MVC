@@ -35,6 +35,12 @@ namespace Signar
 
             bundles.Add(new StyleBundle("~/Content/Login").Include(
                       "~/Content/Login.css"));
+
+            bundles.Add(new StyleBundle("~/Content/asignar-styles").Include(
+                      "~/Content/asignar-styles.css"));
+
+            bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
+                      "~/Content/font-awesome.css"));
         }
     }
 }

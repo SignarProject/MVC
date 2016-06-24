@@ -35,15 +35,26 @@ create table Bugs
 )
 go
 
+create table Comments
+(
+[CommentID] int IDENTITY(1,1) not null PRIMARY KEY,
+[CreationDate] datetime not null,
+[ModificationDate] datetime,
+[UserID] int FOREIGN KEY references Users(UserID),
+[BugID] int not null FOREIGN KEY references Bugs(BugID),
+)
+
+go
+
 create table Attachments
 (
 [AttachmentID] int IDENTITY(1,1) not null PRIMARY KEY,
 [BugID] int not null FOREIGN KEY references Bugs(BugID),
 [Name] nvarchar(MAX) not null,
 [ContentPath] nvarchar(MAX),
-
 )
 
+go
 
 create table UsersToProjects
 (
