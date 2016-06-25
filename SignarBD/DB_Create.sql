@@ -3,8 +3,9 @@ create table Users
 [UserID] INT IDENTITY(1,1) not null PRIMARY KEY,
 [Name] NVARCHAR(35) not null, --http://stackoverflow.com/questions/30485/what-is-a-reasonable-length-limit-on-person-name-fields
 [Surname] NVARCHAR(35) not null,
+[Email] NVARCHAR(254) not null, --RFC standart
 [Login] NVARCHAR(254) not null, --RFC standart
-[Password] NVARCHAR(254) not null, 
+[Password] NVARCHAR(254) not null, --RFC standart
 [IsAdmin] BIT not null,
 [Version] ROWVERSION,
 )
