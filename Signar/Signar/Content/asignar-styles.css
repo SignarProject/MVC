@@ -1,10 +1,29 @@
-﻿        .shadow-div {
+﻿        
+
+        input::-webkit-input-placeholder {
+            color: #bbbbbb;
+                }
+        input::-moz-placeholder {
+            color: #bbbbbb;
+                }
+        input:-ms-input-placeholder {
+            color: #bbbbbb;
+                }
+
+
+
+        .shadow-div {
             background: #ffffff;
             -moz-box-shadow: -5px -5px 5px #888;
             -webkit-box-shadow: -5px -5px 5px #888;
             box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
-            padding: 5px 10px 5px 10px;
+            padding: 5px 10px;
             margin: 20px 20px 20px 0px;
+        }
+
+        .shadow-div-sm {
+            margin: 0px 20px 20px 0px;
+            max-width: 300px;
         }
 
         .prefix-style {
@@ -129,5 +148,50 @@
             border-radius: 0;
             max-width: 200px;
             max-height: 30px;
-            : -webkit-input-placeholder;
+            background: transparent;
+        }
+
+        .search-page-btn {
+            background: transparent;
+            border: 0px;
+            padding: 0px;
+            margin-top: 7px;
+            margin-right: 7px;
+        }
+
+        .search-span-icon{
+            color: #bbbbbb;
+            padding: 0px;
+            margin: 0px;
+            font-size: 120%;
+        }
+
+        .sort-sel-set{
+            background: transparent;
+            font-size: 80%;
+            border: 0px;
+            color: #4d868d;
+            }
+
+        select option{
+            color: #e3f0f2;
+            background: #92c1ba;
+            border: 0px;
+            box-shadow: 0 0 0;
+            }
+
+        .bootrap-dropdown-ul-modif {
+                background-color: #92c1ba;
+                min-width: 100px;
+                border: 0px;
+                border-radius: 0px;
+                -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+                box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+        }
+
+        .bootrap-btndrop-modif {
+            border: transparent;
+            background: transparent; 
+            color: #4d868d;
+            font-size: 85%;
         }
