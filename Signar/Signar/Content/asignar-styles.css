@@ -13,7 +13,7 @@
 
 
         .shadow-div {
-            background: #ffffff;
+            background: rgb(248, 254, 254);
             -moz-box-shadow: -5px -5px 5px #888;
             -webkit-box-shadow: -5px -5px 5px #888;
             box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
@@ -194,4 +194,8 @@
             background: transparent; 
             color: #4d868d;
             font-size: 85%;
+        }
+
+        .fa:hover{
+            cursor: pointer;
         }

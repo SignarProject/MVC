@@ -9,7 +9,10 @@
     @Styles.Render("~/Content/navbar-menu")
     @Styles.Render("~/Content/asignar-styles")
     @Styles.Render("~/Content/font-awesome")
+    @Styles.Render("~/Content/Popup/jquery-ui")
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/navbar-menu")
 
@@ -38,7 +41,7 @@
                     <li><button class="navButton"><nobr><t class="icon-plus"></t> &nbsp;Create task</nobr></button></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-header pull-right">
-                    <li class="navbar-form">
+                    <li class="navbar-form navSearchMenu">
                                 <div class="pull-left"style="display: none;" id="navbarSearch">
                                     <input type="text" class="form-control" placeholder="Search" id="navbarSearchField">
 
@@ -65,8 +68,6 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

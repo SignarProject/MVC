@@ -1,4 +1,18 @@
 ﻿
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgb(182, 201, 204);
+    border-left: 1px solid #A3C2C6;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(152, 178, 181);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #3D767D;
+}
+
 .navbar.navbar-inverse.navbar-fixed-top {
     min-height: 40px;
 }
@@ -47,7 +61,7 @@
     padding: 0px;
     margin: 0px;
     height: 40px;
-    color: white;
+    color: rgb(248, 254, 254);
 }
 
 .navHL:hover{
@@ -81,7 +95,7 @@
 .navSearchIcon{
     padding: 12px 0px 0px 0px;
     margin-left: +10px;
-    color: white;
+    color: rgb(248, 254, 254);
     font-size: 21px;
 }
 
@@ -108,12 +122,12 @@
     margin-top: -2px;
     border: 0px;
     background-color: transparent;
-    color: white;
+    color: rgb(248, 254, 254);
     width: 121px;
 }
 
 
-.navbar-form{
+.navSearchMenu{
     border: 0px;
     padding-top: 0;
     margin: 5px 5px;
@@ -187,7 +201,7 @@
     display:block;
     background: #92C1BA;
     padding: 12px 14px;
-    color:white;
+    color:rgb(248, 254, 254);
     /*height:100px;*/
     overflow: auto;
 }
@@ -205,10 +219,10 @@
     margin-right: 15px;
 }
 
-::-webkit-input-placeholder {color:white !important;}
-::-moz-placeholder          {color:white !important;}
-:-moz-placeholder           {color:white !important;}
-:-ms-input-placeholder      {color:white !important;}
+::-webkit-input-placeholder {color:#C7C7CD !important; font-size: 12px; line-height:20px;}
+::-moz-placeholder          {color:#C7C7CD !important; font-size: 12px; line-height:20px;}
+:-moz-placeholder           {color:#C7C7CD !important; font-size: 12px; line-height:20px;}
+:-ms-input-placeholder      {color:#C7C7CD !important; font-size: 12px; line-height:20px;}
 
 .navbar-toggle{
     margin: 3px;
@@ -256,7 +270,7 @@
     }
 }
 
-@media (min-width: 986px) {
+@media (min-width: 996px) {
     .navbar-form {
         width: 242px;
     }

@@ -9,10 +9,7 @@ namespace Signar
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery*"));
 
             bundles.Add(new ScriptBundle("~/bundles/navbar-menu").Include(
                         "~/Scripts/navbar-menu.js"));
@@ -41,6 +38,10 @@ namespace Signar
 
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
                       "~/Content/font-awesome.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Popup/jquery-ui").Include(
+                      "~/Content/Popup/jquery*",
+                      "~/Content/Popup/theme.css"));
         }
     }
 }

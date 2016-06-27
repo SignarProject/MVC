@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PopupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +218,21 @@
     <Content Include="Content\img\search_icon.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\navbar-menu.css" />
+    <Content Include="Content\popup.css" />
+    <Content Include="Content\Popup\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Popup\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Popup\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Popup\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Popup\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Popup\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Popup\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Popup\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Popup\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Popup\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Popup\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Popup\jquery-ui.css" />
+    <Content Include="Content\Popup\jquery-ui.min.css" />
+    <Content Include="Content\Popup\theme.css" />
     <Content Include="Content\Priority_img\critical_prior.png" />
     <Content Include="Content\Priority_img\exclamation_prior.png" />
     <Content Include="Content\Priority_img\major_prior.png" />
@@ -246,6 +262,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -289,6 +308,8 @@
     <Content Include="Views\Home\DashBoard.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
+    <Content Include="Views\Popup\CreateNewProject.cshtml" />
+    <Content Include="Views\Popup\CreateNewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
