@@ -195,3 +195,7 @@ input, select, textarea {
     color: #C7C7CD;
 }
 
+.ui-dialog, .ui-dialog-content {
+    overflow: visible !important;
+}
+
