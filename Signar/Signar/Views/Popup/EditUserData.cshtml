@@ -1,0 +1,98 @@
+﻿<link href="~/Content/popup.css" rel="stylesheet" />
+
+<div id="createUserPopup" class="table-responsive">
+
+    <div class="row"> 
+        <div class="container col-xs-6" >
+            <span><img src="~/Content/img/ava1.jpg" id="avatar-popup" /></span>
+            <dev style="display:inline-block; vertical-align: middle; margin-left: 15px; margin-top: 3px; height: 50px; position:absolute;">
+                <span><a href="#" class="edit-avatar-link" >Edit photo</a></span>
+                <p><a href="#" class="edit-avatar-link">Clear photo</a></p>
+            </dev>
+            
+
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Role <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <li><a href="#">Common user</a></li>
+                    <li><a href="#">Administrator</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-5">
+            @Html.TextBox("Name", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Name" })
+        </div>
+        <div class="col-xs-7">
+            @Html.TextBox("Surname", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Surname" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBox("Email", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Email" })
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(
+
+        function showPopup() {
+            $("#createUserPopup").css({ 'display': "visible" });
+            $("#createUserPopup").dialog({
+                width: 600,
+                fluid: true,
+                title: "Edit user data",
+                modal: true,
+                resizable: false,
+                buttons: [
+            {
+                text: "Save",
+                "class": 'popup-button',
+                click: function () {
+                    $(this).dialog("close");
+                }
+            },
+                ],
+                close: function () {
+                }
+            });
+
+            $("*").trigger('blur');
+        }
+
+        );
+</script>
+
+<style>
+    .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f044";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 14px;
+        color: rgb(248, 254, 254);
+        font-size: 18px;
+    }
+
+    .edit-avatar-link {
+        color: rgb(116, 161, 200) !important;
+        text-decoration: underline;
+        font-weight: 100;
+        font-size: 12px;
+
+    }
+
+    .edit-avatar-link:hover{
+        color: #4D868D !important;
+    }
+</style>

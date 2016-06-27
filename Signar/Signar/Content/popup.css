@@ -38,16 +38,7 @@
     padding-left: 2em;
 }
 
-.ui-widget-header:before {
-    margin-left: 1em;
-    content: "\f0c0";
-    font-family: FontAwesome;
-    left:-1px;
-    position:absolute;
-    top: 14px;
-    color: rgb(248, 254, 254);
-    font-size: 16px;
-}
+
 
 .ui-dialog .ui-dialog-titlebar {
     padding: .8em 1em;
@@ -76,9 +67,10 @@
     font-family: FontAwesome;
     left:-1px;
     position:absolute;
-    top: -11px;
+    top: -1px;
     color: #A3C2C6;
     font-size: 30px;
+    font-weight: 100;
  }
 
 .ui-dialog .ui-dialog-titlebar-close:before {
@@ -86,9 +78,10 @@
     font-family: FontAwesome;
     left:-1px;
     position:absolute;
-    top: -11px;
+    top: -1px;
     color: rgb(248, 254, 254);
     font-size: 30px;
+    font-weight: 100;
  }
 
 .ui-dialog .ui-dialog-titlebar-close:focus { outline:none !important }
@@ -118,6 +111,7 @@
 }
 
 #createUserPopup {
+    display: none;
     background-color: rgb(248, 254, 254);
     padding-left: 17px;
     padding-bottom: 1em;
@@ -157,7 +151,7 @@ input, select, textarea {
 }
 
 .popup-dropdown:hover{
-    background-color: rgb(248, 254, 254) ;
+    background-color: white ;
 }
 
 .scrollable-menu {
@@ -191,7 +185,7 @@ input, select, textarea {
 }
 
 .popup-label {
-    margin-top: 17px;
+    margin-top: 17px !important;
     color: #C7C7CD;
 }
 
@@ -199,3 +193,27 @@ input, select, textarea {
     overflow: visible !important;
 }
 
+.dropdown-toggle:active, .open .dropdown-toggle {
+    background: white !important;
+
+}
+
+.dropdown-toggle, .open .dropdown-toggle:before {
+    background: white !important;
+    border:hidden;
+}
+
+
+#avatar-popup{
+    margin: 0;
+    padding: 0;
+    width: 45px;
+	height: 45px;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	/*background: url(http://link-to-your/image.jpg) no-repeat;*/
+	box-shadow: 0 0 5px #92C1BA;
+	-webkit-box-shadow: 0 0 5px #92C1BA;
+	-moz-box-shadow: 0 0 5px #92C1BA;
+}

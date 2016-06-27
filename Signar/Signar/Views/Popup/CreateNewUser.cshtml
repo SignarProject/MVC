@@ -19,31 +19,24 @@
 
     <div class="row">
         <div class="col-xs-4">
-            @Html.TextBox("Password", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Password" })
+            <input type="password" class = "form-control popup-field" placeholder = "Password"/>
+      @* @Html.TextBox("Password", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Password" })*@
         </div>
         <div class="col-xs-4">
-            @Html.TextBox("Password", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Confirmation password" })
+            @*@Html.TextBox("Password", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Confirmation password" })*@
+            <input type="password" class="form-control popup-field" placeholder="Reset password" />
         </div>
         <div class="container col-xs-4" id="wrap">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown" >Role <span class="popup-arrow icon-arrow1 pull-right"></span></button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Common user</a></li>
+                    <li><a href="#">Administrator</a></li>
                 </ul>
             </div>
+
+                
+
         </div>
 
     </div>
@@ -55,6 +48,7 @@
     $(document).ready(
 
         function showPopup() {
+            $("#createUserPopup").css({ 'display': "visible" });
             $("#createUserPopup").dialog({
                 width: 600,
                 fluid: true,
@@ -73,7 +67,22 @@
                 close: function () {
                 }
             });
+            $("*").trigger('blur');
         }
 
         );
 </script>
+
+<style>
+    .ui-widget-header:before {
+    margin-left: 1em;
+    content: "\f0c0";
+    font-family: FontAwesome;
+    left:-1px;
+    position:absolute;
+    top: 14px;
+    color: rgb(248, 254, 254);
+    font-size: 16px;
+    font-weight: 100;
+}
+</style>

@@ -237,6 +237,8 @@
     <Content Include="Content\Priority_img\exclamation_prior.png" />
     <Content Include="Content\Priority_img\major_prior.png" />
     <Content Include="Content\Priority_img\minor_prior.png" />
+    <Content Include="Content\semantic.css" />
+    <Content Include="Content\semantic.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -265,6 +267,7 @@
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -273,6 +276,8 @@
     <Content Include="Scripts\navbar-menu.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\semantic.js" />
+    <Content Include="Scripts\semantic.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -310,6 +315,8 @@
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Popup\CreateNewProject.cshtml" />
     <Content Include="Views\Popup\CreateNewUser.cshtml" />
+    <Content Include="Views\Popup\ResetPassword.cshtml" />
+    <Content Include="Views\Popup\EditUserData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
