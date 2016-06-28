@@ -1,0 +1,10 @@
+28.06.2016 18:48:15	This log contains information about the import schema operation into project 'AsignarDatabase' on computer 'ROCKHAN' by user 'Anton'.
+28.06.2016 18:48:15	Deserializing model
+28.06.2016 18:48:15	Resolving model
+28.06.2016 18:48:16	Visiting imported model for types
+28.06.2016 18:48:16	Scanning project for duplicate elements
+28.06.2016 18:48:16	Finished duplicate element processing
+28.06.2016 18:48:16	Processing extra files
+28.06.2016 18:48:16	Finished importing Data-tier Application file.
+28.06.2016 18:48:16	A summary of the import was saved to the following location: E:\C#\ProjectRep\Signar\AsignarDatabase\Import Schema Logs\AsignarDatabase_20160628034815.log
+28.06.2016 18:48:16	Click Finish to continue...

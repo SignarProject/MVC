@@ -1,0 +1,29 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Attachments] (Table)
+       [dbo].[Bugs] (Table)
+       [dbo].[Comments] (Table)
+       [dbo].[Filters] (Table)
+       [dbo].[Projects] (Table)
+       [dbo].[Users] (Table)
+       [dbo].[UsersToProjects] (Table)
+       Foreign Key: unnamed constraint on [dbo].[Attachments] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Bugs] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Bugs] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Comments] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Comments] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Filters] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[UsersToProjects] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[UsersToProjects] (Foreign Key)
+
+** Supporting actions
