@@ -4,6 +4,7 @@ create table Users
 [Name] NVARCHAR(35) NOT NULL, --http://stackoverflow.com/questions/30485/what-is-a-reasonable-length-limit-on-person-name-fields
 [Surname] NVARCHAR(35) NOT NULL,
 [Email] NVARCHAR(254) NOT NULL, --RFC standart
+[AvatarImagePath] NVARCHAR(MAX), --http://stackoverflow.com/questions/4377740/database-design-preferred-field-length-for-file-paths
 [Login] NVARCHAR(254) NOT NULL, --RFC standart
 [Password] NVARCHAR(254) NOT NULL, --RFC standart
 [IsAdmin] BIT NOT NULL,
