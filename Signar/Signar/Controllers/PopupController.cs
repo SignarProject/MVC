@@ -15,6 +15,8 @@ namespace Signar.Controllers
         {
             return View();
         }
+
+        [HttpGet]
         public ActionResult CreateNewProject()
         {
             return View();
@@ -28,6 +30,8 @@ namespace Signar.Controllers
         {
             return View();
         }
+
+
     }
 
 }
