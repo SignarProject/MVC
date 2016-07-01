@@ -408,3 +408,7 @@ E:\C#\ProjectRep\Signar\Signar\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\C#\ProjectRep\Signar\Signar\obj\Debug\Signar.csprojResolveAssemblyReference.cache
 E:\C#\ProjectRep\Signar\Signar\obj\Debug\Signar.dll
 E:\C#\ProjectRep\Signar\Signar\obj\Debug\Signar.pdb
+E:\C#\ProjectRep\Signar\Signar\bin\AsignarBusinessLayer.dll
+E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.dll
+E:\C#\ProjectRep\Signar\Signar\bin\AsignarBusinessLayer.pdb
+E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.pdb

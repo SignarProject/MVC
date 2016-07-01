@@ -199,3 +199,17 @@
         .fa:hover{
             cursor: pointer;
         }
+
+        .filters-inr-divblc{
+            font-size: 70%;
+            line-height: 30%;
+        }
+
+        .col-helper{
+            padding-left: 1px;
+            margin-left: -25px;
+            margin-right: 25px;
+        }
+
+
+

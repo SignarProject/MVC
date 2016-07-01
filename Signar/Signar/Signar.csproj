@@ -316,6 +316,7 @@
     <Content Include="Views\Popup\CreateNewUser.cshtml" />
     <Content Include="Views\Popup\ResetPassword.cshtml" />
     <Content Include="Views\Popup\EditUserData.cshtml" />
+    <Content Include="Views\Home\Filters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,10 +8,12 @@ namespace Signar.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
         }
+
 
         public ActionResult About()
         {
@@ -20,6 +22,7 @@ namespace Signar.Controllers
             return View();
         }
 
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -27,15 +30,26 @@ namespace Signar.Controllers
             return View();
         }
 
+
         public ActionResult Projects()
         {
             return View();
         }
+
+
         public ActionResult DashBoard()
         {
             return View();
         }
+
+
         public ActionResult MyProfile()
+        {
+            return View();
+        }
+
+        
+        public ActionResult Filters()
         {
             return View();
         }

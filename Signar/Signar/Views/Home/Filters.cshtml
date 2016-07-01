@@ -1,0 +1,444 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="row" style="margin-left: 15px">
+            <h3 class="pull-left" style="margin: 20px 0px 40px 0px">Projects</h3>
+            <i class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 20px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
+
+            <span id="popup" class="popup-all">
+
+            </span>
+
+            <div class="form-group pull-right search-bar" style="margin-top: 30px; margin-right: 230px;" id="searchTextOnPage">
+                <form role="search" style="display: flex;">
+                    <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
+                    <span>
+                        <button type="submit" class="search-page-btn">
+                            <span class="icon-search navSearchIcon search-span-icon"></span>
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <label class="short-info" style="margin-left: 25px;">Sort by:</label>
+            <div class="dropdown" style="display: inline">
+                <form style="display:inline">
+                    <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown">
+                        Title
+                        <span class="caret" style="border-top-color: #92c1ba"></span>
+                    </button>
+                    <ul class="dropdown-menu bootrap-dropdown-ul-modif" style="padding: 0px">
+                        <li><a href="#">Title</a></li>
+                        <li><a href="#">Status</a></li>
+                        <li><a href="#">Priority</a></li>
+                        <li><a href="#">Assignee</a></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="margin: 15px">
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-div shadow-div-sm col-md-4">
+                <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                <div class="filters-inr-divblc">
+                    <div class="col-md-3" style="padding-left: 1px">
+                        <span>
+                            <label>Search:</label>
+                        </span> <br />
+                        <span>
+                            <label>Status:</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority:</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3 col-helper">
+                        <span>
+                            <label>Search_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Status_Value</label>
+                        </span> <br />
+                        <span>
+                            <label>Priority_Value</label>
+                        </span> <br />
+                    </div>
+                    <div class="col-md-3" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project:</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee:</label>
+                        </span><br />
+                    </div>
+                    <div class="col-md-3 col-helper" style="padding-left: 1px; margin-top: 13px">
+                        <span>
+                            <label>Project_Value</label>
+                        </span><br />
+                        <span>
+                            <label>Assignee_Value</label>
+                        </span><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p class="pull-left p i, label zero-merg p label" style="margin-left: 30px">
+                <i class="fa fa-th-list"></i> <label style="margin-right: 2px">Projects:</label> <label>35</label>
+            </p>
+        </div>
+
+    </div>
+</div>

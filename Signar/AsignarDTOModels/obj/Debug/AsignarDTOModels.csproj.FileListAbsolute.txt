@@ -1,0 +1,5 @@
+E:\C#\ProjectRep\Signar\AsignarDTOModels\bin\Debug\AsignarDTOModels.dll
+E:\C#\ProjectRep\Signar\AsignarDTOModels\bin\Debug\AsignarDTOModels.pdb
+E:\C#\ProjectRep\Signar\AsignarDTOModels\obj\Debug\AsignarDTOModels.csprojResolveAssemblyReference.cache
+E:\C#\ProjectRep\Signar\AsignarDTOModels\obj\Debug\AsignarDTOModels.dll
+E:\C#\ProjectRep\Signar\AsignarDTOModels\obj\Debug\AsignarDTOModels.pdb
