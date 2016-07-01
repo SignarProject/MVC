@@ -42,6 +42,16 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsignarDataAccessLayer\AsignarDataAccessLayer.csproj">
+      <Project>{81daa01b-6e8a-4304-b726-0e7ce2a7ce99}</Project>
+      <Name>AsignarDataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AsignarDTOModels\AsignarDTOModels.csproj">
+      <Project>{4cf8bf26-c82c-4f31-92e6-be091304d62a}</Project>
+      <Name>AsignarDTOModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
