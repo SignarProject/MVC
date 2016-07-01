@@ -133,6 +133,15 @@
             -webkit-box-shadow: 0 0 5px #92C1BA;
         }
 
+        .users-av {
+            margin: 10px 5px 20px 5px !important;
+            padding: 0px !important;
+            width: 30px;
+            height: 30px;
+            -webkit-border-radius: 60px;
+            -webkit-box-shadow: 0 0 5px #92C1BA;
+        }
+
         .fontbutton-style {
             border: solid 1px;
             padding: 5px;
@@ -211,5 +220,10 @@
             margin-right: 25px;
         }
 
+        .users-info-helper{
+            display: inline-block;
+            margin-top: -10px;
+            vertical-align: middle;
+        }
 
 

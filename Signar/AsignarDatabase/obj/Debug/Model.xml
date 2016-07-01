@@ -8,11 +8,11 @@
 			<Metadata Name="QuotedIdentifier" Value="True" />
 		</CustomData>
 		<CustomData Category="CompatibilityMode">
-			<Metadata Name="CompatibilityMode" Value="130" />
+			<Metadata Name="CompatibilityMode" Value="120" />
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="AsignarDatabase.dll" />
-			<Metadata Name="FileName" Value="C:\GIT\MVC\SIGNAR\ASIGNARDATABASE\OBJ\DEBUG\ASIGNARDATABASE.DLL" />
+			<Metadata Name="FileName" Value="E:\C#\PROJECTREP\SIGNAR\ASIGNARDATABASE\OBJ\DEBUG\ASIGNARDATABASE.DLL" />
 			<Metadata Name="AssemblyName" Value="AsignarDatabase" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="E:\C#\ProjectRep\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -34,7 +34,6 @@
 			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
 			<Property Name="IsTornPageProtectionOn" Value="False" />
 			<Property Name="IsFullTextEnabled" Value="True" />
-			<Property Name="CompatibilityMode" Value="130" />
 			<Property Name="PageVerifyMode" Value="3" />
 			<Property Name="DefaultLanguage" Value="" />
 			<Property Name="DefaultFullTextLanguage" Value="" />

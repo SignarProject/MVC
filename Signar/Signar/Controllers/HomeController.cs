@@ -53,5 +53,10 @@ namespace Signar.Controllers
         {
             return View();
         }
+
+        public ActionResult Users()
+        {
+            return View();
+        }
     }
 }
