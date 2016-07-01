@@ -412,3 +412,7 @@ E:\C#\ProjectRep\Signar\Signar\bin\AsignarBusinessLayer.dll
 E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.dll
 E:\C#\ProjectRep\Signar\Signar\bin\AsignarBusinessLayer.pdb
 E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.pdb
+C:\git\MVC\Signar\Signar\bin\AsignarBusinessLayer.dll
+C:\git\MVC\Signar\Signar\bin\AsignarDTOModels.dll
+C:\git\MVC\Signar\Signar\bin\AsignarBusinessLayer.pdb
+C:\git\MVC\Signar\Signar\bin\AsignarDTOModels.pdb

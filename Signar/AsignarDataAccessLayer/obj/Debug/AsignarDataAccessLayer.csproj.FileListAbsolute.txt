@@ -8,3 +8,13 @@ E:\C#\ProjectRep\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServ
 E:\C#\ProjectRep\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
 E:\C#\ProjectRep\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.dll
 E:\C#\ProjectRep\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.pdb
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.dll.config
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.pdb
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.xml
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.pdb

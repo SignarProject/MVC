@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-
+<link href="~/Content/popup.css" rel="stylesheet" />
 
 <div class="container">
     <div class="row">
@@ -10,9 +10,7 @@
             <h3 class="pull-left" style="margin: 20px 0px 40px 0px">Projects</h3>
             <i  class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 20px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
 
-            <span id="popup" class="popup-all">
-
-            </span>
+            @Html.Partial("~/Views/Popup/CreateNewProject.cshtml")
 
             <div class="form-group pull-right search-bar" style="margin-top: 30px; margin-right: 230px;" id="searchTextOnPage">
                 <form role="search" style="display: flex;">
@@ -145,3 +143,29 @@
 
     </div>
 </div>
+
+<script>
+    function ShowCreateNewProjectPopup() {
+                 $("#createUserPopup").dialog({
+                     width: 600,
+                     fluid: true,
+                     title: "Create new project",
+                     modal: true,
+                     resizable: false,
+                     show: { effect: 'clip', duration: 350 },
+                     hide: { effect: 'clip', duration: 350 },
+                     buttons: [
+                 {
+                     text: "Create",
+                     "class": 'popup-button',
+                     click: function () {
+                         $(this).dialog("close");
+                     }
+                 },
+                     ],
+                     close: function () {
+                     }
+                 });
+                 
+             }
+</script>

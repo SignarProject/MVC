@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signar", "Signar\Signar.csproj", "{E435F20F-B202-4F9D-999A-F88D570EAEAC}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsignarDataAccessLayer", "AsignarDataAccessLayer\AsignarDataAccessLayer.csproj", "{81DAA01B-6E8A-4304-B726-0E7CE2A7CE99}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AsignarDatabase", "AsignarDatabase\AsignarDatabase.sqlproj", "{735CE6ED-D425-461C-8899-2CFE217659C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsignarDTOModels", "AsignarDTOModels\AsignarDTOModels.csproj", "{4CF8BF26-C82C-4F31-92E6-BE091304D62A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{735CE6ED-D425-461C-8899-2CFE217659C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{735CE6ED-D425-461C-8899-2CFE217659C9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{735CE6ED-D425-461C-8899-2CFE217659C9}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{4CF8BF26-C82C-4F31-92E6-BE091304D62A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CF8BF26-C82C-4F31-92E6-BE091304D62A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CF8BF26-C82C-4F31-92E6-BE091304D62A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CF8BF26-C82C-4F31-92E6-BE091304D62A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

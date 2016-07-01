@@ -39,12 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsignarDatabaseDTOs\AttachmentDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\BugDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\CommentDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\FilterDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\ProjectDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

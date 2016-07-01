@@ -1,0 +1,77 @@
+﻿<link href="~/Content/popup.css" rel="stylesheet" />
+
+<div id="createUserPopup" class="table-responsive">
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBox("Filter title", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Title" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBox("Search", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Search" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Priority <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <li><a href="#">Major</a></li>
+                    <li><a href="#">Minor</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Status <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <li><a href="#">Opened</a></li>
+                    <li><a href="#">Closed</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Project <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Assignee <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <li><a href="#">John</a></li>
+                    <li><a href="#">Snow</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f0b0";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 18px;
+        font-weight: 100;
+    }
+</style>

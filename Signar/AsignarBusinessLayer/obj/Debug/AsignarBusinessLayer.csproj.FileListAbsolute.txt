@@ -9,3 +9,14 @@ E:\C#\ProjectRep\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
 E:\C#\ProjectRep\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
 E:\C#\ProjectRep\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
 E:\C#\ProjectRep\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDTOModels.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDTOModels.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb

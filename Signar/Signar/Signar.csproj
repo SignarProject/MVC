@@ -318,6 +318,7 @@
     <Content Include="Views\Popup\EditUserData.cshtml" />
     <Content Include="Views\Home\Filters.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Popup\CreateNewFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -93,9 +93,14 @@
 }
 
 .navLogo {
-    margin: 0px 25px 0px 0px;
-    padding: 5px 0px 5px 0px;
-    height: 40px;
+    margin: 5px 25px 0px 0px;
+    padding: 5px 0px 0px 0px;
+    text-indent: -9999px;
+    display: block;
+    width: 130px;
+    height: 30px;
+     background: url(../Content/img/logo.png) no-repeat center;
+     
 }
 
 .navSearchIcon{
@@ -259,6 +264,12 @@
         width: 150px;
     }
     
+}
+
+@media (max-width: 768px){
+    .navLogo {
+        position: fixed;
+    }
 }
 
 @media (max-width: 903px) and (min-width: 768px) {
