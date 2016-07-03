@@ -32,7 +32,8 @@
 
                 <div class="edit-profile"style="margin-left: 60%">
                     @Html.Partial("~/Views/Popup/EditUserData.cshtml")
-                    <a> <i class="fa fa-key fontbutton-style pull-right"></i> </a>
+                    @Html.Partial("~/Views/Popup/ResetPassword.cshtml")
+                    <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style pull-right"></i> </a>
                     <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style pull-right"></i> </a>
                 </div>
 
@@ -62,49 +63,49 @@
                     <div class="bugs-div ">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/minor_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-todo zero-merg">To do</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-todo zero-merg">To do</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/exclamation_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In testing</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In testing</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/critical_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-done_close zero-merg">Done</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-done_close zero-merg">Close</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Close</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div" style="border-bottom:hidden">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
@@ -121,6 +122,31 @@
 </div>
 
 <script>
+    function ShowResetPasswordPopup() {
+        $("#createUserPopup2").css({ 'display': "visible" });
+        $("#createUserPopup2").dialog({
+            width: 600,
+            fluid: true,
+            modal: true,
+            resizable: false,
+            dialogClass: "reset-password-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        {
+            text: "Change",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+
     function ShowEditUserDataPopup() {
         $("#createUserPopup").css({ 'display': "visible" });
         $("#createUserPopup").dialog({

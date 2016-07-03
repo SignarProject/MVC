@@ -37,10 +37,6 @@
             border-color: #9ecaed;
             box-shadow: 0 0 4px #4D868D;
         }
-        .shadow-div-sm {
-            margin: 0px 20px 20px 0px;
-            max-width: 300px;
-        }
 
         .prefix-style {
             margin-bottom: 5px;
@@ -48,7 +44,7 @@
         }
 
         .h4-zero-topmargin {
-            margin: 10px 0px 0px 0px;
+            margin: 2px 0px 0px 0px;
         }
 
         p i, label {
@@ -138,6 +134,7 @@
         .profile-desc {
             font-size: 80%;
             font-weight: initial;
+            margin-bottom: 9.5px;
         }
 
         .profile-av {
@@ -150,7 +147,7 @@
         }
 
         .users-av {
-            margin: 10px 5px 0px 5px !important;
+            margin: 5px 5px 0px 5px !important;
             padding: 0px !important;
             width: 35px;
             height: 35px;
@@ -243,9 +240,13 @@
             cursor: pointer;
         }
 
+        .bootrap-dropdown-ul-modif > li > a {
+            color: white;
+        }
+
         .bugs-div:hover {
             cursor: pointer;
-            background-color:azure;
+            background-color: aliceblue;
         }
 
         .col-helper{
@@ -260,7 +261,7 @@
 
         .users-info-helper{
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 5px;
             vertical-align: middle;
         }
 
@@ -334,11 +335,6 @@
             margin-left: auto;
         }
 
-        .bug-status {
-            font-size: 70%;
-            padding: 0px 5px;
-        }
-
         .edit-profile > a:hover {
             cursor: pointer;
         }
@@ -358,9 +354,42 @@
             vertical-align: middle !important;
         }
 
-        .project-div {
-            margin-bottom: 15px;
+        .project-delete-icon:hover {
+            color:#4D868D;
         }
+
+        .project-div {
+            margin-bottom: 20px !important;
+            margin-right: 9px;
+            padding-right: 11px;
+        }
+
+        .delete-form-icon {
+            margin-right: -18.7px !important;
+            margin-top: -20.5px !important;
+            z-index: 101;
+            color: #92C1BA;
+            font-size: 18px !important;
+            padding:0;
+            margin:0;
+            height: 16.5px;
+            background-color: rgb(248, 254, 254);
+            
+        }
+
+        .table-elem  .delete-form-icon{
+            display: none !important;
+        }
+
+        .table-elem:hover  .delete-form-icon{
+            display: inline-block !important;
+        }
+
+        .delete-form-icon:hover {
+            color: #4D868D;
+            cursor: pointer;
+        }
+
 
         @media (max-width: 362px) {
             #searchTextOnPage {

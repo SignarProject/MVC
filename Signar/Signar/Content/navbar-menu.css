@@ -92,8 +92,12 @@
     height: 29px;
 }
 
+.navButton:after {
+    outline: none !important;
+}
+
 .navButton:hover {
-    color: #333
+    color: aliceblue;
 }
 
 .navLogo {
@@ -170,9 +174,10 @@
 
 
 .icon-arrow1{
-    position:relative;
+    z-index: 601 !important;
+    position:absolute;
     left:+130px;
-    top:-12px;
+    top:-2px;
     color: #92C1BA;
 }
 
@@ -181,6 +186,13 @@
     top: +1px;
 }
 
+.dropdownProfile > li {
+    position: relative;
+}
+
+.arrow-holder:hover .icon-arrow1 {
+    color: #87B8B1;
+}
 
 .dropdownProfile{
     position:relative;

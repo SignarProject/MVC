@@ -117,6 +117,13 @@
     padding-bottom: 1em;
 }
 
+#createUserPopup2 {
+    display: none;
+    background-color: rgb(248, 254, 254);
+    /*padding-left: 17px;*/
+    padding-bottom: 1em;
+}
+
 .btn-group > .btn:first-child{
     background-color: rgb(248, 254, 254) !important;
 }

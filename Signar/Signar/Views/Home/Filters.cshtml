@@ -28,7 +28,7 @@
             <label class="short-info" style="margin-left: -39px;">Sort by:</label>
             <div class="dropdown" style="display: inline">
                 <form style="display:inline">
-                    <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown">
+                    <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown"  style="background: transparent !important;">
                         Title
                         <span class="caret" style="border-top-color: #92c1ba"></span>
                     </button>
@@ -46,7 +46,8 @@
             @for (int i = 0; i < 9; ++i)
             {
                 <div class="col-md-4" style="overflow:no-display">
-                    <div class="table-elem shadow-div">
+                    <div class="table-elem shadow-div" style="position:relative;">
+                        <i class="fa fa-times-circle delete-form-icon pull-right"></i>
                         <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
                         <div class="filters-inr-divblc">
                             <div class="filter-info-col" style="padding-left: 1px">
@@ -79,7 +80,7 @@
                                     <label>Assignee:</label>
                                 </span><br />
                             </div>
-                            <div class="filter-info-col col-helper" style="padding-left: 10px; margin-top: 13px; width: 80px;">
+                            <div class="filter-info-col col-helper" style="padding-left: 10px; margin-top: 13px; width: 83px;">
                                 <span>
                                     <label>Project_Value</label>
                                 </span><br />
