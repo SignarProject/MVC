@@ -18,12 +18,24 @@
             -webkit-box-shadow: -5px -5px 5px #888;
             box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
             padding: 5px 10px;
-            margin: 20px 20px 20px 0px;
+            /*margin: 20px 20px 20px 20px;*/
             /*max-width: none !important;*/
         }
-.shadow-div:hover{
+
+        .table-elem {
+            margin: 10px 20px 10px 0px;
+            padding: 11px;
+            height: 100px;
+            min-width: 100px;
+        }
+
+        .table-elem:hover {
             cursor: pointer;
-            
+            border: 1px solid blue;
+            padding: 10px;
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 4px #4D868D;
         }
         .shadow-div-sm {
             margin: 0px 20px 20px 0px;
@@ -42,7 +54,7 @@
         p i, label {
             color: #bbbbbb;
             font-size: 100%;
-            margin: 5px 0px 5px 0px;
+            margin: 3px 0px 5px 0px;
         }
 
         .short-info {
@@ -138,10 +150,10 @@
         }
 
         .users-av {
-            margin: 10px 5px 20px 5px !important;
+            margin: 10px 5px 0px 5px !important;
             padding: 0px !important;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             -webkit-border-radius: 60px;
             -webkit-box-shadow: 0 0 5px #92C1BA;
         }
@@ -162,6 +174,7 @@
             max-width: 200px;
             max-height: 30px;
             background: transparent;
+            margin-top: -3px;
         }
 
         .search-page-btn {
@@ -203,19 +216,36 @@
         }
 
         .bootrap-btndrop-modif {
-            border: transparent;
-            background: transparent; 
+            background-color: rgb(248, 254, 254) !important;
             color: #4d868d;
             font-size: 85%;
         }
+        .fa {
+            vertical-align: middle;
+        }
 
-        .fa:hover{
-            cursor: pointer;
+        .info-icon{
+            /*cursor: pointer;*/
+            font-size: 15px !important;
+            
+            display: inline-block;
+            width: 20px;
         }
 
         .filters-inr-divblc{
             font-size: 70%;
             line-height: 30%;
+            width: 245px;
+            margin-top: 15px;
+        }
+
+        .a-links > li:hover {
+            cursor: pointer;
+        }
+
+        .bugs-div:hover {
+            cursor: pointer;
+            background-color:azure;
         }
 
         .col-helper{
@@ -224,9 +254,13 @@
             margin-right: 25px;
         }
 
+        .col-helper > span > label {
+            color: black;
+        }
+
         .users-info-helper{
             display: inline-block;
-            margin-top: -10px;
+            margin-top: 10px;
             vertical-align: middle;
         }
 
@@ -242,7 +276,101 @@
         }
 
         #shadow-div-no-border:hover{
-            cursor: auto;
-            margin: 20px 20px 20px 0;
-            border:none !important;
+            
+        }
+
+        .container-form {
+            max-width: 100000px;
+            padding-left: 30px;
+            padding-right: 10px;
+        }
+
+
+        .col-md-4 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+        }
+
+        .fa-plus:hover{
+            cursor: pointer;
+        }
+
+        .info-block{
+            margin-top: 19px !important;
+            margin-right: -8px !important;
+        }
+
+        .filter-info-col {
+            display:inline-block;
+            margin-right: 7px;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            width: 60px;
+        }
+
+        .user-name{
+            display:inline-block; 
+            vertical-align: middle; 
+            margin-top: -22px; 
+            font-size: 18px; 
+            
+        }
+
+        .user-name > p {
+            line-height: 20px;
+        }
+
+        .profile-desc > label {
+            margin-bottom: 0px;
+        }
+
+        .double-container {
+            padding-right: 30px;
+            padding-left: 30px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .bug-status {
+            font-size: 70%;
+            padding: 0px 5px;
+        }
+
+        .edit-profile > a:hover {
+            cursor: pointer;
+        }
+
+        .a-links > li:hover .project-delete-icon {
+            display: inline-block !important;
+        }
+
+        .project-delete-icon {
+            content: "\f00d";
+            font-family: FontAwesome;
+            margin-left: 30px;
+            color: #A3C2C6;
+            font-size: 18px !important;
+            font-weight: 100 !important;
+            display: none !important;
+            vertical-align: middle !important;
+        }
+
+        .project-div {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 362px) {
+            #searchTextOnPage {
+                /*display: none;*/
+                width: 150px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .double-container {
+                max-width: none !important;
+            }
         }

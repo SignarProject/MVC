@@ -2,9 +2,10 @@
     ViewBag.Title = "My Profile";
 }
 
+<link href="~/Content/popup.css" rel="stylesheet" />
 
-<div class="container">
-    <div class="row">
+<div class="container double-container">
+    <div class="row" style="margin-top: 15px;">
         <div class="col-md-4">
             <div class="col">
                 <div style="margin: 0px 0px 40px 0px">
@@ -12,7 +13,7 @@
                 </div>
                 <div class="shadow-div">
                     <img src="~/Content/img/ava1.jpg" class="profile-av"/>
-                    <div style="display:inline-block; vertical-align: middle;">
+                    <div class="user-name">
                         <p class="zero-merg">George</p>
                         <p class="zero-merg">Orwell</p>
                     </div>
@@ -29,23 +30,24 @@
 
                 </div>
 
-                <div style="margin-left: 60%">
-                    <a href="url"> <i class="fa fa-key fontbutton-style"></i> </a>
-                    <a href="url"> <i class="fa fa-pencil fontbutton-style"></i> </a>
+                <div class="edit-profile"style="margin-left: 60%">
+                    @Html.Partial("~/Views/Popup/EditUserData.cshtml")
+                    <a> <i class="fa fa-key fontbutton-style pull-right"></i> </a>
+                    <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style pull-right"></i> </a>
                 </div>
 
 
 
-                <h3 style="margin-top: 20px; margin-bottom: 20px" >
+                <h3 style="margin-top: 40px; margin-bottom: 20px" >
                     My Projects
                 </h3>
 
                 <div class="shadow-div">
                     <ul class="a-links" style="padding: 5px 0px 0px 5px">
-                        <li><a href="url">The Financier</a></li>
-                        <li><a href="url">The Titan</a></li>
-                        <li><a href="url">The Stoic</a></li>
-                        <li><a href="url">The I, robot</a></li>
+                        <li><a href="url">The Financier</a><i class="fa fa-close project-delete-icon pull-right"></i></li> 
+                        <li><a href="url">The Titan</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                        <li><a href="url">The Stoic</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                        <li><a href="url">The I, robot</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
                     </ul>
                 </div>
 
@@ -60,49 +62,49 @@
                     <div class="bugs-div ">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/minor_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-todo zero-merg">To do</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-todo zero-merg">To do</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/exclamation_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-in zero-merg">In testing</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In testing</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/critical_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-done_close zero-merg">Done</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-done_close zero-merg">Done</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-done_close zero-merg">Close</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-done_close zero-merg">Close</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
                     <div class="bugs-div" style="border-bottom:hidden">
                         <img src="~/Content/Priority_img/major_prior.png" />
                         <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-in zero-merg">In progress</label>
+                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status bug-status-in zero-merg">In progress</label>
                             <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
                         </div>
                     </div>
@@ -117,3 +119,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function ShowEditUserDataPopup() {
+        $("#createUserPopup").css({ 'display': "visible" });
+        $("#createUserPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Edit user data",
+            modal: true,
+            resizable: false,
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        {
+            text: "Save",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+    }
+</script>

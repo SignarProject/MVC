@@ -18,3 +18,13 @@ C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.dll.config
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.xml
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.pdb

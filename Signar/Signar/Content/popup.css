@@ -113,7 +113,7 @@
 #createUserPopup {
     display: none;
     background-color: rgb(248, 254, 254);
-    padding-left: 17px;
+    /*padding-left: 17px;*/
     padding-bottom: 1em;
 }
 
@@ -143,6 +143,10 @@
 
 input, select, textarea {
      max-width: 9999px; 
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: .5em 0;
 }
 
 .popup-dropdown{
@@ -225,3 +229,4 @@ input, select, textarea {
 	-webkit-box-shadow: 0 0 5px #92C1BA;
 	-moz-box-shadow: 0 0 5px #92C1BA;
 }
+

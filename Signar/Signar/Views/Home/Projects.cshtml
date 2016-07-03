@@ -2,17 +2,18 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <link href="~/Content/popup.css" rel="stylesheet" />
 
-<div class="container">
+<div class="container container-form">
     <div class="row">
-        <div class="row" style="margin-left: 15px">
+        <div style="margin-right: 20px; margin-top: 15px;">
             <h3 class="pull-left" style="margin: 20px 0px 40px 0px">Projects</h3>
-            <i  class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 20px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
+            <i class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 20px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
 
             @Html.Partial("~/Views/Popup/CreateNewProject.cshtml")
 
-            <div class="form-group pull-right search-bar" style="margin-top: 30px; margin-right: 230px;" id="searchTextOnPage">
+            <div class="search-bar pull-right" style="margin-top: 18px;" id="searchTextOnPage">
                 <form role="search" style="display: flex;">
                     <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
                     <span>
@@ -25,7 +26,7 @@
         </div>
 
         <div>
-            <label class="short-info" style="margin-left: 25px;">Sort by:</label>
+            <label class="short-info" style="margin-left: -60px;">Sort by:</label>
             
             <!--  <form action="doss" style="display: initial">
                 <select name="sortParam" class="sort-sel-set select option">
@@ -38,7 +39,7 @@
 
             <div class="dropdown" style="display: inline">
                 <form style="display:inline">
-                    <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown">
+                    <button class="bootrap-btndrop-modif dropdown-toggle" type="submit" data-toggle="dropdown" style="background: transparent !important;">
                         Title
                         <span class="caret" style="border-top-color: #92c1ba"></span>
                     </button>
@@ -53,91 +54,28 @@
         </div>
 
         <div class="row" style="margin: 15px">
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
+            @for (int i = 0; i < 9; ++i)
+            {
+                <div class="col-md-4">
+                    <div class="table-elem shadow-div">
+                        <h4 class="h4-zero-topmargin"> The Financier</h4>
+                        <p class="prefix-style">TDF</p>
+                        <div class="row">
+                            <p class="info-block pull-right label zero-merg p label">
+                                <i class="fa fa-edit info-icon"></i> <label>127</label>
+                                <i class="fa fa-users info-icon"></i> <label>6</label>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
-            <div class="shadow-div shadow-div-sm col-md-4">
-                <h4 class="h4-zero-topmargin"> The Financier</h4>
-                <p class="prefix-style">TDF</p>
-                <div class="row">
-                    <p class="pull-right p i, label zero-merg p label">
-                        <i class="fa fa-edit"></i> <label>127</label>
-                        <i class="fa fa-users"></i> <label>6</label>
-                    </p>
-                </div>
-            </div>
+            }
+            
+            
         </div>
 
         <div class="row">
-            <p class="pull-left p i, label zero-merg p label" style="margin-left: 30px">
-                <i class="fa fa-th-list"></i> <label style="margin-right: 2px">Projects:</label> <label>35</label>
+            <p class="pull-left p i, label zero-merg p label">
+                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label>35</label>
             </p>
         </div>
 

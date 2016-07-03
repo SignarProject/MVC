@@ -2,44 +2,46 @@
     ViewBag.Title = "Dashboard";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 pull-left">
+<link href="~/Content/popup.css" rel="stylesheet" />
+
+<div class="container double-container">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-4">
             <div class="col">
                 <div style="margin: 0px 0px 40px 0px">
                     <h3 style="margin: 20px 0px 40px 0px">My Project</h3>
                 </div>
-                <div class ="shadow-div">
+                <div class="table-elem shadow-div project-div" style="margin-right: 0;">
                     <h4 class="h4-zero-topmargin"> The Financier</h4>
                     <p class="prefix-style">TDF</p>
                     <div class="row">
-                        <p class="pull-right p i, label zero-merg p label">
+                        <p class="pull-right p i, label zero-merg p label info-block">
                             <i class="fa fa-edit"></i> <label>127</label>
                             <i class="fa fa-users"></i> <label>6</label>
                         </p>
                     </div>
                 </div>
-                <div class="shadow-div">
+                <div class="table-elem shadow-div project-div" style="margin-right: 0;">
                     <h4 class="h4-zero-topmargin"> The Titan</h4>
                     <p class="prefix-style">DDT</p>
                     <div class="row">
-                        <p class="pull-right p i, label zero-merg p label">
+                        <p class="pull-right p i, label zero-merg p label info-block">
                             <i class="fa fa-edit"></i> <label>127</label>
                             <i class="fa fa-users"></i> <label>6</label>
                         </p>
                     </div>
                 </div>
-                <div class="shadow-div">
+                <div class="table-elem shadow-div project-div" style="margin-right: 0;">
                     <h4 class="h4-zero-topmargin"> The Stoic</h4>
                     <p class="prefix-style">TDS</p>
                     <div class="row">
-                        <p class="pull-right p i, label zero-merg p label">
+                        <p class="pull-right p i, label zero-merg p label info-block">
                             <i class="fa fa-edit"></i> <label>127</label>
                             <i class="fa fa-users"></i> <label>6</label>
                         </p>
                     </div>
                 </div>
-                <a href="/Home/Projects" class="a-links">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D; font-size: 75%"></i>
+                <a href="/Home/Projects" class="a-links" display: inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D; font-size: 75%"></i>
             </div>
         </div>
         <div class="col-md-8 pull-right">

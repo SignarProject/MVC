@@ -13,6 +13,10 @@
     background-color: #3D767D;
 }
 
+.navbar-toggle {
+    margin-right: 30px !important;
+}
+
 .navbar.navbar-inverse.navbar-fixed-top {
     min-height: 40px;
 }
@@ -81,11 +85,11 @@
 
 .navButton {
     margin: 5px 25px 0px 15px;
-    padding: 3px 10px 3px 10px;
+    padding: 2px 10px 3px 10px;
     border: 0;
     background-color: #92C1BA;
     color: #FFF;
-    height: 30px;
+    height: 29px;
 }
 
 .navButton:hover {
@@ -337,3 +341,8 @@
         display:none;
     }
 }*/
+
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
