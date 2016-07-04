@@ -36,6 +36,10 @@ namespace Signar.Controllers
             return View();
         }
 
+        public ActionResult Project()
+        {
+            return View();
+        }
 
         public ActionResult DashBoard()
         {

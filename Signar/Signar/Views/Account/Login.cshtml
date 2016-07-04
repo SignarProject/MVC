@@ -14,7 +14,7 @@
             {
                         @Html.AntiForgeryToken()
                         
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin" })
                         <div class="Input">
 
                             <div class="form-group">
@@ -32,9 +32,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "backCol" })
-                                        @Html.LabelFor(m => m.RememberMe, htmlAttributes: new { @class = "color2" })
-                                        @Html.ActionLink("Forgot password", "ForgotPassword", "Account", htmlAttributes: new { @class = "color2 rightText" })
+                                        @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "custom-checkbox-1 pull-left" })
+                                        @Html.LabelFor(m => m.RememberMe, htmlAttributes: new { @class = "color2 checkbox-panel pull-left" })
+                                        @Html.ActionLink("Forgot password", "ForgotPassword", "Account", htmlAttributes: new { @class = "color2 checkbox-panel pull-right" })
                                     </div>
                                 </div>
                             </div>

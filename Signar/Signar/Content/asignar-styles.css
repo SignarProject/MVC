@@ -76,6 +76,9 @@
 
         .bugs-div {
             margin: 5px;
+            margin-top: 0px;
+            margin-bottom: 2px;
+            padding-top: 5px;
             border-bottom-style: ridge;
             border-bottom-width: 3px;
             border-bottom-color: white;
@@ -390,6 +393,9 @@
             cursor: pointer;
         }
 
+        .short-info > label {
+            margin-top: 15px;
+        }
 
         @media (max-width: 362px) {
             #searchTextOnPage {
