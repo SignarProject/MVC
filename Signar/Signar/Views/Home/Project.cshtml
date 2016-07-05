@@ -12,11 +12,37 @@
             </div>
 
             <div class="pull-left short-info" style="margin-top: 45px; margin-left: -27px; display: inline-block; position:absolute;">
-                <i class="fa fa-group" style="font-size: 130%"></i> <label style="margin-left:5px;"> 5</label>
-            </div>
+                <i class="fa fa-group" id="user-group" style="font-size: 130%" onCLick="showDropMenuUsers()"></i> <label style="margin-left:5px;"> 5</label>
+                <div class="outside-click-close">
+                    <span class="icon-arrow1 icon-arrow-users"></span>
+                    <div class="dropdown-user-group">
+                        
+                        <ul class="delete-users-from-project-ul">
+                            @for (int i = 0; i < 15; ++i)
+                            {
+                                <li>
+                                    <img src="~/Content/img/ava1.jpg" class="users-av-smaller" style="margin-left:0px !important;vertical-align: text-bottom;"/>
+                                    <div style="display:inline-block;max-width: 200px;">
+                                        <label class="text-medium" style="color:rgb(248,252,252)">Name </label>
+                                        <label class="text-medium" style="color:rgb(248,252,252)">Surname</label>
+                                        <p style="">
+                                            <label class="text-small" style="color:rgb(248,252,252)">emailexample@gmail.com</label>
+                                        </p>
+                                    </div>
+                                    <i class="fa fa-close user-delete-from-project-icon pull-right"></i>
+                                </li>
+                            }
+                            
+                        </ul>
 
+                    </div>
+                </div>
+                </div>
+                
+
+            @Html.Partial("~/Views/Popup/AddUsersToProject.cshtml")
             <div class="pull-left short-info" style="margin-top: 59px; margin-left: 19px; display: inline-block; position:absolute;">
-                <i class="fa fa-plus" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+                <i class="fa fa-plus" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;" onClick="ShowAddUsersToProjectPopup()"></i>
             </div>
 
             <div class="pull-left" style="margin-top: 85px; margin-left: -100px; display: inline-block; position:absolute;">
@@ -167,4 +193,59 @@
         });
         $("*").trigger('blur');
     }
+</script>
+
+<script>
+    function ShowAddUsersToProjectPopup() {
+        $("#AddUsersToProjectPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Add users to project",
+            modal: true,
+            resizable: false,
+            dialogClass: "add-users-to-project-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        {
+            text: "Add users",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function showDropMenuUsers() {
+        if ($(".dropdown-user-group").css('display') == 'none') {
+            $(".dropdown-user-group").css({ 'display': "visible" });
+            $('.icon-arrow-users').css({ 'display': "block" });
+            $(".dropdown-user-group").fadeIn(200);
+        } else {
+            $(".dropdown-user-group").fadeOut(200);
+            $(".dropdown-user-group").css({ 'display': "none" });
+            $('.icon-arrow-users').css({ 'display': "none" });
+        }
+    }
+</script>
+
+<script>
+    $(document).mouseup(function (e) {
+        var container = $(".outside-click-close");
+        var disp = $('.dropdown-user-group').css('display');
+
+        if (!container.is(e.target) // if the target of the click isn't the container...
+            && container.has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            $(".dropdown-user-group").css({ 'display': "none" });
+            $('.icon-arrow-users').css({ 'display': "none" });
+        }
+    });
 </script>
