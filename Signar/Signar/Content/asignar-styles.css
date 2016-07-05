@@ -28,6 +28,11 @@
             height: 100px;
             min-width: 100px;
         }
+        .table-elem-static {
+            margin: 10px 20px 0px 0px;
+            padding: 11px;
+            min-width: 100px;
+        }
 
         .table-elem:hover {
             cursor: pointer;
@@ -98,6 +103,7 @@
 
         .bugs-descrip {
             font-size: 75%;
+            margin-right: 0;
         }
 
         .bug-status-todo {
@@ -367,6 +373,12 @@
             padding-right: 11px;
         }
 
+        .project-div-static {
+            margin-bottom: 0;
+            margin-right: 9px;
+            padding-right: 11px;
+        }
+
         .delete-form-icon {
             margin-right: -18.7px !important;
             margin-top: -20.5px !important;
@@ -397,15 +409,56 @@
             margin-top: 15px;
         }
 
-        @media (max-width: 362px) {
+        .bugs-descrip-block{
+            display:inline-block; 
+            vertical-align: top;  
+            width: 55%; 
+            max-height: 280px;
+        }
+
+        .zero-pad-left {
+            padding-left:0 !important;
+        }
+
+        .advanced-search-link{
+            font-size:11px;
+            color:#92C1BA;
+            text-decoration: underline;
+        }
+
+        .advanced-search-link:hover{
+            cursor: pointer;
+            color:#4D868D;
+            text-decoration: none;
+        }
+
+        @media (max-width: 412px) {
             #searchTextOnPage {
                 /*display: none;*/
-                width: 150px;
+                width: 120px;
+            }
+        }
+        @media (max-width: 524px) {
+            .bugs-descrip-block {
+                /*display: none;*/
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 333px) {
+            #searchTextOnPage {
+                display: none;
             }
         }
 
         @media (min-width: 768px) {
             .double-container {
                 max-width: none !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 992px){
+            .double-container-mini {
+                height: 300px;
             }
         }

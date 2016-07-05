@@ -1,7 +1,10 @@
 ﻿
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
+
+
 ::-webkit-scrollbar-track {
     background-color: rgb(182, 201, 204);
     border-left: 1px solid #A3C2C6;
@@ -284,11 +287,11 @@
 
 @media (max-width: 768px){
     .navLogo {
-        position: fixed;
+        position:absolute;
     }
 }
 
-@media (max-width: 903px) and (min-width: 768px) {
+@media (max-width: 917px) and (min-width: 768px) {
     .navbar-form > * {
         display: none;
         height: 0px;

@@ -1,78 +1,141 @@
 ﻿@{
-    ViewBag.Title = "My Profile";
+    ViewBag.Title = "Project";
 }
 
 <link href="~/Content/popup.css" rel="stylesheet" />
 
-<div class="container double-container">
+<div class="container container-form">
     <div class="row" style="margin-top: 15px;">
-        
-        <div class="col-md-12">
-            <div class="col">
-                <div style="margin: 0px 0px 40px 0px">
-                    <h2 style="margin: 20px 0px 40px 0px">The Titan</h2>
-                </div>
-                <div class="shadow-div">
-                    <div class="bugs-div ">
-                        <img src="~/Content/Priority_img/major_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div">
-                        <img src="~/Content/Priority_img/minor_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-todo zero-merg">To do</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div">
-                        <img src="~/Content/Priority_img/exclamation_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In testing</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div">
-                        <img src="~/Content/Priority_img/critical_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div">
-                        <img src="~/Content/Priority_img/major_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Close</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div">
-                        <img src="~/Content/Priority_img/major_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                    <div class="bugs-div" style="border-bottom:hidden">
-                        <img src="~/Content/Priority_img/major_prior.png" />
-                        <div style="display:inline-block; vertical-align: middle">
-                            <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                            <p class="bugs-descrip zero-merg">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                        </div>
-                    </div>
-                </div>
+        <div style="margin: 0px 0px 62px 0px">
+            <h2 class="pull-left" style="margin: 20px 0px 40px 0px;">The Titan</h2>
 
-                <div class="row">
-                    <div class="pull-left short-info">
-                        <i class="fa fa-edit" style="font-size: 150%"></i> <label>All my tasks: 41</label>
-                    </div>
+            <div class="pull-left short-info" style="margin-top: 45px; margin-left: -87px; display: inline-block; position:absolute;">
+                <i class="fa fa-edit" style="font-size: 160%"></i> <label style="margin-left:5px;"> 67</label>
+            </div>
+
+            
+
+            <div class="pull-left short-info" style="margin-top: 45px; margin-left: -27px; display: inline-block; position:absolute;">
+                <i class="fa fa-group" style="font-size: 130%"></i> <label style="margin-left:5px;"> 5</label>
+            </div>
+
+            <div class="pull-left" style="margin-top: 85px; margin-left: -100px; display: inline-block; position:absolute;">
+                <label class="short-info">Sort by:</label>
+                <div class="dropdown" style="display: inline">
+                    <form style="display:inline">
+                        <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown" style="background: transparent !important;">
+                            Title
+                            <span class="caret" style="border-top-color: #92c1ba"></span>
+                        </button>
+                        <ul class="dropdown-menu bootrap-dropdown-ul-modif" style="padding: 0px">
+                            <li><a href="#">Title</a></li>
+                            <li><a href="#">Status</a></li>
+                            <li><a href="#">Priority</a></li>
+                            <li><a href="#">Assignee</a></li>
+                        </ul>
+                    </form>
                 </div>
             </div>
+
+            <i class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()"></i>
+            <div class="search-bar pull-right" style="margin-top: 22px; margin-right:20px;" id="searchTextOnPage">
+                <form role="search" style="display: flex;">
+                    <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
+                    <span>
+                        <button type="submit" class="search-page-btn">
+                            <span class="icon-search navSearchIcon search-span-icon pull-right"></span>
+                        </button>
+                    </span>
+                </form>
+                <div class="pull-right advanced-search-link" style="margin-top: 3px; margin-left: 110px; display: inline-block;">
+                    Advanced search
+                </div>
+            </div>
+            
         </div>
+
+        <div class="col-md-12 zero-pad-left">
+                <div class="shadow-div">
+                    <div style="display:inline-block; vertical-align: middle; width:100%;">
+                        @for (int i = 0; i < 8; ++i)
+                        {
+                            <div class="bugs-div">
+                                <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                <div class="bugs-descrip-block">
+                                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                    <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                                </div>
+                                <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:92px;">
+                                    <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px; ">Created: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px; margin-left:1px;">10/10/14</label></p>
+                                    <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px;">Updated: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px;">10/10/14</label></p>
+                                </div>
+                                <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:160px;">
+                                    <img src="~/Content/img/ava1.jpg" class="users-av" style="margin-top: 0px !important;" />
+                                    <div class="users-info-helper" style="margin-top: 0px !important;">
+                                        <p class="zero-merg" style="font-size: 85%">George Orwell</p>
+                                        <p class="zero-merg" style="font-size: 75%">Orwell@@bigbrother.com</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                        @*<div class="bugs-div">
+                <img src="~/Content/Priority_img/minor_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-todo zero-merg">To do</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/exclamation_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In testing</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div" style="width:100%">
+                <img src="~/Content/Priority_img/critical_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Close</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div" style="border-bottom:hidden">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>*@
+                    </div>
+
+            </div>
     </div>
 </div>
+        <div class="row">
+            <div class="pull-left short-info">
+                <i class="fa fa-edit" style="font-size: 190%"></i> <label>Tasks: 67</label>
+            </div>
+        </div>
+</div>
+
+
 
 <script>
     function ShowResetPasswordPopup() {
