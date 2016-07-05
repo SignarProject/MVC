@@ -432,12 +432,24 @@
             text-decoration: none;
         }
 
+        .bugs-div:last-child {
+            border-bottom-width: 0px;
+        }
+
+        .fa-custom-button:hover{
+            color:black;
+            cursor: pointer;
+        }
+
+
         @media (max-width: 412px) {
             #searchTextOnPage {
                 /*display: none;*/
                 width: 120px;
             }
         }
+
+
         @media (max-width: 524px) {
             .bugs-descrip-block {
                 /*display: none;*/
@@ -445,11 +457,9 @@
             }
         }
 
-        @media (max-width: 333px) {
-            #searchTextOnPage {
-                display: none;
-            }
-        }
+
+
+
 
         @media (min-width: 768px) {
             .double-container {

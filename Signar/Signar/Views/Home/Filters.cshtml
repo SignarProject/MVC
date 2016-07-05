@@ -2,13 +2,11 @@
     ViewBag.Title = "Filters";
 }
 
-<link href="~/Content/popup.css" rel="stylesheet" />
-
 <div class="container container-form">
     <div class="row">
         <div style="margin-right: 20px; margin-top: 15px;">
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Filters</h2>
-            <i class="fa fa-plus fontbutton-style" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewFilterPopup()"></i>
+            <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewFilterPopup()"></i>
 
             @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml")
 

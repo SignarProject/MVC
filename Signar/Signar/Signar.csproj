@@ -320,6 +320,8 @@
     <Content Include="Views\Home\Users.cshtml" />
     <Content Include="Views\Popup\CreateNewFilter.cshtml" />
     <Content Include="Views\Home\Project.cshtml" />
+    <Content Include="Views\Popup\CreateNewTask.cshtml" />
+    <Content Include="Views\Popup\EditProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

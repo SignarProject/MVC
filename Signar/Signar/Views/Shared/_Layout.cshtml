@@ -10,6 +10,7 @@
     @Styles.Render("~/Content/asignar-styles")
     @Styles.Render("~/Content/font-awesome")
     @Styles.Render("~/Content/Popup/jquery-ui")
+    @Styles.Render("~/Content/popup")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -22,6 +23,7 @@
 
 </head>
 <body style="background-color: #f8fefe">
+    @Html.Partial("~/Views/Popup/CreateNewTask.cshtml")
     <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-header leftM">
                 @Html.ActionLink(" ", "Dashboard", "Home", null, htmlAttributes: new { @class = "navLogo" })
@@ -39,7 +41,7 @@
                     <li>@Html.ActionLink("Projects", "Projects", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
                     <li>@Html.ActionLink("Users", "Users", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
                     <li>@Html.ActionLink("Filters", "Filters", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
-                    <li><button class="navButton"><nobr><t class="icon-plus"></t> &nbsp;Create task</nobr></button></li>
+                    <li><button class="navButton" onCLick="ShowCreateNewTaskPopup()"><nobr><t class="icon-plus"></t> &nbsp;Create task</nobr></button></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-header pull-right">
                     <li class="navbar-form navSearchMenu">
@@ -72,3 +74,33 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    function ShowCreateNewTaskPopup() {
+        $("#createUserPopupTask").css({ 'display': "visible" });
+        $("#createUserPopupTask").dialog({
+            width: 600,
+            fluid: true,
+            modal: true,
+            resizable: false,
+            title: "Create new task",
+            dialogClass: "create-new-task-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        {
+            text: "Create",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+
+
+</script>

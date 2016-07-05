@@ -44,6 +44,10 @@ namespace Signar
                       "~/Content/Popup/jquery*",
                       "~/Content/Popup/theme.css",
                       "~/Content/semantic*"));
+
+            bundles.Add(new StyleBundle("~/Content/popup").Include(
+                "~/Content/popup.css"
+                ));
         }
     }
 }

@@ -2,8 +2,6 @@
     ViewBag.Title = "My Profile";
 }
 
-<link href="~/Content/popup.css" rel="stylesheet" />
-
 <div class="container double-container">
         <div class="col-md-4 double-container-mini" style="margin-top: 15px;">
                 <div class="col-md-12 col-sm-6 col-xs-12 zero-pad-left">
@@ -29,11 +27,11 @@
 
                     </div>
 
-                    <div class="edit-profile" style="margin-left: 60%">
+                    <div class="edit-profile pull-right" style="margin-right: 3px;">
                         @Html.Partial("~/Views/Popup/EditUserData.cshtml")
                         @Html.Partial("~/Views/Popup/ResetPassword.cshtml")
-                        <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style pull-right"></i> </a>
-                        <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style pull-right"></i> </a>
+                        <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style fa-custom-button pull-right"></i> </a>
+                        <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right"></i> </a>
                     </div>
 
                 </div>
