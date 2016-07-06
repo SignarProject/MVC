@@ -300,6 +300,55 @@ input[type="checkbox"]:focus{
     background-color:azure !important;
 }
 
+.ui.dropdown {
+    z-index: 99999;
+}
+
+.text {
+    color:black;
+}
+
+.ui.dropdown.selected, .ui.dropdown .menu .selected.item{
+    background: rgb(248,252,252);
+}
+
+.ui.selection.dropdown .menu > .item{
+    border-top: 0;
+    white-space: normal;
+    word-wrap:  normal;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.ui.dropdown .menu > .item:hover {
+    background: #A3C2C6;
+    color: black;
+    z-index: 13;
+}
+
+.menu *{
+    z-index: 99999;
+    background-color: rgb(248,252,252);
+}
+
+.ui.fluid.dropdown{
+    height: 34px;
+    padding-bottom: 6px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+.ui.fluid.dropdown > .dropdown.icon{
+        font-size: 19px;
+    margin: 0;
+    padding: 0;
+    top: -5px;
+    position: relative;
+    vertical-align: middle;
+    right: -12px;
+    float: right;
+}
+
 @media (max-width: 768px){
     .table-responsive {
         margin-bottom:0px;

@@ -18,14 +18,48 @@
         </div>
 
         <div class="container col-xs-6" id="wrap">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Owner <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+            <div class="btn-group" style="height: 20px;">
+
+                @*<button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Owner <span class="popup-arrow icon-arrow1 pull-right"></span></button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
                     <li><a href="#">Steve</a></li>
                     <li><a href="#">Jobs</a></li>
-                </ul>
+                </ul>*@
+
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Friend</div>
+                    <div class="menu" style="z-index: 10;">
+                        <div class="item" data-value="jenny">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg"style="margin-top: 0px;">
+                            Jenny Hess
+                        </div>
+                        <div class="item" data-value="elliot">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg">
+                            Elliot Fu
+                        </div>
+                        <div class="item" data-value="stevie">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg">
+                            Stevie Feliciano
+                        </div>
+                        <div class="item" data-value="christian">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg">
+                            Christian
+                        </div>
+                        <div class="item" data-value="matt">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg">
+                            Matt
+                        </div>
+                        <div class="item" data-value="justen">
+                            <img class="ui mini avatar image" src="~/Content/img/ava1.jpg">
+                            Justen Kitsune
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; position:absolute; z-index: 2000; left: 70%;">
+            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px;; z-index: 10; left: 70%;">
                 Assign to me
             </div>
         </div>
@@ -81,3 +115,9 @@
         font-weight: 100;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+    });
+</script>

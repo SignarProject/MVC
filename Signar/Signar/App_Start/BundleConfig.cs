@@ -22,11 +22,13 @@ namespace Signar
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/dropdown.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/dropdown.css"));
 
             bundles.Add(new StyleBundle("~/Content/navbar-menu").Include(
                       "~/Content/navbar-menu.css"));
