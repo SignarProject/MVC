@@ -31,3 +31,15 @@ E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb
+C:\TeamProject\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
+C:\TeamProject\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
+C:\TeamProject\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll.config
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.pdb
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.dll
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.dll
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.pdb
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
+C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml

@@ -16,3 +16,8 @@ C:\git\MVC\Signar\AsignarDatabase\obj\Debug\postdeploy.sql
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\predeploy.sql
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
+C:\TeamProject\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
+C:\TeamProject\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
+C:\TeamProject\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
+C:\TeamProject\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
+C:\TeamProject\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
