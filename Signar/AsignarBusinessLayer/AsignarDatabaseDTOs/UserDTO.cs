@@ -44,14 +44,11 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public ICollection<FilterDTO> Filters { get; set; }
 
 
-        //public ICollection<UserToProjectDTO> UsersToProjects { get; set; }
-
         public UserDTO()
         {
             Bugs = new HashSet<BugDTO>();
             Comments = new HashSet<CommentDTO>();
             Filters = new HashSet<FilterDTO>();
-            //UsersToProjects = new HashSet<UserToProjectDTO>();
         }
     }
 }

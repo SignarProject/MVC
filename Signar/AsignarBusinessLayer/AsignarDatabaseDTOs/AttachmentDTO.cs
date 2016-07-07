@@ -19,6 +19,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         public string ContentPath { get; set; }
 
+
         public AttachmentDTO()
         {
 

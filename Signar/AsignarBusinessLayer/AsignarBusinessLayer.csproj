@@ -52,6 +52,7 @@
     <Compile Include="AsignarDatabaseDTOs\BugDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\CommentDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\FilterDTO.cs" />
+    <Compile Include="AsignarDatabaseDTOs\HybridProjectDTO\HybridProjectUsersBugs.cs" />
     <Compile Include="AsignarDatabaseDTOs\ProjectDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserToProjectDTO.cs" />
@@ -69,6 +70,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AsignarDatabaseDTOs\HybridBugDTO\" />
+    <Folder Include="AsignarDatabaseDTOs\HybridUserDTO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

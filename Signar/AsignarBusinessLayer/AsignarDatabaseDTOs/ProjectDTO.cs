@@ -30,13 +30,11 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public ICollection<BugDTO> Bugs { get; set; }
 
 
-        //public ICollection<UsersToProjectsDTO> UsersToProjects { get; set; }
 
 
         public ProjectDTO()
         {
             Bugs = new HashSet<BugDTO>();
-            //UsersToProjects = new HashSet<UsersToProjectsDTO>();
         }
     }
 }

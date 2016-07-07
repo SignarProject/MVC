@@ -15,12 +15,6 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int ProjectID { get; set; }
 
 
-        //public UserDTO User { get; set; }
-
-
-        //public ProjectDTO Project { get; set; }
-
-
         public UserToProjectDTO()
         {
 

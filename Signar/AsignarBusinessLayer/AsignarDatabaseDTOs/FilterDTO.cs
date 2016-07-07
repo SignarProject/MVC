@@ -11,9 +11,6 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int FilterID { get; set; }
 
 
-        //public UserDTO User { get; set; }
-
-
         public int UserID { get; set; }
 
 

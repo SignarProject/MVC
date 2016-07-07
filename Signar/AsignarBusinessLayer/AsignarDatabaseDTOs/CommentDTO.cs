@@ -26,11 +26,6 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public DateTime? ModificationDate { get; set; }
 
 
-        //public BugDTO Bug { get; set; }
-
-
-        //public UserDTO User { get; set; }
-
         public CommentDTO()
         {
 

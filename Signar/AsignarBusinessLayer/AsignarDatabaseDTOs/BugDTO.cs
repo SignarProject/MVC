@@ -10,6 +10,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
     {
         public int BugID { get; set; }
 
+
         public string BugName { get; set; }
 
 
@@ -25,16 +26,10 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int ProjectID { get; set; }
 
 
-        //public UserDTO Assignee { get; set; }
-
-
         public ICollection<AttachmentDTO> Attachments { get; set; }
 
 
         public ICollection<CommentDTO> Comments { get; set; }
-
-
-        //public ProjectDTO Project { get; set; }
 
 
         public DateTime CreationDate { get; set; }
