@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AsignarBusinessLayer.AsignarDatabaseDTOs;
+using AsignarBusinessLayer.Services;
+using AsignarBusinessLayer.Services.ServiceInterfaces;
 
 namespace Signar.Controllers
 {
@@ -33,7 +36,8 @@ namespace Signar.Controllers
 
         public ActionResult Projects()
         {
-            return View();
+            var projectService = new ProjectService();
+            return View(projectService.GetAllItems());
         }
 
         public ActionResult Project()

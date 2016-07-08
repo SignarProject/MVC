@@ -1,4 +1,7 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<AsignarBusinessLayer.AsignarDatabaseDTOs.ProjectDTO>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -51,17 +54,17 @@
         </div>
 
         <div class="row" style="margin: 15px">
-            @for (int i = 0; i < 9; ++i)
+            @foreach (var project in Model)
             {
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="table-elem shadow-div">
-                        <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                        <h4 class="h4-zero-topmargin"> The Financier</h4>
-                        <p class="prefix-style">TDF</p>
+                    <div class="table-elem shadow-div" id="close-icon-div">
+                        <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onClick="hideProject()"></i>
+                        <h4 class="h4-zero-topmargin"> @project.Name</h4>
+                        <p class="prefix-style">@project.Prefix</p>
                         <div class="row">
                             <p class="info-block pull-right label zero-merg p label">
-                                <i class="fa fa-edit info-icon"></i> <label>127</label>
-                                <i class="fa fa-users info-icon"></i> <label>6</label>
+                                <i class="fa fa-edit info-icon"></i> <label>@project.UsersAmount</label>
+                                <i class="fa fa-users info-icon"></i> <label>@project.BugsAmount</label>
                             </p>
                         </div>
                     </div>
@@ -104,4 +107,11 @@
                  });
                  
              }
+</script>
+
+<script>
+    function hideProject() {
+        var $parent = $(this).closest("#close-icon-div");
+        $parent.css('display', "none !important");
+    }
 </script>
