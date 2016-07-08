@@ -325,6 +325,8 @@
     <Content Include="Views\Popup\CreateNewTask.cshtml" />
     <Content Include="Views\Popup\EditProject.cshtml" />
     <Content Include="Views\Popup\AddUsersToProject.cshtml" />
+    <Content Include="Views\Popup\EditTask.cshtml" />
+    <Content Include="Views\Home\Task.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

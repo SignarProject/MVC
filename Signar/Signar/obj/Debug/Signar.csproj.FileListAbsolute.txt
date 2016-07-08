@@ -678,3 +678,5 @@ C:\TeamProject\Signar\Signar\bin\AsignarDataAccessLayer.pdb
 C:\TeamProject\Signar\Signar\obj\Debug\Signar.csprojResolveAssemblyReference.cache
 C:\TeamProject\Signar\Signar\obj\Debug\Signar.dll
 C:\TeamProject\Signar\Signar\obj\Debug\Signar.pdb
+E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDataAccessLayer.pdb

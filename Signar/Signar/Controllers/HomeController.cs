@@ -41,6 +41,11 @@ namespace Signar.Controllers
             return View();
         }
 
+        public ActionResult Task()
+        {
+            return View();
+        }
+
         public ActionResult DashBoard()
         {
             return View();

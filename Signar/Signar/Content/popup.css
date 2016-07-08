@@ -349,6 +349,18 @@ input[type="checkbox"]:focus{
     float: right;
 }
 
+.popup-av{
+    margin-top: -3px!important;
+}
+
+.ui.dropdown > .text{
+    margin-top: -5px;
+}
+
+.ui.selection.active.dropdown .menu{
+    border: none;
+}
+
 @media (max-width: 768px){
     .table-responsive {
         margin-bottom:0px;

@@ -10,6 +10,15 @@
             color: #bbbbbb;
                 }
 
+        .project-title-mini {
+            font-size: 12px;
+             text-decoration:underline;
+             color: #4D868D;
+        }
+        .project-title-mini:hover {
+            text-decoration:none;
+            cursor: pointer;
+        }
         
 
         .shadow-div {

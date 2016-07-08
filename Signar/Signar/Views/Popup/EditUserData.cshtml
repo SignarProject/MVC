@@ -13,11 +13,24 @@
 
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Role <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                @*<button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Role <span class="popup-arrow icon-arrow1 pull-right"></span></button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
                     <li><a href="#">Common user</a></li>
                     <li><a href="#">Administrator</a></li>
-                </ul>
+                </ul>*@
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                    <input type="hidden" name="role">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Role</div>
+                    <div class="menu" style="z-index: 10;">
+                        <div class="item" data-value="admin">
+                            Common user
+                        </div>
+                        <div class="item" data-value="user">
+                            Administrator
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

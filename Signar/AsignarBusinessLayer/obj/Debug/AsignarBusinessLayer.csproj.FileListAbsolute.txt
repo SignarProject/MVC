@@ -21,10 +21,8 @@ C:\git\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.pdb
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.dll
-E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDTOModels.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.pdb
-E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarDTOModels.pdb
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
@@ -44,3 +42,6 @@ C:\TeamProject\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.x
 C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll.config
 C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
 C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll.config
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
