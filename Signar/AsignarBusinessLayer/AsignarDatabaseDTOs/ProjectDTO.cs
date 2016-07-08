@@ -27,14 +27,17 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int UsersAmount { get; set; }
 
 
-        public ICollection<BugDTO> Bugs { get; set; }
+        public ICollection<UserDTO> Users { get; set; }
 
+
+        public ICollection<BugDTO> Bugs { get; set; }
 
 
 
         public ProjectDTO()
         {
-            Bugs = new HashSet<BugDTO>();
+            this.Users = new HashSet<UserDTO>();
+            this.Bugs = new HashSet<BugDTO>();
         }
     }
 }

@@ -56,10 +56,12 @@
     <Compile Include="AsignarDatabaseDTOs\ProjectDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserToProjectDTO.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Converters\DTOConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="Services\ServiceInterfaces\IPagingService.cs" />
+    <Compile Include="Services\ServiceInterfaces\IService.cs" />
+    <Compile Include="SortEnum\EnumFolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AsignarDataAccessLayer\AsignarDataAccessLayer.csproj">
@@ -71,10 +73,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AsignarDatabaseDTOs\HybridBugDTO\" />
-    <Folder Include="AsignarDatabaseDTOs\HybridUserDTO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
