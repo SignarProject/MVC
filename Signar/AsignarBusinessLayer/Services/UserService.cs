@@ -11,31 +11,46 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class UserService : IService<UserDTO>, IPagingService<UserDTO>, IDisposable
+    public class UserService : IExtendedService<UserDTO>, IAuthenticationService<UserDTO>, IDisposable
     {
         private DTOConverter _converter;
 
-
         private AsignarDBModel _dbContext;
 
+        private ConverterMDFive _hashConverter;
 
         public UserService()
         {
             _dbContext = new AsignarDBModel();
             _converter = new DTOConverter(_dbContext);
+            _hashConverter = new ConverterMDFive();
         }
 
+        public bool AuthenticateUser(UserDTO user)
+        {
+            User seekingUser = _dbContext.Users.Single(u => u.Login.Equals(user.Login) && u.Email.Equals(user.Email));
+
+            if (seekingUser.Password.Equals(_hashConverter.CalculateMD5Hash(user.Password)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public bool CreateItem(UserDTO newItem)
         {
             User newUser = _converter.UserFromDTO(newItem);
 
 
-            if (_dbContext.Users.Any(u => u.Email.Equals(newItem.Email)))
+            if (_dbContext.Users.Any(u => u.Email.Equals(newItem.Email) || u.Login.Equals(newItem.Login)))
             {
                 return false;
             }
 
+            newUser.Password = _hashConverter.CalculateMD5Hash(newUser.Password);
 
             _dbContext.Users.Add(newUser);
             _dbContext.SaveChanges();
@@ -50,7 +65,7 @@ namespace AsignarBusinessLayer.Services
             User user = _dbContext.Users.Find(id);
 
 
-            if(user.Bugs.Any())
+            if (user.Bugs.Any())
             {
                 return false;
             }
