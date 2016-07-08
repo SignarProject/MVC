@@ -260,6 +260,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\asignar-bts - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\AsignarBTS - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dropdown.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

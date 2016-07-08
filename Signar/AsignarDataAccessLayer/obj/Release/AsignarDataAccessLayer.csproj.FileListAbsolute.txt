@@ -1,0 +1,10 @@
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.dll.config
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.pdb
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.SqlServer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.xml
+C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.SqlServer.xml
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.pdb

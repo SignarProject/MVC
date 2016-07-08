@@ -1,0 +1,12 @@
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.dll.config
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarDataAccessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.SqlServer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarDataAccessLayer.pdb
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.xml
+C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.SqlServer.xml
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.dll
+C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.pdb

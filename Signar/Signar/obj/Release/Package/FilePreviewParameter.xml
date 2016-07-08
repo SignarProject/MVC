@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="AsignarBTS" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\git\\MVC\\Signar\\Signar\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\git\\MVC\\Signar\\Signar\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="AsignarDBConnection-Web.config Connection String" description="" value="data source=asignarsqlserver.database.windows.net;initial catalog=AsignarDB;persist security info=True;user id=AsignarServerAdmin;password=PassAsignar00659;multipleactiveresultsets=True;application name=EntityFramework;App=EntityFramework" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\git\\MVC\\Signar\\Signar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='AsignarDBConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=asignarsqlserver.database.windows.net;Initial Catalog=AsignarDB;Persist Security Info=True;User ID=AsignarServerAdmin;Password=PassAsignar00659;MultipleActiveResultSets=True;Application Name=EntityFramework" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\git\\MVC\\Signar\\Signar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

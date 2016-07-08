@@ -1,0 +1,195 @@
+﻿@{
+    ViewBag.Title = "Task";
+}
+
+<div style="height: 35px;"></div>
+
+<div class="container double-container" style="margin-left: 5px;">
+    <div class="row">
+            <span class="project-title-mini" style="font-size: 14px;">The Titan</span> / TDT-13
+    </div>
+    <p style="font-size: 20px; margin-bottom: 0px;">
+        <b>The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</b>
+    </p>
+    <div class="row">
+        <div class="edit-profile pull-right" style="margin-right: 3px;">
+            @Html.Partial("~/Views/Popup/EditTask.cshtml")
+            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;"></i> </a>
+            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"></i> </a>
+            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"></i> </a>
+        </div>
+    </div>
+    
+
+    <div class="col-md-8" style="margin-top: 10px; padding-left: 0px;">
+            <div class="shadow-div padding-left-div" style="position: relative;">
+                <div class ="task-info"style="display:inline-block; vertical-align: middle; width:100%;">
+                    <div class="bugs-descrip-block" style="position: relative;">
+                            <b>Priority: </b>
+                            <img src="~/Content/Priority_img/major_prior.png">
+                            <b style="color:#F69C00; background-color:transparent; margin-top: 2px;">Major</b>
+                    </div>
+
+                    <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;">
+                        <input type="hidden" name="user">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Status</div>
+                        <div class="menu" style="z-index: 10;">
+                            @for (int i = 0; i < 5; ++i)
+                            {
+                                <div class="item" data-value="status@i">
+                                    In progress @i
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="pull-right" style="display:inline-block; position:relative;">
+                        <b style="position: relative; top: 10px; margin-right: 10px;">Status: </b>
+                    </div>
+                        @*@for (int i = 0; i < 8; ++i)
+            {
+                <div class="bugs-div">
+                    <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                    <div class="bugs-descrip-block" style="width: 90%;">
+                        <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                        <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                    </div>
+
+                </div>
+            }*@
+                    </div>
+
+                <div class="task-description">
+                    <p style="overflow-x: scroll;padding-bottom: 10px;">asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
+
+                    </p>
+                </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-4 double-container-mini" style="margin-top: 0px;">
+        <div class="col-md-12 col-sm-12 col-xs-12 zero-pad-left" style="padding-right: 0px;">
+            <div class="table-elem-static shadow-div project-div-static padding-left-div" style="margin-right: 8px;">
+                <div style="height: 25px;"></div>
+
+                <div class="pull-left" style="display: inline-block; margin-top: -13px; z-index: 10;font-weight: bolder;">
+                    Assignee: 
+                </div>
+                <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
+                    Assign to me
+                </div>
+                
+
+                <div style="height: 15px;"></div>
+
+                <img src="~/Content/img/ava1.jpg" class="profile-av" style="width: 40px; height: 40px;"/>
+                <div class="user-name">
+                    <p class="zero-merg">George Orwell</p>
+                    <p class="zero-merg" style="font-size: 12px;">george-orewell@@email.com</p>
+                </div>
+
+                <div style="height: 15px;"></div>
+
+                <div class="profile-desc" style="margin-bottom: 3px;">
+                    <p>
+                        <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
+                        <b>Created: &nbsp;&nbsp;</b>03/Dec/15 2:34
+                    </p>
+                </div>
+
+                <div class="profile-desc">
+                    <p>
+                        <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
+                        <b>Updated: &nbsp;</b>03/Dec/15 2:34
+                    </p>
+                </div>
+
+                <div style="height: 15px;"></div>
+                <p style="font-weight:bold; font-size:13px; margin-bottom: 0px;">
+                    Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+                </p>
+
+                <ul class="a-links" style="padding: 5px 0px 0px 5px">
+                    <li><a href="url">screen1.jpg</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                    <li><a href="url">screen1.jpg</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                </ul>
+            </div>
+
+            
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function EditTaskPopup() {
+        $("#editTaskPopup").css({ 'display': "visible" });
+        $("#editTaskPopup").dialog({
+            width: 600,
+            fluid: true,
+            modal: true,
+            resizable: false,
+            title: "Edit task",
+            dialogClass: "edit-task-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        {
+            text: "Change",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>

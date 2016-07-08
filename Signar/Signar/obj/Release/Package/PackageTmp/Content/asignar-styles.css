@@ -1,0 +1,619 @@
+﻿        
+
+        input::-webkit-input-placeholder {
+            color: #bbbbbb;
+                }
+        input::-moz-placeholder {
+            color: #bbbbbb;
+                }
+        input:-ms-input-placeholder {
+            color: #bbbbbb;
+                }
+
+        .project-title-mini {
+            font-size: 12px;
+             text-decoration:underline;
+             color: #4D868D;
+        }
+        .project-title-mini:hover {
+            text-decoration:none;
+            cursor: pointer;
+        }
+        
+        .padding-left-div {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+
+        .ui.selection.dropdown .menu > .item {
+            background-color: white;
+            font-size: 16px;
+        }
+
+        .ui.selection.dropdown > .text{
+            font-size: 14px;
+            vertical-align:initial;
+        }
+
+        .task-info {
+            border-bottom-style: ridge;
+            border-bottom-width: 2px;
+            border-bottom-color: rgba(0, 0, 0, 0.05);
+            padding-bottom: 5px;
+        }
+
+        .task-description{
+            padding-bottom: 10px;
+            padding-top: 20px;
+        }
+
+        .ui.dropdown:not(.button) > .default.text, .ui.default.dropdown:not(.button) > .text{
+            vertical-align: initial;
+        }
+
+        .shadow-div {
+            background: white;
+            -moz-box-shadow: -5px -5px 5px #888;
+            -webkit-box-shadow: -5px -5px 5px #888;
+            box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
+            padding: 5px 10px;
+            /*margin: 20px 20px 20px 20px;*/
+            /*max-width: none !important;*/
+        }
+
+        .table-elem {
+            margin: 10px 20px 10px 0px;
+            padding: 11px;
+            height: 100px;
+            min-width: 100px;
+        }
+        .table-elem-static {
+            margin: 10px 20px 0px 0px;
+            padding: 11px;
+            min-width: 100px;
+        }
+
+        .table-elem:hover {
+            cursor: pointer;
+            border: 1px solid blue;
+            padding: 10px;
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 4px #4D868D;
+        }
+
+        .prefix-style {
+            margin-bottom: 5px;
+            font-size: 65%;
+        }
+
+        .h4-zero-topmargin {
+            margin: 2px 0px 0px 0px;
+        }
+
+        p i, label {
+            color: #bbbbbb;
+            font-size: 100%;
+            margin: 3px 0px 5px 0px;
+        }
+
+        .short-info {
+            color: #bbbbbb;
+            font-size: 80%;
+            margin-left: 15px;
+        }
+
+        p label {
+            margin-right: 10px;
+        }
+
+        .zero-merg {
+            margin: 0px;
+        }
+
+
+        .a-links {
+            text-decoration: underline;
+            font-size: 75%;
+            margin-left: 10px;
+        }
+
+        .bugs-div {
+            margin: 5px;
+            margin-top: 0px;
+            margin-bottom: 2px;
+            padding-top: 5px;
+            border-bottom-style: ridge;
+            border-bottom-width: 3px;
+            border-bottom-color: white;
+        }
+
+        .inner-bugs-label {
+            font-size: 80%;
+            color: black;
+            font-weight: initial;
+        }
+
+        .inner-bugs-div {
+            display:inline;
+            vertical-align: middle;
+        }
+
+
+        .bugs-descrip {
+            font-size: 75%;
+            margin-right: 0;
+        }
+
+        .bug-status-todo {
+            font-size: 60%;
+            border: solid 1px #4D868D;
+            color: #4D868D;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .bug-status-in {
+            font-size: 60%;
+            border: solid 1px #F69C00;
+            color: #F69C00;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .bug-status-done_close {
+            font-size: 60%;
+            border: solid 1px #55B924;
+            color: #55B924;
+            vertical-align: middle;
+            padding: 1px;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+
+        .profile-desc {
+            font-size: 80%;
+            font-weight: initial;
+            margin-bottom: 9.5px;
+        }
+
+        .profile-av {
+            margin: 0px 5px 20px 0px !important;
+            padding: 0px !important;
+            width: 50px;
+            height: 50px;
+            -webkit-border-radius: 60px;
+            -webkit-box-shadow: 0 0 5px #92C1BA;
+        }
+
+        .users-av {
+            margin: 5px 5px 0px 5px !important;
+            padding: 0px !important;
+            width: 35px;
+            height: 35px;
+            -webkit-border-radius: 60px;
+            -webkit-box-shadow: 0 0 5px #92C1BA;
+        }
+
+        .users-av-smaller {
+            margin: 0px 10px 0px 10px !important;
+            padding: 0px !important;
+            width: 30px;
+            height: 30px;
+            -webkit-border-radius: 60px;
+            -webkit-box-shadow: 0 0 5px #92C1BA;
+
+        }
+
+        .fontbutton-style {
+            border: solid 1px;
+            padding: 5px;
+            border-radius: 30px;
+            margin: 5px;
+            color: #4D868D;
+            font-size: 120%;
+        }
+
+        .search-bar {
+            border: solid 1px;
+            color: #dbdbdb;
+            border-radius: 0;
+            max-width: 200px;
+            max-height: 30px;
+            background: transparent;
+            margin-top: -3px;
+        }
+
+        .search-page-btn {
+            background: transparent;
+            border: 0px;
+            padding: 0px;
+            margin-top: 7px;
+            margin-right: 7px;
+        }
+
+        .search-span-icon{
+            color: #bbbbbb;
+            padding: 0px;
+            margin: 0px;
+            font-size: 120%;
+        }
+
+        .sort-sel-set{
+            background: transparent;
+            font-size: 80%;
+            border: 0px;
+            color: #4d868d;
+            }
+
+        select option{
+            color: #e3f0f2;
+            background: #92c1ba;
+            border: 0px;
+            box-shadow: 0 0 0;
+            }
+
+        .bootrap-dropdown-ul-modif {
+                background-color: #92c1ba;
+                min-width: 100px;
+                border: 0px;
+                border-radius: 0px;
+                -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+                box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+        }
+
+        .bootrap-btndrop-modif {
+            background-color: rgb(248, 254, 254) !important;
+            color: #4d868d;
+            font-size: 85%;
+        }
+        .fa {
+            vertical-align: middle;
+        }
+
+        .info-icon{
+            /*cursor: pointer;*/
+            font-size: 15px !important;
+            
+            display: inline-block;
+            width: 20px;
+        }
+
+        .filters-inr-divblc{
+            font-size: 70%;
+            line-height: 30%;
+            width: 245px;
+            margin-top: 15px;
+        }
+
+        .a-links > li:hover {
+            cursor: pointer;
+        }
+
+        .bootrap-dropdown-ul-modif > li > a {
+            color: white;
+        }
+
+        .bugs-div:hover {
+            cursor: pointer;
+            background-color: aliceblue;
+        }
+
+        .col-helper{
+            padding-left: 1px;
+            margin-left: -25px;
+            margin-right: 25px;
+        }
+
+        .col-helper > span > label {
+            color: black;
+        }
+
+        .users-info-helper{
+            display: inline-block;
+            margin-top: 5px;
+            vertical-align: middle;
+        }
+
+        .bug-status-display{
+            line-height: 12px;
+            font-size: 70% !important;
+            margin-left: 6px;
+        }
+
+        .bugs-div{
+            padding-bottom: 6px;
+            
+        }
+
+        #shadow-div-no-border:hover{
+            
+        }
+
+        .container-form {
+            max-width: 100000px;
+            padding-left: 30px;
+            padding-right: 10px;
+        }
+
+
+        .col-md-4 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+        }
+
+        .fa-plus:hover{
+            cursor: pointer;
+        }
+
+        .info-block{
+            margin-top: 19px !important;
+            margin-right: -8px !important;
+        }
+
+        .filter-info-col {
+            display:inline-block;
+            margin-right: 7px;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            width: 60px;
+        }
+
+        .user-name{
+            display:inline-block; 
+            vertical-align: middle; 
+            margin-top: -22px; 
+            font-size: 18px; 
+            
+        }
+
+        .user-name > p {
+            line-height: 20px;
+        }
+
+        .profile-desc > label {
+            margin-bottom: 0px;
+        }
+
+        .double-container {
+            padding-right: 30px;
+            padding-left: 30px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .edit-profile > a:hover {
+            cursor: pointer;
+        }
+
+        .a-links > li:hover .project-delete-icon {
+            display: inline-block !important;
+        }
+
+        .project-delete-icon {
+            content: "\f00d";
+            font-family: FontAwesome;
+            margin-left: 30px;
+            color: #A3C2C6;
+            font-size: 18px !important;
+            font-weight: 100 !important;
+            display: none !important;
+            vertical-align: middle !important;
+        }
+
+        .project-delete-icon:hover {
+            color:#4D868D;
+        }
+
+        .project-div {
+            margin-bottom: 20px !important;
+            margin-right: 9px;
+            padding-right: 11px;
+        }
+
+        .project-div-static {
+            margin-bottom: 0;
+            margin-right: 9px;
+            padding-right: 11px;
+        }
+
+        .delete-form-icon {
+            margin-right: -18.7px !important;
+            margin-top: -20.5px !important;
+            z-index: 101;
+            color: #92C1BA;
+            font-size: 18px !important;
+            padding:0;
+            margin:0;
+            height: 16.5px;
+            background-color: rgb(248, 254, 254);
+            
+        }
+
+        .table-elem  .delete-form-icon{
+            display: none !important;
+        }
+
+        .table-elem:hover  .delete-form-icon{
+            display: inline-block !important;
+        }
+
+        .delete-form-icon:hover {
+            color: #4D868D;
+            cursor: pointer;
+        }
+
+        .short-info > label {
+            margin-top: 15px;
+        }
+
+        .bugs-descrip-block{
+            display:inline-block; 
+            vertical-align: top;  
+            width: 55%; 
+            max-height: 280px;
+        }
+
+        .zero-pad-left {
+            padding-left:0 !important;
+        }
+
+        .advanced-search-link{
+            font-size:11px;
+            color:#92C1BA;
+            text-decoration: underline;
+        }
+
+        .advanced-search-link:hover{
+            cursor: pointer;
+            color:#4D868D;
+            text-decoration: none;
+        }
+
+        .bugs-div:last-child {
+            border-bottom-width: 0px;
+        }
+
+        .fa-custom-button:hover{
+            color:black;
+            cursor: pointer;
+        }
+
+        .text-small {
+            margin: 0px;
+            padding: 0px;
+            font-size: 11px;
+            color: black;
+            font-weight: normal;
+         }
+
+         .text-medium {
+             margin: 0px;
+             padding: 0px;
+             font-size: 14px;
+             color: black;
+             font-weight: normal;
+         }
+
+         #user-group:hover{
+             cursor:pointer;
+         }
+
+         .dropdown-user-group{
+             position:relative;
+             z-index: 10;
+             color: white;
+             left: -8px;
+            margin: 0px;
+            /*margin-right: 35px;*/
+            min-height:0px;
+            height: 0px;
+    
+            background-color: #92C1BA;
+            /*padding-right: 15px;*/
+            display:none;
+            height: 300px;
+            width: 275px;
+            overflow-y:scroll;
+         }
+
+         .dropdown-user-group ul {
+            position: relative;
+            width:100%;
+            margin-left: 0px;
+            list-style: none;
+            cursor: pointer;
+            padding-left: 0px;
+            background-color: #92C1BA;
+            height: 40px;
+        }
+
+         .dropdown-user-group ul li{
+            margin-left: 0px;
+            width:100%;
+            display:block;
+            background: #92C1BA;
+            padding: 12px 14px;
+            color:rgb(248, 254, 254);
+            /*height:100px;*/
+            overflow: auto;
+        }
+
+         .dropdown-user-group ul li:hover{
+            background-color: #87B8B1;
+        }
+
+         .icon-arrow-users{
+            z-index: 1100 !important;
+            position: absolute !important;
+            left:3px !important;
+            top:37px;
+            color: #92C1BA;
+            display:none;
+        }
+
+         .user-delete-from-project-icon{
+
+         }
+
+         .delete-users-from-project-ul > li:hover .user-delete-from-project-icon {
+            display: inline-block !important;
+        }
+
+         .user-delete-from-project-icon {
+            content: "\f00d";
+            font-family: FontAwesome;
+            margin-left: 30px;
+            color: rgb(248,252,252) !important;
+            font-size: 18px !important;
+            font-weight: 100 !important;
+            display: none !important;
+            vertical-align: middle !important;
+                margin-top: 10px;
+        }
+
+        .user-delete-from-project-icon:hover {
+            color:#4D868D !important;
+        }
+
+        @media (max-width: 412px) {
+            #searchTextOnPage {
+                /*display: none;*/
+                width: 120px;
+            }
+        }
+
+
+        @media (max-width: 524px) {
+            .bugs-descrip-block {
+                /*display: none;*/
+                width: 100%;
+            }
+        }
+
+
+
+
+
+        @media (min-width: 768px) {
+            .double-container {
+                max-width: none !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 992px){
+            .double-container-mini {
+                height: 300px;
+            }
+        }
