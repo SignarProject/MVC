@@ -54,16 +54,24 @@
         </div>
 
         <div class="row" style="margin: 15px">
+            @{
+                int HiddenProjectCount = 0;
+            }
             @foreach (var project in Model)
             {
+                if (project.IsDeleted)
+                {
+                    HiddenProjectCount++;
+                    continue;
+                }
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="table-elem shadow-div" id="close-icon-div">
-                        <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onClick="hideProject()"></i>
+                        <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="hideProject(this, @project.ProjectID)"></i>
                         <h4 class="h4-zero-topmargin"> @project.Name</h4>
-                        <p class="prefix-style">@project.Prefix</p>
+                        <p class="prefix-style" style="font-size: 13px;">@project.Prefix</p>
                         <div class="row">
-                            <p class="info-block pull-right label zero-merg p label">
-                                <i class="fa fa-edit info-icon"></i> <label>@project.UsersAmount</label>
+                            <p class="info-block pull-right label zero-merg p label" style="margin-top: 12px !important;">
+                                <i class="fa fa-edit info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@project.UsersAmount</label>
                                 <i class="fa fa-users info-icon"></i> <label>@project.BugsAmount</label>
                             </p>
                         </div>
@@ -73,10 +81,12 @@
             
             
         </div>
-
+        @{
+            int VisibleProjectsCount = Model.Count - HiddenProjectCount;
+        }
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
-                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label>35</label>
+                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label id="#projects-count" >@VisibleProjectsCount</label>
             </p>
         </div>
 
@@ -110,8 +120,37 @@
 </script>
 
 <script>
-    function hideProject() {
-        var $parent = $(this).closest("#close-icon-div");
-        $parent.css('display', "none !important");
+    function hideProject(el, ProjectID) {
+        @{
+            HiddenProjectCount++;
+            VisibleProjectsCount--;
+        }
+        $('#projects-count').text("2222222222222222222222");
+        alert($('#projects-count').text);
+        @*$(el).parent().parent().hide();
+        $.ajax({
+            url: '/Home/DeleteProject',
+            data: { ProjectID: ProjectID },
+            method: 'POST'
+        })
+        .success(function () {
+            @{
+                HiddenProjectCount++;
+                VisibleProjectsCount--;
+            }
+            $('#projects-count').text = @VisibleProjectsCount;
+        })
+        .error(function (mess) {
+            $(el).parent().parent().show();
+            alert(mess);
+        })*@
     }
+
+
+    //$(".delete-form-icon").click(
+    //function hideProject() {
+    //    var $parent = $(this).closest("#close-icon-div");
+    //    var $parent2 = $($parent).closest(".col-md-4");
+    //    $parent2.hide();
+    //});
 </script>

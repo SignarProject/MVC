@@ -33,11 +33,22 @@ namespace Signar.Controllers
             return View();
         }
 
+        public bool DeleteProject(int ProjectID)
+        {
+            using (var projectService = new ProjectService())
+            {
+                var res = projectService.DeleteItem(ProjectID);
+                return res;
+            }
+        }
+
 
         public ActionResult Projects()
         {
-            var projectService = new ProjectService();
-            return View(projectService.GetAllItems());
+            using (var projectService = new ProjectService())
+            {
+                return View(projectService.GetAllItems());
+            }
         }
 
         public ActionResult Project()

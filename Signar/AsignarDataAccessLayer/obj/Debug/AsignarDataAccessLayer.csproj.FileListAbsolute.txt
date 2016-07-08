@@ -15,7 +15,6 @@ C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.xml
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
-C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLayer.pdb
 E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Debug\AsignarDataAccessLayer.dll.config
