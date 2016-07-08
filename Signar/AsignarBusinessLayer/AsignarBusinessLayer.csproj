@@ -58,9 +58,11 @@
     <Compile Include="AsignarDatabaseDTOs\UserToProjectDTO.cs" />
     <Compile Include="Converters\DTOConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BugService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ServiceInterfaces\IPagingService.cs" />
     <Compile Include="Services\ServiceInterfaces\IService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="SortEnum\EnumFolder.cs" />
   </ItemGroup>
   <ItemGroup>

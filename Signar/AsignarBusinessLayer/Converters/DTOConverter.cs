@@ -55,12 +55,12 @@ namespace AsignarBusinessLayer.Converters
             bugDTO.ProjectID = bug.ProjectID;
             bugDTO.AssigneeID = bug.AssigneeID;
             bugDTO.Subject = bug.Subject;
-            bugDTO.BugName = string.Concat(bug.Project.Prefix, "-", bug.BugID);
+            bugDTO.Prefix = string.Concat(bug.Project.Prefix, "-", bug.BugID);
             bugDTO.Description = bug.Description;
             bugDTO.CreationDate = bug.CreationDate;
             bugDTO.ModificationDate = bug.ModificationDate;
-            bugDTO.Priority = bug.Priority;
-            bugDTO.BugStatus = bug.BugStatus;
+            bugDTO.Priority = (Priority) bug.Priority;
+            bugDTO.Status = (Status) bug.BugStatus;
 
             foreach (var comment in bug.Comments)
             {
@@ -92,8 +92,8 @@ namespace AsignarBusinessLayer.Converters
             newBug.Subject = bugDTO.Subject;
             newBug.Description = bugDTO.Description;
             newBug.CreationDate = bugDTO.CreationDate;
-            newBug.BugStatus = bugDTO.BugStatus;
-            newBug.Priority = bugDTO.Priority;
+            newBug.BugStatus = (byte) bugDTO.Status;
+            newBug.Priority = (byte) bugDTO.Priority;
 
             foreach (var attachment in bugDTO.Attachments)
             {
@@ -254,8 +254,10 @@ namespace AsignarBusinessLayer.Converters
         {
             var userToProjectDTO = new UserToProjectDTO();
 
+
             userToProjectDTO.ProjectID = userToProject.ProjectID;
             userToProjectDTO.UserID = userToProject.UserID;
+
 
             return userToProjectDTO;
         }
