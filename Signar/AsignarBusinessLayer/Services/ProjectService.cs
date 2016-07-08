@@ -6,40 +6,121 @@ using System.Threading.Tasks;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarBusinessLayer.Converters;
 using AsignarDataAccessLayer.AzureADBModel;
+using AsignarBusinessLayer.Services.ServiceInterfaces;
+using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class ProjectService
+    public class ProjectService : IService<ProjectDTO>, IPagingService<ProjectDTO>, IDisposable
     {
 
         private DTOConverter _converter;
 
 
+        private AsignarDBModel _dbContext;
+
+
         public ProjectService()
         {
-            _converter = new DTOConverter();
+            _dbContext = new AsignarDBModel();
+            _converter = new DTOConverter(_dbContext);
         }
 
-        public bool CreateNewProject(ProjectDTO newProjectDTO)
-        {
-            Project newProject = _converter.ProjectFromDTO(newProjectDTO, true);
 
-            using (var dbContext = new AsignarDBModel())
-            {
-                dbContext.Projects.Add(newProject);
-                dbContext.SaveChanges();
-            }
+        public bool CreateItem(ProjectDTO newItem)
+        {
+            Project newProject = _converter.ProjectFromDTO(newItem);
+
+
+            _dbContext.Projects.Add(newProject);
+            _dbContext.SaveChanges();
+
 
             return true;
         }
 
 
-        public bool EditProject(ProjectDTO editedProjectDTO)
+        public bool DeleteItem(int id)
         {
-            Project project = _converter.ProjectFromDTO(editedProjectDTO, false);
+            Project project = _dbContext.Projects.Find(id);
 
-            project.Prefix = editedProjectDTO.Prefix;
-            
+
+            project.IsDeleted = true;
+
+
+            _dbContext.SaveChanges();
+
+
+            return true;
+        }
+
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
+        }
+
+
+        public ICollection<ProjectDTO> GetAllItems()
+        {
+            ICollection<ProjectDTO> allProjectDTOs = new HashSet<ProjectDTO>();
+
+
+            ICollection<Project> allProjects = _dbContext.Projects.ToList();
+
+
+            foreach (var project in allProjects)
+            {
+                allProjectDTOs.Add(_converter.ProjectToDTO(project));
+            }
+
+            return allProjectDTOs;
+        }
+
+
+        public ProjectDTO GetItem(int id)
+        {
+            Project project = _dbContext.Projects.Find(id);
+
+
+            ProjectDTO projectDTO = _converter.ProjectToDTO(project);
+
+
+            return projectDTO;
+        }
+
+
+        public ICollection<ProjectDTO> GetPage(int pageNumber, SortBy sortValue)
+        {
+
+            switch (sortValue)
+            {
+                case SortBy.Title:
+                    {
+                        ICollection<Project> searchResult = _dbContext.Projects.AsNoTracking().OrderBy(x => x.Name).Skip(9 * pageNumber - 1).Take(9).ToList();
+                        ICollection<ProjectDTO> dtoResult = new HashSet<ProjectDTO>();
+
+                        foreach (var project in searchResult)
+                        {
+                            dtoResult.Add(_converter.ProjectToDTO(project));
+                        }
+
+                        return dtoResult;
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+
+
+        public bool UpdateItem(ProjectDTO updatedItem)
+        {
+            Project projectToUpdate = _dbContext.Projects.Find(updatedItem.ProjectID);
+
+
+            projectToUpdate.Name = updatedItem.Name;
 
 
             return true;

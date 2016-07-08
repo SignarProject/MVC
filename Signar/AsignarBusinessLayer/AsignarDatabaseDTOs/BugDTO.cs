@@ -38,10 +38,10 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public DateTime ModificationDate { get; set; }
 
 
-        public sbyte BugStatus { get; set; }
+        public byte BugStatus { get; set; }
 
 
-        public sbyte Priority { get; set; }
+        public byte Priority { get; set; }
 
 
         public BugDTO()

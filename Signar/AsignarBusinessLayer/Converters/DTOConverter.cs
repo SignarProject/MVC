@@ -12,6 +12,15 @@ namespace AsignarBusinessLayer.Converters
     public class DTOConverter
     {
 
+        private AsignarDBModel _dbContext;
+
+
+        public DTOConverter(AsignarDBModel dbContext)
+        {
+            this._dbContext = dbContext;
+        }
+
+
         public AttachmentDTO AttachmentToDTO(Attachment attachment)
         {
             var attachmentDTO = new AttachmentDTO();
@@ -25,30 +34,16 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public Attachment AttachmentFromDTO(AttachmentDTO attachmentDTO, bool isNewEntity)
+        public Attachment AttachmentFromDTO(AttachmentDTO attachmentDTO)
         {
+            var newAttachment = new Attachment();
 
-            using (var dbContext = new AsignarDBModel())
-            {
+            newAttachment.Bug = _dbContext.Bugs.Find(attachmentDTO.BugID);
+            newAttachment.BugID = attachmentDTO.BugID;
+            newAttachment.Name = attachmentDTO.Name;
+            newAttachment.ContentPath = attachmentDTO.ContentPath;
 
-                if (isNewEntity)
-                {
-                    var newAttachment = new Attachment();
-
-                    newAttachment.Bug = dbContext.Bugs.Single(b => b.BugID.Equals(attachmentDTO.BugID));
-                    newAttachment.BugID = attachmentDTO.BugID;
-                    newAttachment.Name = attachmentDTO.Name;
-                    newAttachment.ContentPath = attachmentDTO.ContentPath;
-
-                    return newAttachment;
-                }
-                else
-                {
-                    Attachment attachment = dbContext.Attachments.Single(a => a.AttachmentID.Equals(attachmentDTO.AttachmentID));
-
-                    return attachment;
-                }
-            }
+            return newAttachment;
         }
 
 
@@ -64,15 +59,15 @@ namespace AsignarBusinessLayer.Converters
             bugDTO.Description = bug.Description;
             bugDTO.CreationDate = bug.CreationDate;
             bugDTO.ModificationDate = bug.ModificationDate;
-            bugDTO.Priority = (sbyte) bug.Priority;
-            bugDTO.BugStatus = (sbyte) bug.BugStatus;
-            
-            foreach(var comment in bug.Comments)
+            bugDTO.Priority = bug.Priority;
+            bugDTO.BugStatus = bug.BugStatus;
+
+            foreach (var comment in bug.Comments)
             {
                 bugDTO.Comments.Add(CommentToDTO(comment));
             }
 
-            foreach(var attachment in bug.Attachments)
+            foreach (var attachment in bug.Attachments)
             {
                 bugDTO.Attachments.Add(AttachmentToDTO(attachment));
             }
@@ -81,45 +76,31 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public Bug BugFromDTO(BugDTO bugDTO, bool isNewEntity)
+        public Bug BugFromDTO(BugDTO bugDTO)
         {
-            using (var dbContext = new AsignarDBModel())
+            var newBug = new Bug();
+
+            newBug.ProjectID = bugDTO.ProjectID;
+            newBug.Project = _dbContext.Projects.Find(bugDTO.ProjectID);
+
+            if (bugDTO.AssigneeID.HasValue)
             {
-
-                if(isNewEntity)
-                {
-                    var newBug = new Bug();
-
-                    newBug.ProjectID = bugDTO.ProjectID;
-                    newBug.Project = dbContext.Projects.Single(p => p.ProjectID.Equals(bugDTO.ProjectID));
-
-                    if(bugDTO.AssigneeID.HasValue)
-                    {
-                        newBug.AssigneeID = bugDTO.AssigneeID;
-                        newBug.User = dbContext.Users.Single(u => u.UserID.Equals(bugDTO.AssigneeID));
-                    }
-
-                    newBug.Subject = bugDTO.Subject;
-                    newBug.Description = bugDTO.Description;
-                    newBug.CreationDate = bugDTO.CreationDate;
-                    newBug.BugStatus = (byte) bugDTO.BugStatus;
-                    newBug.Priority = (byte) bugDTO.Priority;
-
-                    foreach(var attachment in bugDTO.Attachments)
-                    {
-                        newBug.Attachments.Add(AttachmentFromDTO(attachment, true));
-                    }
-
-                    return newBug;
-                }
-                else
-                {
-                    Bug bug = dbContext.Bugs.Single(b => b.BugID.Equals(bugDTO.BugID));
-
-                    return bug;
-                }
-
+                newBug.AssigneeID = bugDTO.AssigneeID;
+                newBug.User = _dbContext.Users.Find(bugDTO.AssigneeID);
             }
+
+            newBug.Subject = bugDTO.Subject;
+            newBug.Description = bugDTO.Description;
+            newBug.CreationDate = bugDTO.CreationDate;
+            newBug.BugStatus = bugDTO.BugStatus;
+            newBug.Priority = bugDTO.Priority;
+
+            foreach (var attachment in bugDTO.Attachments)
+            {
+                newBug.Attachments.Add(AttachmentFromDTO(attachment));
+            }
+
+            return newBug;
         }
 
 
@@ -138,33 +119,19 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public Comment CommentFromDTO(CommentDTO commentDTO, bool isNewEntity)
+        public Comment CommentFromDTO(CommentDTO commentDTO)
         {
-            using (var dbContext = new AsignarDBModel())
-            {
+            var newComment = new Comment();
 
-                if (isNewEntity)
-                {
-                    var newComment = new Comment();
+            newComment.BugID = commentDTO.BugID;
+            newComment.Bug = _dbContext.Bugs.Find(commentDTO.BugID);
+            newComment.UserID = commentDTO.UserID;
+            newComment.User = _dbContext.Users.Find(commentDTO.UserID);
+            newComment.Text = commentDTO.Text;
+            newComment.CreationDate = commentDTO.CreationDate;
+            newComment.ModificationDate = null;
 
-                    newComment.BugID = commentDTO.BugID;
-                    newComment.Bug = dbContext.Bugs.Single(b => b.BugID.Equals(commentDTO.BugID));
-                    newComment.UserID = commentDTO.UserID;
-                    newComment.User = dbContext.Users.Single(u => u.UserID.Equals(commentDTO.UserID));
-                    newComment.Text = commentDTO.Text;
-                    newComment.CreationDate = commentDTO.CreationDate;
-                    newComment.ModificationDate = null;
-
-                    return newComment;
-                }
-                else
-                {
-                    Comment comment = dbContext.Comments.Single(c => c.CommentID.Equals(commentDTO.CommentID));
-
-                    return comment;
-                }
-
-            }
+            return newComment;
         }
 
 
@@ -181,30 +148,16 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public Filter FilterFromDTO(FilterDTO filterDTO, bool isNewEntity)
+        public Filter FilterFromDTO(FilterDTO filterDTO)
         {
-            using (var dbContext = new AsignarDBModel())
-            {
+            var newFilter = new Filter();
 
-                if (isNewEntity)
-                {
-                    var newFilter = new Filter();
+            newFilter.UserID = filterDTO.UserID;
+            newFilter.User = _dbContext.Users.Find(filterDTO.UserID);
+            newFilter.Title = filterDTO.Title;
+            newFilter.FilterContent = filterDTO.FilterContent;
 
-                    newFilter.UserID = filterDTO.UserID;
-                    newFilter.User = dbContext.Users.Single(u => u.UserID.Equals(filterDTO.UserID));
-                    newFilter.Title = filterDTO.Title;
-                    newFilter.FilterContent = filterDTO.FilterContent;
-
-                    return newFilter;
-                }
-                else
-                {
-                    Filter filter = dbContext.Filters.Single(f => f.FilterID.Equals(filterDTO.FilterID));
-
-                    return filter;
-                }
-
-            }
+            return newFilter;
         }
 
 
@@ -216,36 +169,36 @@ namespace AsignarBusinessLayer.Converters
             projectDTO.Name = project.Name;
             projectDTO.Prefix = project.Prefix;
             projectDTO.IsDeleted = project.IsDeleted;
-            projectDTO.BugsAmount = project.Bugs.Count;
-            projectDTO.UsersAmount = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Count();
+
+            var usersOfProject = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Select(r => r).ToList();
+
+            foreach (var record in usersOfProject)
+            {
+                projectDTO.Users.Add(UserToDTO(record.User));
+            }
+
+            projectDTO.UsersAmount = projectDTO.Users.Count;
+
+            foreach (var bug in project.Bugs)
+            {
+                projectDTO.Bugs.Add(BugToDTO(bug));
+            }
+
+            projectDTO.BugsAmount = projectDTO.Bugs.Count;
 
             return projectDTO;
         }
 
 
-        public Project ProjectFromDTO(ProjectDTO projectDTO, bool isNewEntity)
+        public Project ProjectFromDTO(ProjectDTO projectDTO)
         {
+            var newProject = new Project();
 
-            if (isNewEntity)
-            {
-                var newProject = new Project();
+            newProject.Name = projectDTO.Name;
+            newProject.Prefix = projectDTO.Prefix;
+            newProject.IsDeleted = false;
 
-                newProject.Name = projectDTO.Name;
-                newProject.Prefix = projectDTO.Prefix;
-                newProject.IsDeleted = projectDTO.IsDeleted;
-
-                return newProject;
-            }
-            else
-            {
-                using (var dbContext = new AsignarDBModel())
-                {
-                    Project project = dbContext.Projects.Single(p => p.ProjectID.Equals(projectDTO.ProjectID));
-
-                    return project;
-                }
-            }
-
+            return newProject;
         }
 
 
@@ -261,18 +214,18 @@ namespace AsignarBusinessLayer.Converters
             userDTO.Login = user.Login;
             userDTO.Password = user.Password;
             userDTO.IsAdmin = user.IsAdmin;
-            
-            foreach(var bug in user.Bugs)
+
+            foreach (var bug in user.Bugs)
             {
                 userDTO.Bugs.Add(BugToDTO(bug));
             }
 
-            foreach(var comment in user.Comments)
+            foreach (var comment in user.Comments)
             {
                 userDTO.Comments.Add(CommentToDTO(comment));
             }
 
-            foreach(var filter in user.Filters)
+            foreach (var filter in user.Filters)
             {
                 userDTO.Filters.Add(FilterToDTO(filter));
             }
@@ -281,33 +234,19 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public User UserFromDTO(UserDTO userDTO, bool isNewEntity)
+        public User UserFromDTO(UserDTO userDTO)
         {
-            using (var dbContext = new AsignarDBModel())
-            {
+            var newUser = new User();
 
-                if(isNewEntity)
-                {
-                    var newUser = new User();
+            newUser.Name = userDTO.Name;
+            newUser.Surname = userDTO.Surname;
+            newUser.Email = userDTO.Email;
+            newUser.AvatarImagePath = userDTO.AvatarPath;
+            newUser.Login = userDTO.Login;
+            newUser.Password = userDTO.Password;
+            newUser.IsAdmin = userDTO.IsAdmin;
 
-                    newUser.Name = userDTO.Name;
-                    newUser.Surname = userDTO.Surname;
-                    newUser.Email = userDTO.Email;
-                    newUser.AvatarImagePath = userDTO.AvatarPath;
-                    newUser.Login = userDTO.Login;
-                    newUser.Password = userDTO.Password;
-                    newUser.IsAdmin = userDTO.IsAdmin;
-
-                    return newUser;
-                }
-                else
-                {
-                    User user = dbContext.Users.Single(u => u.UserID.Equals(userDTO.UserID));
-
-                    return user;
-                }
-
-            }
+            return newUser;
         }
 
 
