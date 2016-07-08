@@ -6,12 +6,31 @@ using System.Threading.Tasks;
 
 namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 {
+    public enum Status
+    {
+        Open = 0,
+        InProgress = 1,
+        Done = 2,
+        InTesting = 3,
+        Closed = 4
+    }
+
+
+    public enum Priority
+    {
+        Critical = 0,
+        Urgent = 1,
+        Major = 2,
+        Minor = 3
+    }
+
+
     public class BugDTO
     {
         public int BugID { get; set; }
 
 
-        public string BugName { get; set; }
+        public string Prefix { get; set; }
 
 
         public string Subject { get; set; }
@@ -38,10 +57,10 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public DateTime ModificationDate { get; set; }
 
 
-        public byte BugStatus { get; set; }
+        public Status Status { get; set; }
 
 
-        public byte Priority { get; set; }
+        public Priority Priority { get; set; }
 
 
         public BugDTO()
