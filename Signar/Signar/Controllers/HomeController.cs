@@ -6,9 +6,13 @@ using System.Web.Mvc;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarBusinessLayer.Services;
 using AsignarBusinessLayer.Services.ServiceInterfaces;
+using CustomAuth.Filters;
+using System.Web.Security;
+
 
 namespace Signar.Controllers
 {
+    [CustomAuthenticate]
     public class HomeController : Controller
     {
 

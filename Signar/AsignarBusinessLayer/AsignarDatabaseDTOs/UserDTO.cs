@@ -9,26 +9,32 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 {
     public class UserDTO
     {
-
+        
         public int UserID { get; set; }
 
-
-        [Required]
         public string Name { get; set; }
 
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
 
         public string Surname { get; set; }
 
-
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
         public string Email { get; set; }
 
 
         public string AvatarPath { get; set; }
 
-
+        [Required]
+        [Display(Name = "Login")]
+        [StringLength(254, ErrorMessage = "Login name is too long")]
         public string Login { get; set; }
 
-
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
 

@@ -1,5 +1,5 @@
-﻿@using Signar.Models
-@model LoginViewModel
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model UserDTO
 @{
     ViewBag.Title = "Log in";
 }
@@ -10,44 +10,43 @@
     @Styles.Render("~/Content/Login")
 </head>
 
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                        @Html.AntiForgeryToken()
-                        
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin" })
-                        <div class="Input">
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control backColor", placeholder = "Email" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control backColor", placeholder = "Password" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "custom-checkbox-1 pull-left" })
-                                        @Html.LabelFor(m => m.RememberMe, htmlAttributes: new { @class = "color2 checkbox-panel pull-left" })
-                                        @Html.ActionLink("Forgot password", "ForgotPassword", "Account", htmlAttributes: new { @class = "color2 checkbox-panel pull-right" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <a href="~/Views/Home/DashBoard.cshtml"><input type="submit" value="Login" class="btn btn-default" style="color: #4D868D" /> </a>
-                                </div>
-                            </div>
+@using (Html.BeginForm("LoginMe", "Account", FormMethod.Post))
+{
+    @*@Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.Surname)
+    @Html.HiddenFor(m => m.IsAdmin)
+    @Html.HiddenFor(m => m.RememberMe)*@
 
-                        </div>
-                        
-                    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin" })
+    <div class="Input">
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control backColor", placeholder = "Login" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control backColor", placeholder = "Password" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "custom-checkbox-1 pull-left" })
+                    @Html.LabelFor(m => m.RememberMe, htmlAttributes: new { @class = "color2 checkbox-panel pull-left" })
+                    @Html.ActionLink("Forgot password", "ForgotPassword", "Account", htmlAttributes: new { @class = "color2 checkbox-panel pull-right" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Login" class="btn btn-default" style="color: #4D868D" />
+            </div>
+        </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    </div>
+
 }

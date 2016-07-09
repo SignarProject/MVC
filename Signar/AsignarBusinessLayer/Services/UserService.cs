@@ -45,7 +45,7 @@ namespace AsignarBusinessLayer.Services
             User newUser = _converter.UserFromDTO(newItem);
 
 
-            if (_dbContext.Users.Any(u => u.Email.Equals(newItem.Email) || u.Login.Equals(newItem.Login)))
+            if (_dbContext.Users.Any(u => (u.Email.Equals(newItem.Email) || u.Login.Equals(newItem.Login)) ))
             {
                 return false;
             }

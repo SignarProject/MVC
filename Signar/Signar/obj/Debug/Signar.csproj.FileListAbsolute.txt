@@ -680,3 +680,15 @@ C:\TeamProject\Signar\Signar\obj\Debug\Signar.dll
 C:\TeamProject\Signar\Signar\obj\Debug\Signar.pdb
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDataAccessLayer.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.Owin.Security.OpenIdConnect.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\System.IdentityModel.Tokens.Jwt.dll
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Protocol.Extensions.pdb
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.Owin.Security.OpenIdConnect.xml
+E:\2016\WEB\MVC\Signar\Signar\bin\System.IdentityModel.Tokens.Jwt.pdb
+E:\2016\WEB\MVC\Signar\Signar\bin\System.IdentityModel.Tokens.Jwt.xml
