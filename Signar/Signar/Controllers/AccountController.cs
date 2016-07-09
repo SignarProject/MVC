@@ -8,28 +8,39 @@ using AsignarBusinessLayer.Services;
 using AsignarBusinessLayer.Services.ServiceInterfaces;
 using CustomAuth.Filters;
 using System.Web.Security;
-using CustomAuth.Models;
+using Signar.Models;
+using System.Web.Caching;
 
 namespace Signar.Controllers
 {
+    [CustomAuthenticate]
     public class AccountController : Controller
     {
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult LoginMe(UserDTO model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserDTO model)
         {
             if (ModelState.IsValid)
             {
                 using (var userService = new UserService())
                 {
-                    userService.AuthenticateUser(model);
+                    bool auth = userService.AuthenticateUser(model);
+                    if (!auth)
+                    {
+                        ModelState.AddModelError("", "Sorry, your login or password are incorrect. Please try again.");
+                        return View(model);
+                    }
                 }
-                var userToken = new FormsAuthenticationTicket(1, model.Login, DateTime.Now, DateTime.Now.AddMinutes(10), false, model.IsAdmin ? "admin" : "user");
+                HttpContext.Cache[model.Login] = model;
+                DateTime startDate = DateTime.Now;
+                DateTime expDate = startDate.AddMinutes(20);
+                var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user","/");
                 var headerToken = FormsAuthentication.Encrypt(userToken);
                 if (!string.IsNullOrEmpty(headerToken))
                 {
                     Response.Cookies.Add(new HttpCookie("auth", headerToken));
-
+                    return RedirectToAction("DashBoard", "Home", new { area = "" });
                     //return string.IsNullOrEmpty(returnUrl) ? Redirect("/") : Redirect(returnUrl);
                 }
                 else
@@ -57,5 +68,26 @@ namespace Signar.Controllers
             //}
             return View();
         }
-    }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(EmailModel model)
+        {
+            return Redirect("ResetPassword");
+        }
+
+        }
 }

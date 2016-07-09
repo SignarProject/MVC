@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,6 +24,15 @@
 
 </head>
 <body style="background-color: #f8fefe">
+    @{
+        UserDTO user = Cache[User.Identity.Name] as UserDTO;
+        string UserName = "", UserSurName = "";
+        if (user != null)
+        {
+            UserName = user.Name;
+            UserSurName = user.Surname;
+        }
+    }
     @Html.Partial("~/Views/Popup/CreateNewTask.cshtml")
     <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-header leftM">
@@ -54,12 +64,14 @@
                     @*<li class="navTextH">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "navTextH" })</li>*@
                     @*<li class="navTextH">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navTextH rightText" })</li>*@
                     <li onclick="showProfileDropMenu()">
-                        <a href="#" class="navProfile rightM"><img src="~/Content/img/ava1.jpg" id="avatar" /> &nbsp;&nbsp; George Orwell</a>
+                        <a href="#" class="navProfile rightM"><img src="~/Content/img/ava1.jpg" id="avatar" />&nbsp;&nbsp;@UserName @UserSurName</a>
 
                         <div class="dropdownProfile">
                             <ul>
-                                <li class="arrow-holder" data-value="Profile" onClick="location.href = '../Home/MyProfile'"><span class="icon-arrow1"></span>Profile</li>
-                                <li data-value="Sign_out" onClick="location.href = '../Account/Login'">Sign out</li>
+                                <li class="arrow-holder" data-value="Profile" onClick="location.href = '../Home/MyProfile'" style="padding: 12px 14px;"><span class="icon-arrow1"></span>Profile</li>
+                                <li data-value="Sign_out" class="no-pad">
+                                 @Html.ActionLink("Sign out", "Signout", "Home", null, htmlAttributes: new { @class = "signout-link" })
+                                </li>
                             </ul>
                             
                         </div>

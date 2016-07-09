@@ -19,9 +19,6 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         public string Surname { get; set; }
 
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
         public string Email { get; set; }
 
 

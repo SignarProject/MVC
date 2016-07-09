@@ -13,10 +13,10 @@ namespace CustomAuth.Filters
     {
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            //if (SkipAuthorization(filterContext.ActionDescriptor))
-            //{
-            //    return;
-            //}
+            if (SkipAuthorization(filterContext.ActionDescriptor))
+            {
+                return;
+            }
 
             var cookieValue = filterContext.HttpContext.Request.Cookies.Get("auth");
 
@@ -43,9 +43,9 @@ namespace CustomAuth.Filters
                     new RouteValueDictionary(
                         new
                         {
-                            controller = "Home",
+                            controller = "Account",
                             action = "Login",
-                            returnUrl = filterContext.HttpContext.Request.Url.LocalPath
+                            //returnUrl = filterContext.HttpContext.Request.Url.LocalPath
                         }));
         }
 

@@ -11,20 +11,24 @@
 </head>
 
 
-@using (Html.BeginForm("LoginMe", "Account", FormMethod.Post))
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
     @*@Html.HiddenFor(m => m.Name)
     @Html.HiddenFor(m => m.Surname)
     @Html.HiddenFor(m => m.IsAdmin)
     @Html.HiddenFor(m => m.RememberMe)*@
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
+    
     <div class="Input">
         <div class="form-group">
             <div class="col-md-12">
                 @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
-                @Html.TextBoxFor(m => m.Login, new { @class = "form-control backColor", placeholder = "Login" })
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control backColor", placeholder = "Login or Email" })
             </div>
+        </div>
+        <div style="height: 10px;">
+
         </div>
         <div class="form-group">
             <div class="col-md-12">
@@ -37,7 +41,7 @@
                 <div class="checkbox">
                     @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "custom-checkbox-1 pull-left" })
                     @Html.LabelFor(m => m.RememberMe, htmlAttributes: new { @class = "color2 checkbox-panel pull-left" })
-                    @Html.ActionLink("Forgot password", "ForgotPassword", "Account", htmlAttributes: new { @class = "color2 checkbox-panel pull-right" })
+                    @Html.ActionLink("Forgot password", "ForgotPassword", "Account", null, htmlAttributes: new { @class = "color2 checkbox-panel pull-right"})
                 </div>
             </div>
         </div>

@@ -8,3 +8,13 @@ C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.SqlServer.x
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.dll.config
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.SqlServer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.xml
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\EntityFramework.SqlServer.xml
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.csprojResolveAssemblyReference.cache
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\obj\Release\AsignarDataAccessLayer.pdb

@@ -10,3 +10,15 @@ C:\git\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.SqlServer.xml
 C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
 C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.dll
 C:\git\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.dll.config
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarBusinessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarDataAccessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.SqlServer.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\AsignarDataAccessLayer.pdb
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.xml
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Release\EntityFramework.SqlServer.xml
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.dll
+E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\obj\Release\AsignarBusinessLayer.pdb

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@{
     ViewBag.Title = "My Profile";
 }
 
@@ -11,18 +12,29 @@
                     <div class="table-elem-static shadow-div project-div-static">
                         <img src="~/Content/img/ava1.jpg" class="profile-av" />
                         <div class="user-name">
-                            <p class="zero-merg">George</p>
-                            <p class="zero-merg">Orwell</p>
+                            @{
+                                UserDTO user = Cache[User.Identity.Name] as UserDTO;
+                                string UserName = user.Name;
+                                string UserSurName = user.Surname;
+                                string UserEmail = user.Email;
+                                string UserRole = "Common user";
+                                if (user.IsAdmin == true)
+                                {
+                                    UserRole = "Administrator";
+                                }
+                            }
+                            <p class="zero-merg">@UserName</p>
+                            <p class="zero-merg">@UserSurName</p>
                         </div>
 
                         <div class="profile-desc">
                             <label>Email</label>
-                            <p>george-orewell@@email.com</p>
+                            <p>@UserEmail</p>
                         </div>
 
                         <div class="profile-desc">
                             <label>Role</label>
-                            <p>Common User</p>
+                            <p>@UserRole</p>
                         </div>
 
                     </div>
@@ -124,16 +136,22 @@
             show: { effect: 'clip', duration: 250 },
             hide: { effect: 'clip', duration: 250 },
             buttons: [
-        {
-            text: "Save",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Save",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
         });
     }
+</script>
+
+<script>
+    $(".popup-button").on('click', this, function () {
+        $(this).closest("#createUserPopup").dialog('close');
+    });
 </script>

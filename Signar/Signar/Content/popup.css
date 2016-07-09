@@ -38,8 +38,6 @@
     padding-left: 2em;
 }
 
-
-
 .ui-dialog .ui-dialog-titlebar {
     padding: .8em 1em;
     position: relative;
@@ -47,6 +45,10 @@
 
 .ui-dialog .ui-dialog-buttonpane {
     border-width : 0;
+}
+
+.ui-widget.ui-widget-content{
+    background-color: rgb(248, 252, 252);
 }
 
 
@@ -94,6 +96,8 @@
     border-width: 0px;
     padding: 0;
     margin-left: .5em !important;
+    color: white !important;
+    margin: 13px !important;
 }
 
 .popup-button:hover{

@@ -28,13 +28,25 @@ namespace AsignarBusinessLayer.Services
 
         public bool AuthenticateUser(UserDTO user)
         {
-            User seekingUser = _dbContext.Users.Single(u => u.Login.Equals(user.Login) && u.Email.Equals(user.Email));
-
-            if (seekingUser.Password.Equals(_hashConverter.CalculateMD5Hash(user.Password)))
+            try
             {
-                return true;
+                User seekingUser = _dbContext.Users.Single(u => (u.Login.Equals(user.Login) || u.Login.Equals(user.Email)));
+                if (seekingUser.Password.Equals(_hashConverter.CalculateMD5Hash(user.Password)))
+                {
+                    user.Name = seekingUser.Name;
+                    user.Surname = seekingUser.Surname;
+                    user.Email = seekingUser.Email;
+                    user.AvatarPath = seekingUser.AvatarImagePath;
+                    user.IsAdmin = seekingUser.IsAdmin;
+                    user.UserID = seekingUser.UserID;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch(Exception ex)
             {
                 return false;
             }
@@ -43,19 +55,13 @@ namespace AsignarBusinessLayer.Services
         public bool CreateItem(UserDTO newItem)
         {
             User newUser = _converter.UserFromDTO(newItem);
-
-
             if (_dbContext.Users.Any(u => (u.Email.Equals(newItem.Email) || u.Login.Equals(newItem.Login)) ))
             {
                 return false;
             }
-
             newUser.Password = _hashConverter.CalculateMD5Hash(newUser.Password);
-
             _dbContext.Users.Add(newUser);
             _dbContext.SaveChanges();
-
-
             return true;
         }
 
@@ -63,20 +69,12 @@ namespace AsignarBusinessLayer.Services
         public bool DeleteItem(int id)
         {
             User user = _dbContext.Users.Find(id);
-
-
             if (user.Bugs.Any())
             {
                 return false;
             }
-
-
             _dbContext.Users.Remove(user);
-
-
             _dbContext.SaveChanges();
-
-
             return true;
         }
 
@@ -88,16 +86,12 @@ namespace AsignarBusinessLayer.Services
         public ICollection<UserDTO> GetAllItems()
         {
             ICollection<UserDTO> allUsersDTOs = new HashSet<UserDTO>();
-
-
             ICollection<User> allUsers = _dbContext.Users.ToList();
-
 
             foreach (var user in allUsers)
             {
                 allUsersDTOs.Add(_converter.UserToDTO(user));
             }
-
             return allUsersDTOs;
         }
 
@@ -105,11 +99,7 @@ namespace AsignarBusinessLayer.Services
         public UserDTO GetItem(int id)
         {
             User user = _dbContext.Users.Find(id);
-
-
             UserDTO userDTO = _converter.UserToDTO(user);
-
-
             return userDTO;
         }
 
@@ -137,19 +127,15 @@ namespace AsignarBusinessLayer.Services
             }
         }
 
-
         public bool UpdateItem(UserDTO updatedItem)
         {
             User userToUpdate = _dbContext.Users.Find(updatedItem.UserID);
-
 
             userToUpdate.Name = updatedItem.Name;
             userToUpdate.Surname = updatedItem.Surname;
             userToUpdate.Email = updatedItem.Email;
             userToUpdate.AvatarImagePath = updatedItem.AvatarPath;
             userToUpdate.IsAdmin = updatedItem.IsAdmin;
-
-
             return true;
         }
     }

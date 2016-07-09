@@ -4,19 +4,13 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace CustomAuth.Models
+namespace Signar.Models
 {
-    public class LoginModel
+    public class EmailModel
     {
         [Required]
-        [Display(Name = "Login")]
-        [StringLength(254, ErrorMessage = "Login name is too long")]
-        public string Login { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        public bool RememberMe { get; set; } = false;
+        [Display(Name = "Email")]
+        [StringLength(254, ErrorMessage = "Email is too long")]
+        public string Email { get; set; }
     }
 }

@@ -30,3 +30,19 @@ function showProfileDropMenu() {
         $(".dropdownProfile").css({ 'display': "none" });
     }
 }
+
+$(".popup-button").on('click', this, function () {
+    $(this).closest("#createUserPopup2").dialog('close');
+});
+
+$(".popup-button").on('click', this, function () {
+    $(this).closest("#EditProjectPopup").dialog('close');
+});
+
+$(".popup-button").on('click', this, function () {
+    $(this).closest("#AddUsersToProjectPopup").dialog('close');
+});
+
+$(".popup-button").on('click', this, function () {
+    $(this).closest("#editTaskPopup").dialog('close');
+});

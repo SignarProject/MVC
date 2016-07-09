@@ -8,13 +8,36 @@ using AsignarBusinessLayer.Services;
 using AsignarBusinessLayer.Services.ServiceInterfaces;
 using CustomAuth.Filters;
 using System.Web.Security;
+using Signar.Models;
 
 
 namespace Signar.Controllers
 {
+    
     [CustomAuthenticate]
     public class HomeController : Controller
     {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserData(EditUserDataModel model)
+        {
+            UserDTO user = HttpContext.Cache[HttpContext.User.Identity.Name] as UserDTO;
+            if (user.Name.Equals(model.Name) && user.Surname.Equals(model.Surname) && user.Email.Equals(model.Email)
+                && user.IsAdmin == model.IsAdmin) return RedirectToAction("MyProfile");
+            if (ModelState.IsValid || user == null)
+            {
+                
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Email = model.Email;
+                user.IsAdmin = model.IsAdmin;
+                using (var userService = new UserService())
+                {
+                    userService.UpdateItem(user);
+                }
+            } else ModelState.AddModelError("", "Sorry, but there was an error");
+            return RedirectToAction("MyProfile");
+        }
 
         public ActionResult Index()
         {
@@ -85,6 +108,15 @@ namespace Signar.Controllers
         public ActionResult Users()
         {
             return View();
+        }
+
+        [CustomAuthorize]
+        public ActionResult Signout()
+        {
+            Response.Cookies.Add(new HttpCookie("auth", null));
+            Session.Abandon();
+            HttpContext.Cache[User.Identity.Name] = null;
+            return RedirectToAction("Login", "Account", new { area = "" });
         }
     }
 }

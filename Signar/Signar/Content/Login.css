@@ -33,9 +33,6 @@ body {
     margin: 0px auto;
 }
 
-.rgb(248, 254, 254) {
-    color:rgb(248, 254, 254);
-}
 
 .backColor {
     background-color: #A3C2C6;
@@ -166,15 +163,25 @@ a:hover {
 
 .text-danger {
     display: block;
-    height: 10px;
+    height: 14px;
     color: rgb(220, 165, 148);
     line-height: 1;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -20px;
+    left: 0%;
 }
 
 .text-danger  .validation-summary-errors{
     display: block;
-    height: 10px;
+    height: 14px;
 }
+
+/*.error-full-info{
+    position: absolute !important;
+    left: 28.5% !important;
+}*/
 
 .text-danger > ul {
     list-style: none;
@@ -188,14 +195,14 @@ a:hover {
 }
 
 #fgtPswrdText{
-    margin-top:10px;
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     padding-top: 0px;
     color: white;
 }
 
 .fgtPswdSubmit{
-    margin-top: 16px !important;
+    margin-top: 9px !important;
     background-color: #A3C2C6 !important;
     width: 175px  !important;
     color:#4D868D !important;
@@ -211,10 +218,10 @@ a:hover {
 }
 
 .psswrd {
-    margin-top: 15px;
+    margin-top: 0px;
 }
 .dwnpsswrd{
-    margin-top: 24px;
+    margin-top: 18px;
 }
 
 input[type="checkbox"]:focus{
