@@ -86,7 +86,7 @@
         }
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
-                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label id="#projects-count" >@VisibleProjectsCount</label>
+                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label class="projects-count">@VisibleProjectsCount</label>
             </p>
         </div>
 
@@ -121,13 +121,6 @@
 
 <script>
     function hideProject(el, ProjectID) {
-        @{
-            HiddenProjectCount++;
-            VisibleProjectsCount--;
-        }
-        $('#projects-count').text("2222222222222222222222");
-        alert($('#projects-count').text);
-        @*$(el).parent().parent().hide();
         $.ajax({
             url: '/Home/DeleteProject',
             data: { ProjectID: ProjectID },
@@ -138,12 +131,13 @@
                 HiddenProjectCount++;
                 VisibleProjectsCount--;
             }
-            $('#projects-count').text = @VisibleProjectsCount;
+            $(el).parent().parent().hide();
+             $(".projects-count").text(@VisibleProjectsCount);
         })
         .error(function (mess) {
-            $(el).parent().parent().show();
+            //$(el).parent().parent().show();
             alert(mess);
-        })*@
+        })
     }
 
 

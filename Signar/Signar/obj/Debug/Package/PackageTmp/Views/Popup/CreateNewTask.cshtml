@@ -1,0 +1,124 @@
+﻿<div id="createUserPopupTask" class="table-responsive popup-common">
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBox("Task title", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Title" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                    <input type="hidden" name="project">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Project</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <div class="item" data-value="project@i">
+                                The Titan @i
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group" style="height: 20px;">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Assignee</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 15; ++i)
+                        {
+                            <div class="item" data-value="name@i">
+                                <img class="ui mini avatar image popup-av" src="~/Content/img/ava1.jpg">
+                                Jenny Hess @i
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
+                Assign to me
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group" style="z-index: 5;">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                    <input type="hidden" name="priority">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Priority</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 8; ++i)
+                        {
+                            <div class="item" data-value="priority@i">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/major_prior.png">
+                               <span style="color:#F69C00; background-color:transparent;">Major @i</span> 
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group" style="z-index: 5;">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                    <input type="hidden" name="status">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Status</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <div class="item" data-value="status@i">
+                                Status @i
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.TextArea("Task text", htmlAttributes: new { @class = "form-control popup-field popup-text-area", placeholder = "Description" })
+            </div>
+        </div>
+
+        <p style="padding-left: 11px; font-weight:bold; font-size:13px;">
+            Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 3px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+        </p>
+
+    </div>
+
+</div>
+
+<style>
+    .create-new-task-popup .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f044";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 20px;
+        vertical-align: middle;
+        font-weight: 100;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+    });
+</script>

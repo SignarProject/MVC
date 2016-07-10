@@ -1,0 +1,251 @@
+﻿@{
+    ViewBag.Title = "Project";
+}
+
+<div class="container container-form">
+    <div class="row" style="margin-top: 15px;">
+        <div style="margin: 0px 0px 62px 0px">
+            <h2 class="pull-left" style="margin: 20px 0px 40px 0px;">The Titan</h2>
+
+            <div class="pull-left short-info" style="margin-top: 45px; margin-left: -87px; display: inline-block; position:absolute;">
+                <i class="fa fa-edit" style="font-size: 160%"></i> <label style="margin-left:5px;"> 67</label>
+            </div>
+
+            <div class="pull-left short-info" style="margin-top: 45px; margin-left: -27px; display: inline-block; position:absolute;">
+                <i class="fa fa-group" id="user-group" style="font-size: 130%" onCLick="showDropMenuUsers()"></i> <label style="margin-left:5px;"> 5</label>
+                <div class="outside-click-close">
+                    <span class="icon-arrow1 icon-arrow-users"></span>
+                    <div class="dropdown-user-group">
+                        
+                        <ul class="delete-users-from-project-ul">
+                            @for (int i = 0; i < 15; ++i)
+                            {
+                                <li>
+                                    <img src="~/Content/img/ava1.jpg" class="users-av-smaller" style="margin-left:0px !important;vertical-align: text-bottom;"/>
+                                    <div style="display:inline-block;max-width: 200px;">
+                                        <label class="text-medium" style="color:rgb(248,252,252)">Name </label>
+                                        <label class="text-medium" style="color:rgb(248,252,252)">Surname</label>
+                                        <p style="">
+                                            <label class="text-small" style="color:rgb(248,252,252)">emailexample@gmail.com</label>
+                                        </p>
+                                    </div>
+                                    <i class="fa fa-close user-delete-from-project-icon pull-right"></i>
+                                </li>
+                            }
+                            
+                        </ul>
+
+                    </div>
+                </div>
+                </div>
+                
+
+            @Html.Partial("~/Views/Popup/AddUsersToProject.cshtml")
+            <div class="pull-left short-info" style="margin-top: 59px; margin-left: 19px; display: inline-block; position:absolute;">
+                <i class="fa fa-plus" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;" onClick="ShowAddUsersToProjectPopup()"></i>
+            </div>
+
+            <div class="pull-left" style="margin-top: 85px; margin-left: -100px; display: inline-block; position:absolute;">
+                <label class="short-info">Sort by:</label>
+                <div class="dropdown" style="display: inline">
+                    <form style="display:inline">
+                        <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown" style="background: transparent !important;">
+                            Title
+                            <span class="caret" style="border-top-color: #92c1ba"></span>
+                        </button>
+                        <ul class="dropdown-menu bootrap-dropdown-ul-modif" style="padding: 0px">
+                            <li><a href="#">Title</a></li>
+                            <li><a href="#">Status</a></li>
+                            <li><a href="#">Priority</a></li>
+                            <li><a href="#">Assignee</a></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
+            @Html.Partial("~/Views/Popup/EditProject.cshtml")
+            <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()"></i>
+            <i class="fa fa-pencil fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ShowEditProjectPopup()"></i>
+            <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick=""></i>
+            <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick=""></i>
+
+            <div class="search-bar pull-right" style="margin-top: 22px; margin-right:20px;" id="searchTextOnPage">
+                <form role="search" style="display: flex;">
+                    <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
+                    <span>
+                        <button type="submit" class="search-page-btn">
+                            <span class="icon-search navSearchIcon search-span-icon pull-right"></span>
+                        </button>
+                    </span>
+                </form>
+                <div class="pull-right advanced-search-link" style="margin-top: 8px; margin-left: 110px; display: inline-block;">
+                    Advanced search
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-md-12 zero-pad-left">
+                <div class="shadow-div">
+                    <div class="no-border-last"style="display:inline-block; vertical-align: middle; width:100%;">
+                        @for (int i = 0; i < 8; ++i)
+                        {
+                            <div class="bugs-div">
+                                <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                <div class="bugs-descrip-block">
+                                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                    <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                                </div>
+                                <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:92px;">
+                                    <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px; ">Created: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px; margin-left:1px;">10/10/14</label></p>
+                                    <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px;">Updated: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px;">10/10/14</label></p>
+                                </div>
+                                <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:160px;">
+                                    <img src="~/Content/img/ava1.jpg" class="users-av" style="margin-top: 0px !important;" />
+                                    <div class="users-info-helper" style="margin-top: 0px !important;">
+                                        <p class="zero-merg" style="font-size: 85%">George Orwell</p>
+                                        <p class="zero-merg" style="font-size: 75%">Orwell@@bigbrother.com</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                        @*<div class="bugs-div">
+                <img src="~/Content/Priority_img/minor_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-todo zero-merg">To do</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/exclamation_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In testing</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div" style="width:100%">
+                <img src="~/Content/Priority_img/critical_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Close</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>
+            <div class="bugs-div" style="border-bottom:hidden">
+                <img src="~/Content/Priority_img/major_prior.png" />
+                <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
+                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                    <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                </div>
+            </div>*@
+                    </div>
+
+            </div>
+    </div>
+</div>
+        <div class="row">
+            <div class="pull-left short-info">
+                <i class="fa fa-edit" style="font-size: 190%"></i> <label>Tasks: 67</label>
+            </div>
+        </div>
+</div>
+
+
+
+<script>
+    function ShowEditProjectPopup() {
+        $("#EditProjectPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Edit project",
+            modal: true,
+            resizable: false,
+            dialogClass: "edit-project-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        {
+            text: "Save",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function ShowAddUsersToProjectPopup() {
+        $("#AddUsersToProjectPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Add users to project",
+            modal: true,
+            resizable: false,
+            dialogClass: "add-users-to-project-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        {
+            text: "Add users",
+            "class": 'popup-button',
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function showDropMenuUsers() {
+        if ($(".dropdown-user-group").css('display') == 'none') {
+            $(".dropdown-user-group").css({ 'display': "visible" });
+            $('.icon-arrow-users').css({ 'display': "block" });
+            $(".dropdown-user-group").fadeIn(200);
+        } else {
+            $(".dropdown-user-group").fadeOut(200);
+            $(".dropdown-user-group").css({ 'display': "none" });
+            $('.icon-arrow-users').css({ 'display': "none" });
+        }
+    }
+</script>
+
+<script>
+    $(document).mouseup(function (e) {
+        var container = $(".outside-click-close");
+        var disp = $('.dropdown-user-group').css('display');
+
+        if (!container.is(e.target) // if the target of the click isn't the container...
+            && container.has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            $(".dropdown-user-group").css({ 'display': "none" });
+            $('.icon-arrow-users').css({ 'display': "none" });
+        }
+    });
+</script>

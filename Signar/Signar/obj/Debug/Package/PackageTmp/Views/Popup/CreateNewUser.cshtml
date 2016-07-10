@@ -1,0 +1,97 @@
+﻿@using Signar.Models
+@model CreateNewUserModel
+<div id="createUserPopup" class="table-responsive">
+    @using (Ajax.BeginForm("CreateNewUser", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createUserPopup" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
+        <div class="row">
+            <div class="col-xs-5">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control popup-field", placeholder = "Name" })
+            </div>
+            <div class="col-xs-7">
+                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control popup-field", placeholder = "Surname" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control popup-field", placeholder = "Email" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control popup-field", placeholder = "Password" })
+            </div>
+            <div class="col-xs-4">
+                @Html.PasswordFor(m => m.ConfPassword, new { @class = "form-control popup-field", placeholder = "Confirm password" })
+            </div>
+            <div class="container col-xs-4" id="wrap">
+                <div class="btn-group">
+                    @Html.HiddenFor(m => m.IsAdmin, new { @id = "IsAdmin" })
+                    <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;" id="EditUserDD">
+                        <input type="hidden" name="role">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Role</div>
+                        <div class="menu" style="z-index: 10;">
+                            <div class="item" data-value="admin">
+                                Administrator
+                            </div>
+                            <div class="item" data-value="user">
+                                Common user
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="button" value="Create" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax(this)" />
+    }
+</div>
+
+<style>
+    .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f0c0";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 14px;
+        color: rgb(248, 254, 254);
+        font-size: 16px;
+        font-weight: 100;
+    }
+</style>
+
+<script>
+    $(".ui.fluid.dropdown").change(function () {
+
+        if ($(".menu").val() == "admin") {
+            $("#IsAdmin").val(true);
+        } else {
+            $("#IsAdmin").val(false);
+        }
+    });
+</script>
+
+<script>
+    function CLickAjax(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        $.ajax({
+            type: "POST",
+            url: "CreateNewUser",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+                window.location.reload();
+            }
+        });
+
+        return false;
+
+    }
+</script>

@@ -1,14 +1,28 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@model ICollection<UserDTO>
+@{
     ViewBag.Title = "Users";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
 }
-
 <div class="container container-form">
     <div class="row">
         <div style="margin-right: 20px; margin-top: 15px;">
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Users</h2>
-            <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewUserPopup()"></i>
+            @if (user.IsAdmin)
+            {
+                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewUserPopup()"></i>
+            }
+            else
+            {
+                <div style="display: inline-block;width: 28px;height: 48px;">
 
-            @Html.Partial("~/Views/Popup/CreateNewUser.cshtml")
+                </div>
+            }
+
+
+            @{CreateNewUserModel partModel = new CreateNewUserModel(); }
+            @Html.Partial("~/Views/Popup/CreateNewUser.cshtml", partModel)
 
             <div class="search-bar pull-right" style="margin-top: 22px;" id="searchTextOnPage">
                 <form role="search" style="display: flex;">
@@ -41,31 +55,68 @@
         </div>
 
         <div class="row" style="margin: 15px">
-        @for (int i = 0; i < 9; ++i)
-        {
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="table-elem shadow-div">
-                    <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                    <img src="~/Content/img/ava1.jpg" class="users-av" />
-                    <div class="users-info-helper">
-                        <p class="zero-merg" style="font-size: 85%">George Orwell</p>
-                        <p class="zero-merg" style="font-size: 75%">Orwell@@bigbrother.com.oc</p>
-                    </div>
-                    <div class="row">
-                        <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
-                            <i class="fa fa-edit  info-icon"></i> <label>127</label>
-                            <i class="fa fa-th-list  info-icon"></i> <label>6</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var userI in Model)
+                {
+                    if (userI.UserID == user.UserID)
+                    {
+                        continue;
+                    }
+                    string UserRole = "Common user";
+                    if (userI.IsAdmin == true)
+                    {
+                        UserRole = "Administrator";
+                    }
+                    if (user.IsAdmin)
+                    {
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="table-elem shadow-div">
+                                <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
+                                <img src="~/Content/img/ava1.jpg" class="users-av" />
+                                <div class="users-info-helper">
+                                    <p class="zero-merg" style="font-size: 85%"><b>@userI.Name @userI.Surname </b></p>
+                                    <p class="zero-merg" style="font-size: 75%">@userI.Email</p>
+                                    <p class="zero-merg"  style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;">@UserRole</p>
+                                </div>
+                                <div class="row">
+                                    <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
+                                        <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
+                                        <i class="fa fa-th-list  info-icon"></i> <label>@*@UserI.ProjectsCount*@100500</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="table-elem-user shadow-div-user">
+                                <img src="~/Content/img/ava1.jpg" class="users-av" />
+                                <div class="users-info-helper">
+                                    <p class="zero-merg" style="font-size: 85%"><b>@userI.Name @userI.Surname </b></p>
+                                    <p class="zero-merg" style="font-size: 75%">@userI.Email</p>
+                                    <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;">@UserRole</p>
+                                </div>
+                                <div class="row">
+                                    <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
+                                        <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
+                                        <i class="fa fa-th-list  info-icon"></i> <label>@*@UserI.ProjectsCount*@100500</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
 
         </div>
-
+        @{
+            int count = Model.Count - 1;
+        }
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
-                <i class="fa fa-users  info-icon"></i> <label style="margin-right: 2px">Users:</label> <label>35</label>
+                <i class="fa fa-users  info-icon"></i> <label style="margin-right: 2px">Users:</label> <label class="user-count">@count</label>
             </p>
         </div>
 
@@ -84,17 +135,36 @@
             show: { effect: 'clip', duration: 350 },
             hide: { effect: 'clip', duration: 350 },
             buttons: [
-        {
-            text: "Create",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function DeleteUser(el, UserID) {
+        $.ajax({
+            url: '/Home/DeleteUser',
+            data: { UserID: UserID },
+            method: 'POST',
+            error: function (xhr, status, error) {
+                //$(el).parent().parent().show();
+                alert(error);
+            },
+            success: function (result) {
+                @{count--; }
+                $(el).parent().parent().hide();
+                $(".user-count").text(@count);
+            }
+        })
     }
 </script>

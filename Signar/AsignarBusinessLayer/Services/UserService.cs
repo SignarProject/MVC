@@ -30,12 +30,13 @@ namespace AsignarBusinessLayer.Services
         {
             try
             {
-                User seekingUser = _dbContext.Users.Single(u => (u.Login.Equals(user.Login) || u.Login.Equals(user.Email)));
+                User seekingUser = _dbContext.Users.Single(u => (u.Login.Equals(user.Login) || u.Email.Equals(user.Login)));
                 if (seekingUser.Password.Equals(_hashConverter.CalculateMD5Hash(user.Password)))
                 {
                     user.Name = seekingUser.Name;
                     user.Surname = seekingUser.Surname;
                     user.Email = seekingUser.Email;
+                    user.Login = seekingUser.Login;
                     user.AvatarPath = seekingUser.AvatarImagePath;
                     user.IsAdmin = seekingUser.IsAdmin;
                     user.UserID = seekingUser.UserID;
@@ -124,6 +125,25 @@ namespace AsignarBusinessLayer.Services
                     {
                         return null;
                     }
+            }
+        }
+
+        public bool UpdatePassword(string OldPassword, string NewPassword, int id)
+        {
+            try
+            {
+                User seekingUser = _dbContext.Users.Single(u => u.UserID.Equals(id));
+                if (seekingUser.Password.Equals(_hashConverter.CalculateMD5Hash(OldPassword)))
+                {
+                    seekingUser.Password = _hashConverter.CalculateMD5Hash(NewPassword);
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                else return false;
+            }
+            catch(Exception ex)
+            {
+                return false;
             }
         }
 

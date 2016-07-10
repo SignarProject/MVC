@@ -215,6 +215,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PopupController.cs" />
@@ -223,8 +224,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\CreateNewUserModel.cs" />
     <Compile Include="Models\EditUserDataModel.cs" />
-    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -312,7 +315,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
@@ -321,7 +324,7 @@
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Popup\CreateNewProject.cshtml" />
     <Content Include="Views\Popup\CreateNewUser.cshtml" />
-    <Content Include="Views\Popup\ResetPassword.cshtml" />
+    <Content Include="Views\Popup\ChangePassword.cshtml" />
     <Content Include="Views\Popup\EditUserData.cshtml" />
     <Content Include="Views\Home\Filters.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />

@@ -30,6 +30,15 @@
             font-size: 16px;
         }
 
+        #parent{
+            
+        }
+
+        #parent * {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
         .ui.selection.dropdown > .text{
             font-size: 14px;
             vertical-align:initial;
@@ -60,8 +69,23 @@
             /*margin: 20px 20px 20px 20px;*/
             /*max-width: none !important;*/
         }
+        .shadow-div-user {
+            background: white;
+            -moz-box-shadow: -5px -5px 5px #888;
+            -webkit-box-shadow: -5px -5px 5px #888;
+            box-shadow: 1px 1px 5px rgba(200, 200, 255, 0.57);
+            padding: 5px 10px;
+            /*margin: 20px 20px 20px 20px;*/
+            /*max-width: none !important;*/
+        }
 
         .table-elem {
+            margin: 10px 20px 10px 0px;
+            padding: 11px;
+            height: 100px;
+            min-width: 100px;
+        }
+        .table-elem-user {
             margin: 10px 20px 10px 0px;
             padding: 11px;
             height: 100px;
@@ -575,7 +599,7 @@
             content: "\f00d";
             font-family: FontAwesome;
             margin-left: 30px;
-            color: rgb(248,252,252) !important;
+            color: rgb(248,254,254) !important;
             font-size: 18px !important;
             font-weight: 100 !important;
             display: none !important;

@@ -1,4 +1,6 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+
 @{
     ViewBag.Title = "My Profile";
 }
@@ -40,8 +42,12 @@
                     </div>
 
                     <div class="edit-profile pull-right" style="margin-right: 3px;">
-                        @Html.Partial("~/Views/Popup/EditUserData.cshtml")
-                        @Html.Partial("~/Views/Popup/ResetPassword.cshtml")
+                        <div id="EditDataPartial">
+                            @Html.Partial("~/Views/Popup/EditUserData.cshtml")
+                        </div>
+                        <div id="ChangePasswordPartial">
+                            @Html.Partial("~/Views/Popup/ChangePassword.cshtml")
+                        </div>   
                         <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style fa-custom-button pull-right"></i> </a>
                         <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right"></i> </a>
                     </div>
@@ -111,13 +117,13 @@
             show: { effect: 'clip', duration: 250 },
             hide: { effect: 'clip', duration: 250 },
             buttons: [
-        {
-            text: "Change",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Change",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
@@ -150,8 +156,3 @@
     }
 </script>
 
-<script>
-    $(".popup-button").on('click', this, function () {
-        $(this).closest("#createUserPopup").dialog('close');
-    });
-</script>
