@@ -11,7 +11,7 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class ProjectService : IService<ProjectDTO>, IPagingService<ProjectDTO>, IDisposable
+    public class ProjectService : IExtendedService<ProjectDTO>, IDisposable
     {
 
         private DTOConverter _converter;
