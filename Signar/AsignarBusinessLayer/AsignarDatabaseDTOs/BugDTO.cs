@@ -28,8 +28,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
     public class BugDTO
     {
         public int BugID { get; set; }
-
-
+        
         public string Prefix { get; set; }
 
 
@@ -40,6 +39,9 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
 
         public int? AssigneeID { get; set; }
+
+
+        public UserDTO User { get; set; }
 
 
         public int ProjectID { get; set; }
@@ -65,6 +67,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         public BugDTO()
         {
+            CreationDate = DateTime.Now;
             Attachments = new HashSet<AttachmentDTO>();
             Comments = new HashSet<CommentDTO>();
         }

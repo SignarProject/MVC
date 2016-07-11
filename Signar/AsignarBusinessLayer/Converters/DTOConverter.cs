@@ -59,8 +59,8 @@ namespace AsignarBusinessLayer.Converters
             bugDTO.Description = bug.Description;
             bugDTO.CreationDate = bug.CreationDate;
             bugDTO.ModificationDate = bug.ModificationDate;
-            bugDTO.Priority = (Priority) bug.Priority;
-            bugDTO.Status = (Status) bug.BugStatus;
+            bugDTO.Priority = (Priority)bug.Priority;
+            bugDTO.Status = (Status)bug.BugStatus;
 
             foreach (var comment in bug.Comments)
             {
@@ -86,14 +86,13 @@ namespace AsignarBusinessLayer.Converters
             if (bugDTO.AssigneeID.HasValue)
             {
                 newBug.AssigneeID = bugDTO.AssigneeID;
-                newBug.User = _dbContext.Users.Find(bugDTO.AssigneeID);
+                newBug.User = UserFromDTO(bugDTO.User);
             }
 
             newBug.Subject = bugDTO.Subject;
             newBug.Description = bugDTO.Description;
-            newBug.CreationDate = bugDTO.CreationDate;
-            newBug.BugStatus = (byte) bugDTO.Status;
-            newBug.Priority = (byte) bugDTO.Priority;
+            newBug.BugStatus = (byte)bugDTO.Status;
+            newBug.Priority = (byte)bugDTO.Priority;
 
             foreach (var attachment in bugDTO.Attachments)
             {
@@ -101,6 +100,30 @@ namespace AsignarBusinessLayer.Converters
             }
 
             return newBug;
+
+            /*else
+            {
+                var bug = _dbContext.Bugs.Find(bugDTO.BugID);
+
+                bug.BugStatus = (byte) bugDTO.Status;
+                bug.Priority = (byte)bugDTO.Priority;
+                bug.ModificationDate = bugDTO.ModificationDate;
+                bug.AssigneeID = bugDTO.AssigneeID;
+                bug.User = _dbContext.Users.Find(bugDTO.AssigneeID);
+                bug.Attachments = new HashSet<Attachment>();
+
+                foreach(var attachment in bugDTO.Attachments)
+                {
+                    bug.Attachments.Add(AttachmentFromDTO(attachment));
+                }
+
+                foreach(var comment in bugDTO.Comments)
+                {
+                    
+                }
+
+            }*/
+
         }
 
 
