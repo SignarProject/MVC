@@ -11,10 +11,14 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
     {
         public int ProjectID { get; set; }
 
-
+        [Required]
+        [Display(Name = "Title")]
+        [StringLength(254, ErrorMessage = "Title is too long")]
         public string Name { get; set; }
 
-
+        [Required]
+        [Display(Name = "Prefix")]
+        [StringLength(10, ErrorMessage = "Prefix is too long")]
         public string Prefix { get; set; }
 
 

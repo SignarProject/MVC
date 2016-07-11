@@ -38,6 +38,9 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public bool IsAdmin { get; set; }
 
 
+        public ICollection<ProjectDTO> Projects { get; set; }
+
+
         public ICollection<BugDTO> Bugs { get; set; }
 
 
@@ -49,6 +52,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         public UserDTO()
         {
+            Projects = new HashSet<ProjectDTO>();
             Bugs = new HashSet<BugDTO>();
             Comments = new HashSet<CommentDTO>();
             Filters = new HashSet<FilterDTO>();

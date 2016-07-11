@@ -215,6 +215,11 @@ namespace AsignarBusinessLayer.Converters
             userDTO.Password = user.Password;
             userDTO.IsAdmin = user.IsAdmin;
 
+            foreach (var project in user.UsersToProjects.Where(u => u.UserID.Equals(user.UserID)).Select(p => p.Project))
+            {
+                userDTO.Projects.Add(ProjectToDTO(project));
+            }
+
             foreach (var bug in user.Bugs)
             {
                 userDTO.Bugs.Add(BugToDTO(bug));

@@ -75,8 +75,8 @@
                                 <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
                                 <img src="~/Content/img/ava1.jpg" class="users-av" />
                                 <div class="users-info-helper">
-                                    <p class="zero-merg" style="font-size: 85%"><b>@userI.Name @userI.Surname </b></p>
-                                    <p class="zero-merg" style="font-size: 75%">@userI.Email</p>
+                                    <p class="zero-merg" style="font-size: 85%"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
+                                    <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
                                     <p class="zero-merg"  style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;">@UserRole</p>
                                 </div>
                                 <div class="row">
@@ -94,14 +94,14 @@
                             <div class="table-elem-user shadow-div-user">
                                 <img src="~/Content/img/ava1.jpg" class="users-av" />
                                 <div class="users-info-helper">
-                                    <p class="zero-merg" style="font-size: 85%"><b>@userI.Name @userI.Surname </b></p>
-                                    <p class="zero-merg" style="font-size: 75%">@userI.Email</p>
+                                    <p class="zero-merg" style="font-size: 85%"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
+                                    <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
                                     <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;">@UserRole</p>
                                 </div>
                                 <div class="row">
                                     <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
                                         <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
-                                        <i class="fa fa-th-list  info-icon"></i> <label>@*@UserI.ProjectsCount*@100500</label>
+                                        <i class="fa fa-th-list  info-icon"></i> <label>@*@UserI.ProjectsCount*@@userI.</label>
                                     </p>
                                 </div>
                             </div>
@@ -122,6 +122,12 @@
 
     </div>
 </div>
+
+<style>
+    #users-menu-div {
+        background-color: #92C1BA !important;
+    }
+</style>
 
 
 <script>

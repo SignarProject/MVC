@@ -3,15 +3,26 @@
 
 @{
     ViewBag.Title = "Home Page";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
 }
 
 <div class="container container-form">
     <div class="row">
         <div style="margin-right: 20px; margin-top: 15px;">
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Projects</h2>
-            <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
+            @if (user.IsAdmin)
+            {
+                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
+            }
+            else
+            {
+                <div style="display: inline-block;width: 28px;height: 48px;">
 
-            @Html.Partial("~/Views/Popup/CreateNewProject.cshtml")
+                </div>
+            }
+
+            @{ProjectDTO partModel = new ProjectDTO(); }
+            @Html.Partial("~/Views/Popup/CreateNewProject.cshtml", partModel)
 
             <div class="search-bar pull-right" style="margin-top: 22px;" id="searchTextOnPage">
                 <form role="search" style="display: flex;">
@@ -67,7 +78,9 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="table-elem shadow-div" id="close-icon-div">
                         <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="hideProject(this, @project.ProjectID)"></i>
-                        <h4 class="h4-zero-topmargin"> @project.Name</h4>
+                        <div style="display:inline-block; max-width:97%;">
+                            <h4 class="h4-zero-topmargin no-text-overflow"> @project.Name</h4>
+                        </div>
                         <p class="prefix-style" style="font-size: 13px;">@project.Prefix</p>
                         <div class="row">
                             <p class="info-block pull-right label zero-merg p label" style="margin-top: 12px !important;">
@@ -93,6 +106,12 @@
     </div>
 </div>
 
+<style>
+    #projects-menu-div{
+        background-color: #92C1BA !important;
+    }
+</style>
+
 <script>
     function ShowCreateNewProjectPopup() {
                  $("#createUserPopup").dialog({
@@ -104,13 +123,13 @@
                      show: { effect: 'clip', duration: 350 },
                      hide: { effect: 'clip', duration: 350 },
                      buttons: [
-                 {
-                     text: "Create",
-                     "class": 'popup-button',
-                     click: function () {
-                         $(this).dialog("close");
-                     }
-                 },
+                 //{
+                 //    text: "Create",
+                 //    "class": 'popup-button',
+                 //    click: function () {
+                 //        $(this).dialog("close");
+                 //    }
+                 //},
                      ],
                      close: function () {
                      }

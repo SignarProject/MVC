@@ -97,6 +97,30 @@ namespace Signar.Controllers
             return RedirectToAction("MyProfile");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNewProject(ProjectDTO model)
+        {
+            if (model.Name != null && model.Name.Length >0 && model.Prefix.Length > 10)
+            {
+                return new HttpStatusCodeResult(7, "Prefix length must be less than 10");
+            }
+            if (!ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(1, "Input data is invalid");
+            }
+            bool res = false;
+            using (ProjectService projectService = new ProjectService())
+            {
+                res = projectService.CreateItem(model);
+            }
+            if (!res)
+            {
+                return new HttpStatusCodeResult(8, "This prefix already exists in database, please try again");
+            }
+            return RedirectToAction("Projects");
+        }
+
         public ActionResult Index()
         {
             return View();
