@@ -77,13 +77,13 @@ namespace AsignarBusinessLayer.Services
         }
 
 
-        public ICollection<BugDTO> GetPage(int pageNumber, SortBy sortValue)
+        public ICollection<BugDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
             switch (sortValue)
             {
                 case SortBy.Title:
                     {
-                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.BugID).Skip(9 * (pageNumber - 1)).Take(9).ToList();
+                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.BugID).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
                         ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
 
                         foreach (var bug in searchResult)

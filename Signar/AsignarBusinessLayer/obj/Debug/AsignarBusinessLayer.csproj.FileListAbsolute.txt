@@ -45,3 +45,15 @@ C:\git\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll.config
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll.config
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\AsignarBusinessLayer.pdb
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\AsignarDataAccessLayer.pdb
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.xml
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.csprojResolveAssemblyReference.cache
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\obj\Debug\AsignarBusinessLayer.pdb

@@ -21,3 +21,8 @@ C:\TeamProject\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
 C:\TeamProject\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
 C:\TeamProject\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
 C:\TeamProject\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb

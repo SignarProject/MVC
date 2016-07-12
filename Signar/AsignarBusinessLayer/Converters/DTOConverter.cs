@@ -184,7 +184,7 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public ProjectDTO ProjectToDTO(Project project)
+        public ProjectDTO ProjectToDTO(Project project, bool isCollectionItem)
         {
             var projectDTO = new ProjectDTO();
 
@@ -193,15 +193,18 @@ namespace AsignarBusinessLayer.Converters
             projectDTO.Prefix = project.Prefix;
             projectDTO.IsDeleted = project.IsDeleted;
 
-            var usersOfProject = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Select(r => r).ToList();
-
-            foreach (var record in usersOfProject)
+            if(!isCollectionItem)
             {
-                projectDTO.Users.Add(UserToDTO(record.User));
+                var usersOfProject = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Select(r => r).ToList();
+
+                foreach (var record in usersOfProject)
+                {
+                    projectDTO.Users.Add(UserToDTO(record.User, true));
+                }
+
+                projectDTO.UsersAmount = projectDTO.Users.Count;
             }
-
-            projectDTO.UsersAmount = projectDTO.Users.Count;
-
+            
             foreach (var bug in project.Bugs)
             {
                 projectDTO.Bugs.Add(BugToDTO(bug));
@@ -225,7 +228,7 @@ namespace AsignarBusinessLayer.Converters
         }
 
 
-        public UserDTO UserToDTO(User user)
+        public UserDTO UserToDTO(User user, bool isCollectionItem)
         {
             var userDTO = new UserDTO();
 
@@ -238,11 +241,16 @@ namespace AsignarBusinessLayer.Converters
             userDTO.Password = user.Password;
             userDTO.IsAdmin = user.IsAdmin;
 
-            foreach (var project in user.UsersToProjects.Where(u => u.UserID.Equals(user.UserID)).Select(p => p.Project))
+            if(!isCollectionItem)
             {
-                userDTO.Projects.Add(ProjectToDTO(project));
-            }
+                var userProjects = user.UsersToProjects.Where(u => u.UserID.Equals(user.UserID)).Select(p => p.Project).ToList();
 
+                foreach (var project in userProjects)
+                {
+                    userDTO.Projects.Add(ProjectToDTO(project, true));
+                }
+            }
+                        
             foreach (var bug in user.Bugs)
             {
                 userDTO.Bugs.Add(BugToDTO(bug));

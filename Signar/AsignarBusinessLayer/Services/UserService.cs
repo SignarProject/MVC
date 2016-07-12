@@ -91,7 +91,7 @@ namespace AsignarBusinessLayer.Services
 
             foreach (var user in allUsers)
             {
-                allUsersDTOs.Add(_converter.UserToDTO(user));
+                allUsersDTOs.Add(_converter.UserToDTO(user, false));
             }
             return allUsersDTOs;
         }
@@ -103,7 +103,7 @@ namespace AsignarBusinessLayer.Services
             try
             {
                 User user = _dbContext.Users.Find(id);
-                userDTO = _converter.UserToDTO(user);
+                userDTO = _converter.UserToDTO(user, false);
             }
             catch(Exception ex)
             {
@@ -113,18 +113,18 @@ namespace AsignarBusinessLayer.Services
         }
 
 
-        public ICollection<UserDTO> GetPage(int pageNumber, SortBy sortValue)
+        public ICollection<UserDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
             switch (sortValue)
             {
                 case SortBy.Title:
                     {
-                        ICollection<User> searchResult = _dbContext.Users.AsNoTracking().OrderBy(u => u.Name).Skip(9 * (pageNumber - 1)).Take(9).ToList();
+                        ICollection<User> searchResult = _dbContext.Users.AsNoTracking().OrderBy(u => u.Name).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
                         ICollection<UserDTO> dtoResult = new HashSet<UserDTO>();
 
                         foreach (var user in searchResult)
                         {
-                            dtoResult.Add(_converter.UserToDTO(user));
+                            dtoResult.Add(_converter.UserToDTO(user, false));
                         }
 
                         return dtoResult;

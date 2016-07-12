@@ -10,6 +10,6 @@ namespace AsignarBusinessLayer.Services.ServiceInterfaces
 {
     interface IPagingService<T> where T : class
     {
-        ICollection<T> GetPage(int pageNumber, SortBy sortValue);
+        ICollection<T> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce);
     }
 }

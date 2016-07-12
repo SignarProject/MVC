@@ -77,7 +77,7 @@ namespace AsignarBusinessLayer.Services
 
             foreach (var project in allProjects)
             {
-                allProjectDTOs.Add(_converter.ProjectToDTO(project));
+                allProjectDTOs.Add(_converter.ProjectToDTO(project, false));
             }
 
             return allProjectDTOs;
@@ -90,7 +90,7 @@ namespace AsignarBusinessLayer.Services
             try
             {
                 Project project = _dbContext.Projects.Find(id);
-                projectDTO = _converter.ProjectToDTO(project);
+                projectDTO = _converter.ProjectToDTO(project, false);
             }
             catch(Exception ex)
             {
@@ -100,19 +100,19 @@ namespace AsignarBusinessLayer.Services
         }
 
 
-        public ICollection<ProjectDTO> GetPage(int pageNumber, SortBy sortValue)
+        public ICollection<ProjectDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
 
             switch (sortValue)
             {
                 case SortBy.Title:
                     {
-                        ICollection<Project> searchResult = _dbContext.Projects.AsNoTracking().OrderBy(p => p.Name).Skip(9 * (pageNumber - 1)).Take(9).ToList();
+                        ICollection<Project> searchResult = _dbContext.Projects.AsNoTracking().OrderBy(p => p.Name).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
                         ICollection<ProjectDTO> dtoResult = new HashSet<ProjectDTO>();
 
                         foreach (var project in searchResult)
                         {
-                            dtoResult.Add(_converter.ProjectToDTO(project));
+                            dtoResult.Add(_converter.ProjectToDTO(project, false));
                         }
 
                         return dtoResult;
