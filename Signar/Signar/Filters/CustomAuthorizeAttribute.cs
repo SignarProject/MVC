@@ -36,17 +36,18 @@ namespace CustomAuth.Filters
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //User isn't logged in
+
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary(new { controller = "Home", action = "Login" })
+                        new RouteValueDictionary(new { controller = "Account", action = "Login" })
                 );
             }
 
             //User is logged in but has no access
             else {
                 filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary(new { controller = "Home", action = "NotAuthorized" })
+                        new RouteValueDictionary(new { controller = "Account", action = "Login" })
                 );
             }
         }

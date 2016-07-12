@@ -99,8 +99,16 @@ namespace AsignarBusinessLayer.Services
 
         public UserDTO GetItem(int id)
         {
-            User user = _dbContext.Users.Find(id);
-            UserDTO userDTO = _converter.UserToDTO(user);
+            UserDTO userDTO;
+            try
+            {
+                User user = _dbContext.Users.Find(id);
+                userDTO = _converter.UserToDTO(user);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
             return userDTO;
         }
 

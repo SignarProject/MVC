@@ -207,6 +207,17 @@ p label {
     padding-right: 10px;
 }
 
+.bug-status-testing {
+    font-size: 60%;
+    border: solid 1px #55B924;
+    color: #A4AE0F;
+    vertical-align: middle;
+    padding: 1px;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 
 .profile-desc {
     font-size: 80%;
@@ -254,7 +265,6 @@ p label {
     border: solid 1px;
     color: #dbdbdb;
     border-radius: 0;
-    max-width: 200px;
     max-height: 30px;
     background: transparent;
     margin-top: -3px;
@@ -349,7 +359,7 @@ select option {
     display: inline-block;
     margin-top: 5px;
     vertical-align: middle;
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .bug-status-display {
@@ -536,10 +546,10 @@ select option {
 }
 
 .dropdown-user-group {
-    position: relative;
+    position: absolute;
     z-index: 10;
     color: white;
-    left: -8px;
+    left: 70px;
     margin: 0px;
     /*margin-right: 35px;*/
     min-height: 0px;
@@ -580,9 +590,9 @@ select option {
 
 .icon-arrow-users {
     z-index: 1100 !important;
-    position: absolute !important;
+    position: relative;
     left: 3px !important;
-    top: 37px;
+    top: -2px;
     color: #92C1BA;
     display: none;
 }
@@ -598,7 +608,15 @@ select option {
     display: inline-block;
 }
 
-
+.no-text-overflow-profile {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    /* display: inline-block; */
+    line-height: 12px;
+    overflow: hidden;
+}
 
 .color-black > label{
     color: black;
@@ -610,6 +628,27 @@ select option {
     overflow-x: hidden;
     text-overflow: ellipsis;
     display: inline-block;
+    line-height: 12px;
+    overflow: hidden;
+}
+
+.no-text-overflow-bigtext {
+           max-width: 200px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.no-text-overflow-project-user-info {
+        width: 100%;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: block;
     line-height: 12px;
     overflow: hidden;
 }
@@ -634,10 +673,15 @@ select option {
         color: #4D868D !important;
     }
 
-@media (max-width: 412px) {
+@media (max-width: 767px) {
     #searchTextOnPage {
         /*display: none;*/
-        width: 120px;
+        width: 100%;
+        margin-right: 0 !important;
+    }
+    .search-bar{
+        width: 100%;
+        margin-right: 0 !important;
     }
 }
 
@@ -666,5 +710,11 @@ select option {
 @media (min-width: 768px) and (max-width: 992px) {
     .double-container-mini {
         height: 300px;
+    }
+}
+
+@media (max-width: 757px){
+    .user-info-block{
+        width: 90% !important;
     }
 }

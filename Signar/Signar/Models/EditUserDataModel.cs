@@ -15,12 +15,12 @@ namespace Signar.Models
 
         [Required]
         [Display(Name = "Name")]
-        [StringLength(254, ErrorMessage = "Name is too long")]
+        [StringLength(35, ErrorMessage = "Name is too long")]
         public string Name { get; set; }
 
         [Required]
         [Display(Name = "Surname")]
-        [StringLength(254, ErrorMessage = "Name is too long")]
+        [StringLength(35, ErrorMessage = "Name is too long")]
         public string Surname { get; set; }
 
         [Required]

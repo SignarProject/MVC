@@ -86,12 +86,16 @@ namespace AsignarBusinessLayer.Services
 
         public ProjectDTO GetItem(int id)
         {
-            Project project = _dbContext.Projects.Find(id);
-
-
-            ProjectDTO projectDTO = _converter.ProjectToDTO(project);
-
-
+            ProjectDTO projectDTO;
+            try
+            {
+                Project project = _dbContext.Projects.Find(id);
+                projectDTO = _converter.ProjectToDTO(project);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
             return projectDTO;
         }
 

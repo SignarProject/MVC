@@ -68,7 +68,7 @@ namespace Signar.Controllers
                 ModelState.AddModelError("", "Sorry, but there was an error");
                 return new HttpStatusCodeResult(1, "Input data is invalid");
             }
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("TheProfile");
         }
 
         [HttpPost]
@@ -94,14 +94,49 @@ namespace Signar.Controllers
             {
                 return new HttpStatusCodeResult(2, "Old password is incorrect");
             }
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("TheProfile");
+        }
+
+        public ActionResult TheProfile(int id)
+        {
+            UserDTO user;
+            if (id == -1)
+            {
+                UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+                int MyID = Me.UserID;
+                using (UserService userService = new UserService())
+                {
+                    user = userService.GetItem(MyID);
+                }
+                if (user == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+                return View(user);
+            }
+            using (UserService userService = new UserService())
+            {
+                user = userService.GetItem(id);
+            }
+            if (user == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+            return View(user);
+        }
+
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetProject(int id)
+        {
+            ProjectDTO project;
+            using (ProjectService projectService = new ProjectService())
+            {
+                project = projectService.GetItem(id);
+            }
+            if (project == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+            return View(project);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewProject(ProjectDTO model)
         {
-            if (model.Name != null && model.Name.Length >0 && model.Prefix.Length > 10)
+            if (model.Name != null && model.Name.Length > 0 && model.Prefix.Length > 10)
             {
                 return new HttpStatusCodeResult(7, "Prefix length must be less than 10");
             }
@@ -185,13 +220,6 @@ namespace Signar.Controllers
         {
             return View();
         }
-
-
-        public ActionResult MyProfile()
-        {
-            return View();
-        }
-
 
         public ActionResult Filters()
         {

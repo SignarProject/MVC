@@ -290,7 +290,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Home\DashBoard.cshtml" />
-    <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Home\TheProfile.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Popup\CreateNewProject.cshtml" />
     <Content Include="Views\Popup\CreateNewUser.cshtml" />
