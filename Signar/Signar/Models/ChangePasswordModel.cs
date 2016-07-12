@@ -19,5 +19,8 @@ namespace Signar.Models
         [Display(Name = "New password")]
         [StringLength(254, ErrorMessage = "New password is too long")]
         public string NewPassword { get; set; }
+
+        [Required]
+        public int UserID { get; set; }
     }
 }

@@ -48,9 +48,9 @@
         
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-header pull-left">
-                    <li>@Html.ActionLink("Projects", "Projects", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
-                    <li>@Html.ActionLink("Users", "Users", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
-                    <li>@Html.ActionLink("Filters", "Filters", "Home", null, htmlAttributes: new { @class = "navTextH navHL" })</li>
+                    <li>@Html.ActionLink("Projects", "Projects", "Home", null, htmlAttributes: new { @class = "navTextH navHL", id="projects-menu-div"})</li>
+                    <li>@Html.ActionLink("Users", "Users", "Home", null, htmlAttributes: new { @class = "navTextH navHL", id = "users-menu-div" })</li>
+                    <li>@Html.ActionLink("Filters", "Filters", "Home", null, htmlAttributes: new { @class = "navTextH navHL", id = "filters-menu-div" })</li>
                     <li><button class="navButton" onCLick="ShowCreateNewTaskPopup()"><nobr><t class="icon-plus"></t> &nbsp;Create task</nobr></button></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-header pull-right">
@@ -64,11 +64,13 @@
                     @*<li class="navTextH">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "navTextH" })</li>*@
                     @*<li class="navTextH">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navTextH rightText" })</li>*@
                     <li onclick="showProfileDropMenu()">
-                        <a href="#" class="navProfile rightM"><img src="~/Content/img/ava1.jpg" id="avatar" />&nbsp;&nbsp;@UserName @UserSurName</a>
+                        <a href="#" class="navProfile rightM"><img src="~/Content/img/ava1.jpg" id="avatar" />&nbsp;&nbsp;
+                        <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserName</div> <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserSurName</div>
+                        </a>
 
                         <div class="dropdownProfile">
                             <ul>
-                                <li class="arrow-holder" data-value="Profile" onClick="location.href = '../Home/MyProfile'" style="padding: 12px 14px;"><span class="icon-arrow1"></span>Profile</li>
+                                <li class="arrow-holder" data-value="Profile" onClick="location.href = '/Home/TheProfile/0'" style="padding: 12px 14px;"><span class="icon-arrow1"></span>Profile</li>
                                 <li data-value="Sign_out" class="no-pad">
                                  @Html.ActionLink("Sign out", "Signout", "Home", null, htmlAttributes: new { @class = "signout-link" })
                                 </li>

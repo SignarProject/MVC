@@ -10,7 +10,7 @@
 
             @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml")
 
-            <div class="search-bar pull-right" style="margin-top: 22px;" id="searchTextOnPage">
+            <div class="search-bar-common pull-right" style="margin-top: 22px;">
                 <form role="search" style="display: flex;">
                     <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
                     <span>
@@ -46,45 +46,25 @@
                 <div class="col-md-4 col-sm-6 col-xs-12" style="overflow:no-display">
                     <div class="table-elem shadow-div" style="position:relative;">
                         <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                        <h4 class="h4-zero-topmargin" style="margin-bottom: 10px"> The Financier</h4>
+                        <h4 class="h4-zero-topmargin no-text-overflow" style="margin-bottom: 0px"> The Financier</h4>
                         <div class="filters-inr-divblc">
                             <div class="filter-info-col" style="padding-left: 1px">
-                                <span>
-                                    <label>Search:</label>
-                                </span> <br />
-                                <span>
-                                    <label>Status:</label>
-                                </span> <br />
-                                <span>
-                                    <label>Priority:</label>
-                                </span> <br />
+                                    <label class="no-text-overflow-sm">Search:</label><br />
+                                    <label class="no-text-overflow-sm">Status:</label><br />
+                                    <label class="no-text-overflow-sm">Priority:</label><br />
                             </div>
-                            <div class="filter-info-col col-helper" style="width: 70px;">
-                                <span>
-                                    <label>Search_Value</label>
-                                </span> <br />
-                                <span>
-                                    <label>Status_Value</label>
-                                </span> <br />
-                                <span>
-                                    <label>Priority_Value</label>
-                                </span> <br />
+                            <div class="filter-info-col col-helper color-black" style="max-width: 20%;">
+                                    <label class="no-text-overflow-sm" style="max-width: 300px;">Search_Value</label><br />
+                                    <label class="no-text-overflow-sm">Status_Value</label><br />
+                                    <label class="no-text-overflow-sm">Priority_Value</label><br />
                             </div>
                             <div class="filter-info-col" style="margin-left: -15px; padding-left: 10px; margin-top: 13px">
-                                <span>
-                                    <label>Project:</label>
-                                </span><br />
-                                <span>
-                                    <label>Assignee:</label>
-                                </span><br />
+                                    <label class="no-text-overflow-sm">Project:</label><br />
+                                    <label class="no-text-overflow-sm">Assignee:</label><br />
                             </div>
-                            <div class="filter-info-col col-helper" style="padding-left: 10px; margin-top: 13px; width: 83px;">
-                                <span>
-                                    <label>Project_Value</label>
-                                </span><br />
-                                <span>
-                                    <label>Assignee_Value</label>
-                                </span><br />
+                            <div class="filter-info-col col-helper color-black" style="padding-left: 10px; margin-top: 13px;width: 45%; margin-right:0px;">
+                                    <label class="no-text-overflow-sm" style="max-width: 250px;">Project_Value</label><br />
+                                    <label class="no-text-overflow-sm" style="max-width: 250px;">Assignee_Value</label><br />
                             </div>
                         </div>
                     </div>
@@ -100,7 +80,11 @@
     </div>
 </div>
 
-
+<style>
+    #filters-menu-div {
+        background-color: #92C1BA !important;
+    }
+</style>
 
 <script>
     function ShowCreateNewFilterPopup() {

@@ -164,7 +164,7 @@ namespace AsignarBusinessLayer.Services
             userToUpdate.Email = updatedItem.Email;
             userToUpdate.AvatarImagePath = updatedItem.AvatarPath;
             userToUpdate.IsAdmin = updatedItem.IsAdmin;
-
+            _dbContext.SaveChanges();
             return true;
         }
     }

@@ -1,0 +1,23 @@
+﻿<div id="EditProjectPopup" class="table-responsive popup-common">
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBox("Project title", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Title" })
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .edit-project-popup .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f00b";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 16px;
+        font-weight: 100;
+    }
+</style>

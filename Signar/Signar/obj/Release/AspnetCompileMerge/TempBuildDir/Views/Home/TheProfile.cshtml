@@ -1,0 +1,216 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@model UserDTO
+
+
+@{
+    string FullName = Model.Name + " " + Model.Surname;
+    ViewBag.Title = FullName + " profile";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    bool MyProf = (user.UserID == Model.UserID);
+    string UserRole = "Common user";
+    if (Model.IsAdmin == true)
+    {
+        UserRole = "Administrator";
+    }
+}
+
+<div class="container double-container">
+    <div class="col-md-4 double-container-mini" style="margin-top: 15px;">
+        <div class="col-md-12 col-sm-6 col-xs-12 zero-pad-left">
+            <div style="margin: 0px 0px 40px 0px">
+                @{
+                    if (MyProf)
+                    {
+                        <h2 style="margin: 20px 0px 40px 0px">My Profile</h2>
+                    }
+                    else
+                    {
+
+                        <h2 style="margin: 20px 0px 40px 0px">@FullName profile</h2>
+                    }
+                }
+            </div>
+            <div class="table-elem-static shadow-div project-div-static">
+                <img src="~/Content/img/ava1.jpg" class="profile-av" />
+                <div class="user-name">
+
+                    <p class="zero-merg no-text-overflow-profile">@Model.Name</p>
+                    <p class="zero-merg no-text-overflow-profile">@Model.Surname</p>
+                </div>
+
+                <div class="profile-desc">
+                    <label>Email</label>
+                    <p class="no-text-overflow-profile">@Model.Email</p>
+                </div>
+
+                <div class="profile-desc">
+                    <label>Role</label>
+                    <p>@UserRole</p>
+                </div>
+
+            </div>
+
+            <div class="edit-profile pull-right" style="margin-right: 3px;">
+                <div id="EditDataPartial">
+                    @{
+                        EditUserDataModel m1 = new EditUserDataModel();
+                    }
+                    @Html.Partial("~/Views/Popup/EditUserData.cshtml", m1)
+                </div>
+                <div id="ChangePasswordPartial">
+                    @{
+                        ChangePasswordModel m2 = new ChangePasswordModel();
+                    }
+                    @Html.Partial("~/Views/Popup/ChangePassword.cshtml", m2)
+                </div>
+                <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style fa-custom-button pull-right"></i> </a>
+                <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right"></i> </a>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <h2 style="margin-top: 20px; margin-bottom: 40px">
+                @if (MyProf)
+                {
+                    <text>My </text>
+                }Projects
+            </h2>
+
+            <div class="shadow-div">
+                <ul class="a-links" style="padding: 5px 0px 0px 5px">
+                    @foreach (ProjectDTO project in Model.Projects)
+                    {
+                        <li class="no-text-overflow-profile" style="line-height: 18px; max-width: 100%;"><a href="url">@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-8" style="margin-top: 15px;">
+        <div class="col">
+            <div style="margin: 0px 0px 40px 0px">
+                @if (MyProf)
+                {
+                    <h2 style="margin: 20px 0px 40px 0px">Assigned To Me</h2>
+                }
+                else
+                {
+                    <h2 style="margin: 20px 0px 40px 0px">Assigned To @FullName</h2>
+                }
+            </div>
+            <div class="shadow-div">
+                <div style="display:inline-block; vertical-align: middle; width:100%;">
+                    @foreach (BugDTO bug in Model.Bugs)
+                    {
+                        <div class="bugs-div">
+                            @{
+                                switch ((int)@bug.Priority)
+                                {
+                                    case 0:
+                                        <img src="~/Content/Priority_img/critical_prior.png" style="vertical-align:top;" />
+                                        break;
+                                    case 1:
+                                        <img src="~/Content/Priority_img/exclamation_prior.png" style="vertical-align:top;" />
+                                        break;
+                                    case 2:
+                                        <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                        break;
+                                    case 3:
+                                        <img src="~/Content/Priority_img/minor_prior.png" style="vertical-align:top;" />
+                                        break;
+                                }
+                            }
+
+                            <div class="bugs-descrip-block" style="width: 90%;">
+                                <label class="zero-merg inner-bugs-label">@bug.Prefix</label>
+                                @{
+                                    switch ((int)@bug.Status)
+                                    {
+                                        case 0:
+                                            <label class="bug-status-display bug-status-todo zero-merg">Open</label>
+                                            break;
+                                        case 1:
+                                            <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                            break;
+                                        case 2:
+                                            <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                                            break;
+                                        case 3:
+                                            <label class="bug-status-display bug-status-testing zero-merg">Testing</label>
+                                            break;
+                                        case 4:
+                                            <label class="bug-status-display bug-status-done_close zero-merg">Closed</label>
+                                            break;
+                                    }
+
+                                }
+                                <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">@bug.Subject</p>
+                            </div>
+
+                        </div>
+                                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="pull-left short-info">
+                    <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: @Model.Bugs.Count</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ShowResetPasswordPopup() {
+        $("#createUserPopup2").css({ 'display': "visible" });
+        $("#createUserPopup2").dialog({
+            width: 600,
+            fluid: true,
+            modal: true,
+            resizable: false,
+            dialogClass: "reset-password-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        //{
+        //    text: "Change",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+
+    function ShowEditUserDataPopup() {
+        $("#createUserPopup").css({ 'display': "visible" });
+        $("#createUserPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Edit user data",
+            modal: true,
+            resizable: false,
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        //{
+        //    text: "Save",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+    }
+</script>

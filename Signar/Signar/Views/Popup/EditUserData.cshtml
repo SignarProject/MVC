@@ -4,11 +4,12 @@
 <div id="createUserPopup" class="table-responsive">
     @{
         UserDTO user = Cache[User.Identity.Name] as UserDTO;
-        string UserName = user.Name;
-        string UserSurName = user.Surname;
-        string UserEmail = user.Email;
+        string UserName = (string)ViewData["UserName"];
+        string UserSurName = (string)ViewData["UserSurname"];
+        string UserEmail = (string)ViewData["UserEmail"];
         string UserRole = "Common user";
-        if (user.IsAdmin == true)
+        bool EditUserIsAdmin = (bool)ViewData["IsAdmin"];
+        if (EditUserIsAdmin == true)
         {
             UserRole = "Administrator";
         }
@@ -36,7 +37,7 @@
                             <li><a href="#">Administrator</a></li>
                         </ul>*@
 
-                    @if (UserRole.Equals("Administrator"))
+                    @if (user.IsAdmin)
                     {
                         <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;" id="EditUserDD">
                             <input type="hidden" name="role">
@@ -71,6 +72,7 @@
             </div>
         </div>
         @Html.HiddenFor(m => m.IsAdmin, new { @id = "IsAdmin", @Value = false });
+        @Html.HiddenFor(m => m.UserID, new { @Value = (int)@ViewData["UserID"] })
         <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax2(this)" />
     }
 </div>
@@ -102,24 +104,28 @@
         }
 </style>
 
-@if (UserRole.Equals("Administrator"))
+@if (user.IsAdmin)
 {
     <text>
-        <script>
-            $('#EditUserDD').dropdown('set selected', "admin");
-        </script>
-        <script>
-            $(document).ready(function () {
+        @if (EditUserIsAdmin)
+        {
+            <script>
+                $('#EditUserDD').dropdown('set selected', "admin");
                 $("#IsAdmin").val(true);
-                $(".menu").val('admin');
-
-            });
-        </script>
+            </script>
+        }
+        else
+        {
+            <script>
+                $('#EditUserDD').dropdown('set selected', "user");
+                $("#IsAdmin").val(false);
+            </script>
+        }
 
         <script>
-            $(".ui.fluid.dropdown").change(function () {
+            $("#EditUserDD").change(function () {
 
-                if ($(".menu").val() == "admin") {
+                if ($('#EditUserDD').dropdown('get value') == "admin") {
                     $("#IsAdmin").val(true);
                 } else {
                     $("#IsAdmin").val(false);
@@ -135,7 +141,7 @@
 
         $.ajax({
             type: "POST",
-            url: "EditUserData",
+            url: "/Home/EditUserData",
             data: $form.serialize(),
             error: function (xhr, status, error) {
                 alert(error);

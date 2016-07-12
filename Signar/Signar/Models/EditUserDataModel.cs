@@ -25,5 +25,8 @@ namespace Signar.Models
 
         [Required]
         public bool IsAdmin { get; set; }
+
+        [Required]
+        public int UserID { get; set; }
     }
 }

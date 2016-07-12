@@ -48,7 +48,11 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditUserData(EditUserDataModel model)
         {
-            UserDTO user = HttpContext.Cache[HttpContext.User.Identity.Name] as UserDTO;
+            UserDTO user;
+            using (UserService userService = new UserService())
+            {
+                user = userService.GetItem(model.UserID);
+            }
             if (user.Name.Equals(model.Name) && user.Surname.Equals(model.Surname) && user.Email.Equals(model.Email)
                 && user.IsAdmin == model.IsAdmin) return new HttpStatusCodeResult(3, "Nothing to update");
             if (ModelState.IsValid && user != null)
@@ -68,7 +72,7 @@ namespace Signar.Controllers
                 ModelState.AddModelError("", "Sorry, but there was an error");
                 return new HttpStatusCodeResult(1, "Input data is invalid");
             }
-            return RedirectToAction("TheProfile");
+            return RedirectToAction("TheProfile/"+model.UserID);
         }
 
         [HttpPost]
@@ -83,7 +87,7 @@ namespace Signar.Controllers
             bool fail = false;
             using (UserService userService = new UserService())
             {
-                UserDTO user = HttpContext.Cache[HttpContext.User.Identity.Name] as UserDTO;
+                UserDTO user = userService.GetItem(model.UserID);
                 if (user == null) fail = true;
                 else
                 {
@@ -94,15 +98,15 @@ namespace Signar.Controllers
             {
                 return new HttpStatusCodeResult(2, "Old password is incorrect");
             }
-            return RedirectToAction("TheProfile");
+            return RedirectToAction("TheProfile/" + model.UserID);
         }
 
         public ActionResult TheProfile(int id)
         {
             UserDTO user;
-            if (id == -1)
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (id == 0)
             {
-                UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
                 int MyID = Me.UserID;
                 using (UserService userService = new UserService())
                 {
@@ -110,6 +114,10 @@ namespace Signar.Controllers
                 }
                 if (user == null) return PartialView("~/Views/Shared/NotFound.cshtml");
                 return View(user);
+            }
+            if (!Me.IsAdmin)
+            {
+                return PartialView("~/Views/Shared/NotFound.cshtml");
             }
             using (UserService userService = new UserService())
             {
@@ -188,12 +196,15 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
-        public bool DeleteUser(int UserID)
+        public ActionResult DeleteUser(int UserID)
         {
             using (var userService = new UserService())
             {
+                UserDTO user = userService.GetItem(UserID);
+                if(user.Bugs.Count > 0) return new HttpStatusCodeResult(9, "You can not delete this user, because some tasks are assigned to him!");
                 bool res = userService.DeleteItem(UserID);
-                return res;
+                if (res) return new HttpStatusCodeResult(200, "OK"); else
+                    return new HttpStatusCodeResult(10, "There was an error during deleting");
             }
         }
 

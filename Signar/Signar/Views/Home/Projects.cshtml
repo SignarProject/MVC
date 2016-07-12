@@ -24,7 +24,7 @@
             @{ProjectDTO partModel = new ProjectDTO(); }
             @Html.Partial("~/Views/Popup/CreateNewProject.cshtml", partModel)
 
-            <div class="search-bar pull-right" style="margin-top: 22px;" id="searchTextOnPage">
+            <div class="search-bar-common pull-right" style="margin-top: 22px;">
                 <form role="search" style="display: flex;">
                     <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
                     <span>
@@ -84,8 +84,8 @@
                         <p class="prefix-style" style="font-size: 13px;">@project.Prefix</p>
                         <div class="row">
                             <p class="info-block pull-right label zero-merg p label" style="margin-top: 12px !important;">
-                                <i class="fa fa-edit info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@project.UsersAmount</label>
-                                <i class="fa fa-users info-icon"></i> <label>@project.BugsAmount</label>
+                                <i class="fa fa-edit info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@project.BugsAmount</label>
+                                <i class="fa fa-users info-icon"></i> <label>@project.UsersAmount</label>
                             </p>
                         </div>
                     </div>

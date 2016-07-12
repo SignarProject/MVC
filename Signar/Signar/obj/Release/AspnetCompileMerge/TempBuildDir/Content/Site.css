@@ -1,0 +1,70 @@
+﻿body {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    background-color: #F8FEFE;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+@font-face {
+    font-family: 'icomoon';
+    src:    url('../fonts/icomoon/icomoon.eot?cy2rhz');
+    src:    url('../fonts/icomoon/icomoon.eot?cy2rhz#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/icomoon.ttf?cy2rhz') format('truetype'),
+        url('../fonts/icomoon/icomoon.woff?cy2rhz') format('woff'),
+        url('../fonts/icomoon/icomoon.svg?cy2rhz#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 0;
+
+    -webkit-font-smoothing: antialiased;
+    /*-moz-osx-font-smoothing: grayscale;*/
+}
+
+.icon-biglogo1:before {
+    content: "\e902";
+}
+.icon-search:before {
+    content: "\e900";
+}
+.icon-arrow1:before {
+    content: "\e901";
+}
+.icon-plus:before {
+    content: "\ea0a";
+}
+
+img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

@@ -18,6 +18,15 @@
         background-color: #3D767D;
     }
 
+.no-text-overflow-logo {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .signout-link {
     color: white;
     position: absolute;
@@ -27,9 +36,9 @@
     padding: 12px 14px;
 }
 
-.signout-link:hover {
-    color: white;
-}
+    .signout-link:hover {
+        color: white;
+    }
 
 .navbar-toggle {
     margin-right: 30px !important;
@@ -192,7 +201,7 @@
 .icon-arrow1 {
     z-index: 601 !important;
     position: absolute;
-    left: +130px;
+    left: 66%;
     top: -2px;
     color: #92C1BA;
 }
@@ -239,7 +248,7 @@
             display: block;
             background: #92C1BA;
             color: rgb(248, 254, 254);
-            height:43px;
+            height: 43px;
             overflow: auto;
             margin-right: 0px;
         }
@@ -319,7 +328,7 @@
     }
 }
 
-@media (max-width: 917px) and (min-width: 768px) {
+@media (max-width: 958px) and (min-width: 768px) {
     .navbar-form > * {
         display: none;
         height: 0px;
@@ -333,7 +342,7 @@
     }
 }
 
-@media (min-width: 996px) {
+@media (min-width: 1032px) {
     .navbar-form {
         width: 242px;
     }
@@ -343,7 +352,7 @@
     }
 }
 
-@media (min-width: 1130px) {
+@media (min-width: 1152px) {
     .navbar-form {
         width: 363px;
     }

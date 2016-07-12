@@ -107,13 +107,6 @@ E:\2016\WEB\MVC\Signar\Signar\bin\AsignarBusinessLayer.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDTOModels.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\EntityFramework.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\EntityFramework.SqlServer.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.Agent.Intercept.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.DependencyCollector.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.PerfCounterCollector.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.ServerTelemetryChannel.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.Web.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.WindowsServer.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.ApplicationInsights.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AspNet.Identity.Core.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -146,11 +139,6 @@ E:\2016\WEB\MVC\Signar\Signar\bin\WebGrease.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDataAccessLayer.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarBusinessLayer.pdb
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDTOModels.pdb
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.DependencyCollector.xml
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.ServerTelemetryChannel.xml
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.Web.xml
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AI.WindowsServer.xml
-E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.ApplicationInsights.xml
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml
