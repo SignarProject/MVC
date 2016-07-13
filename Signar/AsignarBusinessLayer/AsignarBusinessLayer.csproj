@@ -58,9 +58,12 @@
     <Compile Include="AsignarDatabaseDTOs\UserToProjectDTO.cs" />
     <Compile Include="Converters\ConverterMDFive.cs" />
     <Compile Include="Converters\DTOConverter.cs" />
+    <Compile Include="Converters\XMLConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="Services\BugService.cs" />
+    <Compile Include="Services\CommentService.cs" />
+    <Compile Include="Services\FilterService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ServiceInterfaces\IAuthenticationService.cs" />
     <Compile Include="Services\ServiceInterfaces\IExtendedService.cs" />

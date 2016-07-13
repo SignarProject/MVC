@@ -16,8 +16,6 @@ namespace AsignarBusinessLayer.Services
 
         private AsignarDBModel _dbContext;
 
-        private ConverterMDFive _hashConverter;
-
         public AttachmentService()
         {
             _dbContext = new AsignarDBModel();
@@ -98,6 +96,8 @@ namespace AsignarBusinessLayer.Services
 
             attachment.Name = updatedItem.Name;
             attachment.ContentPath = updatedItem.ContentPath;
+
+            _dbContext.SaveChanges();
 
             return true;
         }

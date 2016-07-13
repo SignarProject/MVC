@@ -3,28 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AsignarDataAccessLayer.SerializationSignatures;
 
 namespace AsignarBusinessLayer.AsignarDatabaseDTOs
-{
-    public enum Status
-    {
-        Open = 0,
-        InProgress = 1,
-        Done = 2,
-        InTesting = 3,
-        Closed = 4
-    }
-
-
-    public enum Priority
-    {
-        Critical = 0,
-        Urgent = 1,
-        Major = 2,
-        Minor = 3
-    }
-
-
+{    
     public class BugDTO
     {
         public int BugID { get; set; }

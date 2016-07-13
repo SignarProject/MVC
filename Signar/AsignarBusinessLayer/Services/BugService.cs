@@ -51,7 +51,11 @@ namespace AsignarBusinessLayer.Services
 
         public bool DeleteItem(int id)
         {
-            _dbContext.Bugs.Find(id).BugStatus = 4;
+            Bug bug = _dbContext.Bugs.Find(id);
+
+            _dbContext.Bugs.Remove(bug);
+            _dbContext.SaveChanges();
+
             return true;
         }
 
@@ -64,7 +68,19 @@ namespace AsignarBusinessLayer.Services
 
         public ICollection<BugDTO> GetAllItems()
         {
-            throw new NotImplementedException();
+            ICollection<BugDTO> bugsDTO = new HashSet<BugDTO>();
+
+            ICollection<Bug> bugs = _dbContext.Bugs.ToList();
+
+            foreach(var bug in bugs)
+            {
+                if(!bug.Project.IsDeleted)
+                {
+                    bugsDTO.Add(_converter.BugToDTO(bug));
+                }                
+            }
+
+            return bugsDTO;
         }
 
 

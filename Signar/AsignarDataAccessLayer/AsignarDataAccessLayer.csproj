@@ -87,6 +87,7 @@
     <Compile Include="AzureADBModel\User.cs" />
     <Compile Include="AzureADBModel\UsersToProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializationSignatures\FilterSignature.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
