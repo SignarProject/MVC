@@ -5,22 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarDataAccessLayer.AzureADBModel;
+using AsignarDataAccessLayer.SerializationSignatures;
 
 
 namespace AsignarBusinessLayer.Converters
 {
     public class DTOConverter
     {
-
         private AsignarDBModel _dbContext;
 
+        private XMLConverter _xmlConvert;
 
         public DTOConverter(AsignarDBModel dbContext)
         {
             this._dbContext = dbContext;
         }
-
-
+        
         public AttachmentDTO AttachmentToDTO(Attachment attachment)
         {
             var attachmentDTO = new AttachmentDTO();
@@ -32,8 +32,7 @@ namespace AsignarBusinessLayer.Converters
 
             return attachmentDTO;
         }
-
-
+        
         public Attachment AttachmentFromDTO(AttachmentDTO attachmentDTO)
         {
             var newAttachment = new Attachment();
@@ -45,8 +44,7 @@ namespace AsignarBusinessLayer.Converters
 
             return newAttachment;
         }
-
-
+        
         public BugDTO BugToDTO(Bug bug)
         {
             var bugDTO = new BugDTO();
@@ -74,8 +72,7 @@ namespace AsignarBusinessLayer.Converters
 
             return bugDTO;
         }
-
-
+        
         public Bug BugFromDTO(BugDTO bugDTO)
         {
             var newBug = new Bug();
@@ -125,8 +122,7 @@ namespace AsignarBusinessLayer.Converters
             }*/
 
         }
-
-
+        
         public CommentDTO CommentToDTO(Comment comment)
         {
             var commentDTO = new CommentDTO();
@@ -140,8 +136,7 @@ namespace AsignarBusinessLayer.Converters
 
             return commentDTO;
         }
-
-
+        
         public Comment CommentFromDTO(CommentDTO commentDTO)
         {
             var newComment = new Comment();
@@ -156,21 +151,21 @@ namespace AsignarBusinessLayer.Converters
 
             return newComment;
         }
-
-
+        
         public FilterDTO FilterToDTO(Filter filter)
         {
             var filterDTO = new FilterDTO();
 
+            _xmlConvert = new XMLConverter();
+
             filterDTO.FilterID = filter.FilterID;
             filterDTO.UserID = filter.UserID;
             filterDTO.Title = filter.Title;
-            filterDTO.FilterContent = filter.FilterContent;
+            filterDTO.FilterSignarute = _xmlConvert.DeserializeFilter(filter.FilterContent);
 
             return filterDTO;
         }
-
-
+        
         public Filter FilterFromDTO(FilterDTO filterDTO)
         {
             var newFilter = new Filter();
@@ -178,12 +173,11 @@ namespace AsignarBusinessLayer.Converters
             newFilter.UserID = filterDTO.UserID;
             newFilter.User = _dbContext.Users.Find(filterDTO.UserID);
             newFilter.Title = filterDTO.Title;
-            newFilter.FilterContent = filterDTO.FilterContent;
+            newFilter.FilterContent = _xmlConvert.SerializeFilter(filterDTO.FilterSignarute);
 
             return newFilter;
         }
-
-
+        
         public ProjectDTO ProjectToDTO(Project project, bool isCollectionItem)
         {
             var projectDTO = new ProjectDTO();
@@ -214,8 +208,7 @@ namespace AsignarBusinessLayer.Converters
 
             return projectDTO;
         }
-
-
+        
         public Project ProjectFromDTO(ProjectDTO projectDTO)
         {
             var newProject = new Project();
@@ -226,8 +219,7 @@ namespace AsignarBusinessLayer.Converters
 
             return newProject;
         }
-
-
+        
         public UserDTO UserToDTO(User user, bool isCollectionItem)
         {
             var userDTO = new UserDTO();
@@ -271,8 +263,7 @@ namespace AsignarBusinessLayer.Converters
 
             return userDTO;
         }
-
-
+        
         public User UserFromDTO(UserDTO userDTO)
         {
             var newUser = new User();
@@ -287,8 +278,7 @@ namespace AsignarBusinessLayer.Converters
 
             return newUser;
         }
-
-
+        
         public UserToProjectDTO UsersToProjectsToDTO(UsersToProject userToProject)
         {
             var userToProjectDTO = new UserToProjectDTO();
