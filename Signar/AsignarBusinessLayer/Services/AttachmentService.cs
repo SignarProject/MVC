@@ -15,7 +15,7 @@ namespace AsignarBusinessLayer.Services
         private DTOConverter _converter;
 
         private AsignarDBModel _dbContext;
-
+                
         public AttachmentService()
         {
             _dbContext = new AsignarDBModel();
@@ -31,6 +31,11 @@ namespace AsignarBusinessLayer.Services
                 return false;
             }
 
+            newAttachment.BugID = newItem.BugID;
+            newAttachment.Name = newItem.Name;
+            newAttachment.Bug = _dbContext.Bugs.Find(newItem.BugID);
+            newAttachment.ContentPath = newItem.ContentPath;
+                        
             _dbContext.Attachments.Add(newAttachment);
             _dbContext.SaveChanges();
 
@@ -87,7 +92,9 @@ namespace AsignarBusinessLayer.Services
 
         public bool UpdateItem(AttachmentDTO updatedItem)
         {
-            Attachment attachment = _dbContext.Attachments.Find(updatedItem.AttachmentID);
+            throw new NotImplementedException();
+
+            /*Attachment attachment = _dbContext.Attachments.Find(updatedItem.AttachmentID);
 
             if(attachment == null)
             {
@@ -99,7 +106,7 @@ namespace AsignarBusinessLayer.Services
 
             _dbContext.SaveChanges();
 
-            return true;
+            return true;*/
         }
     }
 }

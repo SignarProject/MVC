@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarDataAccessLayer.AzureADBModel;
 using AsignarDataAccessLayer.SerializationSignatures;
-
+using AsignarDataAccessLayer.AzureASModel;
 
 namespace AsignarBusinessLayer.Converters
 {
@@ -15,6 +15,8 @@ namespace AsignarBusinessLayer.Converters
         private AsignarDBModel _dbContext;
 
         private XMLConverter _xmlConvert;
+
+        private AsignarBlobModel _storageContext;
 
         public DTOConverter(AsignarDBModel dbContext)
         {
@@ -35,12 +37,18 @@ namespace AsignarBusinessLayer.Converters
         
         public Attachment AttachmentFromDTO(AttachmentDTO attachmentDTO)
         {
+            _storageContext = new AsignarBlobModel();
+
             var newAttachment = new Attachment();
 
             newAttachment.Bug = _dbContext.Bugs.Find(attachmentDTO.BugID);
             newAttachment.BugID = attachmentDTO.BugID;
             newAttachment.Name = attachmentDTO.Name;
-            newAttachment.ContentPath = attachmentDTO.ContentPath;
+
+            Bug bug = _dbContext.Bugs.Find(attachmentDTO.BugID);
+            string containerName = _storageContext.GetOrCreateBlobBugContainer(string.Concat(bug.Project.Prefix, "-", bug.BugID));
+            _storageContext.UploadBlob(containerName, attachmentDTO.Name, attachmentDTO.FileStream);
+            newAttachment.ContentPath = _storageContext.GetBlobSasUri(containerName, attachmentDTO.Name);
 
             return newAttachment;
         }
@@ -266,12 +274,13 @@ namespace AsignarBusinessLayer.Converters
         
         public User UserFromDTO(UserDTO userDTO)
         {
+            _storageContext = new AsignarBlobModel();
             var newUser = new User();
 
             newUser.Name = userDTO.Name;
             newUser.Surname = userDTO.Surname;
             newUser.Email = userDTO.Email;
-            newUser.AvatarImagePath = userDTO.AvatarPath;
+            newUser.AvatarImagePath = _storageContext.GetBlobSasUri(_storageContext.GetUserPhotosContainerName(), "avatar-default.jpg");
             newUser.Login = userDTO.Login;
             newUser.Password = userDTO.Password;
             newUser.IsAdmin = userDTO.IsAdmin;
