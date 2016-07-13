@@ -35,13 +35,14 @@ namespace Signar.Controllers
                 }
                 HttpContext.Cache[model.Login] = model;
                 DateTime startDate = DateTime.Now;
-                int ExpireTime = model.RememberMe ? 100500 : 20;
-                DateTime expDate = startDate.AddMinutes(ExpireTime);
+                DateTime expDate = model.RememberMe ? startDate.AddDays(365) : startDate.AddMinutes(20);
                 var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user","/");
                 var headerToken = FormsAuthentication.Encrypt(userToken);
                 if (!string.IsNullOrEmpty(headerToken))
                 {
-                    Response.Cookies.Add(new HttpCookie("auth", headerToken));
+                    var x = new HttpCookie("auth", headerToken);
+                    if (model.RememberMe) x.Expires = DateTime.Now.AddDays(365);
+                    Response.Cookies.Add(x);
                     return RedirectToAction("DashBoard", "Home", new { area = "" });
                     //return string.IsNullOrEmpty(returnUrl) ? Redirect("/") : Redirect(returnUrl);
                 }
@@ -55,23 +56,26 @@ namespace Signar.Controllers
         }
         
         [AllowAnonymous]
+        [CustomAuthenticate]
         public ActionResult Login()
         {
-            if (Request.Cookies["auth"] == null) return View();
-            foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
-            {
-                UserDTO model = _user.Value as UserDTO;
-                if (model == null) continue;
-                DateTime startDate = DateTime.Now;
-                int ExpireTime = model.RememberMe ? 100500 : 20;
-                DateTime expDate = startDate.AddMinutes(ExpireTime);
-                var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
-                var headerToken = FormsAuthentication.Encrypt(userToken);
-                Response.Cookies.Add(new HttpCookie("auth", null));
-                Response.Cookies.Add(new HttpCookie("auth", headerToken));
-                HttpContext.Cache[model.Login] = model;
-                return RedirectToAction("Dashboard", "Home", new { area = "" });
-            }
+            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //if (Request.Cookies["auth"] == null) return View();
+            //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
+            //{
+            //    UserDTO model = _user.Value as UserDTO;
+            //    if (model == null) continue;
+            //    DateTime startDate = DateTime.Now;
+            //    DateTime expDate = model.RememberMe ? startDate.AddDays(365) : startDate.AddMinutes(20);
+            //    var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
+            //    var headerToken = FormsAuthentication.Encrypt(userToken);
+            //    Response.Cookies.Add(new HttpCookie("auth", null));
+            //    var x = new HttpCookie("auth", headerToken);
+            //    if (model.RememberMe) x.Expires = DateTime.Now.AddDays(365);
+            //    Response.Cookies.Add(x);
+            //    HttpContext.Cache[model.Login] = model;
+            //    return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //}
             return View();
             //using (var userService = new UserService())
             //{
@@ -87,44 +91,50 @@ namespace Signar.Controllers
         }
         
         [AllowAnonymous]
+        [CustomAuthenticate]
         public ActionResult ForgotPassword()
         {
-            if (Request.Cookies["auth"] == null) return View();
-            foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
-            {
-                UserDTO model = _user.Value as UserDTO;
-                if (model == null) continue;
-                DateTime startDate = DateTime.Now;
-                int ExpireTime = model.RememberMe ? 100500 : 20;
-                DateTime expDate = startDate.AddMinutes(ExpireTime);
-                var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
-                var headerToken = FormsAuthentication.Encrypt(userToken);
-                Response.Cookies.Add(new HttpCookie("auth", null));
-                Response.Cookies.Add(new HttpCookie("auth", headerToken));
-                HttpContext.Cache[model.Login] = model;
-                return RedirectToAction("Dashboard", "Home", new { area = "" });
-            }
+            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //if (Request.Cookies["auth"] == null) return View();
+            //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
+            //{
+            //    UserDTO model = _user.Value as UserDTO;
+            //    if (model == null) continue;
+            //    DateTime startDate = DateTime.Now;
+            //    DateTime expDate = model.RememberMe ? startDate.AddDays(365) : startDate.AddMinutes(20);
+            //    var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
+            //    var headerToken = FormsAuthentication.Encrypt(userToken);
+            //    Response.Cookies.Add(new HttpCookie("auth", null));
+            //    var x = new HttpCookie("auth", headerToken);
+            //    if (model.RememberMe) x.Expires = DateTime.Now.AddDays(365);
+            //    Response.Cookies.Add(x); ;
+            //    HttpContext.Cache[model.Login] = model;
+            //    return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //}
             return View();
         }
         
         [AllowAnonymous]
+        [CustomAuthenticate]
         public ActionResult ResetPassword()
         {
-            if (Request.Cookies["auth"] == null) return View();
-            foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
-            {
-                UserDTO model = _user.Value as UserDTO;
-                if (model == null) continue;
-                DateTime startDate = DateTime.Now;
-                int ExpireTime = model.RememberMe ? 100500 : 20;
-                DateTime expDate = startDate.AddMinutes(ExpireTime);
-                var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
-                var headerToken = FormsAuthentication.Encrypt(userToken);
-                Response.Cookies.Add(new HttpCookie("auth", null));
-                Response.Cookies.Add(new HttpCookie("auth", headerToken));
-                HttpContext.Cache[model.Login] = model;
-                return RedirectToAction("Dashboard", "Home", new { area = "" });
-            }
+            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //if (Request.Cookies["auth"] == null) return View();
+            //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
+            //{
+            //    UserDTO model = _user.Value as UserDTO;
+            //    if (model == null) continue;
+            //    DateTime startDate = DateTime.Now;
+            //    DateTime expDate = model.RememberMe ? startDate.AddDays(365) : startDate.AddMinutes(20);
+            //    var userToken = new FormsAuthenticationTicket(1, model.Login, startDate, expDate, model.RememberMe, model.IsAdmin ? "admin" : "user", "/");
+            //    var headerToken = FormsAuthentication.Encrypt(userToken);
+            //    Response.Cookies.Add(new HttpCookie("auth", null));
+            //    var x = new HttpCookie("auth", headerToken);
+            //    if (model.RememberMe) x.Expires = DateTime.Now.AddDays(365);
+            //    Response.Cookies.Add(x);
+            //    HttpContext.Cache[model.Login] = model;
+            //    return RedirectToAction("Dashboard", "Home", new { area = "" });
+            //}
             return View();
         }
 

@@ -1,78 +1,179 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@{
     ViewBag.Title = "Dashboard";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    string UserRole = "Common user";
+    if (user.IsAdmin == true)
+    {
+        UserRole = "Administrator";
+    }
+    int HiddenProjectsCount = 0;
+    int HiddenBugsCount = 0;
+    HashSet<int> HiddenProjectID = new HashSet<int>();
 }
 
-<div class="container double-container">
-    <div class="row" style="margin-top: 15px;">
-        <div class="col-md-4">
-            <div class="col">
-                <div style="margin: 0px 0px 40px 0px">
-                    <h2 style="margin: 20px 0px 40px 0px">My Project</h2>
-                </div>
-                <div class="table-elem shadow-div project-div">
-                    <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                    <h4 class="h4-zero-topmargin no-text-overflow"> The Financier</h4>
-                    <p class="prefix-style">TDF</p>
-                    <div class="row">
-                        <p class="pull-right p i, label zero-merg p label info-block">
-                            <i class="fa fa-edit"></i> <label>127</label>
-                            <i class="fa fa-users"></i> <label>6</label>
-                        </p>
+@if (user.Bugs.Count == 0 && user.Projects.Count == 0)
+{
+    <h1 style="margin-top: 20%;color: black; vertical-align:middle; text-align:center;">Seems like you are a new user... <span style="color: #4D868D;">Welcome!</span></h1>
+}
+else
+{
+    <div class="container double-container">
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-4">
+                <div class="col">
+                    <div style="margin: 0px 0px 40px 0px">
+                        <h2 style="margin: 20px 0px 40px 0px">My Projects</h2>
                     </div>
-                </div>
-                <div class="table-elem shadow-div project-div">
-                    <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                    <h4 class="h4-zero-topmargin no-text-overflow"> The Titan</h4>
-                    <p class="prefix-style">DDT</p>
-                    <div class="row">
-                        <p class="pull-right p i, label zero-merg p label info-block">
-                            <i class="fa fa-edit"></i> <label>127</label>
-                            <i class="fa fa-users"></i> <label>6</label>
-                        </p>
-                    </div>
-                </div>
-                <div class="table-elem shadow-div project-div">
-                    <i class="fa fa-times-circle delete-form-icon pull-right"></i>
-                    <h4 class="h4-zero-topmargin no-text-overflow"> The Stoic</h4>
-                    <p class="prefix-style">TDS</p>
-                    <div class="row">
-                        <p class="pull-right p i, label zero-merg p label info-block">
-                            <i class="fa fa-edit"></i> <label>127</label>
-                            <i class="fa fa-users"></i> <label>6</label>
-                        </p>
-                    </div>
-                </div>
-                <a href="/Home/Projects" class="a-links" display: inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D;  margin-top:3px; font-size: 75%"></i>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="col">
-                <div style="margin: 0px 0px 40px 0px">
-                    <h2 style="margin: 20px 0px 40px 0px">Assigned To Me</h2>
-                </div>
-                <div class="shadow-div">
-                    <div style="display:inline-block; vertical-align: middle; width:100%;">
-                        @for (int i = 0; i < 8; ++i)
+                    @{ 
+                        int count = 0;
+                    }
+                    @foreach (var project in user.Projects)
+                    {
+                        if (project.IsDeleted)
                         {
-                            <div class="bugs-div">
-                                <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
-                                <div class="bugs-descrip-block" style="width: 90%;">
-                                    <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                                    <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                                </div>
-
-                            </div>
+                            HiddenProjectsCount++;
+                            HiddenProjectID.Add(project.ProjectID);
+                            continue;
                         }
-                    </div>
+                        if (count < 4)
+                        {
+                            count++;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        <div class="table-elem shadow-div project-div">
+                            @if (user.IsAdmin)
+                            {
+                                <i class="fa fa-times-circle delete-form-icon pull-right" onclick="hideProject(this, @project.ProjectID)"></i>
+                            }
+                            <h4 class="h4-zero-topmargin no-text-overflow"> @project.Name</h4>
+                            <p class="prefix-style">@project.Prefix</p>
+                            <div class="row">
+                                <p class="pull-right p i, label zero-merg p label info-block">
+                                    <i class="fa fa-edit"></i> <label>@project.BugsAmount</label>
+                                    <i class="fa fa-users"></i> <label>@project.UsersAmount</label>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    @if (user.Projects.Count > 0)
+                            {
+                                string url = "/Home/Projects/" + user.UserID;
+                                <a href=@url class="a-links" display inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D;  margin-top:3px; font-size: 75%"></i>
+                    }
                 </div>
+            </div>
+            <div class="col-md-8">
+                <div class="col">
+                    <div style="margin: 0px 0px 40px 0px">
+                        <h2 style="margin: 20px 0px 40px 0px">Assigned To Me</h2>
+                    </div>
+                    @if (user.Bugs.Count > 0)
+                    {
+                        <div class="shadow-div">
+                            <div style="display:inline-block; vertical-align: middle; width:100%;">
+                                @foreach (BugDTO bug in user.Bugs)
+                                {
+                                    if(HiddenProjectID.Contains(bug.ProjectID))
+                                    {
+                                        HiddenBugsCount++;
+                                        continue;
+                                    }
+                                    <div class="bugs-div">
+                                        @{
+                                            switch ((int)@bug.Priority)
+                                            {
+                                                case 0:
+                                                    <img src="~/Content/Priority_img/critical_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 1:
+                                                    <img src="~/Content/Priority_img/exclamation_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 2:
+                                                    <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 3:
+                                                    <img src="~/Content/Priority_img/minor_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                            }
+                                        }
 
+                                        <div class="bugs-descrip-block" style="width: 90%;">
+                                            <label class="zero-merg inner-bugs-label">@bug.Prefix</label>
+                                            @{
+                                                switch ((int)@bug.Status)
+                                                {
+                                                    case 0:
+                                                        <label class="bug-status-display bug-status-todo zero-merg">Open</label>
+                                                        break;
+                                                    case 1:
+                                                        <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                                        break;
+                                                    case 2:
+                                                        <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                                                        break;
+                                                    case 3:
+                                                        <label class="bug-status-display bug-status-testing zero-merg">Testing</label>
+                                                        break;
+                                                    case 4:
+                                                        <label class="bug-status-display bug-status-done_close zero-merg">Closed</label>
+                                                        break;
+                                                }
+                                            }
+                                            <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">@bug.Subject</p>
+                                        </div>
 
+                                    </div>
+                                                }
+                            </div>
+                        </div>
+                                                }
                     <div class="row">
                         <div class="pull-left short-info">
-                            <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: 41</label>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
+                            @{ 
+                                int BugsCount = user.Bugs.Count - HiddenBugsCount;
+                            }
+                            <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: @BugsCount @if (HiddenBugsCount > 0) { <text> (+@HiddenBugsCount)</text>}</label>
+
+
 </div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+                                                }
+
+@if (user.IsAdmin)
+{
+    <script>
+        function hideProject(el, ProjectID) {
+            $.ajax({
+                url: '/Home/DeleteProject',
+                data: { ProjectID: ProjectID },
+                method: 'POST'
+            })
+            .success(function () {
+                $(el).parent().parent().hide();
+            })
+            .error(function (mess) {
+                //$(el).parent().parent().show();
+                alert(mess);
+            })
+        }
+    </script>
+}

@@ -36,8 +36,8 @@
             </div>
         </div>
 
-        <div>
-            <label class="short-info" style="margin-left: -42px; margin-top:10px;">Sort by:</label>
+        <div style="height: 34px;">
+            @*<label class="short-info" style="margin-left: -42px; margin-top:10px;">Sort by:</label>
             <div class="dropdown" style="display: inline">
                 <form style="display:inline">
                     <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown" style="background: transparent !important;">
@@ -51,7 +51,7 @@
                         <li><a href="#">Assignee</a></li>
                     </ul>
                 </form>
-            </div>
+            </div>*@
         </div>
 
         <div class="row" style="margin: 15px">
@@ -68,60 +68,36 @@
                     {
                         UserRole = "Administrator";
                     }
-                    if (user.IsAdmin)
-                    {
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="table-elem shadow-div" onClick="ProfileClick(@userI.UserID)">
-                                <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
-                                <img src="~/Content/img/ava1.jpg" class="users-av" />
-                                <div class="users-info-helper" style="max-width: 80%;">
-                                    <p class="zero-merg" style="font-size: 85%;"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
-                                    <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
-                                    @if (userI.IsAdmin)
-                                    {
-                                        <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10; color:forestgreen;">@UserRole</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10;">@UserRole</p>
-                                    }
 
-                                </div>
-                                <div class="row">
-                                    <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
-                                        <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
-                                        <i class="fa fa-th-list  info-icon"></i> <label>@userI.Projects.Count</label>
-                                    </p>
-                                </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="table-elem shadow-div" onClick="ProfileClick(@userI.UserID)">
+                            @if (user.IsAdmin)
+                            {
+                                <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
+                            }
+                            <img src="~/Content/img/ava1.jpg" class="users-av" />
+                            <div class="users-info-helper" style="max-width: 80%;">
+                                <p class="zero-merg" style="font-size: 85%;"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
+                                <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
+                                @if (userI.IsAdmin)
+                                {
+                                    <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10; color:forestgreen;">@UserRole</p>
+                                }
+                                else
+                                {
+                                    <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10;">@UserRole</p>
+                                }
+
+                            </div>
+                            <div class="row">
+                                <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
+                                    <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
+                                    <i class="fa fa-th-list  info-icon"></i> <label>@userI.Projects.Count</label>
+                                </p>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="table-elem-user shadow-div-user">
-                                <img src="~/Content/img/ava1.jpg" class="users-av" />
-                                <div class="users-info-helper" style="max-width: 80%;">
-                                    <p class="zero-merg" style="font-size: 85%;"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
-                                    <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
-                                    @if (userI.IsAdmin)
-                                    {
-                                        <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10; color:forestgreen;">@UserRole</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10;">@UserRole</p>
-                                    }
-                                </div>
-                                <div class="row">
-                                    <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
-                                        <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
-                                        <i class="fa fa-th-list  info-icon"></i> <label>@*@UserI.ProjectsCount*@@userI.Projects.Count</label>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    </div>
+
                 }
             }
 
@@ -172,34 +148,33 @@
 </script>
 
 
-@if (user.IsAdmin)
-{
-    <script>
-        function ProfileClick(UserID) {
-            @{
+
+<script>
+    function ProfileClick(UserID) {
+        @{
             string url = "/Home/TheProfile/";
         }
-            closeHovered = $('.shadow-div').find("#close-icon:hover").length
-            if (closeHovered == null || closeHovered == 0) location.href = '@url' + UserID;
-        }
-    </script>
-
-    <script>
-        function DeleteUser(el, UserID) {
-            $.ajax({
-                url: '/Home/DeleteUser',
-                data: { UserID: UserID },
-                method: 'POST',
-                error: function (xhr, status, error) {
-                    //$(el).parent().parent().show();
-                    alert(error);
-                },
-                success: function (result) {
-                    @{count--; }
-                    $(el).parent().parent().hide();
-                    $(".user-count").text(@count);
-                }
-            })
-        }
-    </script>
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length
+        if (closeHovered == null || closeHovered == 0) location.href = '@url' + UserID;
     }
+</script>
+@if (user.IsAdmin) {
+<script>
+    function DeleteUser(el, UserID) {
+        $.ajax({
+            url: '/Home/DeleteUser',
+            data: { UserID: UserID },
+            method: 'POST',
+            error: function (xhr, status, error) {
+                //$(el).parent().parent().show();
+                alert(error);
+            },
+            success: function (result) {
+                @{count--; }
+                $(el).parent().parent().hide();
+                $(".user-count").text(@count);
+            }
+        })
+    }
+</script>
+}

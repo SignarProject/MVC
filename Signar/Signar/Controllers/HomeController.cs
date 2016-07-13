@@ -101,6 +101,24 @@ namespace Signar.Controllers
             return RedirectToAction("TheProfile/" + model.UserID);
         }
 
+        public ActionResult DashBoard()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null)
+            {
+                Response.Cookies["auth"].Expires = DateTime.Now;
+                Session.Abandon();
+                return RedirectToAction("Login", "Account");
+            }
+            UserDTO user;
+            using (UserService userService = new UserService())
+            {
+                user = userService.GetItem(Me.UserID);
+            }
+            HttpContext.Cache[User.Identity.Name] = user;
+            return View();
+        }
+
         public ActionResult TheProfile(int id)
         {
             UserDTO user;
@@ -112,18 +130,18 @@ namespace Signar.Controllers
                 {
                     user = userService.GetItem(MyID);
                 }
-                if (user == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+                if (user == null) return RedirectToAction("NotFound", "Error");
                 return View(user);
             }
             if (!Me.IsAdmin)
             {
-                return PartialView("~/Views/Shared/NotFound.cshtml");
+                return PartialView("~/Views/Error/NotFound.cshtml");
             }
             using (UserService userService = new UserService())
             {
                 user = userService.GetItem(id);
             }
-            if (user == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+            if (user == null) return RedirectToAction("NotFound", "Error");
             return View(user);
         }
 
@@ -136,7 +154,7 @@ namespace Signar.Controllers
             {
                 project = projectService.GetItem(id);
             }
-            if (project == null) return PartialView("~/Views/Shared/NotFound.cshtml");
+            if (project == null) return RedirectToAction("NotFound", "Error");
             return View(project);
         }
 
@@ -209,25 +227,39 @@ namespace Signar.Controllers
         }
 
 
-        public ActionResult Projects()
+        public ActionResult Projects(int id)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if ((!Me.IsAdmin && id != Me.UserID) || id < 0)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
             using (var projectService = new ProjectService())
             {
-                return View(projectService.GetAllItems());
+                ICollection<ProjectDTO> ProjectsCollection;
+                if (id == 0) ProjectsCollection = projectService.GetAllItems();
+                    else ProjectsCollection = projectService.GetAllProjectsByUserId(id);
+                if (ProjectsCollection == null) return RedirectToAction("NotFound", "Error");
+                return View(ProjectsCollection);
             }
         }
 
-        public ActionResult Project()
+        public ActionResult Project(int id)
         {
-            return View();
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            ProjectDTO project;
+            using (var projectService = new ProjectService())
+            {
+                project = projectService.GetItem(id);
+            }
+            if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+                return View(project);
         }
 
         public ActionResult Task()
-        {
-            return View();
-        }
-
-        public ActionResult DashBoard()
         {
             return View();
         }
@@ -249,6 +281,7 @@ namespace Signar.Controllers
         public ActionResult Signout()
         {
             Response.Cookies.Add(new HttpCookie("auth", null));
+            Response.Cookies["auth"].Expires = DateTime.Now;
             Session.Abandon();
             HttpContext.Cache.Remove(User.Identity.Name);
             return RedirectToAction("Login", "Account", new { area = "" });

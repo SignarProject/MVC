@@ -83,6 +83,20 @@ namespace AsignarBusinessLayer.Services
             return allProjectDTOs;
         }
 
+        public ICollection<ProjectDTO> GetAllProjectsByUserId(int userID)
+        {
+            if (_dbContext.Users.Find(userID) == null) return null;
+            ICollection<ProjectDTO> allProjectDTOsOfUser = new HashSet<ProjectDTO>();
+            ICollection<Project> allProjectsOfUser = _dbContext.UsersToProjects.Where(r => r.UserID.Equals(userID)).Select(u => u.Project).ToList();
+
+
+            foreach (var project in allProjectsOfUser)
+            {
+                allProjectDTOsOfUser.Add(_converter.ProjectToDTO(project, false));
+            }
+
+            return allProjectDTOsOfUser;
+        }
 
         public ProjectDTO GetItem(int id)
         {

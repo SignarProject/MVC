@@ -36,18 +36,8 @@
             </div>
         </div>
 
-        <div>
-            <label class="short-info" style="margin-left: -70px; margin-top: 10px;">Sort by:</label>
-            
-            <!--  <form action="doss" style="display: initial">
-                <select name="sortParam" class="sort-sel-set select option">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
-                </select>
-            </form>  -->
-
+        <div style="height: 34px;">
+            @*<label class="short-info" style="margin-left: -70px; margin-top: 10px;">Sort by:</label>
             <div class="dropdown" style="display: inline">
                 <form style="display:inline">
                     <button class="bootrap-btndrop-modif dropdown-toggle" type="submit" data-toggle="dropdown" style="background: transparent !important;">
@@ -61,7 +51,7 @@
                         <li><a href="#">Assignee</a></li>
                     </ul>
                 </form>
-            </div>
+            </div>*@
         </div>
 
         <div class="row" style="margin: 15px">
@@ -73,11 +63,17 @@
                 if (project.IsDeleted)
                 {
                     HiddenProjectCount++;
-                    continue;
+                    if (!user.IsAdmin)
+                    {
+                        continue;
+                    }
                 }
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="table-elem shadow-div" id="close-icon-div">
-                        <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="hideProject(this, @project.ProjectID)"></i>
+                     <div class="table-elem shadow-div" id="close-icon-div" @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.25);"</text>}>
+@if (user.IsAdmin)
+                        {
+                            <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="hideProject(this, @project.ProjectID)"></i>
+                        }
                         <div style="display:inline-block; max-width:97%;">
                             <h4 class="h4-zero-topmargin no-text-overflow"> @project.Name</h4>
                         </div>
@@ -91,15 +87,20 @@
                     </div>
                 </div>
             }
-            
-            
+
+
         </div>
         @{
             int VisibleProjectsCount = Model.Count - HiddenProjectCount;
         }
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
-                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label class="projects-count">@VisibleProjectsCount</label>
+                <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label class="projects-count">@VisibleProjectsCount 
+                @if(user.IsAdmin && HiddenProjectCount > 0)
+                {
+                    <text> (+ @HiddenProjectCount)</text>
+                }
+                </label>
             </p>
         </div>
 
@@ -107,63 +108,58 @@
 </div>
 
 <style>
-    #projects-menu-div{
+    #projects-menu-div {
         background-color: #92C1BA !important;
     }
 </style>
 
 <script>
     function ShowCreateNewProjectPopup() {
-                 $("#createUserPopup").dialog({
-                     width: 600,
-                     fluid: true,
-                     title: "Create new project",
-                     modal: true,
-                     resizable: false,
-                     show: { effect: 'clip', duration: 350 },
-                     hide: { effect: 'clip', duration: 350 },
-                     buttons: [
-                 //{
-                 //    text: "Create",
-                 //    "class": 'popup-button',
-                 //    click: function () {
-                 //        $(this).dialog("close");
-                 //    }
-                 //},
-                     ],
-                     close: function () {
-                     }
-                 });
-                 
-             }
+        $("#createUserPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Create new project",
+            modal: true,
+            resizable: false,
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+
+    }
 </script>
 
-<script>
-    function hideProject(el, ProjectID) {
-        $.ajax({
-            url: '/Home/DeleteProject',
-            data: { ProjectID: ProjectID },
-            method: 'POST'
-        })
-        .success(function () {
-            @{
+@if (user.IsAdmin)
+{
+    <script>
+        function hideProject(el, ProjectID) {
+            $.ajax({
+                url: '/Home/DeleteProject',
+                data: { ProjectID: ProjectID },
+                method: 'POST'
+            })
+            .success(function () {
+                @{
                 HiddenProjectCount++;
                 VisibleProjectsCount--;
             }
-            $(el).parent().parent().hide();
-             $(".projects-count").text(@VisibleProjectsCount);
-        })
-        .error(function (mess) {
-            //$(el).parent().parent().show();
-            alert(mess);
-        })
+                $(el).parent().parent().hide();
+                $(".projects-count").text(@VisibleProjectsCount);
+            })
+            .error(function (mess) {
+                //$(el).parent().parent().show();
+                alert(mess);
+            })
+        }
+    </script>
     }
-
-
-    //$(".delete-form-icon").click(
-    //function hideProject() {
-    //    var $parent = $(this).closest("#close-icon-div");
-    //    var $parent2 = $($parent).closest(".col-md-4");
-    //    $parent2.hide();
-    //});
-</script>

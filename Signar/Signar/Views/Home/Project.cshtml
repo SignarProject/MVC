@@ -1,5 +1,8 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ProjectDTO
+@{
     ViewBag.Title = "Project";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
 }
 
 <div class="container container-form">
@@ -118,50 +121,6 @@
 
                         </div>
                     }
-
-
-                    @*<div class="bugs-div">
-                            <img src="~/Content/Priority_img/minor_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-todo zero-merg">To do</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>
-                        <div class="bugs-div">
-                            <img src="~/Content/Priority_img/exclamation_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In testing</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>
-                        <div class="bugs-div" style="width:100%">
-                            <img src="~/Content/Priority_img/critical_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>
-                        <div class="bugs-div">
-                            <img src="~/Content/Priority_img/major_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-done_close zero-merg">Close</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>
-                        <div class="bugs-div">
-                            <img src="~/Content/Priority_img/major_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>
-                        <div class="bugs-div" style="border-bottom:hidden">
-                            <img src="~/Content/Priority_img/major_prior.png" />
-                            <div style="display:inline-block; vertical-align: middle;  width: 70%; max-height: 280px;">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                                <p class="bugs-descrip zero-merg" style="width: 100%;max-width: 500px; overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                            </div>
-                        </div>*@
                 </div>
 
             </div>

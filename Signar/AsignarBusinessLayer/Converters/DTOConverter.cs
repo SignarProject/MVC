@@ -201,10 +201,10 @@ namespace AsignarBusinessLayer.Converters
                 {
                     projectDTO.Users.Add(UserToDTO(record.User, true));
                 }
-
-                projectDTO.UsersAmount = projectDTO.Users.Count;
             }
-            
+
+            projectDTO.UsersAmount = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Count();
+
             foreach (var bug in project.Bugs)
             {
                 projectDTO.Bugs.Add(BugToDTO(bug));
