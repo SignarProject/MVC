@@ -8,6 +8,8 @@ using AsignarBusinessLayer.Converters;
 using AsignarDataAccessLayer.AzureADBModel;
 using AsignarBusinessLayer.Services.ServiceInterfaces;
 using AsignarBusinessLayer.SortEnum;
+using System.IO;
+using AsignarDataAccessLayer.AzureASModel;
 
 namespace AsignarBusinessLayer.Services
 {
@@ -167,9 +169,44 @@ namespace AsignarBusinessLayer.Services
             userToUpdate.Name = updatedItem.Name;
             userToUpdate.Surname = updatedItem.Surname;
             userToUpdate.Email = updatedItem.Email;
-            userToUpdate.AvatarImagePath = updatedItem.AvatarPath;
             userToUpdate.IsAdmin = updatedItem.IsAdmin;
+
             _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool EditUserPhoto(UserDTO userDTO, string fileName, Stream fileStream)
+        {
+            AsignarBlobModel storageContext = new AsignarBlobModel();
+
+            User user = _dbContext.Users.Find(userDTO.UserID);
+                    
+            if(storageContext.UploadBlob(storageContext.GetUserPhotosContainerName(), fileName, fileStream))
+            {
+                userDTO.AvatarPath = storageContext.GetBlobSasUri(storageContext.GetUserPhotosContainerName(), fileName);
+                user.AvatarImagePath = userDTO.AvatarPath;
+
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }            
+        }
+
+        public bool ClearUserPhoto(UserDTO userDTO)
+        {
+            AsignarBlobModel storageContext = new AsignarBlobModel();
+
+            User user = _dbContext.Users.Find(userDTO.UserID);
+
+            user.AvatarImagePath = storageContext.GetBlobSasUri(storageContext.GetUserPhotosContainerName(), "avatar-default.jpg");
+
+            _dbContext.SaveChanges();
+
             return true;
         }
     }
