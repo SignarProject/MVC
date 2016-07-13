@@ -70,12 +70,15 @@ namespace AsignarBusinessLayer.Services
         public bool DeleteItem(int id)
         {
             User user = _dbContext.Users.Find(id);
+
             if (user.Bugs.Any())
             {
                 return false;
             }
+
             _dbContext.Users.Remove(user);
             _dbContext.SaveChanges();
+
             return true;
         }
 
@@ -105,10 +108,12 @@ namespace AsignarBusinessLayer.Services
                 User user = _dbContext.Users.Find(id);
                 userDTO = _converter.UserToDTO(user, false);
             }
+
             catch(Exception ex)
             {
                 return null;
             }
+
             return userDTO;
         }
 
