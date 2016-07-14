@@ -12,7 +12,7 @@
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Projects</h2>
             @if (user.IsAdmin)
             {
-                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"></i>
+                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewProjectPopup()"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add project"></i>
             }
             else
             {
@@ -69,8 +69,8 @@
                     }
                 }
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                     <div class="table-elem shadow-div" id="close-icon-div" @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.25);"</text>}>
-@if (user.IsAdmin)
+                     <div class="table-elem shadow-div" id="close-icon-div" @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.25);"</text>}  onClick="ProjectClick(@project.ProjectID)">
+@if (user.IsAdmin && !project.IsDeleted)
                         {
                             <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="hideProject(this, @project.ProjectID)"></i>
                         }
@@ -138,6 +138,17 @@
 
     }
 </script>
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url = "/Home/Project/";
+        }
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length
+        if (closeHovered == null || closeHovered == 0) location.href = '@url' + ProjectID;
+    }
+</script>
+
 
 @if (user.IsAdmin)
 {

@@ -14,9 +14,9 @@
     <div class="row">
         <div class="edit-profile pull-right" style="margin-right: 3px;">
             @Html.Partial("~/Views/Popup/EditTask.cshtml")
-            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;"></i> </a>
-            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"></i> </a>
-            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"></i> </a>
+            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task"></i> </a>
+            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task?"></i> </a>
+            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task"></i> </a>
         </div>
     </div>
     
@@ -124,8 +124,10 @@
                 
 
                 <div style="height: 15px;"></div>
-
-                <img src="~/Content/img/ava1.jpg" class="profile-av" style="width: 40px; height: 40px;"/>
+                @{
+                    string ava_url = Model.AvatarPath;
+                }
+                <img src=@ava_url class="profile-av" style="width: 40px; height: 40px;"/>
                 <div class="user-name">
                     <p class="zero-merg">George Orwell</p>
                     <p class="zero-merg" style="font-size: 12px;">george-orewell@@email.com</p>

@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarBusinessLayer.Services;
+using CustomAuth.Filters;
 
 namespace Signar.Controllers
 {
+    [CustomAuthenticate]
     public class PopupController : Controller
     {
         // GET: Popup
@@ -32,7 +34,10 @@ namespace Signar.Controllers
             return View();
         }
 
-
+        public ActionResult AddUsersToProject(ICollection<ProjectDTO> model)
+        {
+            return View(model);
+        }
     }
 
 }

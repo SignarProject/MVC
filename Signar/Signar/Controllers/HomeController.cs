@@ -252,11 +252,50 @@ namespace Signar.Controllers
             {
                 project = projectService.GetItem(id);
             }
-            if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null)
+            //if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null || project.IsDeleted == true)
+            //{
+            //    return RedirectToAction("NotFound", "Error");
+            //}
+            using (UserService userService = new UserService())
             {
-                return RedirectToAction("NotFound", "Error");
+                foreach(BugDTO bug in project.Bugs)
+                {
+                    bug.User = bug.AssigneeID == null ? null : userService.GetItem((int)bug.AssigneeID);
+                }
             }
+                
                 return View(project);
+        }
+
+        [HttpGet]
+        public ActionResult AddUsersToProject(int ProjectID)
+        {
+            ICollection<UserDTO> users;
+            using(UserService userService = new UserService())
+            {
+                users = userService.GetAllItems();
+                using (ProjectService projectService = new ProjectService())
+                {
+                    ProjectDTO project = projectService.GetItem(ProjectID);
+                    Dictionary<int, UserDTO> UsersOnProject = new Dictionary<int, UserDTO>();
+                    if (project.Users != null)
+                    {
+                        foreach (UserDTO userI in project.Users)
+                        {
+                            if (!UsersOnProject.ContainsKey(userI.UserID))
+                            {
+                                UsersOnProject.Add(userI.UserID, userI);
+                            }
+                        }
+                    }
+                    ICollection<UserDTO> usersResult = new List<UserDTO>();
+                    foreach (UserDTO user in users)
+                    {
+                        if (!UsersOnProject.ContainsKey(user.UserID)) usersResult.Add(user);
+                    }
+                    return PartialView("~/Views/Popup/AddUsersToProject.cshtml", usersResult);
+                }
+            }
         }
 
         public ActionResult Task()

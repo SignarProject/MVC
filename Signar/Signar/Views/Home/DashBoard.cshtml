@@ -26,7 +26,7 @@ else
                     <div style="margin: 0px 0px 40px 0px">
                         <h2 style="margin: 20px 0px 40px 0px">My Projects</h2>
                     </div>
-                    @{ 
+                    @{
                         int count = 0;
                     }
                     @foreach (var project in user.Projects)
@@ -45,7 +45,7 @@ else
                         {
                             continue;
                         }
-                        <div class="table-elem shadow-div project-div">
+                        <div class="table-elem shadow-div project-div" onClick="ProjectClick(@project.ProjectID)">
                             @if (user.IsAdmin)
                             {
                                 <i class="fa fa-times-circle delete-form-icon pull-right" onclick="hideProject(this, @project.ProjectID)"></i>
@@ -61,9 +61,9 @@ else
                         </div>
                     }
                     @if (user.Projects.Count > 0)
-                            {
-                                string url = "/Home/Projects/" + user.UserID;
-                                <a href=@url class="a-links" display inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D;  margin-top:3px; font-size: 75%"></i>
+                    {
+                        string url2 = "/Home/Projects/" + user.UserID;
+                        <a href=@url2 class="a-links" display inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D;  margin-top:3px; font-size: 75%"></i>
                     }
                 </div>
             </div>
@@ -78,7 +78,7 @@ else
                             <div style="display:inline-block; vertical-align: middle; width:100%;">
                                 @foreach (BugDTO bug in user.Bugs)
                                 {
-                                    if(HiddenProjectID.Contains(bug.ProjectID))
+                                    if (HiddenProjectID.Contains(bug.ProjectID))
                                     {
                                         HiddenBugsCount++;
                                         continue;
@@ -134,29 +134,18 @@ else
                                                 }
                     <div class="row">
                         <div class="pull-left short-info">
-                            @{ 
+                            @{
                                 int BugsCount = user.Bugs.Count - HiddenBugsCount;
                             }
-                            <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: @BugsCount @if (HiddenBugsCount > 0) { <text> (+@HiddenBugsCount)</text>}</label>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-                                                }
+                            <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: @BugsCount @if (HiddenBugsCount > 0)
+                            { <text> (+@HiddenBugsCount)</text>}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @if (user.IsAdmin)
 {
@@ -177,3 +166,13 @@ else
         }
     </script>
 }
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url = "/Home/Project/";
+        }
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length
+        if (closeHovered == null || closeHovered == 0) location.href = '@url' + ProjectID;
+    }
+</script>

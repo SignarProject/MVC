@@ -11,7 +11,7 @@
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Users</h2>
             @if (user.IsAdmin)
             {
-                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewUserPopup()"></i>
+                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewUserPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add user"></i>
             }
             else
             {
@@ -75,7 +75,10 @@
                             {
                                 <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
                             }
-                            <img src="~/Content/img/ava1.jpg" class="users-av" />
+                            @{
+                                string url_ava = userI.AvatarPath;
+                            }
+                            <img src= @url_ava class="users-av" />
                             <div class="users-info-helper" style="max-width: 80%;">
                                 <p class="zero-merg" style="font-size: 85%;"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
                                 <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>

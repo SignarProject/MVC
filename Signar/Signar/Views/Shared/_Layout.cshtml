@@ -71,7 +71,10 @@
                 @*<li class="navTextH">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navTextH rightText" })</li>*@
                 <li onclick="showProfileDropMenu()">
                     <a href="#" class="navProfile rightM">
-                        <img src="~/Content/img/ava1.jpg" id="avatar" />&nbsp;&nbsp;
+                        @{
+                            string ava_url = user.AvatarPath;
+                        }
+                        <img src=@ava_url id="avatar" />&nbsp;&nbsp;
                         <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserName</div> <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserSurName</div>
                     </a>
 

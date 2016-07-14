@@ -247,10 +247,7 @@ namespace AsignarBusinessLayer.Converters
 
                 foreach (var project in userProjects)
                 {
-                    if(!project.IsDeleted)
-                    {
-                        userDTO.Projects.Add(ProjectToDTO(project, true));
-                    }                    
+                        userDTO.Projects.Add(ProjectToDTO(project, true));                 
                 }
             }
                         

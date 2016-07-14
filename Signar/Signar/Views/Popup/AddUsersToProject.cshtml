@@ -1,63 +1,92 @@
-﻿<div id="AddUsersToProjectPopup" class="table-responsive popup-common">
-
-    <div class="row">
-        <div class="col-xs-12" style="position:relative;">
-            <div class="ui-widget-content form-control popup-field popup-text-area" id="container-resizable"style="overflow-y:scroll; padding-left: 0px; position:relative; min-height: 175px !important; margin-bottom:5px;">
-                @for (int i = 0; i < 15; ++i)
-                {
-                    <div class="popup-option-row">
-                        <input type="checkbox" class="custom-checkbox-1" style="margin-left: 10px; margin-top:12px;"/>
-                        <img src="~/Content/img/ava1.jpg" class="users-av-smaller"/>
-                        <dev style="display:inline-block;max-width: 250px;">
-                            <label class="text-medium">Name </label>
-                            <label class="text-medium">Surname</label>
-                            <p style="">
-                                <label class="text-small">emailexample@gmail.com</label>
-                            </p>
-                        </dev>
-                        <span class="pull-right">
-                            <label class="text-small" style="font-size:11px; vertical-align:-webkit-baseline-middle;  margin-right: 60px; margin-top: 10px;">Role</label>
-                        </span>
-                    </div>
-                }
-            </div>
-
-            <div class="header" style="display: flex; justify-content: space-between;">
-                <div class="nav">
-                    <a>
-                        <label class="text-small">Users: </label>
-                    </a>
-                    <a>
-                        <label class="text-small">15</label>
-                    </a>
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<UserDTO>
+@{
+    int ProjectID = ViewData["ProjectID"] != null ? (int)ViewData["ProjectID"] : -1;
+}
+<div id="AddUsersToProjectPopup" class="table-responsive popup-common">
+    @using (Ajax.BeginForm("AddUsersToProject", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddUsersToProjectPopup" }))
+    {
+        <div class="row">
+            <div class="col-xs-12" style="position:relative;">
+                <div class="ui-widget-content form-control popup-field popup-text-area" id="container-resizable" style="overflow-y:scroll; padding-left: 0px; position:relative; min-height: 175px !important; margin-bottom:5px;">
+                    @if (@Model != null)
+                    {
+                        foreach (UserDTO user in Model)
+                        {
+                            <div class="popup-option-row">
+                                <input type="checkbox" class="custom-checkbox-1" style="margin-left: 10px; margin-top:12px;" />
+                                @{
+                                    string ava_url = user.AvatarPath;
+                                }
+                                <img src=@ava_url class="users-av-smaller" />
+                                <dev style="display:inline-block;max-width: 250px;">
+                                    <label class="no-text-overflow-project-user-info text-medium" style="width: auto; line-height: 14px;display:inline-block">@user.Name </label>
+                                    <label class="no-text-overflow-project-user-info text-medium" style="width: auto; line-height: 14px;display:inline-block">@user.Surname</label>
+                                    <p style="">
+                                        <label class="text-small">@user.Email</label>
+                                    </p>
+                                </dev>
+                                @{
+                                    string UserRole = "Common user";
+                                    if (user.IsAdmin == true)
+                                    {
+                                        UserRole = "Administrator";
+                                    }
+                                }
+                                <span class="pull-right">
+                                    <label class="text-small" style="font-size:11px; vertical-align:-webkit-baseline-middle;  margin-right: 60px; margin-top: 10px;">@UserRole</label>
+                                </span>
+                            </div>
+                                        }
+                                    } else
+                                    {
+                                        <h1 style="text-align: center; margin-top: 60px;">Loading... Please wait</h1>
+                                    }
                 </div>
-                <div class="nav">
-                    <a>
-                        <label class="text-small">Chosen: </label>
-                    </a>
-                    <a>
-                        <label class="text-small" id="counter">0</label>
-                    </a>
+
+                <div class="header" style="display: flex; justify-content: space-between;">
+                    <div class="nav">
+                        <a>
+                            <label class="text-small">Users: </label>
+                        </a>
+                        <a>
+                            @if (Model != null)
+                            {
+                                <label class="text-small">@Model.Count</label>
+                            }
+                            else
+                            {
+                                <label class="text-small">0</label>
+                            }
+                        </a>
+                    </div>
+                    <div class="nav">
+                        <a>
+                            <label class="text-small">Chosen: </label>
+                        </a>
+                        <a>
+                            <label class="text-small" id="counter">0</label>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+        <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax1(this)" />
+                                    }
 </div>
 
+
 <script>
-  $(function() {
-      $("#container-resizable").resizable();
-  });
+    $(function () {
+        $("#container-resizable").resizable();
+    });
 </script>
 
 
 <script>
-    $(window).load(function () {
         $(":checkbox").on("change", function () {
             $(this).parent().toggleClass("popup-option-checked", this.checked);
         });
-    });
 </script>
 
 <script>
@@ -67,15 +96,70 @@
         var $cat = $(this).closest(".popup-text-area");
 
         // get checkbox within category, check length
-        var len = $cat.find(":checkbox:checked").length;
-
+        len = $cat.find(":checkbox:checked").length;
         $("#counter").html(len);
     });
 </script>
 
+<script>
+    function CLickAjax1(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/EditUserData",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+                window.location.reload();
+            }
+        });
+
+        return false;
+
+    }
+</script>
+
+<script>
+    $(document).load(function () {
+        alert(@ProjectID);
+    });
+</script>
+
+<script>
+    function ShowAddUsersToProjectPopup() {
+        $("#AddUsersToProjectPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Add users to project",
+            modal: true,
+            resizable: false,
+            dialogClass: "add-users-to-project-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        //{
+        //    text: "Add users",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
 <style>
     #container-resizable {
-    resize: both;
+        resize: both;
     }
 
     .add-users-to-project-popup .ui-widget-header:before {

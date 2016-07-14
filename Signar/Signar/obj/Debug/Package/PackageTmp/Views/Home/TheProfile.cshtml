@@ -32,7 +32,10 @@
                 }
             </div>
             <div class="table-elem-static shadow-div project-div-static">
-                <img src="~/Content/img/ava1.jpg" class="profile-av" />
+                @{ 
+                    string ava_url = Model.AvatarPath;
+                }
+                <img src=@ava_url class="profile-av" />
                 <div class="user-name">
 
                     <p class="zero-merg no-text-overflow-profile">@Model.Name</p>
@@ -63,7 +66,7 @@
                     @{
                         EditUserDataModel m1 = new EditUserDataModel();
                     }
-                    @Html.Partial("~/Views/Popup/EditUserData.cshtml", m1, new ViewDataDictionary { { "UserID", Model.UserID }, { "UserName", Model.Name}, { "UserSurname", Model.Surname }, { "UserEmail", Model.Email }, { "IsAdmin", Model.IsAdmin } })
+                    @Html.Partial("~/Views/Popup/EditUserData.cshtml", m1, new ViewDataDictionary { { "UserID", Model.UserID }, { "UserName", Model.Name}, { "UserSurname", Model.Surname }, { "UserEmail", Model.Email }, { "IsAdmin", Model.IsAdmin }, { "UserAvatarPath", Model.AvatarPath} })
                 </div>
                 <div id="ChangePasswordPartial">
                     @{
@@ -71,8 +74,8 @@
                     }
                     @Html.Partial("~/Views/Popup/ChangePassword.cshtml", m2, new ViewDataDictionary { { "UserID", Model.UserID } })
                 </div>
-                <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style fa-custom-button pull-right"></i> </a>
-                <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right"></i> </a>
+                <a onClick="ShowResetPasswordPopup()"> <i class="fa fa-key fontbutton-style fa-custom-button pull-right" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Change password"></i> </a>
+                <a onClick="ShowEditUserDataPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit info"></i> </a>
             </div>
         </div>
 
@@ -88,7 +91,7 @@
                 <ul class="a-links" style="padding: 5px 0px 0px 5px">
                     @foreach (ProjectDTO project in Model.Projects)
                     {
-                        <li class="no-text-overflow-profile" style="line-height: 18px; max-width: 100%;"><a href="url">@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                        <li class="no-text-overflow-profile" style="line-height: 18px; max-width: 100%;"><a href="url" @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.6) !important;"</text> }>@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
                     }
                 </ul>
             </div>

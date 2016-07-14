@@ -8,7 +8,9 @@
         string UserSurName = (string)ViewData["UserSurname"];
         string UserEmail = (string)ViewData["UserEmail"];
         string UserRole = "Common user";
+        string UserAvatarPath = (string)ViewData["UserAvatarPath"];
         bool EditUserIsAdmin = (bool)ViewData["IsAdmin"];
+        int UserID = (int)ViewData["UserID"];
         if (EditUserIsAdmin == true)
         {
             UserRole = "Administrator";
@@ -20,7 +22,10 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
         <div class="row">
             <div class="container col-xs-6">
-                <span><img src="~/Content/img/ava1.jpg" id="avatar-popup" /></span>
+                @{
+                    string ava_url = UserAvatarPath;
+                }
+                <span><img src=@ava_url id="avatar-popup" /></span>
                 <dev style="display:inline-block; vertical-align: middle; margin-left: 15px; margin-top: 3px; height: 50px; position:absolute;">
                     <span><a href="#" class="edit-avatar-link">Edit photo</a></span>
                     <p><a href="#" class="edit-avatar-link">Clear photo</a></p>
@@ -103,6 +108,16 @@
             color: #4D868D !important;
         }
 </style>
+
+@if (EditUserIsAdmin && user.UserID == UserID)
+{
+    <text>
+    <script>
+        $('#EditUserDD').css('pointer-events', 'none');
+        $('#EditUserDD').css('cursor', 'default');
+    </script>
+    </text>
+}
 
 @if (user.IsAdmin)
 {

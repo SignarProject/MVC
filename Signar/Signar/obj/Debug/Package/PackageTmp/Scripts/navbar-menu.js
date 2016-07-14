@@ -46,3 +46,7 @@ $(".popup-button").on('click', this, function () {
 $(".popup-button").on('click', this, function () {
     $(this).closest("#editTaskPopup").dialog('close');
 });
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});

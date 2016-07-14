@@ -266,7 +266,7 @@ input, select, textarea {
 }
 
 .popup-option-row *{
-    vertical-align: baseline;
+    vertical-align: middle;
 }
 
 input[type="checkbox"]:focus{
