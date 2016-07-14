@@ -1,6 +1,11 @@
 ﻿@using Signar.Models
 @using AsignarBusinessLayer.AsignarDatabaseDTOs;
 @model AddUsersToProjectModel
+    @{ 
+        UserDTO Me = Cache[User.Identity.Name] as UserDTO;
+    }
+@if (Me.IsAdmin)
+{ 
 <div id="AddUsersToProjectPopup" class="table-responsive popup-common">
     @using (Ajax.BeginForm("AddUsersToProject", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddUsersToProjectPopup" }))
     {
@@ -178,3 +183,5 @@
         font-weight: 100;
     }
 </style>
+
+                                    }

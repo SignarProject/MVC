@@ -91,7 +91,8 @@
                 <ul class="a-links" style="padding: 5px 0px 0px 5px">
                     @foreach (ProjectDTO project in Model.Projects)
                     {
-                        <li class="no-text-overflow-profile" style="line-height: 18px; max-width: 100%;"><a href="url" @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.6) !important;"</text> }>@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                        string url = "/Home/Project/" + project.ProjectID;
+                        <li class="no-text-overflow-profile no-und-hov" style="line-height: 20px; max-width: 100%;"><a href=@url @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.6) !important;"</text> }>@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
                     }
                 </ul>
             </div>

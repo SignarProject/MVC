@@ -245,7 +245,7 @@ namespace AsignarBusinessLayer.Services
                     bug.AssigneeID = null;
                 }
             }
-
+            _dbContext.SaveChanges();
             return true;
         }
     }

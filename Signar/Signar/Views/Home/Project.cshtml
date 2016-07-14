@@ -5,7 +5,8 @@
     ViewBag.Title = "Project";
     UserDTO user = Cache[User.Identity.Name] as UserDTO;
     Dictionary<int, UserDTO> UsersOnProject = new Dictionary<int, UserDTO>();
-    if (Model.Users != null) {
+    if (Model.Users != null)
+    {
         foreach (UserDTO userI in Model.Users)
         {
             if (!UsersOnProject.ContainsKey(userI.UserID))
@@ -14,6 +15,7 @@
             }
         }
     }
+    int users_amount = Model.Users.Count;
 }
 
 <div class="container container-form">
@@ -21,15 +23,24 @@
         <div style="margin: 0px 0px 10px 0px">
             <div class="row">
                 <div class="col-sm-6 col-xs-12" style="min-width: 400px;">
-                    <h2 class="pull-left no-text-overflow-bigtext" id ="ProjectName"style="margin: 20px 0px 0px 0px;">@Model.Name</h2>
-                    @{ 
+                    <h2 class="pull-left no-text-overflow-bigtext" id="ProjectName" style="margin: 20px 0px 0px 0px;  @if (Model.IsDeleted) { <text>color: rgba(0, 0, 0, 0.25);</text>}">@Model.Name</h2>
+                    @if (user.IsAdmin)
+                    {
                         EditProjectModel m2 = new EditProjectModel();
+                        @Html.Partial("~/Views/Popup/EditProject.cshtml", m2, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
+                        <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add task"></i>
+                        <i class="fa fa-pencil fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ShowEditProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit project"></i>
+                            <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>
+                        if (!Model.IsDeleted)
+                        {
+                            <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete project"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heartbeat fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Revive project"></i>
+                        }
                     }
-                    @Html.Partial("~/Views/Popup/EditProject.cshtml", m2, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
-                    <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add task"></i>
-                    <i class="fa fa-pencil fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ShowEditProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit project"></i>
-                    <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>
-                    <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete project"></i>
+
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <div class="search-bar pull-right" style="margin-top: 22px; margin-right:20px;" id="searchTextOnPage">
@@ -55,47 +66,60 @@
 
                 <div class="pull-left short-info" style="margin-top: 0px; margin-left: 10px; display: inline-block;">
                     <div style="display:inline-block;">
-                        <i class="fa fa-group" id="user-group" style="font-size: 130%;" onCLick="showDropMenuUsers()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete users"></i>
+                        @if (user.IsAdmin)
+                        {
+                            <i class="fa fa-group" id="user-group" style="font-size: 130%;" onCLick="showDropMenuUsers()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete users"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-group" id="user-group" style="font-size: 130%;"></i>
+                        }
                     </div>
                     <label id="UsersOnProjectCount" style="margin-left:5px;"> @Model.UsersAmount</label>
-                    <div class="outside-click-close">
-                        <span class="icon-arrow1 icon-arrow-users"></span>
-                        <div class="dropdown-user-group">
+                    @if (user.IsAdmin)
+                    {
+                        <div class="outside-click-close">
+                            <span class="icon-arrow1 icon-arrow-users"></span>
+                            <div class="dropdown-user-group">
 
-                            <ul class="delete-users-from-project-ul">
-                                @foreach (UserDTO userI in UsersOnProject.Values)
-                                {
-                                    <li>
-                                        @{
-                                            string ava_url = userI.AvatarPath;
-                                        }
-                                        <img src=@ava_url class="users-av-smaller" style="margin-left:0px !important;vertical-align: top;" />
-                                        <div style="display:inline-block;max-width: 200px;">
-                                            <label class="no-text-overflow-project-user-info text-medium" style="color:rgb(248,252,252); width: auto; line-height: 14px;display:inline-block;">@userI.Name </label>
-                                            <label class="no-text-overflow-project-user-info text-medium" style="color:rgb(248,252,252); width: auto; line-height: 14px;display:inline-block;">@userI.Surname</label>
-                                            <p style="">
-                                                <label class="no-text-overflow-project-user-info text-small" style="color:rgb(248,252,252)">@userI.Email</label>
-                                            </p>
-                                        </div>
-                                        <i class="fa fa-close user-delete-from-project-icon pull-right" style="margin-top:8px;" onCLick="DeleteUserFromProject(this, @Model.ProjectID, @userI.UserID)"></i>
-                                    </li>
-                                }
+                                <ul class="delete-users-from-project-ul">
+                                    @foreach (UserDTO userI in UsersOnProject.Values)
+                                    {
+                                        <li>
+                                            @{
+                                                string ava_url = userI.AvatarPath;
+                                            }
+                                            <img src=@ava_url class="users-av-smaller" style="margin-left:0px !important;vertical-align: top;" />
+                                            <div style="display:inline-block;max-width: 200px;">
+                                                <label class="no-text-overflow-project-user-info text-medium" style="color:rgb(248,252,252); width: auto; line-height: 14px;display:inline-block;">@userI.Name </label>
+                                                <label class="no-text-overflow-project-user-info text-medium" style="color:rgb(248,252,252); width: auto; line-height: 14px;display:inline-block;">@userI.Surname</label>
+                                                <p style="">
+                                                    <label class="no-text-overflow-project-user-info text-small" style="color:rgb(248,252,252)">@userI.Email</label>
+                                                </p>
+                                            </div>
+                                            <i class="fa fa-close user-delete-from-project-icon pull-right" style="margin-top:8px;" onCLick="DeleteUserFromProject(this, @Model.ProjectID, @userI.UserID)"></i>
+                                        </li>
+                                                }
 
-                            </ul>
+                                </ul>
 
+                            </div>
                         </div>
-                    </div>
+                                                }
                 </div>
-                @{ 
+                @{
                     ICollection<UserDTO> m1;
                     m1 = null;
                 }
                 <div id="AddUsersToProjectPopupDiv">
                     @Html.Partial("~/Views/Popup/AddUsersToProject.cshtml", m1, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
                 </div>
-                <div class="pull-left short-info" style="margin-top: 13px; margin-left: 10px; display: inline-block;">
-                    <i class="fa fa-plus" id="AddUsersBtn" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;" onClick="ShowAddUsersToProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add users"></i>
-                </div>
+                @if (user.IsAdmin)
+                {
+                    <div class="pull-left short-info" style="margin-top: 13px; margin-left: 10px; display: inline-block;">
+                        <i class="fa fa-plus" id="AddUsersBtn" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;" onClick="ShowAddUsersToProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add users"></i>
+                    </div>
+                }
             </div>
 
             <div class="row">
@@ -122,7 +146,7 @@
         <div class="col-md-12 zero-pad-left" style="padding-right: 20px;">
             <div class="shadow-div">
                 <div class="no-border-last" style="display:inline-block; vertical-align: middle; width:100%;">
-                    @foreach(BugDTO bug in Model.Bugs)
+                    @foreach (BugDTO bug in Model.Bugs)
                     {
                         <div class="bugs-div">
                             @{
@@ -154,20 +178,20 @@
                             @if (bug.User != null)
                             {
                                 <div class="user-info-block" style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; width: 23%;">
-                                    @{ 
+                                    @{
                                         string ava_url = bug.User.AvatarPath;
                                     }
-                                <img src=@ava_url class="users-av" style="margin-top: 0px !important;" />
-                                <div class="users-info-helper" style="margin-top: 0px !important;display: inline-block;">
-                                    <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 85%; display:block;">@bug.User.Name @bug.User.Surname</p>
-                                    <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 75%; display:block;">@bug.User.Email</p>
+                                    <img src=@ava_url class="users-av" style="margin-top: 0px !important;" />
+                                    <div class="users-info-helper" style="margin-top: 0px !important;display: inline-block;">
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 85%; display:block;">@bug.User.Name @bug.User.Surname</p>
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 75%; display:block;">@bug.User.Email</p>
+                                    </div>
                                 </div>
-                            </div>
-                            }
-                            
+                                        }
+
 
                         </div>
-                    }
+                                        }
                 </div>
 
             </div>
@@ -181,109 +205,101 @@
 </div>
 
 
-
-<script>
-    function ShowEditProjectPopup() {
-        $("#EditProjectPopup").dialog({
-            width: 600,
-            fluid: true,
-            title: "Edit project",
-            modal: true,
-            resizable: false,
-            dialogClass: "edit-project-popup",
-            show: { effect: 'clip', duration: 350 },
-            hide: { effect: 'clip', duration: 350 },
-            buttons: [
-        //{
-        //    text: "Save",
-        //    "class": 'popup-button',
-        //    click: function () {
-        //        $(this).dialog("close");
-        //    }
-        //},
-            ],
-            close: function () {
-            }
-        });
-        $("*").trigger('blur');
-    }
-</script>
-
-<script>
-    $('#AddUsersBtn').css('pointer-events', 'none');
-    $('#user-group').css('color', '#4D868D');
-</script>
-
-<script>
-    function showDropMenuUsers() {
-        if ($(".dropdown-user-group").css('display') == 'none') {
-            $(".dropdown-user-group").css({ 'display': "visible" });
-            $('.icon-arrow-users').css({ 'display': "block" });
-            $(".dropdown-user-group").fadeIn(200);
-        } else {
-            $(".dropdown-user-group").fadeOut(200);
-            $(".dropdown-user-group").css({ 'display': "none" });
-            $('.icon-arrow-users').css({ 'display': "none" });
-        }
-    }
-</script>
-
-@*<div class="ui-widget-overlay ui-front" style="z-index: 101;"></div>*@
-
-<script>
-    $(document).ready(function(){
-        $.ajax({
-        type: "GET",
-        url: "/Home/AddUsersToProject",
-        data: {ProjectID: @Model.ProjectID},
-            error: function (xhr, status, error) {
-                alert(error);
-        },
-            success: function (result) {
-            $('#AddUsersToProjectPopupDiv').html(result);
-            $('#AddUsersBtn').css('color', '#4D868D');
-            $('#AddUsersBtn').css('pointer-events', 'auto');
-        }
-    });
-    });
-</script>
-
-<script>
-    $(document).mouseup(function (e) {
-        var container = $(".outside-click-close");
-        var disp = $('.dropdown-user-group').css('display');
-
-        if (!container.is(e.target) // if the target of the click isn't the container...
-            && container.has(e.target).length === 0) // ... nor a descendant of the container
-        {
-            $(".dropdown-user-group").css({ 'display': "none" });
-            $('.icon-arrow-users').css({ 'display': "none" });
-        }
-    });
-</script>
-
 @if (user.IsAdmin)
 {
-    {
-        Model.UsersAmount++;
-    }
+    <script>
+        function ShowEditProjectPopup() {
+            $("#EditProjectPopup").dialog({
+                width: 600,
+                fluid: true,
+                title: "Edit project",
+                modal: true,
+                resizable: false,
+                dialogClass: "edit-project-popup",
+                show: { effect: 'clip', duration: 350 },
+                hide: { effect: 'clip', duration: 350 },
+                buttons: [
+            //{
+            //    text: "Save",
+            //    "class": 'popup-button',
+            //    click: function () {
+            //        $(this).dialog("close");
+            //    }
+            //},
+                ],
+                close: function () {
+                }
+            });
+            $("*").trigger('blur');
+        }
+    </script>
+
+    <script>
+        $('#AddUsersBtn').css('pointer-events', 'none');
+        $('#user-group').css('color', '#4D868D');
+    </script>
+
+    <script>
+        function showDropMenuUsers() {
+            if ($(".dropdown-user-group").css('display') == 'none') {
+                $(".dropdown-user-group").css({ 'display': "visible" });
+                $('.icon-arrow-users').css({ 'display': "block" });
+                $(".dropdown-user-group").fadeIn(200);
+            } else {
+                $(".dropdown-user-group").fadeOut(200);
+                $(".dropdown-user-group").css({ 'display': "none" });
+                $('.icon-arrow-users').css({ 'display': "none" });
+            }
+        }
+    </script>
+
+    @*<div class="ui-widget-overlay ui-front" style="z-index: 101;"></div>*@
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "/Home/AddUsersToProject",
+                data: {ProjectID: @Model.ProjectID},
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#AddUsersToProjectPopupDiv').html(result);
+                    $('#AddUsersBtn').css('color', '#4D868D');
+                    $('#AddUsersBtn').css('pointer-events', 'auto');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).mouseup(function (e) {
+            var container = $(".outside-click-close");
+            var disp = $('.dropdown-user-group').css('display');
+
+            if (!container.is(e.target) // if the target of the click isn't the container...
+                && container.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                $(".dropdown-user-group").css({ 'display': "none" });
+                $('.icon-arrow-users').css({ 'display': "none" });
+            }
+        });
+    </script>
+
+
     <script>
         function DeleteUserFromProject(el, ProjectID, UserID) {
             $.ajax({
-            url: '/Home/DeleteUserFromProject',
+                url: '/Home/DeleteUserFromProject',
                 data: { ProjectID: ProjectID, UserID: UserID },
                 method: 'POST'
             })
            .success(function () {
                $(el).parent().hide();
-               @{
-                    Model.UsersAmount = Model.UsersAmount - 1;
-                }
-               $("#UsersOnProjectCount").text(@Model.UsersAmount);
-            })
+               $("#UsersOnProjectCount").text($('.delete-users-from-project-ul').children(':visible').length);
+           })
            .error(function (mess) {
-               alert(mess);
-            })
+           })
         }
     </script>
-    }
+}

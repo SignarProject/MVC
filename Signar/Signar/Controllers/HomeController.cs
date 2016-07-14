@@ -264,7 +264,12 @@ namespace Signar.Controllers
             {
                 project = projectService.GetItem(id);
             }
-            if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null || (project.IsDeleted == true && !Me.IsAdmin))
+            bool f = false;
+            foreach(var project1 in Me.Projects)
+            {
+                if (project1.ProjectID == id) f = true;
+            }
+            if ((!Me.IsAdmin && !f) || id < 0 || project == null || (project.IsDeleted == true && !Me.IsAdmin))
             {
                 return RedirectToAction("NotFound", "Error");
             }
@@ -318,17 +323,22 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult AddUsersToProject(AddUsersToProjectModel model)
         {
-            using (UserService userService = new UserService())
+            using (ProjectService projectService = new ProjectService())
             {
-                int k = 0;
-                foreach (var user in model.users)
+                bool f = false;
+                for (int k = 0; k < model.user_checked.Count; ++k)
                 {
-                    if (model.user_checked[k++])
+                    if (model.user_checked[k])
                     {
-                        //userService.
+                        projectService.AddUserToProject(model.users_id[k], model.ProjectID);
+                        f = true;
                     }
                 }
-                return null;
+                if (!f)
+                {
+                    return new HttpStatusCodeResult(1, "Nothing to change!");
+                }
+                return new HttpStatusCodeResult(200, "OK");
             }
         }
 

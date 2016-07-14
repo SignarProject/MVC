@@ -18,6 +18,10 @@ input:-ms-input-placeholder {
     color: #4D868D;
 }
 
+.no-und-hov *:hover{
+    text-decoration: none !important;
+}
+
     .project-title-mini:hover {
         text-decoration: none;
         cursor: pointer;
@@ -614,6 +618,8 @@ select option {
         padding-left: 0px;
         margin-bottom: 0px;
         background-color: #92C1BA;
+            padding-top: 5px;
+    padding-bottom: 5px;
     }
 
         .dropdown-user-group ul li {
