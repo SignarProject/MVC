@@ -59,8 +59,9 @@ namespace AsignarBusinessLayer.Converters
 
             bugDTO.BugID = bug.BugID;
             bugDTO.ProjectID = bug.ProjectID;
+            bugDTO.Project = ProjectToDTO(bug.Project, true);
 
-            if(bugDTO.AssigneeID != null)
+            if(bug.AssigneeID != null)
             {
                 bugDTO.AssigneeID = bug.AssigneeID;
                 bugDTO.User = UserToDTO(_dbContext.Users.Find(bugDTO.AssigneeID), true);
@@ -111,30 +112,6 @@ namespace AsignarBusinessLayer.Converters
             }
 
             return newBug;
-
-            /*else
-            {
-                var bug = _dbContext.Bugs.Find(bugDTO.BugID);
-
-                bug.BugStatus = (byte) bugDTO.Status;
-                bug.Priority = (byte)bugDTO.Priority;
-                bug.ModificationDate = bugDTO.ModificationDate;
-                bug.AssigneeID = bugDTO.AssigneeID;
-                bug.User = _dbContext.Users.Find(bugDTO.AssigneeID);
-                bug.Attachments = new HashSet<Attachment>();
-
-                foreach(var attachment in bugDTO.Attachments)
-                {
-                    bug.Attachments.Add(AttachmentFromDTO(attachment));
-                }
-
-                foreach(var comment in bugDTO.Comments)
-                {
-                    
-                }
-
-            }*/
-
         }
         
         public CommentDTO CommentToDTO(Comment comment)

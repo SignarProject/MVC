@@ -698,7 +698,6 @@ C:\TeamProjectRepo\Signar\Signar\bin\Signar.dll
 C:\TeamProjectRepo\Signar\Signar\bin\Signar.pdb
 C:\TeamProjectRepo\Signar\Signar\bin\Antlr3.Runtime.dll
 C:\TeamProjectRepo\Signar\Signar\bin\AsignarBusinessLayer.dll
-C:\TeamProjectRepo\Signar\Signar\bin\AsignarDTOModels.dll
 C:\TeamProjectRepo\Signar\Signar\bin\EntityFramework.dll
 C:\TeamProjectRepo\Signar\Signar\bin\EntityFramework.SqlServer.dll
 C:\TeamProjectRepo\Signar\Signar\bin\Microsoft.AspNet.Identity.Core.dll
@@ -732,7 +731,6 @@ C:\TeamProjectRepo\Signar\Signar\bin\System.Web.WebPages.Razor.dll
 C:\TeamProjectRepo\Signar\Signar\bin\WebGrease.dll
 C:\TeamProjectRepo\Signar\Signar\bin\AsignarDataAccessLayer.dll
 C:\TeamProjectRepo\Signar\Signar\bin\AsignarBusinessLayer.pdb
-C:\TeamProjectRepo\Signar\Signar\bin\AsignarDTOModels.pdb
 C:\TeamProjectRepo\Signar\Signar\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\TeamProjectRepo\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
 C:\TeamProjectRepo\Signar\Signar\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml

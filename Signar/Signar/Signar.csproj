@@ -329,10 +329,6 @@
       <Project>{5b46869e-4c7e-4844-9426-78aad41d238e}</Project>
       <Name>AsignarBusinessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AsignarDTOModels\AsignarDTOModels.csproj">
-      <Project>{4cf8bf26-c82c-4f31-92e6-be091304d62a}</Project>
-      <Name>AsignarDTOModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
