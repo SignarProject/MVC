@@ -147,10 +147,24 @@ namespace AsignarBusinessLayer.Services
         {
             Project projectToUpdate = _dbContext.Projects.Find(updatedItem.ProjectID);
 
-
             projectToUpdate.Name = updatedItem.Name;
 
             _dbContext.SaveChanges();
+            return true;
+        }
+
+        public bool AddUserToProject(int userID, int projectID)
+        {
+            UsersToProject userToProjectBound = new UsersToProject();
+
+            userToProjectBound.UserID = userID;
+            userToProjectBound.User = _dbContext.Users.Find(userID);
+            userToProjectBound.ProjectID = projectID;
+            userToProjectBound.Project = _dbContext.Projects.Find(projectID);
+
+            _dbContext.UsersToProjects.Add(userToProjectBound);
+            _dbContext.SaveChanges();
+
             return true;
         }
     }
