@@ -216,3 +216,8 @@ E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\ko\System.Spatial.resource
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\ru\System.Spatial.resources.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\zh-Hans\System.Spatial.resources.dll
 E:\2016\WEB\MVC\Signar\AsignarBusinessLayer\bin\Debug\zh-Hant\System.Spatial.resources.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\SendGrid.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\SendGrid.SmtpApi.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\SendGridMail.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\System.Net.Http.Formatting.dll
+C:\TeamProjectRepo\Signar\AsignarBusinessLayer\bin\Debug\System.Net.Http.Formatting.xml

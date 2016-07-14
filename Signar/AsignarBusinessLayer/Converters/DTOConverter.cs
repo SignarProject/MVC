@@ -59,8 +59,13 @@ namespace AsignarBusinessLayer.Converters
 
             bugDTO.BugID = bug.BugID;
             bugDTO.ProjectID = bug.ProjectID;
-            bugDTO.AssigneeID = bug.AssigneeID;
-            bugDTO.User = UserToDTO(_dbContext.Users.Find(bugDTO.AssigneeID), true);
+
+            if(bugDTO.AssigneeID != null)
+            {
+                bugDTO.AssigneeID = bug.AssigneeID;
+                bugDTO.User = UserToDTO(_dbContext.Users.Find(bugDTO.AssigneeID), true);
+            }            
+
             bugDTO.Subject = bug.Subject;
             bugDTO.Prefix = string.Concat(bug.Project.Prefix, "-", bug.BugID);
             bugDTO.Description = bug.Description;
