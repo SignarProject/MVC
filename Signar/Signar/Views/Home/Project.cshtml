@@ -1,4 +1,5 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
 @model ProjectDTO
 @{
     ViewBag.Title = "Project";
@@ -20,8 +21,11 @@
         <div style="margin: 0px 0px 10px 0px">
             <div class="row">
                 <div class="col-sm-6 col-xs-12" style="min-width: 400px;">
-                    <h2 class="pull-left no-text-overflow-bigtext" style="margin: 20px 0px 0px 0px;">@Model.Name</h2>
-                    @Html.Partial("~/Views/Popup/EditProject.cshtml")
+                    <h2 class="pull-left no-text-overflow-bigtext" id ="ProjectName"style="margin: 20px 0px 0px 0px;">@Model.Name</h2>
+                    @{ 
+                        EditProjectModel m2 = new EditProjectModel();
+                    }
+                    @Html.Partial("~/Views/Popup/EditProject.cshtml", m2, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
                     <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add task"></i>
                     <i class="fa fa-pencil fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ShowEditProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit project"></i>
                     <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>
@@ -53,7 +57,7 @@
                     <div style="display:inline-block;">
                         <i class="fa fa-group" id="user-group" style="font-size: 130%;" onCLick="showDropMenuUsers()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete users"></i>
                     </div>
-                    <label style="margin-left:5px;"> @Model.Users.Count</label>
+                    <label id="UsersOnProjectCount" style="margin-left:5px;"> @Model.UsersAmount</label>
                     <div class="outside-click-close">
                         <span class="icon-arrow1 icon-arrow-users"></span>
                         <div class="dropdown-user-group">
@@ -73,7 +77,7 @@
                                                 <label class="no-text-overflow-project-user-info text-small" style="color:rgb(248,252,252)">@userI.Email</label>
                                             </p>
                                         </div>
-                                        <i class="fa fa-close user-delete-from-project-icon pull-right" style="margin-top:8px;"></i>
+                                        <i class="fa fa-close user-delete-from-project-icon pull-right" style="margin-top:8px;" onCLick="DeleteUserFromProject(this, @Model.ProjectID, @userI.UserID)"></i>
                                     </li>
                                 }
 
@@ -190,13 +194,13 @@
             show: { effect: 'clip', duration: 350 },
             hide: { effect: 'clip', duration: 350 },
             buttons: [
-        {
-            text: "Save",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Save",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
@@ -232,9 +236,10 @@
         type: "GET",
         url: "/Home/AddUsersToProject",
         data: {ProjectID: @Model.ProjectID},
-        error: function (xhr, status, error) {
+            error: function (xhr, status, error) {
+                alert(error);
         },
-        success: function (result) {
+            success: function (result) {
             $('#AddUsersToProjectPopupDiv').html(result);
             $('#AddUsersBtn').css('color', '#4D868D');
             $('#AddUsersBtn').css('pointer-events', 'auto');
@@ -256,3 +261,29 @@
         }
     });
 </script>
+
+@if (user.IsAdmin)
+{
+    {
+        Model.UsersAmount++;
+    }
+    <script>
+        function DeleteUserFromProject(el, ProjectID, UserID) {
+            $.ajax({
+            url: '/Home/DeleteUserFromProject',
+                data: { ProjectID: ProjectID, UserID: UserID },
+                method: 'POST'
+            })
+           .success(function () {
+               $(el).parent().hide();
+               @{
+                    Model.UsersAmount = Model.UsersAmount - 1;
+                }
+               $("#UsersOnProjectCount").text(@Model.UsersAmount);
+            })
+           .error(function (mess) {
+               alert(mess);
+            })
+        }
+    </script>
+    }

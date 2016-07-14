@@ -182,6 +182,18 @@ namespace Signar.Controllers
             return RedirectToAction("Projects");
         }
 
+        [HttpPost]
+        public ActionResult DeleteUserFromProject(int ProjectID, int UserID)
+        {
+            bool res = false;
+            using (UserService userService = new UserService())
+            {
+                res = userService.DropProjectFromUser(UserID, ProjectID);
+            }
+            if (!res) return new HttpStatusCodeResult(11, "Sorry, there was an error. Please, try again");
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -252,17 +264,17 @@ namespace Signar.Controllers
             {
                 project = projectService.GetItem(id);
             }
-            //if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null || project.IsDeleted == true)
-            //{
-            //    return RedirectToAction("NotFound", "Error");
-            //}
-            using (UserService userService = new UserService())
+            if ((!Me.IsAdmin && !Me.Projects.Contains(project)) || id < 0 || project == null || (project.IsDeleted == true && !Me.IsAdmin))
             {
-                foreach(BugDTO bug in project.Bugs)
-                {
-                    bug.User = bug.AssigneeID == null ? null : userService.GetItem((int)bug.AssigneeID);
-                }
+                return RedirectToAction("NotFound", "Error");
             }
+            //using (UserService userService = new UserService())
+            //{
+            //    foreach(BugDTO bug in project.Bugs)
+            //    {
+            //        bug.User = bug.AssigneeID == null ? null : userService.GetItem((int)bug.AssigneeID);
+            //    }
+            //}
                 
                 return View(project);
         }
@@ -293,9 +305,48 @@ namespace Signar.Controllers
                     {
                         if (!UsersOnProject.ContainsKey(user.UserID)) usersResult.Add(user);
                     }
-                    return PartialView("~/Views/Popup/AddUsersToProject.cshtml", usersResult);
+                    AddUsersToProjectModel res = new AddUsersToProjectModel();
+                    res.users = usersResult;
+                    res.user_checked = new List<bool>();
+                    for (int i = 0; i < usersResult.Count; ++i) res.user_checked.Add(false);
+                    res.ProjectID = ProjectID;
+                    return PartialView("~/Views/Popup/AddUsersToProject.cshtml", res);
                 }
             }
+        }
+
+        [HttpPost]
+        public ActionResult AddUsersToProject(AddUsersToProjectModel model)
+        {
+            using (UserService userService = new UserService())
+            {
+                int k = 0;
+                foreach (var user in model.users)
+                {
+                    if (model.user_checked[k++])
+                    {
+                        //userService.
+                    }
+                }
+                return null;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditProject(EditProjectModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(1, "Input data is invalid");
+            }
+            using (ProjectService projectService = new ProjectService())
+            {
+                ProjectDTO project = projectService.GetItem(model.ProjectID);
+                project.Name = model.Title;
+                projectService.UpdateItem(project);
+                return Content(project.Name);
+            }
+            
         }
 
         public ActionResult Task()

@@ -199,6 +199,8 @@
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateNewUserModel.cs" />
     <Compile Include="Models\EditUserDataModel.cs" />
+    <Compile Include="Models\AddUsersToProjectModel.cs" />
+    <Compile Include="Models\EditProjectModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

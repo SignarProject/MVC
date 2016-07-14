@@ -213,7 +213,7 @@ namespace AsignarBusinessLayer.Converters
 
             projectDTO.UsersAmount = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Count();
                         
-            projectDTO.BugsAmount = projectDTO.Bugs.Count;
+            projectDTO.BugsAmount = project.Bugs.Count;
 
             return projectDTO;
         }

@@ -1,8 +1,6 @@
-﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
-@model ICollection<UserDTO>
-@{
-    int ProjectID = ViewData["ProjectID"] != null ? (int)ViewData["ProjectID"] : -1;
-}
+﻿@using Signar.Models
+@using AsignarBusinessLayer.AsignarDatabaseDTOs;
+@model AddUsersToProjectModel
 <div id="AddUsersToProjectPopup" class="table-responsive popup-common">
     @using (Ajax.BeginForm("AddUsersToProject", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddUsersToProjectPopup" }))
     {
@@ -11,10 +9,16 @@
                 <div class="ui-widget-content form-control popup-field popup-text-area" id="container-resizable" style="overflow-y:scroll; padding-left: 0px; position:relative; min-height: 175px !important; margin-bottom:5px;">
                     @if (@Model != null)
                     {
-                        foreach (UserDTO user in Model)
+                        int k = 0;
+                        foreach (UserDTO user in Model.users)
                         {
                             <div class="popup-option-row">
-                                <input type="checkbox" class="custom-checkbox-1" style="margin-left: 10px; margin-top:12px;" />
+                                @Html.HiddenFor(x => x.users_id[@k], new { @Value= @user.UserID})
+                                @Html.CheckBoxFor(x => x.user_checked[@k], new { @class = "custom-checkbox-1", @style = "margin-left: 10px; margin-top:12px;" })
+                                @{
+                                    k++;
+                                }
+                                @*<input type="checkbox" class="custom-checkbox-1" value="@k" style="margin-left: 10px; margin-top:12px;" />*@
                                 @{
                                     string ava_url = user.AvatarPath;
                                 }
@@ -38,7 +42,8 @@
                                 </span>
                             </div>
                                         }
-                                    } else
+                                    }
+                                    else
                                     {
                                         <h1 style="text-align: center; margin-top: 60px;">Loading... Please wait</h1>
                                     }
@@ -52,7 +57,7 @@
                         <a>
                             @if (Model != null)
                             {
-                                <label class="text-small">@Model.Count</label>
+                                <label class="text-small">@Model.users.Count</label>
                             }
                             else
                             {
@@ -72,6 +77,11 @@
             </div>
         </div>
         <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax1(this)" />
+                                    if (Model != null)
+                                    {
+                                        @Html.HiddenFor(m => m.ProjectID);
+                                        }
+
                                     }
 </div>
 
@@ -84,9 +94,9 @@
 
 
 <script>
-        $(":checkbox").on("change", function () {
-            $(this).parent().toggleClass("popup-option-checked", this.checked);
-        });
+    $(":checkbox").on("change", function () {
+        $(this).parent().toggleClass("popup-option-checked", this.checked);
+    });
 </script>
 
 <script>
@@ -94,7 +104,7 @@
 
         // find closest category parent div
         var $cat = $(this).closest(".popup-text-area");
-
+        //alert($(this).val());
         // get checkbox within category, check length
         len = $cat.find(":checkbox:checked").length;
         $("#counter").html(len);
@@ -107,7 +117,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Home/EditUserData",
+            url: "/Home/AddUsersToProject",
             data: $form.serialize(),
             error: function (xhr, status, error) {
                 alert(error);
@@ -122,12 +132,6 @@
         return false;
 
     }
-</script>
-
-<script>
-    $(document).load(function () {
-        alert(@ProjectID);
-    });
 </script>
 
 <script>

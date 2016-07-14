@@ -213,21 +213,28 @@ namespace AsignarBusinessLayer.Services
         public ICollection<UserDTO> GetAllUsersWithoutBoundTo(int projectID)
         {
             ICollection<UserDTO> allUsersWithoutBoundDTOs = new HashSet<UserDTO>();
-            ICollection<User> allUsersWithoutBound = _dbContext.UsersToProjects.Where(u => u.ProjectID != projectID).Select(u => u.User).ToList();
+            //ICollection<User> allUsersWithoutBound = _dbContext.UsersToProjects.Where(u => u.ProjectID != projectID).Select(u => u.User).ToList();
 
-            foreach(var user in allUsersWithoutBound)
-            {
-                allUsersWithoutBoundDTOs.Add(_converter.UserToDTO(user, false));
-            }
+            //foreach(var user in allUsersWithoutBound)
+            //{
+            //    allUsersWithoutBoundDTOs.Add(_converter.UserToDTO(user, false));
+            //}
+
+            //ICollection<int> AllUsers = _dbContext.UsersToProjects.Select(u => u.User).Select(u => u.UserID).ToList();
+            //ICollection<User> allUsersWithoutProject = _dbContext.Users.Where(u => !AllUsers.Contains(u.UserID)).ToList();
+            //foreach (var user in allUsersWithoutProject)
+            //{
+            //    allUsersWithoutBoundDTOs.Add(_converter.UserToDTO(user, false));
+            //}
 
             return allUsersWithoutBoundDTOs;
         }
 
-        public bool DropProjectFromUser(UserDTO userDTO, int projectID)
+        public bool DropProjectFromUser(int UserID, int projectID)
         {
-            User user = _dbContext.Users.Find(userDTO.UserID);
+            User user = _dbContext.Users.Find(UserID);
 
-            UsersToProject userProjectBound = user.UsersToProjects.Single(bound => bound.UserID.Equals(userDTO.UserID) && bound.ProjectID.Equals(projectID));
+            UsersToProject userProjectBound = user.UsersToProjects.Single(bound => bound.UserID.Equals(UserID) && bound.ProjectID.Equals(projectID));
 
             _dbContext.UsersToProjects.Remove(userProjectBound);
 

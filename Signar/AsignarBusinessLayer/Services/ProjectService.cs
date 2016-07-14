@@ -150,7 +150,7 @@ namespace AsignarBusinessLayer.Services
 
             projectToUpdate.Name = updatedItem.Name;
 
-
+            _dbContext.SaveChanges();
             return true;
         }
     }
