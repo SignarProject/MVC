@@ -33,11 +33,11 @@
                             <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>
                         if (!Model.IsDeleted)
                         {
-                            <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete project"></i>
+                            <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="hideProject(this, @Model.ProjectID)" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete project"></i>
                         }
                         else
                         {
-                            <i class="fa fa-heartbeat fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Revive project"></i>
+                            <i class="fa fa-heartbeat fontbutton-style  fa-custom-button" onclick="ReviveProject()" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Revive project"></i>
                         }
                     }
 
@@ -302,4 +302,38 @@
            })
         }
     </script>
-}
+
+    <script>
+        function ReviveProject()
+        {
+            $.ajax({
+                url: '/Home/ReviveProject',
+                data: { ProjectID: @Model.ProjectID },
+                method: 'POST'
+            })
+           .success(function () {
+               $('#ProjectName').css('color', 'rgb(0,0,0) !important');
+           })
+           .error(function (xhr, status, error) {
+               alert(error);
+           });
+
+        }
+    </script>
+
+    <script>
+        function hideProject(el, ProjectID) {
+            $.ajax({
+                url: '/Home/DeleteProject',
+                data: { ProjectID: ProjectID },
+                method: 'POST'
+            })
+            .success(function () {
+                $('#ProjectName').css('color', 'rgba(0,0,0, 0.25) !important');
+            })
+            .error(function (xhr, status, error) {
+                alert(error);
+            });
+        }
+    </script>
+    }

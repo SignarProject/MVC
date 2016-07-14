@@ -184,7 +184,7 @@ namespace AsignarBusinessLayer.Converters
 
                 foreach (var record in usersOfProject)
                 {
-                    projectDTO.Users.Add(UserToDTO(record.User, true));
+                    /*if(record.User != null)*/projectDTO.Users.Add(UserToDTO(record.User, true));
                 }
 
                 foreach (var bug in project.Bugs)

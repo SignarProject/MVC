@@ -49,7 +49,7 @@ namespace AsignarBusinessLayer.Services
         public bool DeleteItem(int id)
         {
             Project project = _dbContext.Projects.Find(id);
-
+            if (project.IsDeleted) return false;
 
             project.IsDeleted = true;
 
@@ -148,6 +148,16 @@ namespace AsignarBusinessLayer.Services
             Project projectToUpdate = _dbContext.Projects.Find(updatedItem.ProjectID);
 
             projectToUpdate.Name = updatedItem.Name;
+
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        public bool ReviveProject(int ProjectID)
+        {
+            Project projectToUpdate = _dbContext.Projects.Find(ProjectID);
+            if (projectToUpdate.IsDeleted == false) return false;
+            projectToUpdate.IsDeleted = false;
 
             _dbContext.SaveChanges();
             return true;

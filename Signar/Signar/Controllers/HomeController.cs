@@ -216,12 +216,13 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
-        public bool DeleteProject(int ProjectID)
+        public ActionResult DeleteProject(int ProjectID)
         {
             using (var projectService = new ProjectService())
             {
                 bool res = projectService.DeleteItem(ProjectID);
-                return res;
+                if(!res) return new HttpStatusCodeResult(1, "ProjectIsAlreadyDeleted!");
+                return new HttpStatusCodeResult(200, "OK");
             }
         }
 
@@ -357,6 +358,16 @@ namespace Signar.Controllers
                 return Content(project.Name);
             }
             
+        }
+
+        [HttpPost]
+        public ActionResult ReviveProject(int ProjectID)
+        {
+            using (ProjectService projectService = new ProjectService())
+            {
+                if (!projectService.ReviveProject(ProjectID)) return new HttpStatusCodeResult(1, "Project is alive already");
+            }
+                return new HttpStatusCodeResult(200, "OK");
         }
 
         public ActionResult Task()

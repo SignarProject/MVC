@@ -91,8 +91,13 @@
                 <ul class="a-links" style="padding: 5px 0px 0px 5px">
                     @foreach (ProjectDTO project in Model.Projects)
                     {
-                        string url = "/Home/Project/" + project.ProjectID;
-                        <li class="no-text-overflow-profile no-und-hov" style="line-height: 20px; max-width: 100%;"><a href=@url @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.6) !important;"</text> }>@project.Name</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                        string url1 = "/Home/Project/" + project.ProjectID;
+                        <li class="no-text-overflow-profile no-und-hov" style="line-height: 20px; max-width: 100%;"><a href=@url1 @if (project.IsDeleted) { <text>style="color: rgba(0, 0, 0, 0.6) !important;"</text> }>@project.Name</a>
+                    @if(user.IsAdmin)
+                    {
+                    <i class="fa fa-close project-delete-icon pull-right" onClick="DeleteFromProject(this, @project.ProjectID)"></i>
+                    }
+                    </li>
                     }
                 </ul>
             </div>
@@ -223,5 +228,21 @@
             close: function () {
             }
         });
+    }
+</script>
+
+<script>
+    function DeleteFromProject(el, ProjectID)
+    {
+        $.ajax({
+            url: '/Home/DeleteUserFromProject',
+            data: { ProjectID: ProjectID, UserID: @Model.UserID },
+            method: 'POST'
+        })
+           .success(function () {
+               $(el).parent().hide();
+           })
+           .error(function (mess) {
+           })
     }
 </script>
