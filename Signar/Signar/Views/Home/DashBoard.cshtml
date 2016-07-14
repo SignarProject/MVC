@@ -83,7 +83,7 @@ else
                                         HiddenBugsCount++;
                                         continue;
                                     }
-                                    <div class="bugs-div">
+                                    <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
                                         @{
                                             switch ((int)@bug.Priority)
                                             {
@@ -147,7 +147,14 @@ else
     </div>
 }
 
-
+<script>
+    function TaskClick(BugID) {
+        @{
+            string url3 = "/Home/Task/";
+        }
+        location.href = '@url3' + BugID;
+    }
+</script>
 
 <script>
     function ProjectClick(ProjectID) {

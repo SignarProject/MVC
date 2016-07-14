@@ -370,9 +370,25 @@ namespace Signar.Controllers
                 return new HttpStatusCodeResult(200, "OK");
         }
 
-        public ActionResult Task()
+        public ActionResult Task(int id)
         {
-            return View();
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            BugDTO bug;
+            using (var bugService = new BugService())
+            {
+                bug = bugService.GetItem(id);
+            }
+            bool f = false;
+            foreach (var bug1 in Me.Bugs)
+            {
+                if (bug1.BugID == id) f = true;
+            }
+            if ((!Me.IsAdmin && !f) || id < 0 || bug == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View(bug);
         }
 
         public ActionResult Filters()

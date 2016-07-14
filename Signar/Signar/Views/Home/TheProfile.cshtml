@@ -121,7 +121,7 @@
                 <div style="display:inline-block; vertical-align: middle; width:100%;">
                     @foreach (BugDTO bug in Model.Bugs)
                     {
-                        <div class="bugs-div">
+                        <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
                             @{
                                 switch ((int)@bug.Priority)
                                 {
@@ -244,5 +244,15 @@
            })
            .error(function (mess) {
            })
+    }
+</script>
+
+
+<script>
+    function TaskClick(BugID) {
+        @{
+            string url3 = "/Home/Task/";
+        }
+        location.href = '@url3' + BugID;
     }
 </script>

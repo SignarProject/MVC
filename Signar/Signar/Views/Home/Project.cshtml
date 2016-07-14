@@ -148,7 +148,7 @@
                 <div class="no-border-last" style="display:inline-block; vertical-align: middle; width:100%;">
                     @foreach (BugDTO bug in Model.Bugs)
                     {
-                        <div class="bugs-div">
+                        <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
                             @{
                                 switch ((int)@bug.Priority)
                                 {
@@ -168,7 +168,27 @@
                             }
 
                             <div class="bugs-descrip-block">
-                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                <label class="zero-merg inner-bugs-label">@bug.Prefix</label>
+                                @{
+                                    switch ((int)@bug.Status)
+                                    {
+                                        case 0:
+                                            <label class="bug-status-display bug-status-todo zero-merg">Open</label>
+                                            break;
+                                        case 1:
+                                            <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                            break;
+                                        case 2:
+                                            <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                                            break;
+                                        case 3:
+                                            <label class="bug-status-display bug-status-testing zero-merg">Testing</label>
+                                            break;
+                                        case 4:
+                                            <label class="bug-status-display bug-status-done_close zero-merg">Closed</label>
+                                            break;
+                                    }
+                                }
                                 <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">@bug.Subject</p>
                             </div>
                             <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:92px;">
@@ -337,3 +357,12 @@
         }
     </script>
     }
+
+<script>
+    function TaskClick(BugID) {
+        @{
+            string url3 = "/Home/Task/";
+        }
+        location.href = '@url3' + BugID;
+    }
+</script>
