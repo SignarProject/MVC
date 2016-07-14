@@ -17,6 +17,12 @@ namespace AsignarBusinessLayer.Services
 
         private AsignarDBModel _dbContext;
         
+        public CommentService()
+        {
+            _dbContext = new AsignarDBModel();
+            _converter = new DTOConverter(_dbContext);
+        }
+
         public bool CreateItem(CommentDTO newItem)
         {
             Comment newComment = _converter.CommentFromDTO(newItem);

@@ -30,21 +30,19 @@ namespace AsignarBusinessLayer.Services
         public bool CreateItem(BugDTO newItem)
         {
             Bug newBug = _converter.BugFromDTO(newItem);
-            newBug.BugStatus = 0;
 
-
-            if(newBug.Priority > 3 
-                && newBug.Project.Equals(null)
-                && (newBug.Subject.Equals(null) 
-                || newBug.Equals(string.Empty)))
+            if ((newBug.Priority < 0
+                || newBug.Priority > 3)
+                && newBug.Project == null
+                && (newBug.Subject == null
+                || newBug.Subject.Equals(string.Empty)))
             {
                 return false;
             }
 
             _dbContext.Bugs.Add(newBug);
             _dbContext.SaveChanges();
-
-
+            
             return true;
         }
 
@@ -127,23 +125,27 @@ namespace AsignarBusinessLayer.Services
             bugToUpdate.AssigneeID = updatedItem.AssigneeID;
             bugToUpdate.Description = updatedItem.Description;
             
-            foreach(var attachment in updatedItem.Attachments)
+            foreach(var attachmentDTO in updatedItem.Attachments)
             {
-                bugToUpdate.Attachments.Add(_converter.AttachmentFromDTO(attachment));
+                var attachment = _converter.AttachmentFromDTO(attachmentDTO);
+
+                if(!bugToUpdate.Attachments.Contains(attachment))
+                {
+                    bugToUpdate.Attachments.Add(attachment);
+                }                
             }
 
             bugToUpdate.BugStatus = (byte) updatedItem.Status;
-
-
-            if (bugToUpdate.Priority > 3
-                && bugToUpdate.Project.Equals(null)
-                && (bugToUpdate.Subject.Equals(null)
-                || bugToUpdate.Equals(string.Empty)))
+            
+            if ((bugToUpdate.Priority < 0
+                || bugToUpdate.Priority > 3)
+                && bugToUpdate.Project == null
+                && (bugToUpdate.Subject == null
+                || bugToUpdate.Subject.Equals(string.Empty)))
             {
                 return false;
             }
-
-
+            
             return true;
         }
     }

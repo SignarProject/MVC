@@ -12,23 +12,19 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int BugID { get; set; }
         
         public string Prefix { get; set; }
-
-
+        
         public string Subject { get; set; }
-
-
+        
         public string Description { get; set; }
-
-
+        
         public int? AssigneeID { get; set; }
-
-
+        
         public UserDTO User { get; set; }
-
-
+        
         public int ProjectID { get; set; }
 
-
+        public ProjectDTO Project { get; set; }
+        
         public ICollection<AttachmentDTO> Attachments { get; set; }
 
 
