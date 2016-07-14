@@ -201,3 +201,6 @@ C:\TeamProjectRepo\Signar\AsignarDataAccessLayer\obj\Debug\AsignarDataAccessLaye
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
 C:\git\MVC\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
+C:\TeamProjectRepo\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+C:\TeamProjectRepo\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
+C:\TeamProjectRepo\Signar\AsignarDataAccessLayer\bin\Debug\Microsoft.WindowsAzure.Storage.pdb

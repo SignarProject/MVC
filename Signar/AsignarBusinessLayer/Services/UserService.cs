@@ -203,9 +203,41 @@ namespace AsignarBusinessLayer.Services
 
             User user = _dbContext.Users.Find(userDTO.UserID);
 
-            user.AvatarImagePath = storageContext.GetBlobSasUri(storageContext.GetUserPhotosContainerName(), "avatar-default.jpg");
+            user.AvatarImagePath = storageContext.GetDefaultAvatarSasUri();
 
             _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public ICollection<UserDTO> GetAllUsersWithoutBoundTo(int projectID)
+        {
+            ICollection<UserDTO> allUsersWithoutBoundDTOs = new HashSet<UserDTO>();
+            ICollection<User> allUsersWithoutBound = _dbContext.UsersToProjects.Where(u => u.ProjectID != projectID).Select(u => u.User).ToList();
+
+            foreach(var user in allUsersWithoutBound)
+            {
+                allUsersWithoutBoundDTOs.Add(_converter.UserToDTO(user, false));
+            }
+
+            return allUsersWithoutBoundDTOs;
+        }
+
+        public bool DropProjectFromUser(UserDTO userDTO, int projectID)
+        {
+            User user = _dbContext.Users.Find(userDTO.UserID);
+
+            UsersToProject userProjectBound = user.UsersToProjects.Single(bound => bound.UserID.Equals(userDTO.UserID) && bound.ProjectID.Equals(projectID));
+
+            _dbContext.UsersToProjects.Remove(userProjectBound);
+
+            foreach(var bug in user.Bugs)
+            {
+                if(bug.ProjectID.Equals(projectID))
+                {
+                    bug.AssigneeID = null;
+                }
+            }
 
             return true;
         }
