@@ -61,7 +61,7 @@ namespace AsignarBusinessLayer.Converters
             bugDTO.ProjectID = bug.ProjectID;
             bugDTO.Project = ProjectToDTO(bug.Project, true);
 
-            if(bugDTO.AssigneeID != null)
+            if(bug.AssigneeID != null)
             {
                 bugDTO.AssigneeID = bug.AssigneeID;
                 bugDTO.User = UserToDTO(_dbContext.Users.Find(bugDTO.AssigneeID), true);
