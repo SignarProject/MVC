@@ -67,6 +67,20 @@ namespace AsignarDataAccessLayer.AzureASModel
             return blob.Uri + sasBlobToken;
         }
 
+        public string GetDefaultAvatarSasUri()
+        {
+            CloudBlobContainer container = _blobClient.GetContainerReference(GetUserPhotosContainerName());
+            CloudBlockBlob blob = container.GetBlockBlobReference("avatar-default.jpg");
+
+            var sasConstraints = new SharedAccessBlobPolicy();
+            sasConstraints.SharedAccessExpiryTime = DateTime.UtcNow.AddYears(100);
+            sasConstraints.Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.Delete | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.List;
+
+            string sasBlobToken = blob.GetSharedAccessSignature(sasConstraints);
+
+            return blob.Uri + sasBlobToken;
+        }
+
         public bool UploadBlob(string containerName, string fileName, Stream fileStream)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(containerName);

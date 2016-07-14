@@ -60,6 +60,7 @@ namespace AsignarBusinessLayer.Converters
             bugDTO.BugID = bug.BugID;
             bugDTO.ProjectID = bug.ProjectID;
             bugDTO.AssigneeID = bug.AssigneeID;
+            bugDTO.User = UserToDTO(_dbContext.Users.Find(bugDTO.AssigneeID), true);
             bugDTO.Subject = bug.Subject;
             bugDTO.Prefix = string.Concat(bug.Project.Prefix, "-", bug.BugID);
             bugDTO.Description = bug.Description;
@@ -203,15 +204,15 @@ namespace AsignarBusinessLayer.Converters
                 {
                     projectDTO.Users.Add(UserToDTO(record.User, true));
                 }
+
+                foreach (var bug in project.Bugs)
+                {
+                    projectDTO.Bugs.Add(BugToDTO(bug));
+                }
             }
 
             projectDTO.UsersAmount = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Count();
-
-            foreach (var bug in project.Bugs)
-            {
-                projectDTO.Bugs.Add(BugToDTO(bug));
-            }
-
+                        
             projectDTO.BugsAmount = projectDTO.Bugs.Count;
 
             return projectDTO;
@@ -249,13 +250,13 @@ namespace AsignarBusinessLayer.Converters
                 {
                         userDTO.Projects.Add(ProjectToDTO(project, true));                 
                 }
-            }
-                        
-            foreach (var bug in user.Bugs)
-            {
-                userDTO.Bugs.Add(BugToDTO(bug));
-            }
 
+                foreach (var bug in user.Bugs)
+                {
+                    userDTO.Bugs.Add(BugToDTO(bug));
+                }
+            }
+                                
             foreach (var comment in user.Comments)
             {
                 userDTO.Comments.Add(CommentToDTO(comment));
@@ -277,7 +278,7 @@ namespace AsignarBusinessLayer.Converters
             newUser.Name = userDTO.Name;
             newUser.Surname = userDTO.Surname;
             newUser.Email = userDTO.Email;
-            newUser.AvatarImagePath = _storageContext.GetBlobSasUri(_storageContext.GetUserPhotosContainerName(), "avatar-default.jpg");
+            newUser.AvatarImagePath = _storageContext.GetDefaultAvatarSasUri();
             newUser.Login = userDTO.Login;
             newUser.Password = userDTO.Password;
             newUser.IsAdmin = userDTO.IsAdmin;
@@ -295,6 +296,6 @@ namespace AsignarBusinessLayer.Converters
 
 
             return userToProjectDTO;
-        }
+        }        
     }
 }

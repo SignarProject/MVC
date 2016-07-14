@@ -53,6 +53,10 @@ namespace AsignarBusinessLayer.Services
 
             project.IsDeleted = true;
 
+            foreach(var bug in project.Bugs)
+            {
+                bug.AssigneeID = null;
+            }
 
             _dbContext.SaveChanges();
 
