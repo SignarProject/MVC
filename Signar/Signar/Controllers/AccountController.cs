@@ -60,6 +60,14 @@ namespace Signar.Controllers
         public ActionResult Login()
         {
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+
+            /*var user = new UserDTO();
+            user.Name = "Anton";
+            user.Email = "fantom_nox@mail.ru";
+
+            var notif = new EmailNotificationService();
+            notif.ResetPassword(user);*/
+
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{
