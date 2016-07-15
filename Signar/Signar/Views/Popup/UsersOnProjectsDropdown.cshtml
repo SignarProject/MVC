@@ -1,0 +1,29 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<UserDTO>
+
+
+<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="UsersDD" style="z-index: 20;">
+    <input type="hidden" name="project">
+    <i class="dropdown icon"></i>
+    <div class="default text">Project</div>
+    <div class="menu" style="z-index: 10;" id="menu-dropdown-users">
+        @if (Model != null)
+        {
+            foreach (UserDTO user in Model)
+            {
+                string url_ava = @user.AvatarPath;
+                <div class="item" data-value="@user.UserID">
+                    <img class="ui mini avatar image popup-av" src=@url_ava>
+                    @user.Name @user.Surname
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@if (Model == null)
+{
+    <script>
+        $('#UsersDD').css('pointer-events', 'none');
+    </script>
+}

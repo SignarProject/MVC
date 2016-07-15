@@ -1,111 +1,104 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model BugDTO
+
+@{
     ViewBag.Title = "Task";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
 }
 
 <div style="height: 35px;"></div>
 
 <div class="container double-container" style="margin-left: 5px;">
     <div class="row">
-            <span class="project-title-mini" style="font-size: 14px;">The Titan</span> / TDT-13
+        <span class="project-title-mini" style="font-size: 14px;" onClick="ProjectClick(@Model.ProjectID)">@Model.Project.Name</span> / @Model.Prefix
     </div>
     <p style="font-size: 20px; margin-bottom: 0px;">
-        <b>The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</b>
+        <b style="overflow: auto;">@Model.Subject</b>
     </p>
     <div class="row">
         <div class="edit-profile pull-right" style="margin-right: 3px;">
             @Html.Partial("~/Views/Popup/EditTask.cshtml")
+            @if (@user.IsAdmin)
+            {
             <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task"></i> </a>
-            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task?"></i> </a>
-            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task"></i> </a>
+            }
+            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task?"></i> </a>
+            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task"></i> </a>
         </div>
     </div>
-    
+
 
     <div class="col-md-8" style="margin-top: 10px; padding-left: 0px;">
-            <div class="shadow-div padding-left-div" style="position: relative;">
-                <div class ="task-info"style="display:inline-block; vertical-align: middle; width:100%;">
-                    <div class="bugs-descrip-block" style="position: relative;">
-                            <b>Priority: </b>
-                            <img src="~/Content/Priority_img/major_prior.png">
-                            <b style="color:#F69C00; background-color:transparent; margin-top: 2px;">Major</b>
-                    </div>
+        <div class="shadow-div padding-left-div" style="position: relative;">
+            <div class="task-info" style="display:inline-block; vertical-align: middle; width:100%;">
+                <div class="bugs-descrip-block" style="position: relative;">
+                    <b>Priority: </b>
+                    @{
+                        switch ((int)@Model.Priority)
+                        {
+                            case 0:
+                                <img src="~/Content/Priority_img/critical_prior.png" />
+                                    <b style="color:rgb(205, 76, 36); background-color:transparent; margin-top: 2px;">Critical</b>
+                                break;
+                            case 1:
+                                <img src="~/Content/Priority_img/exclamation_prior.png" />
+                                    <b style="color:rgb(205, 76, 36); background-color:transparent; margin-top: 2px;">Urgent</b>
+                                break;
+                            case 2:
+                                <img src="~/Content/Priority_img/major_prior.png" />
+                                    <b style="color:#F69C00; background-color:transparent; margin-top: 2px;">Major</b>
+                                break;
+                            case 3:
+                                <img src="~/Content/Priority_img/minor_prior.png" />
+                                    <b style="color:rgb(179, 171, 168); background-color:transparent; margin-top: 2px;">Minor</b>
+                                break;
+                        }
+                    }
+                </div>
 
-                    <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;">
-                        <input type="hidden" name="user">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Status</div>
-                        <div class="menu" style="z-index: 10;">
-                            @for (int i = 0; i < 5; ++i)
-                            {
-                                <div class="item" data-value="status@i">
-                                    In progress @i
-                                </div>
-                            }
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Status</div>
+                    <div class="menu" style="z-index: 10;">
+                        <div class="item" data-value="0">
+                            <label class="bug-status-display bug-status-todo zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Open</label>
+                        </div>
+                        <div class="item" data-value="1">
+                            <label class="bug-status-display bug-status-in zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">In progress</label>
+                        </div>
+                        <div class="item" data-value="2">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Done</label>
+                        </div>
+                        <div class="item" data-value="3">
+                            <label class="bug-status-display bug-status-testing zero-merg" style="border: 0;background-color: transparent !important; font-size: 14px !important;">Testing</label>
+                        </div>
+                        <div class="item" data-value="4">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
                         </div>
                     </div>
-                    <div class="pull-right" style="display:inline-block; position:relative;">
-                        <b style="position: relative; top: 10px; margin-right: 10px;">Status: </b>
-                    </div>
-                        @*@for (int i = 0; i < 8; ++i)
-            {
-                <div class="bugs-div">
-                    <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
-                    <div class="bugs-descrip-block" style="width: 90%;">
-                        <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
-                        <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
-                    </div>
-
                 </div>
-            }*@
-                    </div>
-
-                <div class="task-description">
-                    <p style="overflow-x: scroll;padding-bottom: 10px;">asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-                        asdasfsdfsdkjgdsklgklvdmcxvlk dfmkgdrpsgjmreslmgldsrmglkdmlsgm;d lasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsd fsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmresl mgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dlasdasfsdfsdkjgdsklgklvdmcxvlkdfmkgdrpsgjmreslmgldsrmglkdmlsgm;dl
-
-                    </p>
+                <div class="pull-right" style="display:inline-block; position:relative;">
+                    <b style="position: relative; top: 10px; margin-right: 10px;">Status: </b>
                 </div>
+                @*@for (int i = 0; i < 8; ++i)
+                    {
+                        <div class="bugs-div">
+                            <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                            <div class="bugs-descrip-block" style="width: 90%;">
+                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                            </div>
+
+                        </div>
+                    }*@
+            </div>
+
+            <div class="task-description">
+                <p style="overflow-x: auto;padding-bottom: 10px;">
+                    @Model.Description
+                </p>
+            </div>
 
         </div>
     </div>
@@ -116,36 +109,37 @@
                 <div style="height: 25px;"></div>
 
                 <div class="pull-left" style="display: inline-block; margin-top: -13px; z-index: 10;font-weight: bolder;">
-                    Assignee: 
+                    Assignee:
                 </div>
                 <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
                     Assign to me
                 </div>
-                
+
 
                 <div style="height: 15px;"></div>
-                @{
-                    string ava_url = Model.AvatarPath;
-                }
-                <img src=@ava_url class="profile-av" style="width: 40px; height: 40px;"/>
-                <div class="user-name">
-                    <p class="zero-merg">George Orwell</p>
-                    <p class="zero-merg" style="font-size: 12px;">george-orewell@@email.com</p>
-                </div>
+                @if (Model != null && Model.User != null)
+                {
+                    string ava_url = @Model.User.AvatarPath;
 
+                    <img src=@ava_url class="profile-av" style="width: 40px; height: 40px;" />
+                    <div class="user-name">
+                        <p class="zero-merg; overflow: auto;">@Model.User.Name @Model.User.Surname</p>
+                        <p class="zero-merg" style="font-size: 12px; overflow: auto;">@Model.User.Email</p>
+                    </div>
+                }
                 <div style="height: 15px;"></div>
 
                 <div class="profile-desc" style="margin-bottom: 3px;">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Created: &nbsp;&nbsp;</b>03/Dec/15 2:34
+                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy HH.mm tt")
                     </p>
                 </div>
 
                 <div class="profile-desc">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Updated: &nbsp;</b>03/Dec/15 2:34
+                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy HH.mm tt")
                     </p>
                 </div>
 
@@ -160,7 +154,7 @@
                 </ul>
             </div>
 
-            
+
 
         </div>
 
@@ -193,5 +187,14 @@
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url3 = "/Home/Project/";
+        }
+        location.href = '@url3' + ProjectID;
     }
 </script>

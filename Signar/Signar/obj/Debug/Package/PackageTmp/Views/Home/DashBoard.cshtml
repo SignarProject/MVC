@@ -48,7 +48,7 @@ else
                         <div class="table-elem shadow-div project-div" onClick="ProjectClick(@project.ProjectID)">
                             @if (user.IsAdmin)
                             {
-                                <i class="fa fa-times-circle delete-form-icon pull-right" onclick="hideProject(this, @project.ProjectID)"></i>
+                                <i class="fa fa-times-circle delete-form-icon pull-right" onCLick="DeleteFromProject(this, @project.ProjectID)" id="close-icon"></i>
                             }
                             <h4 class="h4-zero-topmargin no-text-overflow"> @project.Name</h4>
                             <p class="prefix-style">@project.Prefix</p>
@@ -83,7 +83,7 @@ else
                                         HiddenBugsCount++;
                                         continue;
                                     }
-                                    <div class="bugs-div">
+                                    <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
                                         @{
                                             switch ((int)@bug.Priority)
                                             {
@@ -147,32 +147,37 @@ else
     </div>
 }
 
-@if (user.IsAdmin)
-{
-    <script>
-        function hideProject(el, ProjectID) {
-            $.ajax({
-                url: '/Home/DeleteProject',
-                data: { ProjectID: ProjectID },
-                method: 'POST'
-            })
-            .success(function () {
-                $(el).parent().parent().hide();
-            })
-            .error(function (mess) {
-                //$(el).parent().parent().show();
-                alert(mess);
-            })
+<script>
+    function TaskClick(BugID) {
+        @{
+            string url3 = "/Home/Task/";
         }
-    </script>
-}
+        location.href = '@url3' + BugID;
+    }
+</script>
 
 <script>
     function ProjectClick(ProjectID) {
         @{
             string url = "/Home/Project/";
         }
-        closeHovered = $('.shadow-div').find("#close-icon:hover").length
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length;
         if (closeHovered == null || closeHovered == 0) location.href = '@url' + ProjectID;
+    }
+</script>
+
+<script>
+    function DeleteFromProject(el, ProjectID)
+    {
+        $.ajax({
+            url: '/Home/DeleteUserFromProject',
+            data: { ProjectID: ProjectID, UserID: @user.UserID },
+            method: 'POST'
+        })
+           .success(function () {
+               $(el).parent().hide();
+           })
+           .error(function (mess) {
+           })
     }
 </script>

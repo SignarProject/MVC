@@ -178,6 +178,10 @@ p label {
     margin-right: 0;
 }
 
+.user-name > p {
+    margin-bottom: 0px;
+}
+
 .bug-status-todo {
     font-size: 60%;
     border: solid 1px #4D868D;

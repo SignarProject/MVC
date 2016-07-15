@@ -33,7 +33,10 @@
             UserSurName = user.Surname;
         }
     }
-    @Html.Partial("~/Views/Popup/CreateNewTask.cshtml")
+    @{
+        BugDTO m3 = new BugDTO();
+    }
+    @Html.Partial("~/Views/Popup/CreateNewTask.cshtml", m3)
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header leftM">
             @Html.ActionLink(" ", "Dashboard", "Home", null, htmlAttributes: new { @class = "navLogo" })
@@ -103,6 +106,7 @@
     function ShowCreateNewTaskPopup() {
         $("#createUserPopupTask").css({ 'display': "visible" });
         $("#createUserPopupTask").dialog({
+            open: LoadProjects(),
             width: 600,
             fluid: true,
             modal: true,
@@ -112,19 +116,34 @@
             show: { effect: 'clip', duration: 250 },
             hide: { effect: 'clip', duration: 250 },
             buttons: [
-        {
-            text: "Create",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
         });
         $("*").trigger('blur');
     }
+</script>
 
-
+<script>
+    function LoadProjects() {
+        $('#ProjectDD').css('pointer-events', 'none');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetAllProjects",
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#project-button').html(result);
+                    $('.ui.dropdown').dropdown();
+                    $('#ProjectDD').css('pointer-events', 'auto');
+                }
+            });
+        }
 </script>

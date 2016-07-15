@@ -10,7 +10,7 @@
 
 <div class="container double-container" style="margin-left: 5px;">
     <div class="row">
-        <span class="project-title-mini" style="font-size: 14px;">The Titan</span> / @Model.Prefix
+        <span class="project-title-mini" style="font-size: 14px;" onClick="ProjectClick(@Model.ProjectID)">@Model.Project.Name</span> / @Model.Prefix
     </div>
     <p style="font-size: 20px; margin-bottom: 0px;">
         <b style="overflow: auto;">@Model.Subject</b>
@@ -117,7 +117,7 @@
 
 
                 <div style="height: 15px;"></div>
-                @if (Model != null && Model.AssigneeID != null)
+                @if (Model != null && Model.User != null)
                 {
                     string ava_url = @Model.User.AvatarPath;
 
@@ -132,14 +132,14 @@
                 <div class="profile-desc" style="margin-bottom: 3px;">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy hh.mm")
+                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy HH.mm tt")
                     </p>
                 </div>
 
                 <div class="profile-desc">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy hh.mm")
+                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy HH.mm tt")
                     </p>
                 </div>
 
@@ -187,5 +187,14 @@
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url3 = "/Home/Project/";
+        }
+        location.href = '@url3' + ProjectID;
     }
 </script>

@@ -422,7 +422,6 @@ E:\2016\WEB\MVC\Signar\Signar\bin\Signar.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\Signar.pdb
 E:\2016\WEB\MVC\Signar\Signar\bin\Antlr3.Runtime.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarBusinessLayer.dll
-E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDTOModels.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\EntityFramework.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\EntityFramework.SqlServer.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.AspNet.Identity.Core.dll
@@ -450,7 +449,6 @@ E:\2016\WEB\MVC\Signar\Signar\bin\System.Web.WebPages.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\System.Web.WebPages.Razor.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\WebGrease.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\AsignarBusinessLayer.pdb
-E:\2016\WEB\MVC\Signar\Signar\bin\AsignarDTOModels.pdb
 E:\2016\WEB\MVC\Signar\Signar\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\2016\WEB\MVC\Signar\Signar\bin\System.Web.Helpers.xml
 E:\2016\WEB\MVC\Signar\Signar\bin\System.Web.Mvc.xml

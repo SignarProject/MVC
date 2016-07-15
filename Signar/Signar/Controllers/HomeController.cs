@@ -183,6 +183,28 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNewTask(BugDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(1, "Input data is invalid");
+            }
+            bool res = false;
+            using (BugService bugService = new BugService())
+            {
+                model.CreationDate = DateTime.Now;
+                model.ModificationDate = DateTime.Now;
+                res = bugService.CreateItem(model);
+            }
+            if (!res)
+            {
+                return new HttpStatusCodeResult(8, "Error during creation. Please try again");
+            }
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
         public ActionResult DeleteUserFromProject(int ProjectID, int UserID)
         {
             bool res = false;
@@ -321,6 +343,15 @@ namespace Signar.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetAllProjects()
+        {
+            using (ProjectService projectService = new ProjectService())
+            {
+                return PartialView("~/Views/Popup/ProjectsDropdown.cshtml", projectService.GetAllItems());
+            }
+        }
+
         [HttpPost]
         public ActionResult AddUsersToProject(AddUsersToProjectModel model)
         {
@@ -378,12 +409,12 @@ namespace Signar.Controllers
             {
                 bug = bugService.GetItem(id);
             }
-            bool f = false;
-            foreach (var bug1 in Me.Bugs)
-            {
-                if (bug1.BugID == id) f = true;
-            }
-            if ((!Me.IsAdmin && !f) || id < 0 || bug == null)
+            //bool f = false;
+            //foreach (var bug1 in Me.Bugs)
+            //{
+            //    if (bug1.BugID == id) f = true;
+            //}
+            if (/*(!Me.IsAdmin && !f) || */id < 0 || bug == null)
             {
                 return RedirectToAction("NotFound", "Error");
             }

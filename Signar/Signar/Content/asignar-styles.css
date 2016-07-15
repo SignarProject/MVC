@@ -46,6 +46,7 @@ input:-ms-input-placeholder {
     }
 
 .ui.selection.dropdown > .text {
+    overflow: hidden;
     font-size: 14px;
     vertical-align: initial;
 }
@@ -176,6 +177,10 @@ p label {
 .bugs-descrip {
     font-size: 75%;
     margin-right: 0;
+}
+
+.user-name > p {
+    margin-bottom: 0px;
 }
 
 .bug-status-todo {

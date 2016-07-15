@@ -1,0 +1,30 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<ProjectDTO>
+
+<div class="container col-xs-6" id="wrap">
+    <div class="btn-group">
+        <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="ProjectDD" style="z-index: 20;">
+            <input type="hidden" name="project">
+            <i class="dropdown icon"></i>
+            <div class="default text">Project</div>
+            <div class="menu" style="z-index: 10;" id="menu-dropdown-projects">
+                @if (Model != null)
+                {
+                    foreach (ProjectDTO project in Model)
+                    {
+                        <div class="item" data-value="@project.ProjectID" style="overflow:hidden;" onclick="ChangeProjectID(this, @project.ProjectID)">
+                            @project.Name
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ChangeProjectID(el, id) {
+        $(el).val(id);
+        alert($(el).val());
+        $('.project_id').val($(el).val());
+    }
+</script>
