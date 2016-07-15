@@ -20,6 +20,7 @@ namespace AsignarWebJob.WebJobServices
         private readonly string _bugReassignedTemplateID;
                 
         private const string _asignarBTSEmail = "asignarBTS@outlook.com";
+        private const string _asignarNotificationName = "Asignar-BTS Automatic Notification System";
         private const string _asignarBTSEmailPassword = "Password: 1qaz2wsX34";
 
         public EmailNotificationService()
@@ -34,34 +35,40 @@ namespace AsignarWebJob.WebJobServices
 
         public void UserRegistrartion(NotificationItem user)
         {
-            var myMessage = new SendGridMessage();
-            myMessage.AddTo(user.Email);
-            myMessage.From = new MailAddress(_asignarBTSEmail, "Asignar-BTS Automatic Notification System");
+            var letter = new SendGridMessage();
 
-            myMessage.EnableTemplateEngine(_userRegistrationTemplateID);
-            myMessage.Subject = "Registration in Asignar-BTS";
-            myMessage.Text = "Test";
-            myMessage.Html = "Test";
-            /*myMessage.AddSubstitution("%name%", new List<string> { user.Name });
-            myMessage.AddSubstitution("%login%", new List<string> { user.Login });
-            myMessage.AddSubstitution("%password%", new List<string> { user.Password });*/
+            letter.AddTo(user.Email);
+            letter.From = new MailAddress(_asignarBTSEmail, _asignarNotificationName);
+
+            letter.EnableTemplateEngine(_userRegistrationTemplateID);
+
+            letter.Subject = "Registration in Asignar-BTS";
+            letter.AddSubstitution("%name%", new List<string> { string.Concat(user.Name, " ", user.Surname) });
+            letter.AddSubstitution("%login%", new List<string> { user.Login });
+            letter.AddSubstitution("%password%", new List<string> { user.Password });
+            letter.Text = "Some text";
+            letter.Html = "Some html";
 
             var transportWeb = new Web(_sendGridAPI);
-            transportWeb.DeliverAsync(myMessage).Wait();
+            transportWeb.DeliverAsync(letter).Wait();
         }
 
         public void ResetPassword(NotificationItem user)
         {
-            var myMessage = new SendGridMessage();
-            myMessage.AddTo(user.Email);
-            myMessage.From = new MailAddress(_asignarBTSEmail, "Asignar-BTS Automatic Notification System");
+            var letter = new SendGridMessage();
 
-            myMessage.EnableTemplateEngine(_resetPasswordTemplateID);
-            myMessage.Subject = "Reset Asignar-BTS account password";
-            myMessage.AddSubstitution("%name%", new List<string> { user.Name });
+            letter.AddTo(user.Email);
+            letter.From = new MailAddress(_asignarBTSEmail, _asignarNotificationName);
+
+            letter.EnableTemplateEngine(_resetPasswordTemplateID);
+
+            letter.Subject = "Reset Asignar-BTS account password";
+            letter.AddSubstitution("%name%", new List<string> { user.Name });
+            letter.Text = "Some text";
+            letter.Html = "Some html";
 
             var transportWeb = new Web(_sendGridAPI);
-            transportWeb.DeliverAsync(myMessage).Wait();
+            transportWeb.DeliverAsync(letter).Wait();
         }
     }
 }
