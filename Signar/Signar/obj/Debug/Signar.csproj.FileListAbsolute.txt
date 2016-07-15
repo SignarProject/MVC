@@ -401,9 +401,7 @@ E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.dll
 E:\C#\ProjectRep\Signar\Signar\bin\AsignarBusinessLayer.pdb
 E:\C#\ProjectRep\Signar\Signar\bin\AsignarDTOModels.pdb
 C:\git\MVC\Signar\Signar\bin\AsignarBusinessLayer.dll
-C:\git\MVC\Signar\Signar\bin\AsignarDTOModels.dll
 C:\git\MVC\Signar\Signar\bin\AsignarBusinessLayer.pdb
-C:\git\MVC\Signar\Signar\bin\AsignarDTOModels.pdb
 E:\2016\WEB\MVC\Signar\Signar\bin\ApplicationInsights.config
 E:\2016\WEB\MVC\Signar\Signar\bin\roslyn\csc.exe
 E:\2016\WEB\MVC\Signar\Signar\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -921,3 +919,5 @@ C:\TeamProjectRepo\Signar\Signar\bin\SendGridMail.dll
 C:\TeamProjectRepo\Signar\Signar\bin\SendGrid.SmtpApi.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\SendGridMail.dll
 E:\2016\WEB\MVC\Signar\Signar\bin\SendGrid.SmtpApi.dll
+C:\git\MVC\Signar\Signar\bin\SendGridMail.dll
+C:\git\MVC\Signar\Signar\bin\SendGrid.SmtpApi.dll

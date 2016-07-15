@@ -12,7 +12,7 @@
                 {
                     foreach (ProjectDTO project in Model)
                     {
-                        <div class="item" data-value="@project.ProjectID" style="overflow:hidden;" onclick="ChangeProjectID(this, @project.ProjectID)">
+                        <div class="item" data-value="@project.ProjectID" style="overflow:hidden; line-height: 18px;" onclick="ChangeProjectID(this, @project.ProjectID)">
                             @project.Name
                         </div>
                     }
@@ -22,9 +22,21 @@
     </div>
 </div>
 <script>
-    function ChangeProjectID(el, id) {
-        $(el).val(id);
-        alert($(el).val());
+    function ChangeProjectID(el, ProjectID) {
+        $('#UsersDD').css('pointer-events', 'none');
+        $(el).val(ProjectID);
         $('.project_id').val($(el).val());
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetUsersOnProject",
+            data: {ProjectID: ProjectID},
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                $('#user-button').html(result);
+                $('.ui.dropdown').dropdown();
+                $('#UsersDD').css('pointer-events', 'auto');
+            }
+        });
     }
 </script>

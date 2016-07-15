@@ -1,49 +1,45 @@
-﻿<div id="createUserPopupTask" class="table-responsive popup-common">
-
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model BugDTO
+    @{ 
+        UserDTO user = Cache[User.Identity.Name] as UserDTO;
+        //string Title = (string)ViewData["Title"];
+        //int Priority = (int)ViewData["Priority"];
+        //int Status = (int)ViewData["Status"];
+        //int ProjectID = (int)ViewData["ProjectID"];
+        //int UserID = (int)ViewData["UserID"];
+        //ICollection<AttachmentDTO> attachments = ViewData["Attachments"] as ICollection<AttachmentDTO>;
+    }
+    <div id="createUserPopupTask" class="table-responsive popup-common">
+@using (Ajax.BeginForm("CreateTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createUserPopupTask" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
     <div class="row">
         <div class="col-xs-12">
-            @Html.TextBox("Task title", null, "", htmlAttributes: new { @class = "form-control popup-field", placeholder = "Title" })
+            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control popup-field", placeholder = "Title" })
         </div>
     </div>
 
     <div class="row">
-        <div class="container col-xs-6" id="wrap">
-            <div class="btn-group">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
-                    <input type="hidden" name="project">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Project</div>
-                    <div class="menu" style="z-index: 10;">
-                        @for (int i = 0; i < 4; ++i)
-                        {
-                            <div class="item" data-value="project@i">
-                                The Titan @i
-                            </div>
-                        }
-                    </div>
+                @{ 
+                    List<ProjectDTO> m_projects = new List<ProjectDTO>();
+                }
+                
+                <div id="project-button">
+                    @Html.Partial("~/Views/Popup/ProjectsDropdown.cshtml", m_projects)
                 </div>
-            </div>
-        </div>
-
+        @Html.HiddenFor(m => m.ProjectID, new { @class = "project_id" })
         <div class="container col-xs-6" id="wrap">
-            <div class="btn-group" style="height: 20px;">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
-                    <input type="hidden" name="user">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Assignee</div>
-                    <div class="menu" style="z-index: 10;">
-                        @for (int i = 0; i < 15; ++i)
-                        {
-                            <div class="item" data-value="name@i">
-                                <img class="ui mini avatar image popup-av" src="~/Content/img/ava1.jpg">
-                                Jenny Hess @i
-                            </div>
-                        }
-                    </div>
+            <div class="btn-group"style="height: 20px;">
+                @{
+                    List<UserDTO> m2 = new List<UserDTO>();
+                }
+                <div id="user-button">
+                    @Html.Partial("~/Views/Popup/UsersOnProjectsDropdown.cshtml", m2)
                 </div>
-
-            </div>
-            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
+                    @Html.HiddenFor(m => m.AssigneeID, new { @class = "assignee_id" })
+                </div>
+            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 20; left: 70%; margin-top: 22px;" onClick="AssignPopup()">
                 Assign to me
             </div>
         </div>
@@ -53,18 +49,28 @@
     <div class="row">
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="z-index: 5;">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="PriorityDropdown">
                     <input type="hidden" name="priority">
                     <i class="dropdown icon"></i>
                     <div class="default text">Priority</div>
-                    <div class="menu" style="z-index: 10;">
-                        @for (int i = 0; i < 8; ++i)
-                        {
-                            <div class="item" data-value="priority@i">
+                    <div class="menu" style="z-index: 10;" id="menu-dropdown-priority">
+                        <div class="item" data-value="0">
+                            <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/critical_prior.png">
+                            <span style="color:rgb(205, 76, 36);  background-color:transparent!important;">Critical</span>
+                        </div>
+                        <div class="item" data-value="1">
+                            <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/exclamation_prior.png">
+                            <span style="color:rgb(205, 76, 36);  background-color:transparent!important;">Urgent</span>
+                        </div>
+                            <div class="item" data-value="2">
                                 <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/major_prior.png">
-                               <span style="color:#F69C00; background-color:transparent;">Major @i</span> 
+                               <span style="color:#F69C00; background-color:transparent!important;">Major</span> 
                             </div>
-                        }
+                        <div class="item" data-value="3">
+                            <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/minor_prior.png">
+                            <span style="color:rgb(179, 171, 168);  background-color:transparent!important;">Minor</span>
+                        </div>
+                        @Html.HiddenFor(m => m.Priority, new { @class = "priority_n" });
                     </div>
                 </div>
             </div>
@@ -72,17 +78,27 @@
 
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="z-index: 5;">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="StatusDropdown"style="z-index: 20;">
                     <input type="hidden" name="status">
                     <i class="dropdown icon"></i>
                     <div class="default text">Status</div>
-                    <div class="menu" style="z-index: 10;">
-                        @for (int i = 0; i < 4; ++i)
-                        {
-                            <div class="item" data-value="status@i">
-                                Status @i
-                            </div>
-                        }
+                    <div class="menu" style="z-index: 10;" id="menu-dropdown-status">
+                        <div class="item" data-value="0">
+                            <label class="bug-status-display bug-status-todo zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Open</label>
+                        </div>
+                        <div class="item" data-value="1">
+                            <label class="bug-status-display bug-status-in zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">In progress</label>
+                        </div>
+                        <div class="item" data-value="2">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Done</label>
+                        </div>
+                        <div class="item" data-value="3">
+                            <label class="bug-status-display bug-status-testing zero-merg" style="border: 0;background-color: transparent !important; font-size: 14px !important;">Testing</label>
+                        </div>
+                        <div class="item" data-value="4">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
+                        </div>
+                        @Html.HiddenFor(m => m.Status, new { @class = "status_n" })
                     </div>
                 </div>
             </div>
@@ -90,7 +106,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                @Html.TextArea("Task text", htmlAttributes: new { @class = "form-control popup-field popup-text-area", placeholder = "Description" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control popup-field popup-text-area", placeholder = "Description" })
             </div>
         </div>
 
@@ -100,6 +116,8 @@
 
     </div>
 
+        <input type="button" value="Create" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjaxTask(this)" />
+                    }
 </div>
 
 <style>
@@ -121,4 +139,56 @@
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
     });
+</script>
+
+<script>
+    function CLickAjaxTask(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/CreateNewTask",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                $(".popup-button").closest("#createUserPopupTask").dialog('close');
+                //window.location.reload();
+            }
+        });
+
+        return false;
+
+    }
+</script>
+
+<script>
+    $("#StatusDropdown").change(function () {
+        $(".status_n").val($("#menu-dropdown-status").val());
+            });
+</script>
+
+<script>
+    $("#PriorityDropdown").change(function () {
+        $(".priority_n").val($("#menu-dropdown-priority").val());
+            });
+</script>
+
+<script>
+    $("#UsersDD").change(function () {
+        $(".assignee_id").val($("#menu-dropdown-users").val());
+            });
+</script>
+
+<script>
+    $("#ProjectDD").change(function () {
+        $(".project_id").val($("#menu-dropdown-projects").val());
+            });
+</script>
+
+<script>
+    function AssignPopup() {
+        $('#UsersDD').dropdown('set selected', @user.UserID);
+    }
 </script>

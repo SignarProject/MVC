@@ -46,6 +46,7 @@ input:-ms-input-placeholder {
     }
 
 .ui.selection.dropdown > .text {
+    line-height: 22px;
     overflow: hidden;
     font-size: 14px;
     vertical-align: initial;

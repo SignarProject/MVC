@@ -72,7 +72,7 @@ namespace Signar.Controllers
                 ModelState.AddModelError("", "Sorry, but there was an error");
                 return new HttpStatusCodeResult(1, "Input data is invalid");
             }
-            return RedirectToAction("TheProfile/"+model.UserID);
+            return RedirectToAction("TheProfile/" + model.UserID);
         }
 
         [HttpPost]
@@ -186,15 +186,19 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewTask(BugDTO model)
         {
-            if (!ModelState.IsValid)
+            bool f = false;
+            foreach(var err in ModelState)
+            {
+                if (err.Key != "Project" && err.Value.Errors.Count > 0) f = true;
+            }
+            //if (ModelState["Project"].Errors.Count == 1) 
+            if (f)
             {
                 return new HttpStatusCodeResult(1, "Input data is invalid");
             }
             bool res = false;
             using (BugService bugService = new BugService())
             {
-                model.CreationDate = DateTime.Now;
-                model.ModificationDate = DateTime.Now;
                 res = bugService.CreateItem(model);
             }
             if (!res)
@@ -243,7 +247,18 @@ namespace Signar.Controllers
             using (var projectService = new ProjectService())
             {
                 bool res = projectService.DeleteItem(ProjectID);
-                if(!res) return new HttpStatusCodeResult(1, "ProjectIsAlreadyDeleted!");
+                if (!res) return new HttpStatusCodeResult(1, "ProjectIsAlreadyDeleted!");
+                return new HttpStatusCodeResult(200, "OK");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTask(int BugID)
+        {
+            using (var bugService = new BugService())
+            {
+                bool res = bugService.DeleteItem(BugID);
+                if (!res) return new HttpStatusCodeResult(1, "Bug is already deleted!");
                 return new HttpStatusCodeResult(200, "OK");
             }
         }
@@ -254,9 +269,10 @@ namespace Signar.Controllers
             using (var userService = new UserService())
             {
                 UserDTO user = userService.GetItem(UserID);
-                if(user.Bugs.Count > 0) return new HttpStatusCodeResult(9, "You can not delete this user, because some tasks are assigned to him!");
+                if (user.Bugs.Count > 0) return new HttpStatusCodeResult(9, "You can not delete this user, because some tasks are assigned to him!");
                 bool res = userService.DeleteItem(UserID);
-                if (res) return new HttpStatusCodeResult(200, "OK"); else
+                if (res) return new HttpStatusCodeResult(200, "OK");
+                else
                     return new HttpStatusCodeResult(10, "There was an error during deleting");
             }
         }
@@ -273,7 +289,7 @@ namespace Signar.Controllers
             {
                 ICollection<ProjectDTO> ProjectsCollection;
                 if (id == 0) ProjectsCollection = projectService.GetAllItems();
-                    else ProjectsCollection = projectService.GetAllProjectsByUserId(id);
+                else ProjectsCollection = projectService.GetAllProjectsByUserId(id);
                 if (ProjectsCollection == null) return RedirectToAction("NotFound", "Error");
                 return View(ProjectsCollection);
             }
@@ -288,7 +304,7 @@ namespace Signar.Controllers
                 project = projectService.GetItem(id);
             }
             bool f = false;
-            foreach(var project1 in Me.Projects)
+            foreach (var project1 in Me.Projects)
             {
                 if (project1.ProjectID == id) f = true;
             }
@@ -303,15 +319,15 @@ namespace Signar.Controllers
             //        bug.User = bug.AssigneeID == null ? null : userService.GetItem((int)bug.AssigneeID);
             //    }
             //}
-                
-                return View(project);
+
+            return View(project);
         }
 
         [HttpGet]
         public ActionResult AddUsersToProject(int ProjectID)
         {
             ICollection<UserDTO> users;
-            using(UserService userService = new UserService())
+            using (UserService userService = new UserService())
             {
                 users = userService.GetAllItems();
                 using (ProjectService projectService = new ProjectService())
@@ -346,9 +362,53 @@ namespace Signar.Controllers
         [HttpGet]
         public ActionResult GetAllProjects()
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             using (ProjectService projectService = new ProjectService())
             {
-                return PartialView("~/Views/Popup/ProjectsDropdown.cshtml", projectService.GetAllItems());
+                if (Me.IsAdmin)
+                {
+                    return PartialView("~/Views/Popup/ProjectsDropdown.cshtml", projectService.GetAllItems());
+                }
+                else
+                {
+                    return PartialView("~/Views/Popup/ProjectsDropdown.cshtml", Me.Projects);
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SetTaskStatus(int Status, int BugID)
+        {
+            bool f;
+            using (BugService bugService = new BugService())
+            {
+                f = bugService.SetStatus(BugID, Status);
+            }
+            if (!f) return new HttpStatusCodeResult(1, "Error. Please try again");
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
+        public ActionResult SetTaskAssignee(int UserID, int BugID)
+        {
+            
+            BugDTO bug;
+            using (BugService bugService = new BugService())
+            {
+                bug = bugService.GetItem(BugID);
+                if (UserID == bug.AssigneeID) return new HttpStatusCodeResult(1, "Bug is already assigned to you!");
+                bugService.SetAssignee(BugID, UserID);
+                if (!bugService.UpdateItem(bug)) return new HttpStatusCodeResult(1, "Error. Please try again"); ;
+            }
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpGet]
+        public ActionResult GetUsersOnProject(int ProjectID)
+        {
+            using (ProjectService projectService = new ProjectService())
+            {
+                return PartialView("~/Views/Popup/UsersOnProjectsDropdown.cshtml", projectService.GetItem(ProjectID).Users);
             }
         }
 
@@ -388,7 +448,7 @@ namespace Signar.Controllers
                 projectService.UpdateItem(project);
                 return Content(project.Name);
             }
-            
+
         }
 
         [HttpPost]
@@ -398,7 +458,7 @@ namespace Signar.Controllers
             {
                 if (!projectService.ReviveProject(ProjectID)) return new HttpStatusCodeResult(1, "Project is alive already");
             }
-                return new HttpStatusCodeResult(200, "OK");
+            return new HttpStatusCodeResult(200, "OK");
         }
 
         public ActionResult Task(int id)

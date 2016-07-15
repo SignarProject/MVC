@@ -17,10 +17,14 @@
     </p>
     <div class="row">
         <div class="edit-profile pull-right" style="margin-right: 3px;">
-            @Html.Partial("~/Views/Popup/EditTask.cshtml")
+
+            @{
+                BugDTO mEdit = new BugDTO();
+            }
+            @*@Html.Partial("~/Views/Popup/EditTask.cshtml", mEdit, new ViewDataDictionary { { "Title", Model.Subject }, { "Priority", (int)Model.Priority }, { "Status", (int)Model.Status }, { "ProjectID", Model.ProjectID }, { "UserID", Model.AssigneeID }, { "attachments", Model.Attachments } })*@
             @if (@user.IsAdmin)
             {
-            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task"></i> </a>
+            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task" onClick="DeleteTask()"></i> </a>
             }
             <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task?"></i> </a>
             <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task"></i> </a>
@@ -56,24 +60,25 @@
                     }
                 </div>
 
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;">
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;" id="status-dd">
                     <input type="hidden" name="user">
                     <i class="dropdown icon"></i>
                     <div class="default text">Status</div>
                     <div class="menu" style="z-index: 10;">
-                        <div class="item" data-value="0">
+
+                        <div class="item" data-value="1">
                             <label class="bug-status-display bug-status-todo zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Open</label>
                         </div>
-                        <div class="item" data-value="1">
+                        <div class="item" data-value="2">
                             <label class="bug-status-display bug-status-in zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">In progress</label>
                         </div>
-                        <div class="item" data-value="2">
+                        <div class="item" data-value="3">
                             <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Done</label>
                         </div>
-                        <div class="item" data-value="3">
+                        <div class="item" data-value="4">
                             <label class="bug-status-display bug-status-testing zero-merg" style="border: 0;background-color: transparent !important; font-size: 14px !important;">Testing</label>
                         </div>
-                        <div class="item" data-value="4">
+                        <div class="item" data-value="5">
                             <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
                         </div>
                     </div>
@@ -111,7 +116,7 @@
                 <div class="pull-left" style="display: inline-block; margin-top: -13px; z-index: 10;font-weight: bolder;">
                     Assignee:
                 </div>
-                <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
+                <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;" onClick="AssignToMe()">
                     Assign to me
                 </div>
 
@@ -132,14 +137,14 @@
                 <div class="profile-desc" style="margin-bottom: 3px;">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy HH.mm tt")
+                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy HH:mm tt")
                     </p>
                 </div>
 
                 <div class="profile-desc">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy HH.mm tt")
+                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy HH:mm tt")
                     </p>
                 </div>
 
@@ -153,9 +158,6 @@
                     <li><a href="url">screen1.jpg</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
                 </ul>
             </div>
-
-
-
         </div>
 
     </div>
@@ -196,5 +198,63 @@
             string url3 = "/Home/Project/";
         }
         location.href = '@url3' + ProjectID;
+    }
+</script>
+
+<script>
+    @{
+        int st = (int)Model.Status+1;
+    }
+    $('#status-dd').dropdown('set selected', @st);
+    $('#status-dd').change(function()
+    {
+        out = $('#status-dd').dropdown('get value') - 1;
+        $.ajax({
+            type: "POST",
+            url: "/Home/SetTaskStatus",
+            data: {Status: out, BugID: @Model.BugID},
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    });
+</script>
+
+<script>
+    function AssignToMe()
+    {
+            $.ajax({
+                type: "POST",
+                url: "/Home/SetTaskAssignee",
+                data: {UserID: @user.UserID, BugID: @Model.BugID},
+                error: function (xhr, status, error) {
+                    alert(error);
+                },
+                success: function (result) {
+                    alert('Done');
+                    //$(".popup-button").closest("#createUserPopup").dialog('close');
+                }
+            });
+    }
+</script>
+
+<script>
+    function DeleteTask()
+    {
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteTask",
+            data: {TaskID: @Model.BugID},
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                document.location.href="/Home/Dashboard";
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
     }
 </script>

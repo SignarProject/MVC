@@ -98,11 +98,13 @@ namespace AsignarBusinessLayer.Converters
             if (bugDTO.AssigneeID.HasValue)
             {
                 newBug.AssigneeID = bugDTO.AssigneeID;
-                newBug.User = UserFromDTO(bugDTO.User);
+                newBug.User = _dbContext.Users.Find(bugDTO.AssigneeID);
             }
 
             newBug.Subject = bugDTO.Subject;
             newBug.Description = bugDTO.Description;
+            newBug.CreationDate = DateTime.Now;
+            newBug.ModificationDate = DateTime.Now;
             newBug.BugStatus = (byte)bugDTO.Status;
             newBug.Priority = (byte)bugDTO.Priority;
 

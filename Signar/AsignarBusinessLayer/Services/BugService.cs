@@ -30,7 +30,7 @@ namespace AsignarBusinessLayer.Services
         public bool CreateItem(BugDTO newItem)
         {
             Bug newBug = _converter.BugFromDTO(newItem);
-
+            if (newBug.AssigneeID == 0) newBug.AssigneeID = null;
             if ((newBug.Priority < 0
                 || newBug.Priority > 3)
                 && newBug.Project == null
@@ -114,15 +114,37 @@ namespace AsignarBusinessLayer.Services
             }
         }
 
+        public bool SetStatus(int BugID, int Status)
+        {
+            Bug bugToUpdate = _dbContext.Bugs.Find(BugID);
+            bugToUpdate.BugStatus = (byte)Status;
+
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        public bool SetAssignee(int BugID, int UserID)
+        {
+            Bug bugToUpdate = _dbContext.Bugs.Find(BugID);
+            bugToUpdate.AssigneeID = (byte)UserID;
+
+            _dbContext.SaveChanges();
+            return true;
+        }
 
         public bool UpdateItem(BugDTO updatedItem)
         {
             Bug bugToUpdate = _dbContext.Bugs.Find(updatedItem.BugID);
 
+            if (!bugToUpdate.AssigneeID.Equals(updatedItem.AssigneeID))
+            {
+                bugToUpdate.AssigneeID = updatedItem.AssigneeID;
+                bugToUpdate.User = _dbContext.Users.Find(updatedItem.AssigneeID);
+            }
+            else return false;
 
             bugToUpdate.Priority = (byte) updatedItem.Priority;
             bugToUpdate.Subject = updatedItem.Subject;
-            bugToUpdate.AssigneeID = updatedItem.AssigneeID;
             bugToUpdate.Description = updatedItem.Description;
             
             foreach(var attachmentDTO in updatedItem.Attachments)

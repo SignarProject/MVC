@@ -77,7 +77,7 @@
         var $form = $(btnClicked).parents('form');
         $.ajax({
             type: "POST",
-            url: "CreateNewProject",
+            url: "/Home/CreateNewProject",
             data: $form.serialize(),
             error: function (xhr, status, error) {
                 alert(error);

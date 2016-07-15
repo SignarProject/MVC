@@ -33,7 +33,10 @@
             UserSurName = user.Surname;
         }
     }
-    @Html.Partial("~/Views/Popup/CreateNewTask.cshtml")
+    @{
+        BugDTO m3 = new BugDTO();
+    }
+    @Html.Partial("~/Views/Popup/CreateNewTask.cshtml", m3)
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header leftM">
             @Html.ActionLink(" ", "Dashboard", "Home", null, htmlAttributes: new { @class = "navLogo" })
@@ -49,10 +52,15 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-header pull-left">
                 @{ 
-                    int user_id = user.IsAdmin ? 0 : user.UserID;
+                    int user_id = 0;
+                    if (user != null)
+                    {
+                        user_id = (user.IsAdmin) ? 0 : user.UserID;
+                    }
+
                 }
                 <li>@Html.ActionLink("Projects", "Projects", "Home", new { id = @user_id }, htmlAttributes: new { @class = "navTextH navHL", id = "projects-menu-div" })</li>
-                @if (user.IsAdmin)
+                @if (user != null && user.IsAdmin)
                 {
                             <li> @Html.ActionLink("Users", "Users", "Home", null, htmlAttributes: new { @class = "navTextH navHL", id = "users-menu-div" }) </li>
                 }
@@ -72,7 +80,15 @@
                 <li onclick="showProfileDropMenu()">
                     <a href="#" class="navProfile rightM">
                         @{
-                            string ava_url = user.AvatarPath;
+                            string ava_url;
+                            if (user != null)
+                            {
+                                ava_url = user.AvatarPath;
+                            } else
+                            {
+                                ava_url = "~/Content/img/ava1";
+                            }
+
                         }
                         <img src=@ava_url id="avatar" />&nbsp;&nbsp;
                         <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserName</div> <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserSurName</div>
@@ -103,6 +119,7 @@
     function ShowCreateNewTaskPopup() {
         $("#createUserPopupTask").css({ 'display': "visible" });
         $("#createUserPopupTask").dialog({
+            open: LoadProjects(),
             width: 600,
             fluid: true,
             modal: true,
@@ -112,19 +129,36 @@
             show: { effect: 'clip', duration: 250 },
             hide: { effect: 'clip', duration: 250 },
             buttons: [
-        {
-            text: "Create",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
         });
         $("*").trigger('blur');
     }
+</script>
 
-
+<script>
+    function LoadProjects() {
+        $('#ProjectDD').css('pointer-events', 'none');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetAllProjects",
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#project-button').html(result);
+                    $('.ui.dropdown').dropdown();
+                    $('#ProjectDD').css('pointer-events', 'auto');
+                    $('.ui.fluid.dropdown').css('pointer-events', 'auto');
+                    $('#UsersDD').css('pointer-events', 'none');
+                }
+            });
+        }
 </script>

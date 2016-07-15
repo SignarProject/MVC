@@ -52,10 +52,15 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-header pull-left">
                 @{ 
-                    int user_id = user.IsAdmin ? 0 : user.UserID;
+                    int user_id = 0;
+                    if (user != null)
+                    {
+                        user_id = (user.IsAdmin) ? 0 : user.UserID;
+                    }
+
                 }
                 <li>@Html.ActionLink("Projects", "Projects", "Home", new { id = @user_id }, htmlAttributes: new { @class = "navTextH navHL", id = "projects-menu-div" })</li>
-                @if (user.IsAdmin)
+                @if (user != null && user.IsAdmin)
                 {
                             <li> @Html.ActionLink("Users", "Users", "Home", null, htmlAttributes: new { @class = "navTextH navHL", id = "users-menu-div" }) </li>
                 }
@@ -75,7 +80,15 @@
                 <li onclick="showProfileDropMenu()">
                     <a href="#" class="navProfile rightM">
                         @{
-                            string ava_url = user.AvatarPath;
+                            string ava_url;
+                            if (user != null)
+                            {
+                                ava_url = user.AvatarPath;
+                            } else
+                            {
+                                ava_url = "~/Content/img/ava1";
+                            }
+
                         }
                         <img src=@ava_url id="avatar" />&nbsp;&nbsp;
                         <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserName</div> <div class="no-text-overflow-logo" style="display: inline-block; max-width: 65px;">@UserSurName</div>
@@ -143,6 +156,8 @@
                     $('#project-button').html(result);
                     $('.ui.dropdown').dropdown();
                     $('#ProjectDD').css('pointer-events', 'auto');
+                    $('.ui.fluid.dropdown').css('pointer-events', 'auto');
+                    $('#UsersDD').css('pointer-events', 'none');
                 }
             });
         }

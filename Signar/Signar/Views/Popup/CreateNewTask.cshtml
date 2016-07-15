@@ -30,14 +30,16 @@
                 </div>
         @Html.HiddenFor(m => m.ProjectID, new { @class = "project_id" })
         <div class="container col-xs-6" id="wrap">
-            <div class="btn-group" id="user-button" style="height: 20px;">
+            <div class="btn-group"style="height: 20px;">
                 @{
                     List<UserDTO> m2 = new List<UserDTO>();
                 }
-                @Html.Partial("~/Views/Popup/UsersOnProjectsDropdown.cshtml", m2)
-                @Html.HiddenFor(m => m.AssigneeID, new { @class = "assignee_id" })
-            </div>
-            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;">
+                <div id="user-button">
+                    @Html.Partial("~/Views/Popup/UsersOnProjectsDropdown.cshtml", m2)
+                </div>
+                    @Html.HiddenFor(m => m.AssigneeID, new { @class = "assignee_id" })
+                </div>
+            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 20; left: 70%; margin-top: 22px;" onClick="AssignPopup()">
                 Assign to me
             </div>
         </div>
@@ -96,7 +98,7 @@
                         <div class="item" data-value="4">
                             <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
                         </div>
-                        @Html.HiddenFor(m => m.Status, new { @class = "status_n" });
+                        @Html.HiddenFor(m => m.Status, new { @class = "status_n" })
                     </div>
                 </div>
             </div>
@@ -185,3 +187,8 @@
             });
 </script>
 
+<script>
+    function AssignPopup() {
+        $('#UsersDD').dropdown('set selected', @user.UserID);
+    }
+</script>
