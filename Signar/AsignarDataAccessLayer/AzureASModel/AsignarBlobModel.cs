@@ -23,13 +23,24 @@ namespace AsignarDataAccessLayer.AzureASModel
             _blobClient = _storageAccount.CreateCloudBlobClient();
         }
 
-        public string GetOrCreateBlobBugContainer(string projectPrefix)
+        public string CreateBlobBugContainer(string projectPrefix)
         {
             string containerNamePattern = "{0}-container";
 
             CloudBlobContainer container = _blobClient.GetContainerReference(string.Format(containerNamePattern, projectPrefix));
 
             container.CreateIfNotExists();
+
+            return string.Format(containerNamePattern, projectPrefix);
+        }
+
+        public string GetBlobBugContainerName(string projectPrefix)
+        {
+            string containerNamePattern = "{0}-container";
+
+            CloudBlobContainer container = _blobClient.GetContainerReference(string.Format(containerNamePattern, projectPrefix));
+
+            //container.CreateIfNotExists();
 
             return string.Format(containerNamePattern, projectPrefix);
         }
