@@ -58,7 +58,7 @@ namespace Signar.Controllers
         [CustomAuthenticate]
         public ActionResult Login()
         {
-            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{
@@ -118,6 +118,11 @@ namespace Signar.Controllers
         public ActionResult ResetPassword()
         {
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
+
+            UserDTO me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+
+            var notificationQueue = new NotificationQueueService();
+            notificationQueue.UserRegistration(me, new List<string>());
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{

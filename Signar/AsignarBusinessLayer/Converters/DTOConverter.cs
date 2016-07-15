@@ -46,7 +46,7 @@ namespace AsignarBusinessLayer.Converters
             newAttachment.Name = attachmentDTO.Name;
 
             Bug bug = _dbContext.Bugs.Find(attachmentDTO.BugID);
-            string containerName = _storageContext.GetOrCreateBlobBugContainer(string.Concat(bug.Project.Prefix, "-", bug.BugID));
+            string containerName = _storageContext.CreateBlobBugContainer(string.Concat(bug.Project.Prefix, "-", bug.BugID));
             _storageContext.UploadBlob(containerName, attachmentDTO.Name, attachmentDTO.FileStream);
             newAttachment.ContentPath = _storageContext.GetBlobSasUri(containerName, attachmentDTO.Name);
 

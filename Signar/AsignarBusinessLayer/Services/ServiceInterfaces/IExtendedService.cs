@@ -8,6 +8,5 @@ namespace AsignarBusinessLayer.Services.ServiceInterfaces
 {
     interface IExtendedService<T> : IService<T>, IPagingService<T> where T: class
     {
-
     }
 }

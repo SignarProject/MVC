@@ -91,14 +91,18 @@
     <Compile Include="AzureADBModel\User.cs" />
     <Compile Include="AzureADBModel\UsersToProject.cs" />
     <Compile Include="AzureASModel\AsignarBlobModel.cs" />
+    <Compile Include="AzureASModel\AsignarQueueModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializationSignatures\FilterSignature.cs" />
+    <Compile Include="SerializationSignatures\NotificationItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Service References\asignarprojectstorageAzureStorage\ConnectedService.json" />
   </ItemGroup>
