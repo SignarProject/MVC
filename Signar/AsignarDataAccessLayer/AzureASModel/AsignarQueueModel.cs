@@ -13,21 +13,24 @@ namespace AsignarDataAccessLayer.AzureASModel
     {
         public CloudQueue Queue { get; set; }
 
-        public AsignarQueueModel()
+        public AsignarQueueModel(string queueName, bool isNewQueue)
         {
             string appSetting = CloudConfigurationManager.GetSetting("AsignarAzureStorage");
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(appSetting);
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
-            Queue = queueClient.GetQueueReference("emailnotificationqueue");
-            Queue.CreateIfNotExists();
+            Queue = queueClient.GetQueueReference(queueName);
+            if(isNewQueue)
+            {
+                Queue.CreateIfNotExists();
+            }            
         }
 
-        public void Enqueue(string emailAdress)
+        public void EnqueueMessage(string message)
         {
-            var message = new CloudQueueMessage(emailAdress);
-            Queue.AddMessage(message);
+            var queueMessage = new CloudQueueMessage(message);
+            Queue.AddMessage(queueMessage, new TimeSpan(1, 0, 0));
         }
     }
 }

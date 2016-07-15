@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using AsignarWebJob.SerializationSignatures;
+using AsignarWebJob.WebJobServices;
 
 namespace AsignarWebJob
 {
@@ -13,9 +14,25 @@ namespace AsignarWebJob
     {
         // This function will get triggered/executed when a new message is written 
         // on an Azure Queue called queue.
-        public static void ProcessQueueMessage([QueueTrigger("emailnotificationqueue")] UserJSONSignature message, TextWriter log)
+        public static void EmailNotificationQueueMessage([QueueTrigger("emailnotificationqueue")] NotificationItem message, TextWriter log)
         {
-            log.WriteLine(message);
+            var emailService = new EmailNotificationService();
+
+            switch (message.LetterTemplate)
+            {
+                case NotificationItem.NotificationType.Registered:
+                    {
+                        emailService.UserRegistrartion(message);
+                        break;
+                    }
+                case NotificationItem.NotificationType.ResetPassword:
+                    {
+                        emailService.ResetPassword(message);
+                        break;
+                    }
+            }
+
+            log.WriteLine("EmailNotificationSuccess!");
         }
     }
 }

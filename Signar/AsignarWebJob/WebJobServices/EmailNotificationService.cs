@@ -12,11 +12,12 @@ namespace AsignarWebJob.WebJobServices
 {
     public class EmailNotificationService
     {
-        private readonly string _sendGridAPI = "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";
+        private readonly string _sendGridAPI;
 
-        private readonly string _resetPasswordTemplateID = "729623f4-ace6-4555-8f68-2c353b1e74c4";
-        private readonly string _BugConditionChangedTemplateID = "5a6e24f6-7dd8-459c-9119-523d7ac98359";
-        private readonly string _bugReassignedTemplateID = "985baa27-3be9-40ad-8339-aa0124d8141e";
+        private readonly string _userRegistrationTemplateID;
+        private readonly string _resetPasswordTemplateID;
+        private readonly string _BugConditionChangedTemplateID;
+        private readonly string _bugReassignedTemplateID;
                 
         private const string _asignarBTSEmail = "asignarBTS@outlook.com";
         private const string _asignarBTSEmailPassword = "Password: 1qaz2wsX34";
@@ -24,21 +25,43 @@ namespace AsignarWebJob.WebJobServices
         public EmailNotificationService()
         {
             _sendGridAPI = CloudConfigurationManager.GetSetting("AsignarNotificationAPI");
+
+            _userRegistrationTemplateID = CloudConfigurationManager.GetSetting("UserRegistrationSendGridTemplateId");
+            _resetPasswordTemplateID = CloudConfigurationManager.GetSetting("ResetPasswordSendGridTemplateId");
+            _BugConditionChangedTemplateID = CloudConfigurationManager.GetSetting("BugConditionChangedSendGridTemplateId");
+            _bugReassignedTemplateID = CloudConfigurationManager.GetSetting("BugReassignedSendGridTemplateId");
         }
 
-        public async void ResetPassword(UserJSONSignature user)
+        public void UserRegistrartion(NotificationItem user)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(user.Email);
+            myMessage.From = new MailAddress(_asignarBTSEmail, "Asignar-BTS Automatic Notification System");
+
+            myMessage.EnableTemplateEngine(_userRegistrationTemplateID);
+            myMessage.Subject = "Registration in Asignar-BTS";
+            myMessage.Text = "Test";
+            myMessage.Html = "Test";
+            /*myMessage.AddSubstitution("%name%", new List<string> { user.Name });
+            myMessage.AddSubstitution("%login%", new List<string> { user.Login });
+            myMessage.AddSubstitution("%password%", new List<string> { user.Password });*/
+
+            var transportWeb = new Web(_sendGridAPI);
+            transportWeb.DeliverAsync(myMessage).Wait();
+        }
+
+        public void ResetPassword(NotificationItem user)
         {
             var myMessage = new SendGridMessage();
             myMessage.AddTo(user.Email);
             myMessage.From = new MailAddress(_asignarBTSEmail, "Asignar-BTS Automatic Notification System");
 
             myMessage.EnableTemplateEngine(_resetPasswordTemplateID);
-            myMessage.Html = "test";
-            myMessage.Text = "Test";
             myMessage.Subject = "Reset Asignar-BTS account password";
+            myMessage.AddSubstitution("%name%", new List<string> { user.Name });
 
             var transportWeb = new Web(_sendGridAPI);
-            await transportWeb.DeliverAsync(myMessage);
+            transportWeb.DeliverAsync(myMessage).Wait();
         }
     }
 }

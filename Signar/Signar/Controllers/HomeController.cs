@@ -35,6 +35,9 @@ namespace Signar.Controllers
                 using (var userService = new UserService())
                 {
                     if (!userService.CreateItem(user)) return new HttpStatusCodeResult(5, "This Email already exists. Try another");
+
+                    var notificationQueue = new NotificationQueueService();
+                    notificationQueue.UserRegistration(user, new List<string>());
                 }
             }
             catch (Exception ex)
