@@ -334,9 +334,8 @@
         $.ajax({
             type: "POST",
             url: "/Home/DeleteTask",
-            data: {TaskID: @Model.BugID},
+            data: {BugID: @Model.BugID},
             error: function (xhr, status, error) {
-                alert(error);
             },
             success: function (result) {
                 document.location.href="/Home/Dashboard";
