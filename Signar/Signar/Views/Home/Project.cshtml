@@ -30,7 +30,7 @@
                         @Html.Partial("~/Views/Popup/EditProject.cshtml", m2, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
                         <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewTaskPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add task"></i>
                         <i class="fa fa-pencil fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ShowEditProjectPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit project"></i>
-                            <i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>
+                            @*<i class="fa fa-pause fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Pause project"></i>*@
                         if (!Model.IsDeleted)
                         {
                             <i class="fa fa-close fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px; vertical-align: top; line-height: 15px;" onclick="hideProject(this, @Model.ProjectID)" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete project"></i>

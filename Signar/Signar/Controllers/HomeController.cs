@@ -21,6 +21,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewUser(CreateNewUserModel model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             if (!ModelState.IsValid) return new HttpStatusCodeResult(1, "Input data is invalid");
             if (!model.Password.Equals(model.ConfPassword)) return new HttpStatusCodeResult(4, "Passwords do not match");
             UserDTO user = new UserDTO();
@@ -51,6 +60,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditUserData(EditUserDataModel model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             UserDTO user;
             using (UserService userService = new UserService())
             {
@@ -82,6 +100,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             if (!ModelState.IsValid)
             {
                 return new HttpStatusCodeResult(1, "Input data is invalid");
@@ -107,12 +134,14 @@ namespace Signar.Controllers
         public ActionResult DashBoard()
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
-            if (Me == null)
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
             {
-                Response.Cookies["auth"].Expires = DateTime.Now;
-                Session.Abandon();
-                return RedirectToAction("Login", "Account");
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
             }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             UserDTO user;
             using (UserService userService = new UserService())
             {
@@ -124,8 +153,16 @@ namespace Signar.Controllers
 
         public ActionResult TheProfile(int id)
         {
-            UserDTO user;
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
+            UserDTO user;
             if (id == 0)
             {
                 int MyID = Me.UserID;
@@ -152,6 +189,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GetProject(int id)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             ProjectDTO project;
             using (ProjectService projectService = new ProjectService())
             {
@@ -165,6 +211,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewProject(ProjectDTO model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             if (model.Name != null && model.Name.Length > 0 && model.Prefix.Length > 10)
             {
                 return new HttpStatusCodeResult(7, "Prefix length must be less than 10");
@@ -187,8 +242,43 @@ namespace Signar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult EditTask(BugDTO model)
+        {
+            bool f = false;
+            foreach (var err in ModelState)
+            {
+                if (err.Key != "Project" && err.Value.Errors.Count > 0) f = true;
+            }
+            //if (ModelState["Project"].Errors.Count == 1) 
+            if (f)
+            {
+                return new HttpStatusCodeResult(1, "Input data is invalid");
+            }
+            bool res;
+            using (BugService bugService = new BugService())
+            {
+                res = bugService.UpdateItem(model);
+            }
+            if (!res)
+            {
+                return new HttpStatusCodeResult(8, "Error during creation. Please try again");
+            }
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateNewTask(BugDTO model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             bool f = false;
             foreach(var err in ModelState)
             {
@@ -212,8 +302,41 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
+        public ActionResult CopyTask(BugDTO model)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            int res;
+            using (BugService bugService = new BugService())
+            {
+                res = bugService.CopyTask(model);
+            }
+            if (res == 0)
+            {
+                return new HttpStatusCodeResult(8, "Error during creation. Please try again");
+            }
+            return Content(res.ToString());
+        }
+
+        [HttpPost]
         public ActionResult DeleteUserFromProject(int ProjectID, int UserID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             bool res = false;
             using (UserService userService = new UserService())
             {
@@ -223,30 +346,18 @@ namespace Signar.Controllers
             return new HttpStatusCodeResult(200, "OK");
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         [HttpPost]
         public ActionResult DeleteProject(int ProjectID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             using (var projectService = new ProjectService())
             {
                 bool res = projectService.DeleteItem(ProjectID);
@@ -258,6 +369,15 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult DeleteTask(int BugID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             using (var bugService = new BugService())
             {
                 bool res = bugService.DeleteItem(BugID);
@@ -269,6 +389,15 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult DeleteUser(int UserID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             using (var userService = new UserService())
             {
                 UserDTO user = userService.GetItem(UserID);
@@ -284,6 +413,13 @@ namespace Signar.Controllers
         public ActionResult Projects(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
             if ((!Me.IsAdmin && id != Me.UserID) || id < 0)
             {
                 return RedirectToAction("NotFound", "Error");
@@ -301,6 +437,14 @@ namespace Signar.Controllers
         public ActionResult Project(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null){Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account");}
+
             ProjectDTO project;
             using (var projectService = new ProjectService())
             {
@@ -329,6 +473,15 @@ namespace Signar.Controllers
         [HttpGet]
         public ActionResult AddUsersToProject(int ProjectID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             ICollection<UserDTO> users;
             using (UserService userService = new UserService())
             {
@@ -366,6 +519,14 @@ namespace Signar.Controllers
         public ActionResult GetAllProjects()
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             using (ProjectService projectService = new ProjectService())
             {
                 if (Me.IsAdmin)
@@ -379,9 +540,65 @@ namespace Signar.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetAllProjectsEdit()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            using (ProjectService projectService = new ProjectService())
+            {
+                if (Me.IsAdmin)
+                {
+                    return PartialView("~/Views/Popup/ProjectsDropdownEdit.cshtml", projectService.GetAllItems());
+                }
+                else
+                {
+                    return PartialView("~/Views/Popup/ProjectsDropdownEdit.cshtml", Me.Projects);
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTaskInfo(int BugID)
+        {
+            BugDTO bug;
+            using (BugService bugService = new BugService())
+            {
+                bug = bugService.GetItem(BugID);
+            }
+            return PartialView("~/Views/Popup/EditTask.cshtml", bug);
+        }
+
+        [HttpGet]
+        public ActionResult GetTaskStatusInfo(int BugID)
+        {
+            int bugStatus;
+            using (BugService bugService = new BugService())
+            {
+                bugStatus = bugService.GetBugStatus(BugID);
+            }
+            return Content(bugStatus.ToString());
+        }
+
         [HttpPost]
         public ActionResult SetTaskStatus(int Status, int BugID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             bool f;
             using (BugService bugService = new BugService())
             {
@@ -394,7 +611,15 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult SetTaskAssignee(int UserID, int BugID)
         {
-            
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             BugDTO bug;
             using (BugService bugService = new BugService())
             {
@@ -403,21 +628,57 @@ namespace Signar.Controllers
                 bugService.SetAssignee(BugID, UserID);
                 if (!bugService.UpdateItem(bug)) return new HttpStatusCodeResult(1, "Error. Please try again"); ;
             }
-            return new HttpStatusCodeResult(200, "OK");
+            return PartialView("~/Views/Home/PartialAssignee.cshtml", Me);
         }
 
         [HttpGet]
         public ActionResult GetUsersOnProject(int ProjectID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             using (ProjectService projectService = new ProjectService())
             {
                 return PartialView("~/Views/Popup/UsersOnProjectsDropdown.cshtml", projectService.GetItem(ProjectID).Users);
             }
         }
 
+        [HttpGet]
+        public ActionResult GetUsersOnProjectEdit(int ProjectID)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            using (ProjectService projectService = new ProjectService())
+            {
+                return PartialView("~/Views/Popup/UsersOnProjectsDropdownEdit.cshtml", projectService.GetItem(ProjectID).Users);
+            }
+        }
+
         [HttpPost]
         public ActionResult AddUsersToProject(AddUsersToProjectModel model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             using (ProjectService projectService = new ProjectService())
             {
                 bool f = false;
@@ -440,6 +701,15 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult EditProject(EditProjectModel model)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             if (!ModelState.IsValid)
             {
                 return new HttpStatusCodeResult(1, "Input data is invalid");
@@ -457,6 +727,15 @@ namespace Signar.Controllers
         [HttpPost]
         public ActionResult ReviveProject(int ProjectID)
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             using (ProjectService projectService = new ProjectService())
             {
                 if (!projectService.ReviveProject(ProjectID)) return new HttpStatusCodeResult(1, "Project is alive already");
@@ -467,6 +746,14 @@ namespace Signar.Controllers
         public ActionResult Task(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             BugDTO bug;
             using (var bugService = new BugService())
             {
@@ -487,15 +774,44 @@ namespace Signar.Controllers
 
         public ActionResult Filters()
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             return View();
         }
 
         public ActionResult Users()
         {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
             using (var userService = new UserService())
             {
                 return View(userService.GetAllItems());
             }
+        }
+
+        [HttpGet]
+        public ActionResult GetAssignee(int UserID)
+        {
+            UserDTO user;
+            using (UserService userService = new UserService())
+            {
+                user = userService.GetItem(UserID);
+            }
+                return PartialView("~/Views/Home/PartialAssignee.cshtml", user);
         }
 
         [CustomAuthorize]

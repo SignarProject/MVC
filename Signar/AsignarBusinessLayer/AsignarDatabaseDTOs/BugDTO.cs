@@ -18,6 +18,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         [StringLength(254, ErrorMessage = "Title is too long")]
         public string Subject { get; set; }
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public int? AssigneeID { get; set; }

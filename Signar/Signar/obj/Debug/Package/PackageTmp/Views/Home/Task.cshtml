@@ -1,4 +1,5 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using System.Globalization
 @model BugDTO
 
 @{
@@ -21,13 +22,25 @@
             @{
                 BugDTO mEdit = new BugDTO();
             }
-            @*@Html.Partial("~/Views/Popup/EditTask.cshtml", mEdit, new ViewDataDictionary { { "Title", Model.Subject }, { "Priority", (int)Model.Priority }, { "Status", (int)Model.Status }, { "ProjectID", Model.ProjectID }, { "UserID", Model.AssigneeID }, { "attachments", Model.Attachments } })*@
+            <div id="EditTaskUpdateDiv">
+                @Html.Partial("~/Views/Popup/EditTask.cshtml", mEdit)
+            </div>
+
             @if (@user.IsAdmin)
             {
-            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task" onClick="DeleteTask()"></i> </a>
+            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task" onClick="DeleteTask()" id="copy-task-btn"></i> </a>
             }
-            <a onClick=""> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task?"></i> </a>
-            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task"></i> </a>
+            @using (Ajax.BeginForm("CopyTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "" }, new { @class="pull-right", @style= "display: inline-block;" }))
+            {
+                <a id="copy-hide"> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task" onClick="CopyTask(this)"></i> </a>
+                @Html.HiddenFor(m => m.Priority);
+                @Html.HiddenFor(m => m.Subject);
+                @Html.HiddenFor(m => m.ProjectID);
+                @Html.HiddenFor(m => m.Status);
+                @Html.HiddenFor(m => m.AssigneeID);
+                @Html.HiddenFor(m => m.Description);
+            }
+            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task" id="edit-task-btn"></i> </a>
         </div>
     </div>
 
@@ -100,8 +113,8 @@
             </div>
 
             <div class="task-description">
-                <p style="overflow-x: auto;padding-bottom: 10px;">
-                    @Model.Description
+                <p style="overflow-x: auto;padding-bottom: 10px;height:auto;">
+                        <textarea readonly class="textarea-description" id="text-block">@Html.Raw(Model.Description)</textarea>
                 </p>
             </div>
 
@@ -122,35 +135,33 @@
 
 
                 <div style="height: 15px;"></div>
-                @if (Model != null && Model.User != null)
-                {
-                    string ava_url = @Model.User.AvatarPath;
-
-                    <img src=@ava_url class="profile-av" style="width: 40px; height: 40px;" />
-                    <div class="user-name">
-                        <p class="zero-merg; overflow: auto;">@Model.User.Name @Model.User.Surname</p>
-                        <p class="zero-merg" style="font-size: 12px; overflow: auto;">@Model.User.Email</p>
-                    </div>
+                @{
+                    UserDTO mAssignee = new UserDTO();
                 }
+                <div id="assignee-div">
+                    @Html.Partial("~/Views/Home/PartialAssignee.cshtml", mAssignee)
+                </div>
+                
+                
                 <div style="height: 15px;"></div>
 
                 <div class="profile-desc" style="margin-bottom: 3px;">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.Date.ToString("dd/MM/yy HH:mm tt")
+                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.ToString("dd/MM/yy h:mm tt", CultureInfo.InvariantCulture)
                     </p>
                 </div>
 
                 <div class="profile-desc">
                     <p>
                         <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
-                        <b>Updated: &nbsp;</b>@Model.ModificationDate.Date.ToString("dd/MM/yy HH:mm tt")
+                        <b>Updated: &nbsp;</b>@Model.ModificationDate.ToString("dd/MM/yy h:mm tt", CultureInfo.InvariantCulture)
                     </p>
                 </div>
 
                 <div style="height: 15px;"></div>
                 <p style="font-weight:bold; font-size:13px; margin-bottom: 0px;">
-                    Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 4px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+                    Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 5px 2px 4px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
                 </p>
 
                 <ul class="a-links" style="padding: 5px 0px 0px 5px">
@@ -166,9 +177,10 @@
 
 <script>
     function EditTaskPopup() {
-        $("#editTaskPopup").css({ 'display': "visible" });
-        $("#editTaskPopup").dialog({
+        $("#EditPopupTask").css({ 'display': "visible" });
+        $("#EditPopupTask").dialog({
             width: 600,
+            open: LoadProjectsEdit(),
             fluid: true,
             modal: true,
             resizable: false,
@@ -177,18 +189,77 @@
             show: { effect: 'clip', duration: 250 },
             hide: { effect: 'clip', duration: 250 },
             buttons: [
-        {
-            text: "Change",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Change",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function LoadProjectsEdit() {
+        LoadStatus();
+        $('#ProjectDDEdit').css('pointer-events', 'none');
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetAllProjectsEdit",
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                $('#project-buttonEdit').html(result);
+                $('.ui.dropdown').dropdown();
+                $('#ProjectDDEdit').css('pointer-events', 'auto');
+                $('.ui.fluid.dropdown').css('pointer-events', 'auto');
+                $('#UsersDDEdit').css('pointer-events', 'none');
+                $('#ProjectDDEdit').dropdown('set selected', @Model.ProjectID);
+
+                $('#UsersDDEdit').css('pointer-events', 'none');
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetUsersOnProjectEdit",
+                    data: {ProjectID: @Model.ProjectID},
+                    error: function (xhr, status, error) {
+                    },
+                    success: function (result) {
+                        $('#user-buttonEdit').html(result);
+                        $('.ui.dropdown').dropdown();
+                        $('#UsersDDEdit').css('pointer-events', 'auto');
+                        @if (@Model.AssigneeID != null)
+                        {
+                            <text>$('#UsersDDEdit').dropdown('set selected', @Model.AssigneeID);</text>
+                        }
+                        else
+                        {
+                            <text>$('#UsersDDEdit').dropdown('set selected', 0);</text>
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    function LoadStatus(){
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetTaskStatusInfo",
+            data: {BugID: @Model.BugID},
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                $('#StatusDropdownEdit').dropdown('set selected', result);
+            }
+        });
     }
 </script>
 
@@ -221,6 +292,22 @@
             }
         });
     });
+    @if(Model != null && Model.User != null)
+    {
+        <text>
+    $.ajax({
+        type: "GET",
+        url: "/Home/GetAssignee",
+        data: {UserID: @Model.User.UserID},
+        error: function (xhr, status, error) {
+            },
+        success: function (result) {
+            $('#assignee-div').html(result);
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+    });
+    </text>
+    }
 </script>
 
 <script>
@@ -231,10 +318,10 @@
                 url: "/Home/SetTaskAssignee",
                 data: {UserID: @user.UserID, BugID: @Model.BugID},
                 error: function (xhr, status, error) {
-                    alert(error);
+                    //alert(error);
                 },
                 success: function (result) {
-                    alert('Done');
+                    $('#assignee-div').html(result);
                     //$(".popup-button").closest("#createUserPopup").dialog('close');
                 }
             });
@@ -257,4 +344,52 @@
             }
         });
     }
+</script>
+
+<script>
+    function CopyTask(btnClicked)
+    {
+        $('#copy-hide').css('pointer-events', 'none');
+        var $form = $(btnClicked).closest('form');
+        $.ajax({
+            type: "POST",
+            url: "/Home/CopyTask",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+                $('#copy-hide').css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                document.location.href="/Home/Task/"+result;
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#edit-task-btn').css('pointer-events', 'none');
+        //$('#edit-task-btn').css('color', 'rgb(0, 0, 0, 0.3)');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetTaskInfo",
+                data: {BugID: @Model.BugID},
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#EditTaskUpdateDiv').html(result);
+                    //$('#edit-task-btn').css('color', '#4D868D');
+                    $('.ui.dropdown').dropdown();
+                    $('#edit-task-btn').css('pointer-events', 'auto');
+                }
+            });
+        });
+</script>
+
+<script>
+    $('.ui.dropdown').dropdown();
+    var text = document.getElementById('text-block');
+        text.style.height = 'auto';
+        text.style.height = text.scrollHeight+'px';
 </script>

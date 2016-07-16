@@ -46,6 +46,24 @@ namespace AsignarBusinessLayer.Services
             return true;
         }
 
+        public int CopyTask(BugDTO newItem)
+        {
+            Bug newBug = _converter.BugFromDTO(newItem);
+            if (newBug.AssigneeID == 0) newBug.AssigneeID = null;
+            if ((newBug.Priority < 0
+                || newBug.Priority > 3)
+                && newBug.Project == null
+                && (newBug.Subject == null
+                || newBug.Subject.Equals(string.Empty)))
+            {
+                return 0;
+            }
+
+            _dbContext.Bugs.Add(newBug);
+            _dbContext.SaveChanges();
+
+            return newBug.BugID;
+        }
 
         public bool DeleteItem(int id)
         {
@@ -88,6 +106,14 @@ namespace AsignarBusinessLayer.Services
             BugDTO bugDTO = _converter.BugToDTO(bug);
 
             return bugDTO;
+        }
+
+        public int GetBugStatus(int id)
+        {
+            Bug bug = _dbContext.Bugs.Find(id);
+            BugDTO bugDTO = _converter.BugToDTO(bug);
+
+            return (int)bugDTO.Status;
         }
 
 
@@ -141,7 +167,6 @@ namespace AsignarBusinessLayer.Services
                 bugToUpdate.AssigneeID = updatedItem.AssigneeID;
                 bugToUpdate.User = _dbContext.Users.Find(updatedItem.AssigneeID);
             }
-            else return false;
 
             bugToUpdate.Priority = (byte) updatedItem.Priority;
             bugToUpdate.Subject = updatedItem.Subject;
@@ -167,7 +192,7 @@ namespace AsignarBusinessLayer.Services
             {
                 return false;
             }
-            
+            _dbContext.SaveChanges();
             return true;
         }
     }

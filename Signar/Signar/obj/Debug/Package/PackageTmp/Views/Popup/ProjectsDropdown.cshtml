@@ -1,6 +1,8 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
 @model ICollection<ProjectDTO>
-
+@{
+    UserDTO Me = Cache[User.Identity.Name] as UserDTO;
+}
 <div class="container col-xs-6" id="wrap">
     <div class="btn-group">
         <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="ProjectDD" style="z-index: 20;">
@@ -12,9 +14,12 @@
                 {
                     foreach (ProjectDTO project in Model)
                     {
+                        if (Me.IsAdmin || !project.IsDeleted)
+                        {
                         <div class="item" data-value="@project.ProjectID" style="overflow:hidden; line-height: 18px;" onclick="ChangeProjectID(this, @project.ProjectID)">
                             @project.Name
                         </div>
+                        }
                     }
                 }
             </div>
