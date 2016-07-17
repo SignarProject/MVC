@@ -68,3 +68,6 @@ E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\ko\System.Spatial.reso
 E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\ru\System.Spatial.resources.dll
 E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\zh-Hans\System.Spatial.resources.dll
 E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\zh-Hant\System.Spatial.resources.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\Microsoft.Azure.KeyVault.Core.dll
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\Microsoft.Azure.KeyVault.Core.xml
+E:\2016\WEB\MVC\Signar\AsignarDataAccessLayer\bin\Release\Microsoft.WindowsAzure.Storage.pdb
