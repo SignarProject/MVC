@@ -16,6 +16,8 @@
             UserRole = "Administrator";
         }
     }
+
+    @Html.Partial("~/Views/Popup/AvatarPopup.cshtml", new ViewDataDictionary { { "UserID", UserID } })
     @using (Ajax.BeginForm("EditUserData", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createUserPopup" }))
     {
         @Html.AntiForgeryToken()
@@ -25,10 +27,10 @@
                 @{
                     string ava_url = UserAvatarPath;
                 }
-                <span><img src=@ava_url id="avatar-popup" /></span>
+                <div style="display:inline-block;" id="user-edit-avatar"><img src=@ava_url id="avatar-popup" /></div>
                 <dev style="display:inline-block; vertical-align: middle; margin-left: 15px; margin-top: 3px; height: 50px; position:absolute;">
-                    <span><a href="#" class="edit-avatar-link">Edit photo</a></span>
-                    <p><a href="#" class="edit-avatar-link">Clear photo</a></p>
+                    <span><a href="#" class="edit-avatar-link" onclick="AvatarPopup()">Edit photo</a></span>
+                    <p><a href="#" class="edit-avatar-link" onCLick="ResetAvatar()">Clear photo</a></p>
                 </dev>
 
 
@@ -77,9 +79,9 @@
             </div>
         </div>
         @Html.HiddenFor(m => m.IsAdmin, new { @id = "IsAdmin", @Value = false });
-        @Html.HiddenFor(m => m.UserID, new { @Value = (int)@ViewData["UserID"] })
-        <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax2(this)" />
-    }
+                    @Html.HiddenFor(m => m.UserID, new { @Value = (int)@ViewData["UserID"] })
+                    <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjax2(this)" />
+                    }
 </div>
 
 
@@ -112,10 +114,10 @@
 @if (EditUserIsAdmin && user.UserID == UserID)
 {
     <text>
-    <script>
-        $('#EditUserDD').css('pointer-events', 'none');
-        $('#EditUserDD').css('cursor', 'default');
-    </script>
+        <script>
+            $('#EditUserDD').css('pointer-events', 'none');
+            $('#EditUserDD').css('cursor', 'default');
+        </script>
     </text>
 }
 
@@ -151,6 +153,65 @@
 }
 
 <script>
+    function GetAvatarContent() {
+        setTimeout(
+  function()
+  {
+      $.ajax({
+          type: "GET",
+          url: "/Home/GetAvatarContent",
+          data: {UserID : @UserID},
+          error: function (xhr, status, error) {
+          },
+          success: function (result) {
+              $('#user-edit-avatar').html(result);
+              //$(".popup-button").closest("#createUserPopup").dialog('close');
+          }
+      });
+  }, 0);
+
+    }
+</script>
+
+<script>
+    function GetAvatarContentBig() {
+        setTimeout(
+  function()
+  {
+      $.ajax({
+          type: "GET",
+          url: "/Home/GetAvatarContentBig",
+          data: {UserID : @UserID},
+          error: function (xhr, status, error) {
+          },
+          success: function (result) {
+              $('#user-edit-avatar-big').html(result);
+              //$(".popup-button").closest("#createUserPopup").dialog('close');
+          }
+      });
+  }, 0);
+
+    }
+</script>
+
+<script>
+    function ResetAvatar() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/ResetAvatar",
+                data: {UserID : @UserID},
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    GetAvatarContent();
+                    GetAvatarContentBig();
+                }
+            });
+  
+    }
+</script>
+
+<script>
     function CLickAjax2(btnClicked) {
         var $form = $(btnClicked).parents('form');
 
@@ -170,5 +231,33 @@
 
         return false;
 
+    }
+</script>
+
+
+<script>
+    function AvatarPopup() {
+        $("#CreateAvatarPopup").css({ 'display': "visible" });
+        $("#CreateAvatarPopup").dialog({
+            width: 600,
+            fluid: true,
+            modal: true,
+            resizable: false,
+            dialogClass: "avatar-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        //{
+        //    text: "Change",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
     }
 </script>

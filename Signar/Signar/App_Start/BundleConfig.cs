@@ -15,6 +15,15 @@ namespace Signar
             bundles.Add(new ScriptBundle("~/bundles/navbar-menu").Include(
                         "~/Scripts/navbar-menu.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/avatar").Include(
+                      "~/Scripts/site.avatar.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jcrop").Include(
+                      "~/Scripts/jquery.Jcrop.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryform").Include(
+                      "~/Scripts/jquery.form.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -28,7 +37,8 @@ namespace Signar
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/dropdown.css"));
+                      "~/Content/dropdown.css",
+                      "~/Content/site.avatar.css"));
 
             bundles.Add(new StyleBundle("~/Content/navbar-menu").Include(
                       "~/Content/navbar-menu.css"));
@@ -45,7 +55,8 @@ namespace Signar
             bundles.Add(new StyleBundle("~/Content/Popup/jquery-ui").Include(
                       "~/Content/Popup/jquery*",
                       "~/Content/Popup/theme.css",
-                      "~/Content/semantic*"));
+                      "~/Content/semantic*",
+                      "~/Content/jquery*"));
 
             bundles.Add(new StyleBundle("~/Content/popup").Include(
                 "~/Content/popup.css"

@@ -10,7 +10,7 @@
         //ICollection<AttachmentDTO> attachments = ViewData["Attachments"] as ICollection<AttachmentDTO>;
     }
     <div id="createUserPopupTask" class="table-responsive popup-common">
-@using (Ajax.BeginForm("CreateTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createUserPopupTask" }))
+@using (Ajax.BeginForm("CreateTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createUserPopupTask" }, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })

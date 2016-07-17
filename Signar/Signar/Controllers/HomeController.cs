@@ -9,6 +9,9 @@ using AsignarBusinessLayer.Services.ServiceInterfaces;
 using CustomAuth.Filters;
 using System.Web.Security;
 using Signar.Models;
+using System.Net.Http;
+using System.Web.Http;
+using System.Net;
 
 
 namespace Signar.Controllers
@@ -847,6 +850,41 @@ namespace Signar.Controllers
                 user = userService.GetItem(UserID);
             }
                 return PartialView("~/Views/Home/PartialAssignee.cshtml", user);
+        }
+
+        [HttpGet]
+        public ActionResult GetAvatarContent(int UserID)
+        {
+            string res;;
+            using (UserService userService = new UserService())
+            {
+                UserDTO user = userService.GetItem(UserID);
+                res = "<img src =\"" + user.AvatarPath + "\" id=\"avatar-popup\" />";
+            }
+            return Content(res);
+        }
+
+        [HttpGet]
+        public ActionResult GetAvatarContentBig(int UserID)
+        {
+            string res; ;
+            using (UserService userService = new UserService())
+            {
+                UserDTO user = userService.GetItem(UserID);
+                res = "<img src =\"" + user.AvatarPath + "\" class=\"profile-av\" />";
+            }
+            return Content(res);
+        }
+
+        [HttpPost]
+        public ActionResult ResetAvatar(int UserID)
+        {
+            using (UserService userService = new UserService())
+            {
+                UserDTO user = userService.GetItem(UserID);
+                userService.ClearUserPhoto(user);
+            }
+            return new HttpStatusCodeResult(200, "OK");
         }
 
         [CustomAuthorize]

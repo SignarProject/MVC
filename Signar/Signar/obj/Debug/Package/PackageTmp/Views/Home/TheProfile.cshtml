@@ -35,7 +35,10 @@
                 @{ 
                     string ava_url = Model.AvatarPath;
                 }
-                <img src=@ava_url class="profile-av" />
+                <div style="display:inline-block" id="user-edit-avatar-big">
+                    <img src=@ava_url class="profile-av" />
+                </div>
+                
                 <div class="user-name">
 
                     <p class="zero-merg no-text-overflow-profile">@Model.Name</p>
