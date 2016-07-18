@@ -12,6 +12,10 @@ input:-ms-input-placeholder {
     color: #bbbbbb;
 }
 
+.no-hover:hover{
+    cursor: default !important;
+}
+
 .project-title-mini {
     font-size: 12px;
     text-decoration: underline;

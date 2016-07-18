@@ -230,6 +230,59 @@ namespace Signar.Controllers
             return PartialView("~/Views/Home/CommentsPartial.cshtml", bug.Comments);
         }
 
+        public ActionResult DeleteComment(int CommentID)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            CommentDTO com;
+            using (CommentService commentService = new CommentService())
+            {
+                com = commentService.GetItem(CommentID);
+                if (!Me.IsAdmin && com.UserID != Me.UserID)
+                    return new HttpStatusCodeResult(1, "Not allowed");
+                commentService.DeleteItem(CommentID);
+            }
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        public ActionResult AddComment(int BugID, string Message)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            if (Message.Equals("")) return new HttpStatusCodeResult(1, "Comment field must not be empty");
+            using (CommentService comService = new CommentService())
+            {
+                CommentDTO com = new CommentDTO();
+                com.BugID = BugID;
+                com.Text = Message;
+                com.UserID = Me.UserID;
+                com.CreationDate = DateTime.Now;
+                comService.CreateItem(com);
+            }
+
+            BugDTO bug;
+            using (BugService bugService = new BugService())
+            {
+                bug = bugService.GetItem(BugID);
+            }
+            if (bug == null) return RedirectToAction("NotFound", "Error");
+            return PartialView("~/Views/Home/CommentsPartial.cshtml", bug.Comments);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewProject(ProjectDTO model)

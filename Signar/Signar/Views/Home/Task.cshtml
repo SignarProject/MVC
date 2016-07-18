@@ -351,6 +351,23 @@
 </script>
 
 <script>
+    function AddComment(){
+        $.ajax({
+            type: "POST",
+            url: "/Home/AddComment",
+            data: {BugID: @Model.BugID, Message: $('#CommentInput').val()},
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                $('#comments-div').html(result);
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    }
+</script>
+
+<script>
     function DeleteTask()
     {
         $.ajax({
