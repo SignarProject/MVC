@@ -30,14 +30,11 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public ProjectDTO Project { get; set; }
         
         public ICollection<AttachmentDTO> Attachments { get; set; }
-
-
+        
         public ICollection<CommentDTO> Comments { get; set; }
-
-
+        
         public DateTime CreationDate { get; set; }
-
-
+        
         public DateTime ModificationDate { get; set; }
 
         [Required]
@@ -45,8 +42,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         [Required]
         public Priority Priority { get; set; }
-
-
+        
         public BugDTO()
         {
             CreationDate = DateTime.Now;

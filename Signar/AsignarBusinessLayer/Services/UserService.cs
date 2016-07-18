@@ -117,6 +117,23 @@ namespace AsignarBusinessLayer.Services
 
             return userDTO;
         }
+
+        public UserDTO GetItemByEmail(string email)
+        {
+            UserDTO userDTO;
+
+            try
+            {
+                User user = _dbContext.Users.Where(u => u.Email.Equals(email)).First();
+                userDTO = _converter.UserToDTO(user, false);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+
+            return userDTO;
+        }
         
         public ICollection<UserDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
@@ -264,11 +281,12 @@ namespace AsignarBusinessLayer.Services
 
         public bool ResetUserPassword(UserDTO userDTO)
         {
-            User user = _dbContext.Users.Find(userDTO.UserID);
-
-            string newPassword = Membership.GeneratePassword(9,4);
-
             var notification = new NotificationQueueService();
+
+            string newPassword = Membership.GeneratePassword(9,0);
+
+            User user = _dbContext.Users.Find(userDTO.UserID);
+            userDTO.Password = newPassword;
 
             notification.ResetUserPassword(userDTO, new List<string>());
 

@@ -15,7 +15,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         
         public string Title { get; set; }
         
-        public FilterSignature FilterSignarute { get; set; }
+        public FilterSignatureDTO FilterSignarute { get; set; }
 
         public FilterDTO()
         {

@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 {
     public class UserDTO
-    {
-        
+    {        
         public int UserID { get; set; }
 
         public string Name { get; set; }
@@ -20,8 +19,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public string Surname { get; set; }
 
         public string Email { get; set; }
-
-
+        
         public string AvatarPath { get; set; }
 
         [Required]
@@ -33,23 +31,17 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-
+        
         public bool IsAdmin { get; set; }
-
-
+        
         public ICollection<ProjectDTO> Projects { get; set; }
-
-
+        
         public ICollection<BugDTO> Bugs { get; set; }
-
-
+        
         public ICollection<CommentDTO> Comments { get; set; }
-
-
+        
         public ICollection<FilterDTO> Filters { get; set; }
-
-
+        
         public UserDTO()
         {
             Projects = new HashSet<ProjectDTO>();

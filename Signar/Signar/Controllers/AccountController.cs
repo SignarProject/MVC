@@ -114,14 +114,13 @@ namespace Signar.Controllers
         
         [AllowAnonymous]
         [CustomAuthenticate]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(int id)
         {
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });
 
             UserDTO me = HttpContext.Cache[User.Identity.Name] as UserDTO;
 
             var notificationQueue = new NotificationQueueService();
-            notificationQueue.UserRegistration(me, new List<string>());
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{
@@ -146,7 +145,15 @@ namespace Signar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(EmailModel model)
         {
-            return Redirect("ResetPassword");
+            if (!ModelState.IsValid) ModelState.AddModelError("", "Please enter correct email.");
+
+            var userService = new UserService();
+
+            UserDTO user = userService.GetItemByEmail(model.Email);
+
+            userService.ResetUserPassword(user);
+
+            return RedirectToAction("Login");
         }
 
         }

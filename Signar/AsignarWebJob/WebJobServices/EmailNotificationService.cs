@@ -64,7 +64,7 @@ namespace AsignarWebJob.WebJobServices
 
             letter.Subject = "Reset Asignar-BTS account password";
             letter.AddSubstitution("%name%", new List<string> { user.Name });
-            letter.AddSubstitution("%actionurl%", user.ActionUrlsList);
+            letter.AddSubstitution("%new_password%", new List<string> { user.Password });
             letter.Text = "Some text";
             letter.Html = "Some html";
 

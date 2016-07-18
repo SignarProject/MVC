@@ -16,7 +16,9 @@ namespace AsignarBusinessLayer.Services
         private DTOConverter _converter;
         
         private AsignarDBModel _dbContext;
-                
+
+        private NotificationQueueService _notificationService;
+
         public BugService()
         {
             _dbContext = new AsignarDBModel();
@@ -173,6 +175,11 @@ namespace AsignarBusinessLayer.Services
             Bug bugToUpdate = _dbContext.Bugs.Find(BugID);
             bugToUpdate.BugStatus = (byte)Status;
 
+            BugDTO transportBugInfo = _converter.BugToDTO(bugToUpdate);
+
+            _notificationService = new NotificationQueueService();
+            _notificationService.BugConditionChanged(transportBugInfo, new List<string>());
+
             _dbContext.SaveChanges();
             return true;
         }
@@ -182,6 +189,11 @@ namespace AsignarBusinessLayer.Services
             Bug bugToUpdate = _dbContext.Bugs.Find(BugID);
             bugToUpdate.AssigneeID = (byte)UserID;
 
+            BugDTO transportBugInfo = _converter.BugToDTO(bugToUpdate);
+
+            _notificationService = new NotificationQueueService();
+            _notificationService.BugReassigned(transportBugInfo, new List<string>());
+
             _dbContext.SaveChanges();
             return true;
         }
@@ -189,29 +201,33 @@ namespace AsignarBusinessLayer.Services
         public bool UpdateItem(BugDTO updatedItem)
         {
             Bug bugToUpdate = _dbContext.Bugs.Find(updatedItem.BugID);
+            _notificationService = new NotificationQueueService();
 
             if (!bugToUpdate.AssigneeID.Equals(updatedItem.AssigneeID))
             {
                 bugToUpdate.AssigneeID = updatedItem.AssigneeID;
                 bugToUpdate.User = _dbContext.Users.Find(updatedItem.AssigneeID);
+
+                _notificationService.BugReassigned(updatedItem, new List<string>());
             }
 
-            bugToUpdate.Priority = (byte) updatedItem.Priority;
+            bugToUpdate.Priority = (byte)updatedItem.Priority;
             bugToUpdate.Subject = updatedItem.Subject;
             bugToUpdate.Description = updatedItem.Description;
-            
-            foreach(var attachmentDTO in updatedItem.Attachments)
+            bugToUpdate.ModificationDate = DateTime.Now;
+
+            foreach (var attachmentDTO in updatedItem.Attachments)
             {
                 var attachment = _converter.AttachmentFromDTO(attachmentDTO);
 
-                if(!bugToUpdate.Attachments.Contains(attachment))
+                if (!bugToUpdate.Attachments.Contains(attachment))
                 {
                     bugToUpdate.Attachments.Add(attachment);
-                }                
+                }
             }
 
-            bugToUpdate.BugStatus = (byte) updatedItem.Status;
-            
+            bugToUpdate.BugStatus = (byte)updatedItem.Status;
+
             if ((bugToUpdate.Priority < 0
                 || bugToUpdate.Priority > 3)
                 && bugToUpdate.Project == null
@@ -220,7 +236,16 @@ namespace AsignarBusinessLayer.Services
             {
                 return false;
             }
+
             _dbContext.SaveChanges();
+
+            if (bugToUpdate.BugStatus != (byte)updatedItem.Status
+                || bugToUpdate.Priority != (byte)updatedItem.Priority
+                || bugToUpdate.Description != updatedItem.Description)
+            {
+                _notificationService.BugConditionChanged(updatedItem, new List<string>());
+            }
+                        
             return true;
         }
 
