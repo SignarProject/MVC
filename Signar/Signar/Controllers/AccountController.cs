@@ -50,7 +50,6 @@ namespace Signar.Controllers
                     ModelState.AddModelError("", "failed to create token");
                 }
             }
-
             return View(model);
         }
         

@@ -172,8 +172,15 @@
         </div>
 
     </div>
-
 </div>
+
+@{
+    ICollection<CommentDTO> mComment = new List<CommentDTO>();
+}
+<div id="comments-div">
+@Html.Partial("~/Views/Home/CommentsPartial.cshtml", mComment)
+</div>
+
 
 <script>
     function EditTaskPopup() {
@@ -261,6 +268,21 @@
             }
         });
     }
+</script>
+
+<script>
+    $.ajax({
+        type: "GET",
+        url: "/Home/GetComments",
+        data: {BugID: @Model.BugID},
+        error: function (xhr, status, error) {
+            //alert(error);
+        },
+        success: function (result) {
+            $('#comments-div').html(result);
+            //$(".popup-button").closest("#createUserPopup").dialog('close');
+        }
+    });
 </script>
 
 <script>

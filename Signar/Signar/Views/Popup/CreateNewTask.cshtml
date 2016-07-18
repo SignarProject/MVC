@@ -162,3 +162,10 @@
 
     }
 </script>
+
+<script>
+    function AssignPopup() {
+        $('.assignee_id').val(@user.UserID);
+        $('#UsersDD').dropdown('set selected', @user.UserID);
+    }
+</script>

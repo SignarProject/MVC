@@ -175,9 +175,10 @@
                 alert(error);
             },
             success: function (result) {
-                @{count--; }
+                //alert(result);
+                cnt = $(".user-count").text() - 1;
                 $(el).parent().parent().hide();
-                $(".user-count").text(@count);
+                $(".user-count").text(cnt);
             }
         })
     }

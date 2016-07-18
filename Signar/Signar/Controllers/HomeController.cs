@@ -56,7 +56,7 @@ namespace Signar.Controllers
             {
                 return new HttpStatusCodeResult(6, "Error during creation");
             }
-            return RedirectToAction("Users");
+            return new HttpStatusCodeResult(200, "OK");
         }
 
         [HttpPost]
@@ -189,7 +189,6 @@ namespace Signar.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public ActionResult GetProject(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
@@ -208,6 +207,27 @@ namespace Signar.Controllers
             }
             if (project == null) return RedirectToAction("NotFound", "Error");
             return View(project);
+        }
+
+        [HttpGet]
+        public ActionResult GetComments(int BugID)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            BugDTO bug;
+            using (BugService bugService = new BugService())
+            {
+                bug = bugService.GetItem(BugID);
+            }
+            if (bug== null) return RedirectToAction("NotFound", "Error");
+            return PartialView("~/Views/Home/CommentsPartial.cshtml", bug.Comments);
         }
 
         [HttpPost]
@@ -240,7 +260,7 @@ namespace Signar.Controllers
             {
                 return new HttpStatusCodeResult(8, "This prefix already exists in database, please try again");
             }
-            return RedirectToAction("Projects");
+            return new HttpStatusCodeResult(200, "OK");
         }
 
         [HttpPost]
@@ -337,7 +357,6 @@ namespace Signar.Controllers
             return Content(res.ToString());
         }
 
-        [HttpPost]
         public ActionResult DeleteUserFromProject(int ProjectID, int UserID)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
@@ -358,7 +377,6 @@ namespace Signar.Controllers
             return new HttpStatusCodeResult(200, "OK");
         }
 
-        [HttpPost]
         public ActionResult DeleteProject(int ProjectID)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
@@ -378,7 +396,6 @@ namespace Signar.Controllers
             }
         }
 
-        [HttpPost]
         public ActionResult DeleteTask(int BugID)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
@@ -398,7 +415,6 @@ namespace Signar.Controllers
             }
         }
 
-        [HttpPost]
         public ActionResult DeleteUser(int UserID)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;

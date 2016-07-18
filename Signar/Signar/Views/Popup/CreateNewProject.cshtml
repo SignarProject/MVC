@@ -74,15 +74,18 @@
 
 <script>
     function CLickAjax(btnClicked) {
+        $(btnClicked).css('pointer-events', 'none');
         var $form = $(btnClicked).parents('form');
         $.ajax({
             type: "POST",
             url: "/Home/CreateNewProject",
             data: $form.serialize(),
             error: function (xhr, status, error) {
+                $(btnClicked).css('pointer-events', 'auto');
                 alert(error);
             },
             success: function (result) {
+                $(btnClicked).css('pointer-events', 'auto');
                 //$(".popup-button").closest("#createUserPopup").dialog('close');
                 window.location.reload();
             }

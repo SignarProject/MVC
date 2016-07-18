@@ -1,0 +1,39 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<CommentDTO>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="col-lg-12 zero-pad-left" style="padding-left: 36px !important;padding-right: 37px; margin-top:15px;">
+        <div class="shadow-div">
+            <div class="no-border-last" style="display:inline-block; vertical-align: middle; width:100%;">
+
+                @foreach (CommentDTO comment in Model)
+                {
+                    <div class="bugs-div">
+                    </div>
+                }
+
+                @*<div class="bugs-div">
+                        @if (bug.User != null)
+                            {
+                                <div class="user-info-block" style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; width: 23%;">
+                                    @{
+                                        string ava_url = bug.User.AvatarPath;
+                                    }
+                                    <img src=@ava_url class="users-av" style="margin-top: 0px !important;" />
+                                    <div class="users-info-helper" style="margin-top: 0px !important;display: inline-block;">
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 85%; display:block;">@bug.User.Name @bug.User.Surname</p>
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 75%; display:block;">@bug.User.Email</p>
+                                    </div>
+                                </div>
+                                        }
+
+
+
+                                        }
+                    </div>*@
+            </div>
+
+        </div>
+    </div>
+}
+

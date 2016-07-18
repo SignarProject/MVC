@@ -98,11 +98,11 @@
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
                 <i class="fa fa-th-list info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label class="projects-count">@VisibleProjectsCount 
-                @if(user.IsAdmin && HiddenProjectCount > 0)
-                {
-                    <text> (+ @HiddenProjectCount)</text>
-                }
                 </label>
+                @if (user.IsAdmin && HiddenProjectCount > 0)
+                {
+                    <text> <label class="projects-count">(+ @HiddenProjectCount)</label></text>
+                }
             </p>
         </div>
 
@@ -167,7 +167,8 @@
                 VisibleProjectsCount--;
             }
                 $(el).parent().parent().hide();
-                $(".projects-count").text(@VisibleProjectsCount);
+                cnt = $(".projects-count").text() - 1;
+                $(".projects-count").text(cnt);
             })
             .error(function (mess) {
                 //$(el).parent().parent().show();

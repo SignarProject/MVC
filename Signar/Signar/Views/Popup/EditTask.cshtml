@@ -159,6 +159,7 @@
 
 <script>
     function AssignToMeEdit(){
+        $('.assignee_id_edit').val(@user.UserID);
         $('#UsersDDEdit').dropdown('set selected', @user.UserID);
     }
 </script>

@@ -366,6 +366,7 @@
     <Content Include="Views\Popup\UsersOnProjectsDropdownEdit.cshtml" />
     <Content Include="Views\Popup\ProjectsDropdownEdit.cshtml" />
     <Content Include="Views\Popup\AvatarPopup.cshtml" />
+    <Content Include="Views\Home\CommentsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
