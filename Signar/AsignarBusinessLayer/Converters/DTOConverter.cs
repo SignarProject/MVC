@@ -123,7 +123,7 @@ namespace AsignarBusinessLayer.Converters
             commentDTO.CommentID = comment.CommentID;
             commentDTO.BugID = comment.BugID;
             commentDTO.UserID = comment.UserID;
-            commentDTO.User = UserToDTO(comment.User, false);
+            commentDTO.User = UserToDTO(comment.User, true);
             commentDTO.Text = comment.Text;
             commentDTO.CreationDate = comment.CreationDate;
             commentDTO.ModificationDate = comment.ModificationDate;
@@ -288,13 +288,13 @@ namespace AsignarBusinessLayer.Converters
                 {
                     userDTO.Bugs.Add(BugToDTO(bug));
                 }
-            }
-                                
-            foreach (var comment in user.Comments)
-            {
-                userDTO.Comments.Add(CommentToDTO(comment));
-            }
 
+                foreach (var comment in user.Comments)
+                {
+                    userDTO.Comments.Add(CommentToDTO(comment));
+                }
+            }                  
+            
             foreach (var filter in user.Filters)
             {
                 userDTO.Filters.Add(FilterToDTO(filter));
