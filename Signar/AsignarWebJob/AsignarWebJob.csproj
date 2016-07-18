@@ -107,7 +107,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializationSignatures\NotificationItem.cs" />
+    <Compile Include="SerializationSignatures\NotificationBugItem.cs" />
+    <Compile Include="SerializationSignatures\NotificationUserItem.cs" />
     <Compile Include="WebJobServices\EmailNotificationService.cs" />
   </ItemGroup>
   <ItemGroup>

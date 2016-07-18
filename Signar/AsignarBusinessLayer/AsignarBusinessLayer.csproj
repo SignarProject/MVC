@@ -46,6 +46,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,7 +58,6 @@
     <Compile Include="AsignarDatabaseDTOs\BugDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\CommentDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\FilterDTO.cs" />
-    <Compile Include="AsignarDatabaseDTOs\HybridProjectDTO\HybridProjectUsersBugs.cs" />
     <Compile Include="AsignarDatabaseDTOs\ProjectDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserDTO.cs" />
     <Compile Include="AsignarDatabaseDTOs\UserToProjectDTO.cs" />

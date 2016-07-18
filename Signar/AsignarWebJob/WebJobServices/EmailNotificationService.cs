@@ -16,7 +16,7 @@ namespace AsignarWebJob.WebJobServices
 
         private readonly string _userRegistrationTemplateID;
         private readonly string _resetPasswordTemplateID;
-        private readonly string _BugConditionChangedTemplateID;
+        private readonly string _bugConditionChangedTemplateID;
         private readonly string _bugReassignedTemplateID;
                 
         private const string _asignarBTSEmail = "asignarBTS@outlook.com";
@@ -29,11 +29,11 @@ namespace AsignarWebJob.WebJobServices
 
             _userRegistrationTemplateID = CloudConfigurationManager.GetSetting("UserRegistrationSendGridTemplateId");
             _resetPasswordTemplateID = CloudConfigurationManager.GetSetting("ResetPasswordSendGridTemplateId");
-            _BugConditionChangedTemplateID = CloudConfigurationManager.GetSetting("BugConditionChangedSendGridTemplateId");
+            _bugConditionChangedTemplateID = CloudConfigurationManager.GetSetting("BugConditionChangedSendGridTemplateId");
             _bugReassignedTemplateID = CloudConfigurationManager.GetSetting("BugReassignedSendGridTemplateId");
         }
 
-        public void UserRegistrartion(NotificationItem user)
+        public void UserRegistrartion(NotificationUserItem user)
         {
             var letter = new SendGridMessage();
 
@@ -53,7 +53,7 @@ namespace AsignarWebJob.WebJobServices
             transportWeb.DeliverAsync(letter).Wait();
         }
 
-        public void ResetPassword(NotificationItem user)
+        public void ResetPassword(NotificationUserItem user)
         {
             var letter = new SendGridMessage();
 
@@ -64,6 +64,47 @@ namespace AsignarWebJob.WebJobServices
 
             letter.Subject = "Reset Asignar-BTS account password";
             letter.AddSubstitution("%name%", new List<string> { user.Name });
+            letter.AddSubstitution("%actionurl%", user.ActionUrlsList);
+            letter.Text = "Some text";
+            letter.Html = "Some html";
+
+            var transportWeb = new Web(_sendGridAPI);
+            transportWeb.DeliverAsync(letter).Wait();
+        }
+
+        public void BugConditionChanged(NotificationBugItem bug)
+        {
+            var letter = new SendGridMessage();
+
+            letter.AddTo(bug.AssigneeEmail);
+            letter.From = new MailAddress(_asignarBTSEmail, _asignarNotificationName);
+
+            letter.EnableTemplateEngine(_bugConditionChangedTemplateID);
+
+            letter.Subject = "Your task condition changed in Asignar-BTS";
+            letter.AddSubstitution("%name%", new List<string> { bug.AssigneeName });
+            letter.AddSubstitution("%bug_prefix%", new List<string> { bug.FullPrefix });
+            letter.AddSubstitution("%project_name%", new List<string> { bug.ProjectName });
+            letter.Text = "Some text";
+            letter.Html = "Some html";
+
+            var transportWeb = new Web(_sendGridAPI);
+            transportWeb.DeliverAsync(letter).Wait();
+        }
+
+        public void BugReassigneed(NotificationBugItem bug)
+        {
+            var letter = new SendGridMessage();
+
+            letter.AddTo(bug.AssigneeEmail);
+            letter.From = new MailAddress(_asignarBTSEmail, _asignarNotificationName);
+
+            letter.EnableTemplateEngine(_bugReassignedTemplateID);
+
+            letter.Subject = "Task was reassigneed to you in Asignar-BTS";
+            letter.AddSubstitution("%name%", new List<string> { bug.AssigneeName });
+            letter.AddSubstitution("%bug_prefix%", new List<string> { bug.FullPrefix });
+            letter.AddSubstitution("%project_name%", new List<string> { bug.ProjectName });
             letter.Text = "Some text";
             letter.Html = "Some html";
 

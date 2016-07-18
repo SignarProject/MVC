@@ -11,22 +11,18 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class ProjectService : IExtendedService<ProjectDTO>, IDisposable
+    public class ProjectService : IExtendedService<ProjectDTO>, ISearchService<ProjectDTO>, IDisposable
     {
-
         private DTOConverter _converter;
-
-
+        
         private AsignarDBModel _dbContext;
-
-
+        
         public ProjectService()
         {
             _dbContext = new AsignarDBModel();
             _converter = new DTOConverter(_dbContext);
         }
-
-
+        
         public bool CreateItem(ProjectDTO newItem)
         {
             Project newProject = _converter.ProjectFromDTO(newItem);
@@ -44,8 +40,7 @@ namespace AsignarBusinessLayer.Services
 
             return true;
         }
-
-
+        
         public bool DeleteItem(int id)
         {
             Project project = _dbContext.Projects.Find(id);
@@ -63,14 +58,12 @@ namespace AsignarBusinessLayer.Services
 
             return true;
         }
-
-
+        
         public void Dispose()
         {
             _dbContext.Dispose();
         }
-
-
+        
         public ICollection<ProjectDTO> GetAllItems()
         {
             ICollection<ProjectDTO> allProjectDTOs = new HashSet<ProjectDTO>();
@@ -116,8 +109,7 @@ namespace AsignarBusinessLayer.Services
             }
             return projectDTO;
         }
-
-
+        
         public ICollection<ProjectDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
 
@@ -141,8 +133,7 @@ namespace AsignarBusinessLayer.Services
                     }
             }
         }
-
-
+        
         public bool UpdateItem(ProjectDTO updatedItem)
         {
             Project projectToUpdate = _dbContext.Projects.Find(updatedItem.ProjectID);
@@ -176,6 +167,19 @@ namespace AsignarBusinessLayer.Services
             _dbContext.SaveChanges();
 
             return true;
+        }
+
+        public ICollection<ProjectDTO> SearchBy(string value)
+        {
+            ICollection<Project> searchResult = _dbContext.Projects.Select(p => p).Where(p => p.Name.Contains(value)).ToList();
+            ICollection<ProjectDTO> dtoResult = new HashSet<ProjectDTO>();
+
+            foreach (var project in searchResult)
+            {
+                dtoResult.Add(_converter.ProjectToDTO(project, false));
+            }
+
+            return dtoResult;
         }
     }
 }

@@ -11,22 +11,18 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class BugService : IService<BugDTO>, IPagingService<BugDTO>, IDisposable
+    public class BugService : IService<BugDTO>, IPagingService<BugDTO>, ISearchService<BugDTO>, IDisposable
     {
-
         private DTOConverter _converter;
-
-
-        private AsignarDBModel _dbContext;
-
         
+        private AsignarDBModel _dbContext;
+                
         public BugService()
         {
             _dbContext = new AsignarDBModel();
             _converter = new DTOConverter(_dbContext);
         }
-
-
+        
         public bool CreateItem(BugDTO newItem)
         {
             Bug newBug = _converter.BugFromDTO(newItem);
@@ -74,14 +70,12 @@ namespace AsignarBusinessLayer.Services
 
             return true;
         }
-
-
+        
         public void Dispose()
         {
             _dbContext.Dispose();
         }
-
-
+        
         public ICollection<BugDTO> GetAllItems()
         {
             ICollection<BugDTO> bugsDTO = new HashSet<BugDTO>();
@@ -98,8 +92,7 @@ namespace AsignarBusinessLayer.Services
 
             return bugsDTO;
         }
-
-
+        
         public BugDTO GetItem(int id)
         {
             Bug bug = _dbContext.Bugs.Find(id);
@@ -115,15 +108,50 @@ namespace AsignarBusinessLayer.Services
 
             return (int)bugDTO.Status;
         }
-
-
+        
         public ICollection<BugDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
             switch (sortValue)
             {
                 case SortBy.Title:
                     {
-                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.BugID).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
+                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.Project.Prefix).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
+                        ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
+
+                        foreach (var bug in searchResult)
+                        {
+                            dtoResult.Add(_converter.BugToDTO(bug));
+                        }
+
+                        return dtoResult;
+                    }
+                case SortBy.Assignee:
+                    {
+                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.User.Name).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
+                        ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
+
+                        foreach (var bug in searchResult)
+                        {
+                            dtoResult.Add(_converter.BugToDTO(bug));
+                        }
+
+                        return dtoResult;
+                    }
+                case SortBy.Priority:
+                    {
+                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.Priority).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
+                        ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
+
+                        foreach (var bug in searchResult)
+                        {
+                            dtoResult.Add(_converter.BugToDTO(bug));
+                        }
+
+                        return dtoResult;
+                    }
+                case SortBy.Status:
+                    {
+                        ICollection<Bug> searchResult = _dbContext.Bugs.AsNoTracking().OrderBy(b => b.BugStatus).Skip(itemAtOnce * (pageNumber - 1)).Take(itemAtOnce).ToList();
                         ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
 
                         foreach (var bug in searchResult)
@@ -194,6 +222,19 @@ namespace AsignarBusinessLayer.Services
             }
             _dbContext.SaveChanges();
             return true;
+        }
+
+        public ICollection<BugDTO> SearchBy(string value)
+        {
+            ICollection<Bug> searchResult = _dbContext.Bugs.Select(b => b).Where(b => b.Subject.Contains(value)).ToList();
+            ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
+
+            foreach (var bug in searchResult)
+            {
+                dtoResult.Add(_converter.BugToDTO(bug));
+            }
+
+            return dtoResult;
         }
     }
 }

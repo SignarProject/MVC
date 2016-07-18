@@ -12,20 +12,41 @@ namespace AsignarWebJob
 {
     public class Functions
     {
-        public static void EmailNotificationQueueMessage([QueueTrigger("emailnotificationqueue")] NotificationItem message, TextWriter log)
+        public static void EmailNotificationForUser([QueueTrigger("emailnotificationqueue")] NotificationUserItem message, TextWriter log)
         {
             var emailService = new EmailNotificationService();
 
             switch (message.LetterTemplate)
             {
-                case NotificationItem.NotificationType.Registered:
+                case NotificationUserItem.NotificationType.Registered:
                     {
                         emailService.UserRegistrartion(message);
                         break;
                     }
-                case NotificationItem.NotificationType.ResetPassword:
+                case NotificationUserItem.NotificationType.ResetPassword:
                     {
                         emailService.ResetPassword(message);
+                        break;
+                    }
+            }
+
+            log.WriteLine("EmailNotificationSuccess!");
+        }
+
+        public static void EmailNotificationAboutBug([QueueTrigger("emailnotificationqueue")] NotificationBugItem message, TextWriter log)
+        {
+            var emailService = new EmailNotificationService();
+
+            switch (message.LetterTemplate)
+            {
+                case NotificationUserItem.NotificationType.BugConditionChanged:
+                    {
+                        emailService.BugConditionChanged(message);
+                        break;
+                    }
+                case NotificationUserItem.NotificationType.BugReassigned:
+                    {
+                        emailService.BugReassigneed(message);
                         break;
                     }
             }

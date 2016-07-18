@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarBusinessLayer.Converters;
 using AsignarDataAccessLayer.AzureADBModel;
@@ -13,7 +14,7 @@ using AsignarDataAccessLayer.AzureASModel;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class UserService : IExtendedService<UserDTO>, IAuthenticationService<UserDTO>, IDisposable
+    public class UserService : IExtendedService<UserDTO>, IAuthenticationService<UserDTO>, ISearchService<UserDTO>, IDisposable
     {
         private DTOConverter _converter;
 
@@ -67,8 +68,7 @@ namespace AsignarBusinessLayer.Services
             _dbContext.SaveChanges();
             return true;
         }
-
-
+        
         public bool DeleteItem(int id)
         {
             User user = _dbContext.Users.Find(id);
@@ -100,8 +100,7 @@ namespace AsignarBusinessLayer.Services
             }
             return allUsersDTOs;
         }
-
-
+        
         public UserDTO GetItem(int id)
         {
             UserDTO userDTO;
@@ -118,8 +117,7 @@ namespace AsignarBusinessLayer.Services
 
             return userDTO;
         }
-
-
+        
         public ICollection<UserDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
         {
             switch (sortValue)
@@ -245,7 +243,39 @@ namespace AsignarBusinessLayer.Services
                     bug.AssigneeID = null;
                 }
             }
+
             _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public ICollection<UserDTO> SearchBy(string value)
+        {
+            ICollection<User> searchResult = _dbContext.Users.Select(u => u).Where(u => u.Name.Contains(value) || u.Surname.Contains(value)).ToList();
+            ICollection<UserDTO> dtoResult = new HashSet<UserDTO>();
+
+            foreach (var user in searchResult)
+            {
+                dtoResult.Add(_converter.UserToDTO(user, false));
+            }
+
+            return dtoResult;
+        }
+
+        public bool ResetUserPassword(UserDTO userDTO)
+        {
+            User user = _dbContext.Users.Find(userDTO.UserID);
+
+            string newPassword = Membership.GeneratePassword(9,4);
+
+            var notification = new NotificationQueueService();
+
+            notification.ResetUserPassword(userDTO, new List<string>());
+
+            user.Password = _hashConverter.CalculateMD5Hash(newPassword);
+
+            _dbContext.SaveChanges();
+
             return true;
         }
     }

@@ -94,7 +94,8 @@
     <Compile Include="AzureASModel\AsignarQueueModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializationSignatures\FilterSignature.cs" />
-    <Compile Include="SerializationSignatures\NotificationItem.cs" />
+    <Compile Include="SerializationSignatures\NotificationBugItem.cs" />
+    <Compile Include="SerializationSignatures\NotificationUserItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

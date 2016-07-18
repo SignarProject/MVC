@@ -11,7 +11,7 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class FilterService : IExtendedService<FilterDTO>, IDisposable
+    public class FilterService : IExtendedService<FilterDTO>, ISearchService<FilterDTO>, IDisposable
     {
         private DTOConverter _converter;
 
@@ -83,6 +83,19 @@ namespace AsignarBusinessLayer.Services
                         throw new ArgumentException("Invalid SortBy parameters!");
                     }
             }
+        }
+
+        public ICollection<FilterDTO> SearchBy(string value)
+        {
+            ICollection<Filter> searchResult = _dbContext.Filters.Select(f => f).Where(f => f.Title.Contains(value)).ToList();
+            ICollection<FilterDTO> dtoResult = new HashSet<FilterDTO>();
+
+            foreach (var filter in searchResult)
+            {
+                dtoResult.Add(_converter.FilterToDTO(filter));
+            }
+
+            return dtoResult;
         }
 
         public bool UpdateItem(FilterDTO updatedItem)
