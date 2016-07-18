@@ -1,14 +1,25 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
 @model ICollection<CommentDTO>
-@if (Model != null && Model.Count > 0)
-{
-    <div class="col-lg-12 zero-pad-left" style="padding-left: 36px !important;padding-right: 37px; margin-top:15px;">
-        <div class="shadow-div">
-            <div class="no-border-last" style="display:inline-block; vertical-align: middle; width:100%;">
 
-                @foreach (CommentDTO comment in Model)
+<div class="col-lg-12 zero-pad-left" style="padding-left: 36px !important;padding-right: 37px; margin-top:15px;">
+    <div class="shadow-div">
+        <div style="display:inline-block; vertical-align: middle; width:100%;margin-left: 6px; border: none;">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (CommentDTO comment in Model)
                 {
-                    <div class="bugs-div">
+                    <div class="bugs-div bugs-div-comments" style="border-bottom-style: none;" onClick="DeleteComment(this, @comment.CommentID)">
+                        <div style="display:inline-block;">
+                            <img src=@comment . class="profile-av" style="width: 40px; height: 40px;" />
+                            <div class="user-name" style="max-width: 200px;">
+                                <p class="zero-merg; overflow: auto;">@Model.Name @Model.Surname</p>
+                                <p class="zero-merg" style="font-size: 12px; overflow: auto;">@Model.Email</p>
+                            </div>
+                        </div>
+                        @comment.Text
+                        <div>
+                            <label style="font-size: 11px;">@comment.CreationDate.ToString("dd/MM/yy h:mm tt")</label>
+                        </div>
                     </div>
                 }
 
@@ -31,9 +42,32 @@
 
                                         }
                     </div>*@
+            }
+        </div>
+        <div style="display: inline-block;margin-top: 10px;width: 100%;">
+            <input type="text" maxlength="140" name="Comment" id="CommentInput" class="form-control" style="width: 64%;margin-left: 12px;" />
+            <div>
+                <input type="button" value="Add comment" class="popup-button pull-left" style="color: #4D868D" onCLick="AddComment()" />
             </div>
 
         </div>
     </div>
-}
+</div>
 
+
+<script>
+        function DeleteComment(el, CommentID) {
+            $.ajax({
+                url: '/Home/DeleteComment',
+                data: { CommentID: CommentID },
+                method: 'POST'
+            })
+            .success(function () {
+                $(el).hide();
+            })
+            .error(function (mess) {
+                //$(el).parent().parent().show();
+                //alert(mess);
+            })
+        }
+</script>
