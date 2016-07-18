@@ -7,46 +7,40 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using AsignarWebJob.SerializationSignatures;
 using AsignarWebJob.WebJobServices;
+using Newtonsoft.Json;
 
 namespace AsignarWebJob
 {
     public class Functions
     {
-        public static void EmailNotificationForUser([QueueTrigger("emailnotificationqueue")] NotificationUserItem message, TextWriter log)
+        public static void EmailNotification([QueueTrigger("emailnotificationqueue")] string message, TextWriter log)
         {
             var emailService = new EmailNotificationService();
 
-            switch (message.LetterTemplate)
+            var deserializedUserMessage = JsonConvert.DeserializeObject<NotificationUserItem>(message);
+
+            switch (deserializedUserMessage.LetterTemplate)
             {
                 case NotificationUserItem.NotificationType.Registered:
                     {
-                        emailService.UserRegistrartion(message);
+                        emailService.UserRegistrartion(deserializedUserMessage);
                         break;
                     }
                 case NotificationUserItem.NotificationType.ResetPassword:
                     {
-                        emailService.ResetPassword(message);
+                        emailService.ResetPassword(deserializedUserMessage);
                         break;
                     }
-            }
-
-            log.WriteLine("EmailNotificationSuccess!");
-        }
-
-        public static void EmailNotificationAboutBug([QueueTrigger("emailnotificationqueue")] NotificationBugItem message, TextWriter log)
-        {
-            var emailService = new EmailNotificationService();
-
-            switch (message.LetterTemplate)
-            {
                 case NotificationUserItem.NotificationType.BugConditionChanged:
                     {
-                        emailService.BugConditionChanged(message);
+                        var deserializedBugMessage = JsonConvert.DeserializeObject<NotificationBugItem>(message);
+                        emailService.BugConditionChanged(deserializedBugMessage);
                         break;
                     }
                 case NotificationUserItem.NotificationType.BugReassigned:
                     {
-                        emailService.BugReassigneed(message);
+                        var deserializedBugMessage = JsonConvert.DeserializeObject<NotificationBugItem>(message);
+                        emailService.BugReassigneed(deserializedBugMessage);
                         break;
                     }
             }
