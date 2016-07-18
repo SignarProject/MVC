@@ -166,7 +166,7 @@ namespace AsignarBusinessLayer.Converters
 
             foreach(var assignee in signature.Assignees)
             {
-                filterDTO.FilterSignarute.Assignees.Add(UserToDTO(assignee, true);
+                filterDTO.FilterSignarute.Assignees.Add(UserToDTO(assignee, true));
             }
 
             foreach(var priority in signature.Priorities)
