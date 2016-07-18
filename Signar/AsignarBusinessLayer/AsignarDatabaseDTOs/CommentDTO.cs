@@ -13,7 +13,9 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public int BugID { get; set; }
         
         public int? UserID { get; set; }
-        
+
+        public UserDTO User { get; set; }
+
         public string Text { get; set; }
         
         public DateTime CreationDate { get; set; }

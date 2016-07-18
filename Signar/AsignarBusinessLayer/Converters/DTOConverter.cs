@@ -123,6 +123,7 @@ namespace AsignarBusinessLayer.Converters
             commentDTO.CommentID = comment.CommentID;
             commentDTO.BugID = comment.BugID;
             commentDTO.UserID = comment.UserID;
+            commentDTO.User = UserToDTO(comment.User, false);
             commentDTO.Text = comment.Text;
             commentDTO.CreationDate = comment.CreationDate;
             commentDTO.ModificationDate = comment.ModificationDate;
@@ -139,8 +140,8 @@ namespace AsignarBusinessLayer.Converters
             newComment.UserID = commentDTO.UserID;
             newComment.User = _dbContext.Users.Find(commentDTO.UserID);
             newComment.Text = commentDTO.Text;
-            newComment.CreationDate = commentDTO.CreationDate;
-            newComment.ModificationDate = null;
+            newComment.CreationDate = DateTime.Now;
+            newComment.ModificationDate = DateTime.Now;
 
             return newComment;
         }
