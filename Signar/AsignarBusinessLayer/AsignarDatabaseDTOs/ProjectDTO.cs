@@ -20,24 +20,17 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         [Display(Name = "Prefix")]
         [StringLength(10, ErrorMessage = "Prefix is too long")]
         public string Prefix { get; set; }
-
-
+        
         public bool IsDeleted { get; set; }
-
-
+        
         public int BugsAmount { get; set; }
-
-
+        
         public int UsersAmount { get; set; }
-
-
+        
         public ICollection<UserDTO> Users { get; set; }
-
-
+        
         public ICollection<BugDTO> Bugs { get; set; }
-
-
-
+        
         public ProjectDTO()
         {
             this.Users = new HashSet<UserDTO>();

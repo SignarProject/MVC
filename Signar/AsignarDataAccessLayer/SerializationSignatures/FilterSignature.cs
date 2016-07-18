@@ -30,8 +30,6 @@ namespace AsignarDataAccessLayer.SerializationSignatures
     [XmlInclude(typeof(User))]
     public class FilterSignature
     {
-        public string Title { get; set; }
-
         public string SearchString { get; set; }
 
         public ICollection<Project> Projects { get; set; }

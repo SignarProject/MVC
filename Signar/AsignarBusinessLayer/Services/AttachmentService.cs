@@ -93,20 +93,6 @@ namespace AsignarBusinessLayer.Services
         public bool UpdateItem(AttachmentDTO updatedItem)
         {
             throw new NotImplementedException();
-
-            /*Attachment attachment = _dbContext.Attachments.Find(updatedItem.AttachmentID);
-
-            if(attachment == null)
-            {
-                return false;
-            }
-
-            attachment.Name = updatedItem.Name;
-            attachment.ContentPath = updatedItem.ContentPath;
-
-            _dbContext.SaveChanges();
-
-            return true;*/
         }
     }
 }

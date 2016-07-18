@@ -8,13 +8,10 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 {
     public class UserToProjectDTO
     {
-
         public int UserID { get; set; }
-
-
+        
         public int ProjectID { get; set; }
-
-
+        
         public UserToProjectDTO()
         {
 

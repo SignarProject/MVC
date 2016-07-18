@@ -122,7 +122,6 @@ namespace Signar.Controllers
             UserDTO me = HttpContext.Cache[User.Identity.Name] as UserDTO;
 
             var notificationQueue = new NotificationQueueService();
-            notificationQueue.UserRegistration(me, new List<string>());
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{
