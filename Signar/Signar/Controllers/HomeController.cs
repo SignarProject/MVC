@@ -59,8 +59,7 @@ namespace Signar.Controllers
             return new HttpStatusCodeResult(200, "OK");
         }
 
-        [HttpPost]
-        public ActionResult CreateNewFilter(string[] Priorities, string[] Statuses, string[] Users, string[] Projects)
+        public ActionResult DeleteFilter(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
@@ -71,8 +70,76 @@ namespace Signar.Controllers
             Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
 
-
+            bool res;
+            using (FilterService filterService = new FilterService())
+            {
+                res = filterService.DeleteItem(id);
+            }
+            if (!res) return new HttpStatusCodeResult(1, "Error during delete. Pleas try again");
             return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewFilter(string[] Priorities, string[] Statuses, string[] Users, string[] Projects, string Title, string Search)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            if (Search == null) Search = "";
+            if(Title == null || Title == "") return new HttpStatusCodeResult(1, "Title can not be empty");
+
+            if (Statuses == null) Statuses = new string[0];
+            if (Priorities == null) Priorities = new string[0];
+            if (Users == null) Users = new string[0];
+            if (Projects == null) Projects = new string[0];
+
+            FilterDTO filter = new FilterDTO();
+            foreach(string s in Priorities)
+            {
+                filter.FilterSignarute.Priorities.Add((PriorityDTO)(int.Parse(s)));
+            }
+            foreach (string s in Statuses)
+            {
+                filter.FilterSignarute.Statuses.Add((StatusDTO)(int.Parse(s)));
+            }
+            foreach (string s in Users)
+            {
+                int id = int.Parse(s);
+                using (UserService userService = new UserService())
+                {
+                    filter.FilterSignarute.Assignees.Add(userService.GetItem(id));
+                }    
+            }
+            foreach (string s in Projects)
+            {
+                int id = int.Parse(s);
+                using (ProjectService projectService = new ProjectService())
+                {
+                    filter.FilterSignarute.Projects.Add(projectService.GetItem(id));
+                }
+            }
+            filter.Title = Title;
+            filter.FilterSignarute.SearchString = Search;
+            filter.UserID = Me.UserID;
+            try
+            {
+                using (FilterService filterService = new FilterService())
+                {
+                    filterService.CreateItem(filter);
+                }
+                return new HttpStatusCodeResult(200, "OK");
+            }
+            catch(Exception)
+            {
+                return new HttpStatusCodeResult(1, "Error during creation");
+            }
+            
         }
 
         [HttpPost]
@@ -394,7 +461,7 @@ namespace Signar.Controllers
             return PartialView("~/Views/Home/TasksPartial.cshtml", res);
         }
 
-        public ActionResult Search()
+        public ActionResult Search(int id)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
@@ -405,9 +472,37 @@ namespace Signar.Controllers
             Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
 
-            ICollection<FilterDTO> res;
-            res = Me.Filters;
-            return View(res);
+            FilterInfoDTO res1 = new FilterInfoDTO();
+            using (ProjectService prS = new ProjectService())
+            {
+                if(Me.IsAdmin)
+                {
+                    res1.projects = prS.GetAllItems();
+                }
+                else
+                {
+                    res1.projects = Me.Projects;
+                }
+                
+            }
+            using (UserService usrS = new UserService())
+            {
+                res1.users = usrS.GetAllItems();
+            }
+
+            FilterDTO res = new FilterDTO();
+            res1.filter = res;
+            if (id == 0) return View(res1);
+            using (FilterService fS = new FilterService())
+            {
+                res = fS.GetItem(id);
+            }
+            if (id < 0 || res == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            res1.filter = res;
+            return View(res1);
         }
 
         [HttpPost]
@@ -958,7 +1053,14 @@ namespace Signar.Controllers
             FilterInfoDTO res = new FilterInfoDTO();
             using (ProjectService prS = new ProjectService())
             {
-                res.projects = prS.GetAllItems();
+                if (Me.IsAdmin)
+                {
+                    res.projects = prS.GetAllItems();
+                }
+                else
+                {
+                    res.projects = Me.Projects;
+                }
             }
             using (UserService usrS = new UserService())
             {

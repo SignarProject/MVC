@@ -22,15 +22,35 @@ input:-ms-input-placeholder {
 }
 
 .bootstrap-select.btn-group .dropdown-menu {
+    width: 100%;
     background-color: rgb(248, 254, 254);
 }
 
 .bootstrap-select.btn-group .dropdown-menu.inner{
+    width: 100%;
     background-color: rgb(248, 254, 254);
 }
 
 .bootstrap-select.btn-group .dropdown-menu.inner > li{
+    width: 100%;
     background-color: rgb(248, 254, 254);
+}
+
+    .bootstrap-select.btn-group .dropdown-menu.inner > li > a {
+        width: 100%;
+    }
+
+    .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 6px solid #000000;
+    border-right: 6px solid transparent;
+    border-bottom: 0 dotted;
+    border-left: 6px solid transparent;
+    content: "";
 }
 
 .project-title-mini {
@@ -765,6 +785,19 @@ select option {
     overflow: hidden;
 }
 
+.btn-default .caret{
+border-top-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.white {
+background-color: white !important;
+}
+
+
+.bootstrap-select.btn-group .dropdown-toggle .caret{
+border-top-color: rgba(0, 0, 0, 0.3) !important;
+}
+
 .delete-users-from-project-ul > li:hover .user-delete-from-project-icon {
     display: inline-block !important;
 }
@@ -840,5 +873,17 @@ select option {
 @media (max-width: 450px) {
     .search-bar-common {
         width: 100px;
+    }
+}
+
+@media (max-width: 991px){
+    .shadow-div-media{
+        height: 173px !important;
+    }
+}
+
+@media (max-width: 767px){
+    .shadow-div-media{
+        height: 280px !important;
     }
 }

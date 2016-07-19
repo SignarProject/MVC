@@ -45,6 +45,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
             Assignees = new HashSet<UserDTO>();
             Priorities = new HashSet<PriorityDTO>();
             Statuses = new HashSet<StatusDTO>();
+            SearchString = "";
         }
     }
 }

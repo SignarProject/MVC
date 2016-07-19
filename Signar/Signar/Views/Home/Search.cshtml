@@ -1,9 +1,121 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
 @using Signar.Models
-@model ICollection<FilterDTO>
+@model FilterInfoDTO
 @{
     ViewBag.Title = "Search";
     UserDTO user = Cache[User.Identity.Name] as UserDTO;
+
+    List<SelectListItem> listItemsPriors = new List<SelectListItem>();
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Critical",
+        Value = "0"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Major",
+        Value = "1",
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Minor",
+        Value = "2"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Urgent",
+        Value = "3"
+    });
+
+    List<SelectListItem> listItemsSts = new List<SelectListItem>();
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Open",
+        Value = "0"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InProgress",
+        Value = "1",
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Done",
+        Value = "2"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InTesting",
+        Value = "3"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Closed",
+        Value = "4"
+    });
+
+    List<SelectListItem> listItemsProjects = new List<SelectListItem>();
+    foreach (ProjectDTO project1 in Model.projects)
+    {
+        listItemsProjects.Add(new SelectListItem
+        {
+            Text = project1.Name,
+            Value = project1.ProjectID.ToString(),
+        });
+    }
+
+    List<SelectListItem> listItemsUsers = new List<SelectListItem>();
+    foreach (UserDTO user1 in Model.users)
+    {
+        listItemsUsers.Add(new SelectListItem
+        {
+            Text = user1.Name + " " + user1.Surname,
+            Value = user1.UserID.ToString(),
+        });
+    }
+
+    string status_info = "[";
+    foreach (StatusDTO st in Model.filter.FilterSignarute.Statuses)
+    {
+        int stat = (int)st;
+        status_info += stat.ToString() + ",";
+    }
+    if (status_info.Length > 0)
+    {
+        status_info = status_info.Remove(status_info.Length - 1);
+    }
+    status_info = "]";
+    string prior_info = "[";
+    foreach (PriorityDTO pr in Model.filter.FilterSignarute.Priorities)
+    {
+        int pri = (int)pr;
+        prior_info += pri.ToString() + ",";
+    }
+    if (prior_info.Length > 0)
+    {
+        prior_info = prior_info.Remove(prior_info.Length - 1);
+    }
+    prior_info += "]";
+    string user_info = "[";
+    foreach (UserDTO usr in Model.filter.FilterSignarute.Assignees)
+    {
+        user_info += usr.UserID + ",";
+    }
+    if (user_info.Length > 0)
+    {
+        user_info = user_info.Remove(user_info.Length - 1);
+    }
+    user_info += "]";
+    string project_info = "[";
+    foreach (ProjectDTO prj in Model.filter.FilterSignarute.Projects)
+    {
+        project_info += prj.ProjectID + ",";
+    }
+    if (project_info.Length > 0)
+    {
+        project_info = project_info.Remove(project_info.Length - 1);
+    }
+    project_info += "]";
 }
 
 <div class="container container-form">
@@ -18,6 +130,32 @@
                         @Html.Partial("~/Views/Popup/EditProject.cshtml", m2, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })*@
                 </div>
             </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-md-12 zero-pad-left" style="padding-right: 20px;">
+                    <div class="shadow-div shadow-div-media" style="height: 64px;">
+                        <div class="col-sm-7 col-xs-12" style="padding: 0px !important">
+                            <div class="col-md-6 col-xs-12">
+                                @Html.TextBox("SearchString", Model.filter.FilterSignarute.SearchString, htmlAttributes: new { @class = "form-control popup-field", placeholder = "Search", id = "FilterSearch", style = "background-color: rgb(248,252,252) !important;"})
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                @Html.DropDownList("Priority", new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1 white", data_placeholder = "Priority", id = "priorSelectSearch", multiple = "multiple", title = "Priorities", style = "background-color: white !important;" })
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                @Html.DropDownList("Status", new MultiSelectList(listItemsSts, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1 white", data_placeholder = "Status", id = "statusSelectSearch", multiple = "multiple", title = "Statuses", style = "background-color: white !important;" })
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-xs-12" style="padding: 0px !important">
+                            <div class="col-md-6 col-xs-12">
+                                @Html.DropDownList("Project", new MultiSelectList(listItemsProjects, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1 white", data_placeholder = "Project", id = "projectSelectSearch", multiple = "multiple", title = "Projects", style="background-color: white !important;" })
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                @Html.DropDownList("User", new MultiSelectList(listItemsUsers, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1 white", data_placeholder = "Assignee", id = "userSelectSearch", multiple = "multiple", title = "Users", style = "background-color: white !important;" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <div class="row" style="margin-top: 0px;">
                 @*@{
@@ -27,11 +165,13 @@
                     <div id="AddUsersToProjectPopupDiv">
                         @Html.Partial("~/Views/Popup/AddUsersToProject.cshtml", m1, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
                     </div>*@
-                <div style="width: 150px;">
+                <div style="width: 150px; display:inline-block">
                     <i class="fa fa-repeat fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Default options"></i>
                     <i class="fa fa-filter fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Choose filter"></i>
                     <i class="fa fa-save fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px;vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete filter"></i>
+                    
                 </div>
+                <input type="button" value="Search" class="popup-button pull-right" style="color: #4D868D;margin-right: 19px !important; height: 40px;" />
             </div>
 
             <div class="row">
@@ -55,17 +195,17 @@
             </div>
         </div>
     </div>
-    @{ 
+    @{
         ICollection<BugDTO> mBugs = new List<BugDTO>();
     }
     <div id="AllTasks">
         @Html.Partial("~/Views/Home/TasksPartial.cshtml", mBugs)
     </div>
-    
-</div >
+
+</div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/GetAllTasks",
@@ -86,3 +226,31 @@
         location.href = '@url3' + BugID;
     }
 </script>
+
+<script>
+    $('.selectpicker').selectpicker({
+        dropupAuto: false
+    });
+</script>
+
+<script>
+    
+    $(document).ready(setUsers(@user_info));
+</script>
+
+<script>
+    function setUsers(users) {
+        
+        //var wards = dsFilterOptions.users.split(",");
+        //var strWard = "[";
+        //for (i = 0; i < wards.length; i++) {
+        //    strWard += "'" + wards[i] + "',";
+        //}
+        //strWard = strWard.slice(0, -1); //remove last comma
+        //strWard += "]";
+        //alert(strWard);
+        alert(JSON.parse(users));
+        $('#userSelectSearch').selectpicker('val', JSON.parse(users));
+    }
+</script>
+

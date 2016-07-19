@@ -183,8 +183,9 @@ namespace AsignarBusinessLayer.Converters
             projectDTO.Name = project.Name;
             projectDTO.Prefix = project.Prefix;
             projectDTO.IsDeleted = project.IsDeleted;
+            projectDTO.ProjectID = project.ProjectID;
 
-            if(!isCollectionItem)
+            if (!isCollectionItem)
             {
                 var usersOfProject = project.UsersToProjects.Where(r => r.ProjectID.Equals(project.ProjectID)).Select(r => r).ToList();
 
