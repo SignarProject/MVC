@@ -12,8 +12,25 @@ input:-ms-input-placeholder {
     color: #bbbbbb;
 }
 
+.popup-dropdown-1{
+    padding: 0px !important;
+    width: 100% !important;
+}
+
 .no-hover:hover{
     cursor: default !important;
+}
+
+.bootstrap-select.btn-group .dropdown-menu {
+    background-color: rgb(248, 254, 254);
+}
+
+.bootstrap-select.btn-group .dropdown-menu.inner{
+    background-color: rgb(248, 254, 254);
+}
+
+.bootstrap-select.btn-group .dropdown-menu.inner > li{
+    background-color: rgb(248, 254, 254);
 }
 
 .project-title-mini {
