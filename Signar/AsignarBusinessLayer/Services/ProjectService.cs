@@ -11,7 +11,7 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class ProjectService : IExtendedService<ProjectDTO>, ISearchService<ProjectDTO>, IDisposable
+    public class ProjectService : IExtendedService<ProjectDTO>, IDisposable
     {
         private DTOConverter _converter;
         
@@ -169,14 +169,14 @@ namespace AsignarBusinessLayer.Services
             return true;
         }
 
-        public ICollection<ProjectDTO> SearchBy(string value)
+        public ICollection<ProjectDTO> SearchBy(string value, ICollection<ProjectDTO> searchCollection)
         {
-            ICollection<Project> searchResult = _dbContext.Projects.Select(p => p).Where(p => p.Name.Contains(value)).ToList();
+            ICollection<ProjectDTO> searchResult = searchCollection.Select(p => p).Where(p => p.Name.Contains(value)).ToList();
             ICollection<ProjectDTO> dtoResult = new HashSet<ProjectDTO>();
 
-            foreach (var project in searchResult)
+            foreach (var project in searchCollection)
             {
-                dtoResult.Add(_converter.ProjectToDTO(project, false));
+                dtoResult.Add(project);
             }
 
             return dtoResult;

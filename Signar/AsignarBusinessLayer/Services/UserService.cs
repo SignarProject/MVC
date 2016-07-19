@@ -14,7 +14,7 @@ using AsignarDataAccessLayer.AzureASModel;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class UserService : IExtendedService<UserDTO>, IAuthenticationService<UserDTO>, ISearchService<UserDTO>, IDisposable
+    public class UserService : IExtendedService<UserDTO>, IAuthenticationService<UserDTO>, IDisposable
     {
         private DTOConverter _converter;
 
@@ -266,19 +266,6 @@ namespace AsignarBusinessLayer.Services
             return true;
         }
 
-        public ICollection<UserDTO> SearchBy(string value)
-        {
-            ICollection<User> searchResult = _dbContext.Users.Select(u => u).Where(u => u.Name.Contains(value) || u.Surname.Contains(value)).ToList();
-            ICollection<UserDTO> dtoResult = new HashSet<UserDTO>();
-
-            foreach (var user in searchResult)
-            {
-                dtoResult.Add(_converter.UserToDTO(user, false));
-            }
-
-            return dtoResult;
-        }
-
         public bool ResetUserPassword(UserDTO userDTO)
         {
             var notification = new NotificationQueueService();
@@ -295,6 +282,19 @@ namespace AsignarBusinessLayer.Services
             _dbContext.SaveChanges();
 
             return true;
+        }
+
+        public ICollection<UserDTO> SearchBy(string value, ICollection<UserDTO> searchCollection)
+        {
+            ICollection<UserDTO> searchResult = searchCollection.Select(p => p).Where(p => p.Name.Contains(value) | p.Surname.Contains(value)).ToList();
+            ICollection<UserDTO> dtoResult = new HashSet<UserDTO>();
+
+            foreach (var user in searchCollection)
+            {
+                dtoResult.Add(user);
+            }
+
+            return dtoResult;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AsignarBusinessLayer.Services.ServiceInterfaces
 {
-    interface IExtendedService<T> : IService<T>, IPagingService<T> where T: class
+    interface IExtendedService<T> : IService<T>, IPagingService<T>, ISearchService<T> where T: class
     {
     }
 }

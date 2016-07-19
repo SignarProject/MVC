@@ -99,7 +99,7 @@ namespace AsignarBusinessLayer.Services
             }
         }
 
-        public ICollection<FilterDTO> SearchBy(string value)
+        public ICollection<FilterDTO> SearchBy(string value, ICollection<FilterDTO> searhCollection)
         {
             ICollection<Filter> searchResult = _dbContext.Filters.Select(f => f).Where(f => f.Title.Contains(value)).ToList();
             ICollection<FilterDTO> dtoResult = new HashSet<FilterDTO>();
