@@ -26,3 +26,12 @@ C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
 C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
 C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
 C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
+E:\2016\WEB\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
+E:\2016\WEB\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
+E:\2016\WEB\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\Model.xml
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\refactor.xml
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\postdeploy.sql
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\predeploy.sql
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
+E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb

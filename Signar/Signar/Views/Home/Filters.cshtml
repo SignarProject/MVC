@@ -1,5 +1,8 @@
-﻿@{
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs;
+@model ICollection<FilterDTO>
+@{
     ViewBag.Title = "Filters";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
 }
 
 <div class="container container-form">
@@ -7,8 +10,16 @@
         <div style="margin-right: 20px; margin-top: 15px;">
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Filters</h2>
             <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewFilterPopup()"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add filter"></i>
-
-            @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml")
+            @{ 
+                FilterDTO mFilter = new FilterDTO();
+                FilterSignatureDTO mFS = new FilterSignatureDTO();
+                ICollection<ProjectDTO> proj = new List<ProjectDTO>();
+                ICollection<UserDTO> usr = new List<UserDTO>();
+                mFS.Projects = proj;
+                mFS.Assignees = usr;
+                mFilter.FilterSignarute = mFS;
+            }
+            @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml", mFilter)
 
             <div class="search-bar-common pull-right" style="margin-top: 22px;">
                 <form role="search" style="display: flex;">
@@ -41,7 +52,36 @@
         </div>
 
         <div class="row" style="margin: 15px">
-            @for (int i = 0; i < 9; ++i)
+            @foreach (FilterDTO filter in Model)
+            {
+                <div class="col-md-4 col-sm-6 col-xs-12" style="overflow:no-display">
+                    <div class="table-elem shadow-div" style="position:relative;">
+                        <i class="fa fa-times-circle delete-form-icon pull-right"></i>
+                        <h4 class="h4-zero-topmargin no-text-overflow" style="margin-bottom: 0px; margin-top:0px;"> @filter.Title</h4>
+                        <div class="filters-inr-divblc">
+                            <div class="filter-info-col" style="padding-left: 1px">
+                                <label class="no-text-overflow-sm">Search:</label><br />
+                                <label class="no-text-overflow-sm">Status:</label><br />
+                                <label class="no-text-overflow-sm">Priority:</label><br />
+                            </div>
+                            <div class="filter-info-col col-helper color-black" style="max-width: 20%;">
+                                <label class="no-text-overflow-sm" style="max-width: 300px;">@filter.FilterSignarute.SearchString</label><br />
+                                <label class="no-text-overflow-sm">Status_Value</label><br />
+                                <label class="no-text-overflow-sm">Priority_Value</label><br />
+                            </div>
+                            <div class="filter-info-col" style="margin-left: -15px; padding-left: 10px; margin-top: 13px">
+                                <label class="no-text-overflow-sm">Project:</label><br />
+                                <label class="no-text-overflow-sm">Assignee:</label><br />
+                            </div>
+                            <div class="filter-info-col col-helper color-black" style="padding-left: 10px; margin-top: 13px;width: 45%; margin-right:0px;">
+                                <label class="no-text-overflow-sm" style="max-width: 250px;">Project_Value</label><br />
+                                <label class="no-text-overflow-sm" style="max-width: 250px;">Assignee_Value</label><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*@for (int i = 0; i < 9; ++i)
             {
                 <div class="col-md-4 col-sm-6 col-xs-12" style="overflow:no-display">
                     <div class="table-elem shadow-div" style="position:relative;">
@@ -69,11 +109,11 @@
                         </div>
                     </div>
                 </div>
-            }
+            }*@
         </div>
         <div class="row">
             <p class="pull-left p i, label zero-merg p label">
-                <i class="fa fa-filter  info-icon"></i> <label style="margin-right: 2px">Projects:</label> <label>35</label>
+                <i class="fa fa-filter  info-icon"></i> <label style="margin-right: 2px">Filters:</label> <label>@Model.Count</label>
             </p>
         </div>
 
@@ -88,22 +128,23 @@
 
 <script>
     function ShowCreateNewFilterPopup() {
-        $("#createUserPopup").dialog({
+        $("#createFilterPopup").dialog({
             width: 600,
             fluid: true,
             title: "Create new filter",
             modal: true,
             resizable: false,
+            dialogClass: "create-filter-popup",
             show: { effect: 'clip', duration: 350 },
             hide: { effect: 'clip', duration: 350 },
             buttons: [
-        {
-            text: "Create",
-            "class": 'popup-button',
-            click: function () {
-                $(this).dialog("close");
-            }
-        },
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
             ],
             close: function () {
             }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 {
@@ -26,6 +27,8 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
     public class FilterSignatureDTO
     {
+        [Display(Name = "SearchString")]
+        [StringLength(254, ErrorMessage = "Search string is too long")]
         public string SearchString { get; set; }
 
         public ICollection<ProjectDTO> Projects { get; set; }

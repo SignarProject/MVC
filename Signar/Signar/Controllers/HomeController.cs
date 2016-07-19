@@ -351,6 +351,49 @@ namespace Signar.Controllers
             return new HttpStatusCodeResult(200, "OK");
         }
 
+        [HttpGet]
+        public ActionResult GetAllTasks()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            ICollection<BugDTO> res;
+            using (BugService bugService = new BugService())
+            {
+                if(Me.IsAdmin)
+                {
+                    res = bugService.GetAllItems();
+                } else
+                {
+                    res = Me.Bugs;
+                }
+                
+            }
+            return PartialView("~/Views/Home/TasksPartial.cshtml", res);
+        }
+
+        public ActionResult Search()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            ICollection<FilterDTO> res;
+            res = Me.Filters;
+            return View(res);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewTask(BugDTO model)
@@ -881,7 +924,7 @@ namespace Signar.Controllers
             Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
 
-            return View();
+            return View(Me.Filters);
         }
 
         public ActionResult Users()

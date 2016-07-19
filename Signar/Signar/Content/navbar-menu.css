@@ -294,6 +294,10 @@
     border: none !important;
 }
 
+.navSearchIcon:hover{
+    color:azure !important;
+}
+
 @media handheld,screen (min-width: 992px) {
     .rightM {
         margin-right: 50px !important;
@@ -323,7 +327,7 @@
     }
 }
 
-@media (max-width: 958px) and (min-width: 768px) {
+@media (max-width: 801px) and (min-width: 768px) {
     .navbar-form > * {
         display: none;
         height: 0px;
