@@ -57,6 +57,19 @@ namespace Signar.Controllers
         [CustomAuthenticate]
         public ActionResult Login()
         {
+            var filterService = new FilterService();
+
+            var filterDTO = new FilterDTO();
+            filterDTO.Title = "The First Filter";
+            filterDTO.UserID = 1;
+            filterDTO.FilterSignarute.SearchString = "crash";
+            filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Critical);
+            filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Minor);
+            filterDTO.FilterSignarute.Statuses.Add(StatusDTO.Open);
+            filterDTO.FilterSignarute.Statuses.Add(StatusDTO.InProgress);
+
+            filterService.CreateItem(filterDTO);
+
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
