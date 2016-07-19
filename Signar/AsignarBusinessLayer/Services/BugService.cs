@@ -207,7 +207,7 @@ namespace AsignarBusinessLayer.Services
             {
                 bugToUpdate.AssigneeID = updatedItem.AssigneeID;
                 bugToUpdate.User = _dbContext.Users.Find(updatedItem.AssigneeID);
-
+                updatedItem.Project = _converter.ProjectToDTO(bugToUpdate.Project, true);
                 _notificationService.BugReassigned(updatedItem, new List<string>());
             }
 

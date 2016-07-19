@@ -3,6 +3,9 @@
 
 @{ 
     UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    
+
+
     List<SelectListItem> listItemsPriors = new List<SelectListItem>();
     listItemsPriors.Add(new SelectListItem
     {
@@ -65,7 +68,7 @@
     List<SelectListItem> listItemsUsers = new List<SelectListItem>();
     foreach (UserDTO user1 in Model.users)
     {
-        listItemsProjects.Add(new SelectListItem
+        listItemsUsers.Add(new SelectListItem
         {
             Text = user1.Name + " " + user1.Surname,
             Value = user.UserID.ToString(),
@@ -99,7 +102,7 @@
     <div class="row">
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group">
-                @Html.DropDownListFor(m => m.filter.FilterSignarute.Priorities, new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Priority", id = "priorSelect", multiple = "multiple" })
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Priorities, new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Priority", id = "priorSelect", multiple = "multiple", title="Priority" })
                 @*@Html.DropDownList("Priority", listItemsPriors, new { @class = "selectpicker popup-dropdown", placeholder = "Priority", id = "priorSelect", multiple="multiple" })*@
                 @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
                     <input type="hidden" name="priority">
@@ -133,7 +136,7 @@
                         }
                     </div>
                 </div>*@
-                @Html.DropDownListFor(m => m.filter.FilterSignarute.Statuses, new MultiSelectList(listItemsSts, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Status", id = "statusSelect", multiple = "multiple" })
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Statuses, new MultiSelectList(listItemsSts, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Status", id = "statusSelect", multiple = "multiple", title = "Status" })
             </div>
         </div>
     </div>
@@ -141,7 +144,7 @@
     <div class="row">
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="z-index: 5;">
-                @Html.DropDownListFor(m => m.users_id, new MultiSelectList(listItemsUsers, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Project", id = "userSelect", multiple = "multiple" })
+                @Html.DropDownListFor(m => m.users_id, new MultiSelectList(listItemsProjects, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Project", id = "userSelect", multiple = "multiple", title = "Project" })
                 @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
                     <input type="hidden" name="project">
                     <i class="dropdown icon"></i>
@@ -160,7 +163,7 @@
 
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="height: 20px;z-index: 5;">
-                @Html.DropDownListFor(m => m.projects_id, new MultiSelectList(listItemsProjects, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Assignee", id = "userSelect", multiple = "multiple" })
+                @Html.DropDownListFor(m => m.projects_id, new MultiSelectList(listItemsUsers, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Assignee", id = "userSelect", multiple = "multiple", title = "User" })
                 @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
                     <input type="hidden" name="user">
                     <i class="dropdown icon"></i>
@@ -260,5 +263,11 @@
         {
             <text>alert(@Model.FilterSignarute.Priorities.Count)</text>
         }*@
+    });
+</script>
+
+<script>
+    $('.selectpicker').selectpicker({
+        dropupAuto: false
     });
 </script>
