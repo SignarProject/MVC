@@ -208,6 +208,7 @@ namespace AsignarBusinessLayer.Services
                 bugToUpdate.AssigneeID = updatedItem.AssigneeID;
                 bugToUpdate.User = _dbContext.Users.Find(updatedItem.AssigneeID);
                 updatedItem.Project = _converter.ProjectToDTO(bugToUpdate.Project, true);
+                updatedItem.User = _converter.UserToDTO(bugToUpdate.User, true);
                 _notificationService.BugReassigned(updatedItem, new List<string>());
             }
 
@@ -260,6 +261,33 @@ namespace AsignarBusinessLayer.Services
             }
 
             return dtoResult;
+        }
+
+        public ICollection<BugDTO> AdvancedSearch(FilterDTO searchingFilter)
+        {
+            ICollection<BugDTO> resultCollection = new List<BugDTO>();
+
+            ICollection<BugDTO> searchCollection = GetAllItems().Where(b => b.Subject.Contains(searchingFilter.FilterSignarute.SearchString)).Select(b => b).ToList();
+
+            foreach(var project in searchingFilter.FilterSignarute.Projects)
+            {
+                var tempList = new List<BugDTO>();
+
+                tempList = searchCollection.Where(b => b.ProjectID.Equals(project.ProjectID)).Select(b => b).ToList();
+
+                resultCollection.Concat(tempList);
+            }
+
+            foreach (var assignee in searchingFilter.FilterSignarute.Assignees)
+            {
+                var tempList = new List<BugDTO>();
+
+                tempList = searchCollection.Where(b => b.AssigneeID.Equals(assignee.UserID)).Select(b => b).ToList();
+
+                resultCollection.Concat(tempList);
+            }
+
+            return null;
         }
     }
 }
