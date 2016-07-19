@@ -1,0 +1,186 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@model ICollection<UserDTO>
+@{
+    ViewBag.Title = "Users";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+}
+<div class="container container-form">
+    <div class="row">
+        <div style="margin-right: 20px; margin-top: 15px;">
+            <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Users</h2>
+            @if (user.IsAdmin)
+            {
+                <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewUserPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add user"></i>
+            }
+            else
+            {
+                <div style="display: inline-block;width: 28px;height: 48px;">
+
+                </div>
+            }
+
+
+            @{CreateNewUserModel partModel = new CreateNewUserModel(); }
+            @Html.Partial("~/Views/Popup/CreateNewUser.cshtml", partModel)
+@if (Model != null && Model.Count > 1)
+{
+            <div class="search-bar-common pull-right" style="margin-top: 22px;">
+                <form role="search" style="display: flex;">
+                    <input type="text" class="form-control search-bar" style="border: 0px; box-shadow: 0 0 0" placeholder="Search">
+                    <span>
+                        <button type="submit" class="search-page-btn">
+                            <span class="icon-search navSearchIcon search-span-icon"></span>
+                        </button>
+                    </span>
+                </form>
+            </div>
+}
+        </div>
+
+        <div style="height: 34px;">
+            @*<label class="short-info" style="margin-left: -42px; margin-top:10px;">Sort by:</label>
+            <div class="dropdown" style="display: inline">
+                <form style="display:inline">
+                    <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown" style="background: transparent !important;">
+                        Title
+                        <span class="caret" style="border-top-color: #92c1ba"></span>
+                    </button>
+                    <ul class="dropdown-menu bootrap-dropdown-ul-modif" style="padding: 0px">
+                        <li><a href="#">Title</a></li>
+                        <li><a href="#">Status</a></li>
+                        <li><a href="#">Priority</a></li>
+                        <li><a href="#">Assignee</a></li>
+                    </ul>
+                </form>
+            </div>*@
+        </div>
+
+        <div class="row" style="margin: 15px">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var userI in Model)
+                {
+                    if (userI.UserID == user.UserID)
+                    {
+                        continue;
+                    }
+                    string UserRole = "Common user";
+                    if (userI.IsAdmin == true)
+                    {
+                        UserRole = "Administrator";
+                    }
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="table-elem shadow-div" onClick="ProfileClick(@userI.UserID)">
+                            @if (user.IsAdmin)
+                            {
+                                <i class="fa fa-times-circle delete-form-icon pull-right" id="close-icon" onclick="DeleteUser(this, @userI.UserID)"></i>
+                            }
+                            @{
+                                string url_ava = userI.AvatarPath;
+                            }
+                            <img src= @url_ava class="users-av" />
+                            <div class="users-info-helper" style="max-width: 80%;">
+                                <p class="zero-merg" style="font-size: 85%;"><b class="no-text-overflow">@userI.Name @userI.Surname </b></p>
+                                <p class="zero-merg no-text-overflow" style="font-size: 75%">@userI.Email</p>
+                                @if (userI.IsAdmin)
+                                {
+                                    <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10; color:forestgreen;">@UserRole</p>
+                                }
+                                else
+                                {
+                                    <p class="zero-merg" style="font-size: 75%; position: absolute;margin-top: 25px;margin-left: -42px;z-index: 10;">@UserRole</p>
+                                }
+
+                            </div>
+                            <div class="row">
+                                <p class="pull-right label zero-merg p label info-block" style="margin-top: 17px !important;">
+                                    <i class="fa fa-edit  info-icon" style="font-size: 18px!important;position: relative;top: 1px;"></i> <label>@userI.Bugs.Count</label>
+                                    <i class="fa fa-th-list  info-icon"></i> <label>@userI.Projects.Count</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+        @{
+            int count = Model.Count - 1;
+        }
+        <div class="row">
+            <p class="pull-left p i, label zero-merg p label">
+                <i class="fa fa-users  info-icon"></i> <label style="margin-right: 2px">Users:</label> <label class="user-count">@count</label>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    #users-menu-div {
+        background-color: #92C1BA !important;
+    }
+</style>
+
+
+<script>
+    function ShowCreateNewUserPopup() {
+        $("#createUserPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Create new user",
+            modal: true,
+            resizable: false,
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+
+
+<script>
+    function ProfileClick(UserID) {
+        @{
+            string url = "/Home/TheProfile/";
+        }
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length
+        if (closeHovered == null || closeHovered == 0) location.href = '@url' + UserID;
+    }
+</script>
+@if (user.IsAdmin) {
+<script>
+    function DeleteUser(el, UserID) {
+        $.ajax({
+            url: '/Home/DeleteUser',
+            data: { UserID: UserID },
+            method: 'POST',
+            error: function (xhr, status, error) {
+                //$(el).parent().parent().show();
+                alert(error);
+            },
+            success: function (result) {
+                //alert(result);
+                cnt = $(".user-count").text() - 1;
+                $(el).parent().parent().hide();
+                $(".user-count").text(cnt);
+            }
+        })
+    }
+</script>
+}

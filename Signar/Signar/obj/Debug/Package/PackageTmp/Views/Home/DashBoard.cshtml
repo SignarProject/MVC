@@ -1,0 +1,183 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@{
+    ViewBag.Title = "Dashboard";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    string UserRole = "Common user";
+    if (user.IsAdmin == true)
+    {
+        UserRole = "Administrator";
+    }
+    int HiddenProjectsCount = 0;
+    int HiddenBugsCount = 0;
+    HashSet<int> HiddenProjectID = new HashSet<int>();
+}
+
+@if (user.Bugs.Count == 0 && user.Projects.Count == 0)
+{
+    <h1 style="margin-top: 20%;color: black; vertical-align:middle; text-align:center;">Seems like you are a new user... <span style="color: #4D868D;">Welcome!</span></h1>
+}
+else
+{
+    <div class="container double-container">
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-4">
+                <div class="col">
+                    <div style="margin: 0px 0px 40px 0px">
+                        <h2 style="margin: 20px 0px 40px 0px">My Projects</h2>
+                    </div>
+                    @{
+                        int count = 0;
+                    }
+                    @foreach (var project in user.Projects)
+                    {
+                        if (project.IsDeleted)
+                        {
+                            HiddenProjectsCount++;
+                            HiddenProjectID.Add(project.ProjectID);
+                            continue;
+                        }
+                        if (count < 4)
+                        {
+                            count++;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        <div class="table-elem shadow-div project-div" onClick="ProjectClick(@project.ProjectID)">
+                            @if (user.IsAdmin)
+                            {
+                                <i class="fa fa-times-circle delete-form-icon pull-right" onCLick="DeleteFromProject(this, @project.ProjectID)" id="close-icon"></i>
+                            }
+                            <h4 class="h4-zero-topmargin no-text-overflow"> @project.Name</h4>
+                            <p class="prefix-style">@project.Prefix</p>
+                            <div class="row">
+                                <p class="pull-right p i, label zero-merg p label info-block">
+                                    <i class="fa fa-edit"style="font-size:16px;"></i> <label>@project.BugsAmount</label>
+                                    <i class="fa fa-users"style="font-size:14px;"></i> <label>@project.UsersAmount</label>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    @if (user.Projects.Count > 0)
+                    {
+                        string url2 = "/Home/Projects/" + user.UserID;
+                        <a href=@url2 class="a-links" display inline-block;">Show all</a> <i class="fa fa-long-arrow-right" style="color: #4D868D;  margin-top:3px; font-size: 75%"></i>
+                    }
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="col">
+                    <div style="margin: 0px 0px 40px 0px">
+                        <h2 style="margin: 20px 0px 40px 0px">Assigned To Me</h2>
+                    </div>
+                    @if (user.Bugs.Count > 0)
+                    {
+                        <div class="shadow-div">
+                            <div style="display:inline-block; vertical-align: middle; width:100%;">
+                                @foreach (BugDTO bug in user.Bugs)
+                                {
+                                    if (HiddenProjectID.Contains(bug.ProjectID))
+                                    {
+                                        HiddenBugsCount++;
+                                        continue;
+                                    }
+                                    <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
+                                        @{
+                                            switch ((int)@bug.Priority)
+                                            {
+                                                case 0:
+                                                    <img src="~/Content/Priority_img/critical_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 1:
+                                                    <img src="~/Content/Priority_img/exclamation_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 2:
+                                                    <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                                case 3:
+                                                    <img src="~/Content/Priority_img/minor_prior.png" style="vertical-align:top;" />
+                                                    break;
+                                            }
+                                        }
+
+                                        <div class="bugs-descrip-block" style="width: 90%;">
+                                            <label class="zero-merg inner-bugs-label">@bug.Prefix</label>
+                                            @{
+                                                switch ((int)@bug.Status)
+                                                {
+                                                    case 0:
+                                                        <label class="bug-status-display bug-status-todo zero-merg">Open</label>
+                                                        break;
+                                                    case 1:
+                                                        <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                                        break;
+                                                    case 2:
+                                                        <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                                                        break;
+                                                    case 3:
+                                                        <label class="bug-status-display bug-status-testing zero-merg">Testing</label>
+                                                        break;
+                                                    case 4:
+                                                        <label class="bug-status-display bug-status-done_close zero-merg">Closed</label>
+                                                        break;
+                                                }
+                                            }
+                                            <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">@bug.Subject</p>
+                                        </div>
+
+                                    </div>
+                                                }
+                            </div>
+                        </div>
+                                                }
+                    <div class="row">
+                        <div class="pull-left short-info">
+                            @{
+                                int BugsCount = user.Bugs.Count - HiddenBugsCount;
+                            }
+                            <i class="fa fa-edit" style="font-size: 150%;"></i> <label>All my tasks: @BugsCount @if (HiddenBugsCount > 0)
+                            { <text> (+@HiddenBugsCount)</text>}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function TaskClick(BugID) {
+        @{
+            string url3 = "/Home/Task/";
+        }
+        location.href = '@url3' + BugID;
+    }
+</script>
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url = "/Home/Project/";
+        }
+        closeHovered = $('.shadow-div').find("#close-icon:hover").length;
+        if (closeHovered == null || closeHovered == 0) location.href = '@url' + ProjectID;
+    }
+</script>
+
+<script>
+    function DeleteFromProject(el, ProjectID)
+    {
+        $.ajax({
+            url: '/Home/DeleteUserFromProject',
+            data: { ProjectID: ProjectID, UserID: @user.UserID },
+            method: 'POST'
+        })
+           .success(function () {
+               $(el).parent().hide();
+           })
+           .error(function (mess) {
+           })
+    }
+</script>
