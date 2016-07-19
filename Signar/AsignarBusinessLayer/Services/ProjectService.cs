@@ -26,18 +26,15 @@ namespace AsignarBusinessLayer.Services
         public bool CreateItem(ProjectDTO newItem)
         {
             Project newProject = _converter.ProjectFromDTO(newItem);
-
-
+            
             if(_dbContext.Projects.Any(p => p.Prefix.Equals(newItem.Prefix)))
             {
                 return false;
             }
-
-
+            
             _dbContext.Projects.Add(newProject);
             _dbContext.SaveChanges();
-
-
+            
             return true;
         }
         

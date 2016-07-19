@@ -167,7 +167,7 @@ namespace AsignarBusinessLayer.Converters
             newFilter.UserID = filterDTO.UserID;
             newFilter.User = _dbContext.Users.Find(filterDTO.UserID);
             newFilter.Title = filterDTO.Title;
-
+            
             var newSignature = FilterSignatureFromDTO(filterDTO.FilterSignarute);
             
             newFilter.FilterContent = JsonConvert.SerializeObject(newSignature);
@@ -312,12 +312,34 @@ namespace AsignarBusinessLayer.Converters
 
             foreach (var project in filterSignatureDTO.Projects)
             {
-                newfilterSignature.Projects.Add(ProjectFromDTO(project));
+                var tempProjectData = _dbContext.Projects.Where(p => p.Prefix.Equals(project.Prefix)).First();
+
+                var projectData = new Project();
+
+                projectData.ProjectID = tempProjectData.ProjectID;
+                projectData.Name = tempProjectData.Name;
+                projectData.Prefix = tempProjectData.Prefix;
+                projectData.IsDeleted = tempProjectData.IsDeleted;
+
+                newfilterSignature.Projects.Add(projectData);
             }
 
             foreach (var assignee in filterSignatureDTO.Assignees)
             {
-                newfilterSignature.Assignees.Add(UserFromDTO(assignee));
+                var tempAssgineeData = _dbContext.Users.Where(u => u.Email.Equals(assignee.Email)).First();
+
+                var assgineeData = new User();
+
+                assgineeData.UserID = tempAssgineeData.UserID;
+                assgineeData.Email = tempAssgineeData.Email;
+                assgineeData.Name = tempAssgineeData.Name;
+                assgineeData.Surname = tempAssgineeData.Surname;
+                assgineeData.Login = tempAssgineeData.Login;
+                assgineeData.Password = tempAssgineeData.Password;
+                assgineeData.AvatarImagePath = tempAssgineeData.AvatarImagePath;
+                assgineeData.IsAdmin = tempAssgineeData.IsAdmin;
+
+                newfilterSignature.Assignees.Add(assgineeData);
             }
 
             foreach (var status in filterSignatureDTO.Statuses)
