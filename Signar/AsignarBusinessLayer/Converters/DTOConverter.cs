@@ -172,12 +172,12 @@ namespace AsignarBusinessLayer.Converters
 
             foreach(var priority in signature.Priorities)
             {
-                filterDTO.FilterSignarute.Priorities.Add(priority);
+                filterDTO.FilterSignarute.Priorities.Add((PriorityDTO)priority);
             }
 
             foreach(var status in signature.Statuses)
             {
-                filterDTO.FilterSignarute.Statuses.Add(status);
+                filterDTO.FilterSignarute.Statuses.Add((StatusDTO)status);
             }
 
             return filterDTO;
@@ -207,12 +207,12 @@ namespace AsignarBusinessLayer.Converters
 
             foreach(var priority in filterDTO.FilterSignarute.Priorities)
             {
-                newSignature.Priorities.Add(priority);
+                newSignature.Priorities.Add((Priority) priority);
             }
 
             foreach(var status in filterDTO.FilterSignarute.Statuses)
             {
-                newSignature.Statuses.Add(status);
+                newSignature.Statuses.Add((Status)status);
             }
 
             newFilter.FilterContent = _xmlConvert.SerializeFilter(newSignature);
@@ -293,12 +293,12 @@ namespace AsignarBusinessLayer.Converters
                 {
                     userDTO.Comments.Add(CommentToDTO(comment));
                 }
-            }                  
-            
-            foreach (var filter in user.Filters)
-            {
-                userDTO.Filters.Add(FilterToDTO(filter));
-            }
+
+                foreach (var filter in user.Filters)
+                {
+                    userDTO.Filters.Add(FilterToDTO(filter));
+                }
+            }                          
 
             return userDTO;
         }

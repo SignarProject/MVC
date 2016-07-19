@@ -42,7 +42,10 @@ namespace AsignarDataAccessLayer.SerializationSignatures
 
         public FilterSignature()
         {
-
+            Projects = new HashSet<Project>();
+            Assignees = new HashSet<User>();
+            Priorities = new HashSet<Priority>();
+            Statuses = new HashSet<Status>();
         }
     }
 }
