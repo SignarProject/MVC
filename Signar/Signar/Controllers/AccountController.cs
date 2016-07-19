@@ -57,26 +57,33 @@ namespace Signar.Controllers
         [CustomAuthenticate]
         public ActionResult Login()
         {
-            /*var filterService = new FilterService();
-            var userService = new UserService();
-            var projectService = new ProjectService();
+            /*using (var filterService = new FilterService())
+            {
+                using (var userService = new UserService())
+                {
+                    using (var projectService = new ProjectService())
+                    {
+                        var filterDTO = new FilterDTO();
+                        filterDTO.Title = "The Second Filter";
+                        filterDTO.UserID = 47;
+                        filterDTO.FilterSignarute.SearchString = "bug";
 
-            var filterDTO = new FilterDTO();
-            filterDTO.Title = "The Second Filter";
-            filterDTO.UserID = 1;
-            filterDTO.FilterSignarute.SearchString = "bug";
+                        filterDTO.FilterSignarute.Projects.Add(projectService.GetItem(4));
+                        filterDTO.FilterSignarute.Assignees.Add(userService.GetItem(1));
+                        filterDTO.FilterSignarute.Assignees.Add(userService.GetItem(6));
+                        filterDTO.FilterSignarute.Assignees.Add(userService.GetItem(46));
 
-            filterDTO.FilterSignarute.Projects.Add(projectService.GetItem(4));
-            filterDTO.FilterSignarute.Assignees.Add(userService.GetItem(1));
-            filterDTO.FilterSignarute.Assignees.Add(userService.GetItem(46));
+                        filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Major);
+                        filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Urgent);
+                        filterDTO.FilterSignarute.Statuses.Add(StatusDTO.InTesting);
+                        filterDTO.FilterSignarute.Statuses.Add(StatusDTO.Closed);
+                        filterDTO.FilterSignarute.Statuses.Add(StatusDTO.Done);
 
-            filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Critical);
-            filterDTO.FilterSignarute.Priorities.Add(PriorityDTO.Minor);
-            filterDTO.FilterSignarute.Statuses.Add(StatusDTO.Open);
-            filterDTO.FilterSignarute.Statuses.Add(StatusDTO.InProgress);
-        
-            filterService.CreateItem(filterDTO);*/
-
+                        filterService.CreateItem(filterDTO);
+                    }
+                }
+            }*/            
+           
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)

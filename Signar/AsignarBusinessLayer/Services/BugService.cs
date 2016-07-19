@@ -7,6 +7,7 @@ using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarBusinessLayer.Converters;
 using AsignarDataAccessLayer.AzureADBModel;
 using AsignarBusinessLayer.Services.ServiceInterfaces;
+using AsignarDataAccessLayer.SerializationSignatures;
 using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
@@ -265,26 +266,55 @@ namespace AsignarBusinessLayer.Services
 
         public ICollection<BugDTO> AdvancedSearch(FilterDTO searchingFilter)
         {
-            ICollection<BugDTO> resultCollection = new List<BugDTO>();
+            ICollection<BugDTO> resultCollection;
 
             ICollection<BugDTO> searchCollection = GetAllItems().Where(b => b.Subject.Contains(searchingFilter.FilterSignarute.SearchString)).Select(b => b).ToList();
 
-            foreach(var project in searchingFilter.FilterSignarute.Projects)
-            {
-                var tempList = new List<BugDTO>();
+            var projectMatchList = new List<BugDTO>();
 
-                tempList = searchCollection.Where(b => b.ProjectID.Equals(project.ProjectID)).Select(b => b).ToList();
+            if (searchingFilter.FilterSignarute.Projects.Count > 0)
+            {                
+                foreach (var project in searchingFilter.FilterSignarute.Projects)
+                {
+                    projectMatchList.Concat(searchCollection.Where(b => b.ProjectID.Equals(project.ProjectID)).Select(b => b).ToList());
+                }
+            }                  
 
-                resultCollection.Concat(tempList);
+            var assigneeMatchList = new List<BugDTO>();
+
+            if (searchingFilter.FilterSignarute.Assignees.Count > 0)
+            {                
+                foreach (var assignee in searchingFilter.FilterSignarute.Assignees)
+                {
+                    assigneeMatchList.Concat(searchCollection.Where(b => b.AssigneeID.Equals(assignee.UserID)).Select(b => b).ToList());
+                }
             }
 
-            foreach (var assignee in searchingFilter.FilterSignarute.Assignees)
+            if (projectMatchList.Count > 0 && assigneeMatchList.Count > 0)
             {
-                var tempList = new List<BugDTO>();
+               var intersectedList = projectMatchList.Intersect(assigneeMatchList);
+            }
 
-                tempList = searchCollection.Where(b => b.AssigneeID.Equals(assignee.UserID)).Select(b => b).ToList();
+            var statusMatchList = new List<BugDTO>();
 
-                resultCollection.Concat(tempList);
+            if(searchingFilter.FilterSignarute.Statuses.Count != 0)
+            {
+                foreach (var status in searchingFilter.FilterSignarute.Statuses)
+                {
+                    statusMatchList.Concat(searchCollection.Where(b => b.Status.Equals((Status)status)).Select(b => b).ToList());
+                }
+            }
+
+            var priorityMatchList = new List<BugDTO>();
+
+            if(searchingFilter.FilterSignarute.Priorities.Count != 0)
+            {
+
+            }
+
+            foreach (var priority in searchingFilter.FilterSignarute.Priorities)
+            {
+
             }
 
             return null;
