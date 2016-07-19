@@ -237,6 +237,8 @@
         -moz-box-shadow: 0 0 2px rgba(0, 0, 0, .2);
     }
 
+
+
         .dropdownProfile ul li {
             margin-left: 0px;
             width: 100%;
@@ -292,10 +294,6 @@
 .navbar-collapse {
     border: 0px;
     border: none !important;
-}
-
-.navSearchIcon:hover{
-    color:azure !important;
 }
 
 @media handheld,screen (min-width: 992px) {

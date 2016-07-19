@@ -1,0 +1,273 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs;
+@model FilterInfoDTO
+
+@{ 
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    
+
+
+    List<SelectListItem> listItemsPriors = new List<SelectListItem>();
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Critical",
+        Value = "0"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Major",
+        Value = "1",
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Minor",
+        Value = "2"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Urgent",
+        Value = "3"
+    });
+
+    List<SelectListItem> listItemsSts = new List<SelectListItem>();
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Open",
+        Value = "0"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InProgress",
+        Value = "1",
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Done",
+        Value = "2"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InTesting",
+        Value = "3"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Closed",
+        Value = "4"
+    });
+
+    List<SelectListItem> listItemsProjects = new List<SelectListItem>();
+    foreach (ProjectDTO project1 in Model.projects)
+    {
+        listItemsProjects.Add(new SelectListItem
+        {
+            Text = project1.Name,
+            Value = project1.ProjectID.ToString(),
+        });
+    }
+
+    List<SelectListItem> listItemsUsers = new List<SelectListItem>();
+    foreach (UserDTO user1 in Model.users)
+    {
+        listItemsUsers.Add(new SelectListItem
+        {
+            Text = user1.Name + " " + user1.Surname,
+            Value = user.UserID.ToString(),
+        });
+    }
+    //ICollection<PriorityDTO> priors = new List<PriorityDTO>();
+    //priors.Add(PriorityDTO.Critical);
+    //priors.Add(PriorityDTO.Major);
+    //priors.Add(PriorityDTO.Minor);
+    //priors.Add(PriorityDTO.Urgent);
+}
+
+<div id="createFilterPopup" class="table-responsive popup-common">
+@using (Ajax.BeginForm("CreateNewFilter", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "createFilterPopup" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(m => m.filter.Title, new { @class = "form-control popup-field", placeholder = "Title" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(m => m.filter.FilterSignarute.SearchString, new { @class = "form-control popup-field", placeholder = "Search" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Priorities, new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Priority", id = "priorSelect", multiple = "multiple", title="Priority" })
+                @*@Html.DropDownList("Priority", listItemsPriors, new { @class = "selectpicker popup-dropdown", placeholder = "Priority", id = "priorSelect", multiple="multiple" })*@
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                    <input type="hidden" name="priority">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Priority</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 8; ++i)
+                        {
+                            <div class="item" data-value="priority@i">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/major_prior.png">
+                                <span style="color:#F69C00; background-color:transparent;">Major @i</span>
+                            </div>
+                        }
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group">
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                    <input type="hidden" name="status">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Status</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <div class="item" data-value="status@i">
+                                Status @i
+                            </div>
+                        }
+                    </div>
+                </div>*@
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Statuses, new MultiSelectList(listItemsSts, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Status", id = "statusSelect", multiple = "multiple", title = "Status" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group" style="z-index: 5;">
+                @Html.DropDownListFor(m => m.users_id, new MultiSelectList(listItemsProjects, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Project", id = "userSelect", multiple = "multiple", title = "Project" })
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                    <input type="hidden" name="project">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Project</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <div class="item" data-value="project@i">
+                                The Titan @i
+                            </div>
+                        }
+                    </div>
+                </div>*@
+            </div>
+        </div>
+
+        <div class="container col-xs-6" id="wrap">
+            <div class="btn-group" style="height: 20px;z-index: 5;">
+                @Html.DropDownListFor(m => m.projects_id, new MultiSelectList(listItemsUsers, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Assignee", id = "userSelect", multiple = "multiple", title = "User" })
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Assignee</div>
+                    <div class="menu" style="z-index: 10;">
+                        @for (int i = 0; i < 15; ++i)
+                        {
+                            <div class="item" data-value="name@i">
+                                <img class="ui mini avatar image popup-av" src="~/Content/img/ava1.jpg">
+                                Jenny Hess @i
+                            </div>
+                        }
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
+
+    </div>
+    <input type="button" value="Create" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjaxFilter(this)" />
+}
+    @*<div class="row">
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Priority <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">Major</a></li>
+                        <li><a href="#">Minor</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Status <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">Opened</a></li>
+                        <li><a href="#">Closed</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Project <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle popup-dropdown" data-toggle="dropdown">Assignee <span class="popup-arrow icon-arrow1 pull-right"></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">John</a></li>
+                        <li><a href="#">Snow</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>*@
+    
+</div>
+
+<style>
+    .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f0b0";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 18px;
+        font-weight: 100;
+    }
+</style>
+
+<script>
+    $("#priorSelect").change(function () {
+        var priorities = $("#priorSelect").find("option:selected");
+
+        //var prioritiesDropDown = elemForm.find('[name="Text"]');
+
+        var prioritiesArray = [];
+
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+            //alert(prioritiesArray[i]);
+        }
+        @*@if(Model.FilterSignarute.Priorities.Count > 0)
+        {
+            <text>alert(@Model.FilterSignarute.Priorities.Count)</text>
+        }*@
+    });
+</script>
+
+<script>
+    $('.selectpicker').selectpicker({
+        dropupAuto: false
+    });
+</script>

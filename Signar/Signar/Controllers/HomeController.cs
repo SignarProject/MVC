@@ -60,6 +60,22 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
+        public ActionResult CreateNewFilter(string[] Priorities, string[] Statuses, string[] Users, string[] Projects)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditUserData(EditUserDataModel model)
         {

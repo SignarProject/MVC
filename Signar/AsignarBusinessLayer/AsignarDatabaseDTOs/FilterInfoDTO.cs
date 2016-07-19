@@ -13,15 +13,15 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
         public FilterDTO filter = new FilterDTO();
         public ICollection<UserDTO> users;
         public ICollection<ProjectDTO> projects;
-        public ICollection<int> users_id;
-        public ICollection<int> projects_id;
+        public string Statuses { get; set; } = "";
+        public string Priorities { get; set; } = "";
+        public string UserIDs { get; set; } = "";
+        public string ProjectIDs { get; set; } = "";
 
         public FilterInfoDTO()
         {
             users = new List<UserDTO>();
             projects = new List<ProjectDTO>();
-            users_id = new List<int>();
-            projects_id = new List<int>();
         }
     }
 }

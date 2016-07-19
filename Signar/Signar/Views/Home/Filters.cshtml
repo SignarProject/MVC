@@ -187,3 +187,48 @@
             });
         });
 </script>
+
+<script>
+    function CLickAjaxFilter(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        $(btnClicked).css('pointer-events', 'none');
+
+        var priorities = $("#priorSelect").find("option:selected");
+        var prioritiesArray = [];
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+        }
+        var statuses = $("#statusSelect").find("option:selected");
+        var statusesArray = [];
+        for (var i = 0; i < statuses.length; ++i) {
+            statusesArray.push(statuses[i].value);
+        }
+        var users = $("#userSelect").find("option:selected");
+        var usersArray = [];
+        for (var i = 0; i < users.length; ++i) {
+            usersArray.push(users[i].value);
+        }
+        var projects = $("#projectSelect").find("option:selected");
+        var projectsArray = [];
+        for (var i = 0; i < projects.length; ++i) {
+            projectsArray.push(projects[i].value);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/CreateNewFilter",
+            data: {Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray},
+            error: function (xhr, status, error) {
+                alert(error);
+                $(btnClicked).css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup2").dialog('close');
+                $(btnClicked).css('pointer-events', 'auto');
+                window.location.reload();
+            }
+        });
+
+        return false;
+
+    }
+</script>
