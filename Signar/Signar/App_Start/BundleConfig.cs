@@ -10,7 +10,8 @@ namespace Signar
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery*",
-                        "~/Scripts/semantic*"));
+                        "~/Scripts/semantic*",
+                        "~/Scripts/chosen*"));
 
             bundles.Add(new ScriptBundle("~/bundles/navbar-menu").Include(
                         "~/Scripts/navbar-menu.js"));
@@ -30,15 +31,16 @@ namespace Signar
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap*",
                       "~/Scripts/respond.js",
                       "~/Scripts/dropdown.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap*",
                       "~/Content/site.css",
                       "~/Content/dropdown.css",
-                      "~/Content/site.avatar.css"));
+                      "~/Content/site.avatar.css",
+                      "~/Content/chosen*"));
 
             bundles.Add(new StyleBundle("~/Content/navbar-menu").Include(
                       "~/Content/navbar-menu.css"));

@@ -1,8 +1,81 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs;
-@model FilterDTO
+@model FilterInfoDTO
 
 @{ 
     UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    List<SelectListItem> listItemsPriors = new List<SelectListItem>();
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Critical",
+        Value = "0"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Major",
+        Value = "1",
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Minor",
+        Value = "2"
+    });
+    listItemsPriors.Add(new SelectListItem
+    {
+        Text = "Urgent",
+        Value = "3"
+    });
+
+    List<SelectListItem> listItemsSts = new List<SelectListItem>();
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Open",
+        Value = "0"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InProgress",
+        Value = "1",
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Done",
+        Value = "2"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "InTesting",
+        Value = "3"
+    });
+    listItemsSts.Add(new SelectListItem
+    {
+        Text = "Closed",
+        Value = "4"
+    });
+
+    List<SelectListItem> listItemsProjects = new List<SelectListItem>();
+    foreach (ProjectDTO project1 in Model.projects)
+    {
+        listItemsProjects.Add(new SelectListItem
+        {
+            Text = project1.Name,
+            Value = project1.ProjectID.ToString(),
+        });
+    }
+
+    List<SelectListItem> listItemsUsers = new List<SelectListItem>();
+    foreach (UserDTO user1 in Model.users)
+    {
+        listItemsProjects.Add(new SelectListItem
+        {
+            Text = user1.Name + " " + user1.Surname,
+            Value = user.UserID.ToString(),
+        });
+    }
+    //ICollection<PriorityDTO> priors = new List<PriorityDTO>();
+    //priors.Add(PriorityDTO.Critical);
+    //priors.Add(PriorityDTO.Major);
+    //priors.Add(PriorityDTO.Minor);
+    //priors.Add(PriorityDTO.Urgent);
 }
 
 <div id="createFilterPopup" class="table-responsive popup-common">
@@ -13,20 +86,21 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
     <div class="row">
         <div class="col-xs-12">
-            @Html.TextBoxFor(m => m.Title, new { @class = "form-control popup-field", placeholder = "Title" })
+            @Html.TextBoxFor(m => m.filter.Title, new { @class = "form-control popup-field", placeholder = "Title" })
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-            @Html.TextBoxFor(m => m.FilterSignarute.SearchString, new { @class = "form-control popup-field", placeholder = "Search" })
+            @Html.TextBoxFor(m => m.filter.FilterSignarute.SearchString, new { @class = "form-control popup-field", placeholder = "Search" })
         </div>
     </div>
 
     <div class="row">
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group">
-                @*@Html.DropDownListFor(m => m.FilterSignarute.Priorities, new MultiSelectList(Model.FilterSignarute.Priorities, "PriorityID", "Priority"), new { @class = "chzn-select popup-dropdown", data_placeholder = "Priority" })*@
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Priorities, new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Priority", id = "priorSelect", multiple = "multiple" })
+                @*@Html.DropDownList("Priority", listItemsPriors, new { @class = "selectpicker popup-dropdown", placeholder = "Priority", id = "priorSelect", multiple="multiple" })*@
                 @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
                     <input type="hidden" name="priority">
                     <i class="dropdown icon"></i>
@@ -46,7 +120,7 @@
         
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
                     <input type="hidden" name="status">
                     <i class="dropdown icon"></i>
                     <div class="default text">Status</div>
@@ -58,7 +132,8 @@
                             </div>
                         }
                     </div>
-                </div>
+                </div>*@
+                @Html.DropDownListFor(m => m.filter.FilterSignarute.Statuses, new MultiSelectList(listItemsSts, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Status", id = "statusSelect", multiple = "multiple" })
             </div>
         </div>
     </div>
@@ -66,7 +141,8 @@
     <div class="row">
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="z-index: 5;">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
+                @Html.DropDownListFor(m => m.users_id, new MultiSelectList(listItemsUsers, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Project", id = "userSelect", multiple = "multiple" })
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" style="z-index: 20;">
                     <input type="hidden" name="project">
                     <i class="dropdown icon"></i>
                     <div class="default text">Project</div>
@@ -78,13 +154,14 @@
                             </div>
                         }
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
 
         <div class="container col-xs-6" id="wrap">
             <div class="btn-group" style="height: 20px;z-index: 5;">
-                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
+                @Html.DropDownListFor(m => m.projects_id, new MultiSelectList(listItemsProjects, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1", data_placeholder = "Assignee", id = "userSelect", multiple = "multiple" })
+                @*<div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown">
                     <input type="hidden" name="user">
                     <i class="dropdown icon"></i>
                     <div class="default text">Assignee</div>
@@ -97,11 +174,8 @@
                             </div>
                         }
                     </div>
-                </div>
+                </div>*@
 
-            </div>
-            <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px;; z-index: 10; left: 70%;">
-                Assign to me
             </div>
         </div>
 
@@ -169,3 +243,22 @@
         font-weight: 100;
     }
 </style>
+
+<script>
+    $("#priorSelect").change(function () {
+        var priorities = $("#priorSelect").find("option:selected");
+
+        //var prioritiesDropDown = elemForm.find('[name="Text"]');
+
+        var prioritiesArray = [];
+
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+            //alert(prioritiesArray[i]);
+        }
+        @*@if(Model.FilterSignarute.Priorities.Count > 0)
+        {
+            <text>alert(@Model.FilterSignarute.Priorities.Count)</text>
+        }*@
+    });
+</script>

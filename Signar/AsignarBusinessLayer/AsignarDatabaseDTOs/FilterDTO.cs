@@ -22,7 +22,7 @@ namespace AsignarBusinessLayer.AsignarDatabaseDTOs
 
         public FilterDTO()
         {
-
+            FilterSignarute = new FilterSignatureDTO();
         }
     }
 }
