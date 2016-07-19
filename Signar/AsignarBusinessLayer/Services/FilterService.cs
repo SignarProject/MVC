@@ -53,6 +53,20 @@ namespace AsignarBusinessLayer.Services
             throw new NotImplementedException();
         }
 
+        public ICollection<FilterDTO> GetAllItemsByUserID(int id)
+        {
+            ICollection<FilterDTO> filtersDTO = new HashSet<FilterDTO>();
+
+            ICollection<Filter> filters = _dbContext.Filters.Where(f => f.UserID.Equals(id)).Select(f => f).ToList();
+
+            foreach (var filter in filters)
+            {
+                filtersDTO.Add(_converter.FilterToDTO(filter));
+            }
+
+            return filtersDTO;
+        }
+
         public FilterDTO GetItem(int id)
         {
             Filter filter = _dbContext.Filters.Find(id);
