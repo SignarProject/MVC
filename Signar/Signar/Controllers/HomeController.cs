@@ -60,6 +60,22 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
+        public ActionResult CreateNewFilter(string[] Priorities, string[] Statuses, string[] Users, string[] Projects)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+
+            return new HttpStatusCodeResult(200, "OK");
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditUserData(EditUserDataModel model)
         {
@@ -925,6 +941,30 @@ namespace Signar.Controllers
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
 
             return View(Me.Filters);
+        }
+
+        [HttpGet]
+        public ActionResult GetAddFilterInfo()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            FilterInfoDTO res = new FilterInfoDTO();
+            using (ProjectService prS = new ProjectService())
+            {
+                res.projects = prS.GetAllItems();
+            }
+            using (UserService usrS = new UserService())
+            {
+                res.users = usrS.GetAllItems();
+            }
+            return PartialView("~/Views/Popup/CreateNewFilter.cshtml", res);
         }
 
         public ActionResult Users()

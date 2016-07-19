@@ -9,17 +9,14 @@
     <div class="row">
         <div style="margin-right: 20px; margin-top: 15px;">
             <h2 class="pull-left" style="margin: 20px 0px 40px 0px">Filters</h2>
-            <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewFilterPopup()"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add filter"></i>
+            <i class="fa fa-plus fontbutton-style  fa-custom-button" id ="AddFilterButton"style="padding: 5px 6px 3px 6px; margin: 24px 5px 5px 10px;" onclick="ShowCreateNewFilterPopup()"  data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Add filter"></i>
             @{ 
-                FilterDTO mFilter = new FilterDTO();
-                FilterSignatureDTO mFS = new FilterSignatureDTO();
-                ICollection<ProjectDTO> proj = new List<ProjectDTO>();
-                ICollection<UserDTO> usr = new List<UserDTO>();
-                mFS.Projects = proj;
-                mFS.Assignees = usr;
-                mFilter.FilterSignarute = mFS;
+                FilterInfoDTO mFilter = new FilterInfoDTO();
             }
-            @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml", mFilter)
+            <div id="AddFilterDiv">
+                @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml", mFilter)
+            </div>
+            
 
             <div class="search-bar-common pull-right" style="margin-top: 22px;">
                 <form role="search" style="display: flex;">
@@ -54,6 +51,27 @@
         <div class="row" style="margin: 15px">
             @foreach (FilterDTO filter in Model)
             {
+                string status_info = "";
+                foreach (StatusDTO st in filter.FilterSignarute.Statuses)
+                {
+                    status_info += st.ToString()+ ", ";
+                }
+                string prior_info = "";
+                foreach (PriorityDTO pr in filter.FilterSignarute.Priorities)
+                {
+                    prior_info += pr.ToString() + ", ";
+                }
+                string user_info = "";
+                foreach (UserDTO usr in filter.FilterSignarute.Assignees)
+                {
+                    user_info += usr.Name + " " + usr.Surname + ", ";
+                }
+                string project_info = "";
+                foreach (ProjectDTO prj in filter.FilterSignarute.Projects)
+                {
+                    project_info += prj.Name + ", ";
+                }
+
                 <div class="col-md-4 col-sm-6 col-xs-12" style="overflow:no-display">
                     <div class="table-elem shadow-div" style="position:relative;">
                         <i class="fa fa-times-circle delete-form-icon pull-right"></i>
@@ -66,16 +84,16 @@
                             </div>
                             <div class="filter-info-col col-helper color-black" style="max-width: 20%;">
                                 <label class="no-text-overflow-sm" style="max-width: 300px;">@filter.FilterSignarute.SearchString</label><br />
-                                <label class="no-text-overflow-sm">Status_Value</label><br />
-                                <label class="no-text-overflow-sm">Priority_Value</label><br />
+                                <label class="no-text-overflow-sm">@status_info</label><br />
+                                <label class="no-text-overflow-sm">@prior_info</label><br />
                             </div>
                             <div class="filter-info-col" style="margin-left: -15px; padding-left: 10px; margin-top: 13px">
                                 <label class="no-text-overflow-sm">Project:</label><br />
                                 <label class="no-text-overflow-sm">Assignee:</label><br />
                             </div>
                             <div class="filter-info-col col-helper color-black" style="padding-left: 10px; margin-top: 13px;width: 45%; margin-right:0px;">
-                                <label class="no-text-overflow-sm" style="max-width: 250px;">Project_Value</label><br />
-                                <label class="no-text-overflow-sm" style="max-width: 250px;">Assignee_Value</label><br />
+                                <label class="no-text-overflow-sm" style="max-width: 250px;">@project_info</label><br />
+                                <label class="no-text-overflow-sm" style="max-width: 250px;">@user_info</label><br />
                             </div>
                         </div>
                     </div>
@@ -150,5 +168,67 @@
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#AddFilterButton').css('pointer-events', 'none');
+        //$('#edit-task-btn').css('color', 'rgb(0, 0, 0, 0.3)');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetAddFilterInfo",
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#AddFilterDiv').html(result);
+                    $('#AddFilterButton').css('pointer-events', 'auto');
+                }
+            });
+        });
+</script>
+
+<script>
+    function CLickAjaxFilter(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        $(btnClicked).css('pointer-events', 'none');
+
+        var priorities = $("#priorSelect").find("option:selected");
+        var prioritiesArray = [];
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+        }
+        var statuses = $("#statusSelect").find("option:selected");
+        var statusesArray = [];
+        for (var i = 0; i < statuses.length; ++i) {
+            statusesArray.push(statuses[i].value);
+        }
+        var users = $("#userSelect").find("option:selected");
+        var usersArray = [];
+        for (var i = 0; i < users.length; ++i) {
+            usersArray.push(users[i].value);
+        }
+        var projects = $("#projectSelect").find("option:selected");
+        var projectsArray = [];
+        for (var i = 0; i < projects.length; ++i) {
+            projectsArray.push(projects[i].value);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/CreateNewFilter",
+            data: {Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray},
+            error: function (xhr, status, error) {
+                alert(error);
+                $(btnClicked).css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup2").dialog('close');
+                $(btnClicked).css('pointer-events', 'auto');
+                window.location.reload();
+            }
+        });
+
+        return false;
+
     }
 </script>
