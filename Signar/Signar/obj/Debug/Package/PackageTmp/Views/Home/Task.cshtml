@@ -1,0 +1,433 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using System.Globalization
+@model BugDTO
+
+@{
+    ViewBag.Title = "Task";
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+}
+
+<div style="height: 35px;"></div>
+
+<div class="container double-container" style="margin-left: 5px;">
+    <div class="row">
+        <span class="project-title-mini" style="font-size: 14px;" onClick="ProjectClick(@Model.ProjectID)">@Model.Project.Name</span> / @Model.Prefix
+    </div>
+    <p style="font-size: 20px; margin-bottom: 0px;">
+        <b style="overflow: auto;">@Model.Subject</b>
+    </p>
+    <div class="row">
+        <div class="edit-profile pull-right" style="margin-right: 3px;">
+
+            @{
+                BugDTO mEdit = new BugDTO();
+            }
+            <div id="EditTaskUpdateDiv">
+                @Html.Partial("~/Views/Popup/EditTask.cshtml", mEdit)
+            </div>
+
+            @if (@user.IsAdmin)
+            {
+            <a onClick=""> <i class="fa fa-trash-o fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;margin-right: 10px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete task" onClick="DeleteTask()" id="copy-task-btn"></i> </a>
+            }
+            @using (Ajax.BeginForm("CopyTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "" }, new { @class="pull-right", @style= "display: inline-block;" }))
+            {
+                <a id="copy-hide"> <i class="fa fa-copy fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Copy task" onClick="CopyTask(this)"></i> </a>
+                @Html.HiddenFor(m => m.Priority);
+                @Html.HiddenFor(m => m.Subject);
+                @Html.HiddenFor(m => m.ProjectID);
+                @Html.HiddenFor(m => m.Status);
+                @Html.HiddenFor(m => m.AssigneeID);
+                @Html.HiddenFor(m => m.Description);
+            }
+            <a onClick="EditTaskPopup()"> <i class="fa fa-pencil fontbutton-style fa-custom-button pull-right" style="padding-left: 6px;padding-right: 6px;" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Edit task" id="edit-task-btn"></i> </a>
+        </div>
+    </div>
+
+
+    <div class="col-md-8" style="margin-top: 10px; padding-left: 0px;">
+        <div class="shadow-div padding-left-div" style="position: relative;">
+            <div class="task-info" style="display:inline-block; vertical-align: middle; width:100%;">
+                <div class="bugs-descrip-block" style="position: relative;">
+                    <b>Priority: </b>
+                    @{
+                        switch ((int)@Model.Priority)
+                        {
+                            case 0:
+                                <img src="~/Content/Priority_img/critical_prior.png" />
+                                    <b style="color:rgb(205, 76, 36); background-color:transparent; margin-top: 2px;">Critical</b>
+                                break;
+                            case 1:
+                                <img src="~/Content/Priority_img/exclamation_prior.png" />
+                                    <b style="color:rgb(205, 76, 36); background-color:transparent; margin-top: 2px;">Urgent</b>
+                                break;
+                            case 2:
+                                <img src="~/Content/Priority_img/major_prior.png" />
+                                    <b style="color:#F69C00; background-color:transparent; margin-top: 2px;">Major</b>
+                                break;
+                            case 3:
+                                <img src="~/Content/Priority_img/minor_prior.png" />
+                                    <b style="color:rgb(179, 171, 168); background-color:transparent; margin-top: 2px;">Minor</b>
+                                break;
+                        }
+                    }
+                </div>
+
+                <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown pull-right white-back" style="width: 170px; margin: 0; margin-top: 4px; z-index:1;" id="status-dd">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Status</div>
+                    <div class="menu" style="z-index: 10;">
+
+                        <div class="item" data-value="1">
+                            <label class="bug-status-display bug-status-todo zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Open</label>
+                        </div>
+                        <div class="item" data-value="2">
+                            <label class="bug-status-display bug-status-in zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">In progress</label>
+                        </div>
+                        <div class="item" data-value="3">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Done</label>
+                        </div>
+                        <div class="item" data-value="4">
+                            <label class="bug-status-display bug-status-testing zero-merg" style="border: 0;background-color: transparent !important; font-size: 14px !important;">Testing</label>
+                        </div>
+                        <div class="item" data-value="5">
+                            <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right" style="display:inline-block; position:relative;">
+                    <b style="position: relative; top: 10px; margin-right: 10px;">Status: </b>
+                </div>
+                @*@for (int i = 0; i < 8; ++i)
+                    {
+                        <div class="bugs-div">
+                            <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                            <div class="bugs-descrip-block" style="width: 90%;">
+                                <label class="zero-merg inner-bugs-label">TDF-123</label> <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">The error message is displayed after tapping on the 'Get Link' button on the volume's 'information' screen</p>
+                            </div>
+
+                        </div>
+                    }*@
+            </div>
+
+            <div class="task-description">
+                <p style="overflow-x: auto;padding-bottom: 10px;height:auto;">
+                        <textarea readonly class="textarea-description" id="text-block">@Html.Raw(Model.Description)</textarea>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-4 double-container-mini" style="margin-top: 0px;">
+        <div class="col-md-12 col-sm-12 col-xs-12 zero-pad-left" style="padding-right: 0px;">
+            <div class="table-elem-static shadow-div project-div-static padding-left-div" style="margin-right: 8px;">
+                <div style="height: 25px;"></div>
+
+                <div class="pull-left" style="display: inline-block; margin-top: -13px; z-index: 10;font-weight: bolder;">
+                    Assignee:
+                </div>
+                <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 10; left: 70%;" onClick="AssignToMe()">
+                    Assign to me
+                </div>
+
+
+                <div style="height: 15px;"></div>
+                @{
+                    UserDTO mAssignee = new UserDTO();
+                }
+                <div id="assignee-div">
+                    @Html.Partial("~/Views/Home/PartialAssignee.cshtml", mAssignee)
+                </div>
+                
+                
+                <div style="height: 15px;"></div>
+
+                <div class="profile-desc" style="margin-bottom: 3px;">
+                    <p>
+                        <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
+                        <b>Created: &nbsp;&nbsp;</b>@Model.CreationDate.ToString("dd/MM/yy h:mm tt", CultureInfo.InvariantCulture)
+                    </p>
+                </div>
+
+                <div class="profile-desc">
+                    <p>
+                        <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block; vertical-align: middle; color: black;"></i>
+                        <b>Updated: &nbsp;</b>@Model.ModificationDate.ToString("dd/MM/yy h:mm tt", CultureInfo.InvariantCulture)
+                    </p>
+                </div>
+
+                <div style="height: 15px;"></div>
+                <p style="font-weight:bold; font-size:13px; margin-bottom: 0px;">
+                    Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 5px 2px 5px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+                </p>
+
+                <ul class="a-links" style="padding: 5px 0px 0px 5px">
+                    <li><a href="url">screen1.jpg</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                    <li><a href="url">screen1.jpg</a><i class="fa fa-close project-delete-icon pull-right"></i></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@{
+    ICollection<CommentDTO> mComment = new List<CommentDTO>();
+}
+<div id="comments-div">
+@Html.Partial("~/Views/Home/CommentsPartial.cshtml", mComment)
+</div>
+
+
+<script>
+    function EditTaskPopup() {
+        $("#EditPopupTask").css({ 'display': "visible" });
+        $("#EditPopupTask").dialog({
+            width: 600,
+            open: LoadProjectsEdit(),
+            fluid: true,
+            modal: true,
+            resizable: false,
+            title: "Edit task",
+            dialogClass: "edit-task-popup",
+            show: { effect: 'clip', duration: 250 },
+            hide: { effect: 'clip', duration: 250 },
+            buttons: [
+        //{
+        //    text: "Change",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function LoadProjectsEdit() {
+        LoadStatus();
+        $('#ProjectDDEdit').css('pointer-events', 'none');
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetAllProjectsEdit",
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                $('#project-buttonEdit').html(result);
+                $('.ui.dropdown').dropdown();
+                $('#ProjectDDEdit').css('pointer-events', 'auto');
+                $('.ui.fluid.dropdown').css('pointer-events', 'auto');
+                $('#UsersDDEdit').css('pointer-events', 'none');
+                $('#ProjectDDEdit').dropdown('set selected', @Model.ProjectID);
+
+                $('#UsersDDEdit').css('pointer-events', 'none');
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetUsersOnProjectEdit",
+                    data: {ProjectID: @Model.ProjectID},
+                    error: function (xhr, status, error) {
+                    },
+                    success: function (result) {
+                        $('#user-buttonEdit').html(result);
+                        $('.ui.dropdown').dropdown();
+                        $('#UsersDDEdit').css('pointer-events', 'auto');
+                        @if (@Model.AssigneeID != null)
+                        {
+                            <text>$('#UsersDDEdit').dropdown('set selected', @Model.AssigneeID);</text>
+                        }
+                        else
+                        {
+                            <text>$('#UsersDDEdit').dropdown('set selected', 0);</text>
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    function LoadStatus(){
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetTaskStatusInfo",
+            data: {BugID: @Model.BugID},
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                $('#StatusDropdownEdit').dropdown('set selected', result);
+            }
+        });
+    }
+</script>
+
+<script>
+    $.ajax({
+        type: "GET",
+        url: "/Home/GetComments",
+        data: {BugID: @Model.BugID},
+        error: function (xhr, status, error) {
+            //alert(error);
+        },
+        success: function (result) {
+            $('#comments-div').html(result);
+            //$(".popup-button").closest("#createUserPopup").dialog('close');
+        }
+    });
+</script>
+
+<script>
+    function ProjectClick(ProjectID) {
+        @{
+            string url3 = "/Home/Project/";
+        }
+        location.href = '@url3' + ProjectID;
+    }
+</script>
+
+<script>
+    @{
+        int st = (int)Model.Status+1;
+    }
+    $('#status-dd').dropdown('set selected', @st);
+    $('#status-dd').change(function()
+    {
+        out = $('#status-dd').dropdown('get value') - 1;
+        $.ajax({
+            type: "POST",
+            url: "/Home/SetTaskStatus",
+            data: {Status: out, BugID: @Model.BugID},
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    });
+    @if(Model != null && Model.User != null)
+    {
+        <text>
+    $.ajax({
+        type: "GET",
+        url: "/Home/GetAssignee",
+        data: {UserID: @Model.User.UserID},
+        error: function (xhr, status, error) {
+            },
+        success: function (result) {
+            $('#assignee-div').html(result);
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+    });
+    </text>
+    }
+</script>
+
+<script>
+    function AssignToMe()
+    {
+            $.ajax({
+                type: "POST",
+                url: "/Home/SetTaskAssignee",
+                data: {UserID: @user.UserID, BugID: @Model.BugID},
+                error: function (xhr, status, error) {
+                    //alert(error);
+                },
+                success: function (result) {
+                    $('#assignee-div').html(result);
+                    //$(".popup-button").closest("#createUserPopup").dialog('close');
+                }
+            });
+    }
+</script>
+
+<script>
+    function AddComment(){
+        $.ajax({
+            type: "POST",
+            url: "/Home/AddComment",
+            data: {BugID: @Model.BugID, Message: $('#CommentInput').val()},
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                $('#comments-div').html(result);
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    }
+</script>
+
+<script>
+    function DeleteTask()
+    {
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteTask",
+            data: {BugID: @Model.BugID},
+            error: function (xhr, status, error) {
+            },
+            success: function (result) {
+                document.location.href="/Home/Dashboard";
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    }
+</script>
+
+<script>
+    function CopyTask(btnClicked)
+    {
+        $('#copy-hide').css('pointer-events', 'none');
+        var $form = $(btnClicked).closest('form');
+        $.ajax({
+            type: "POST",
+            url: "/Home/CopyTask",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+                $('#copy-hide').css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                document.location.href="/Home/Task/"+result;
+                //$(".popup-button").closest("#createUserPopup").dialog('close');
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#edit-task-btn').css('pointer-events', 'none');
+        //$('#edit-task-btn').css('color', 'rgb(0, 0, 0, 0.3)');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetTaskInfo",
+                data: {BugID: @Model.BugID},
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#EditTaskUpdateDiv').html(result);
+                    //$('#edit-task-btn').css('color', '#4D868D');
+                    $('.ui.dropdown').dropdown();
+                    $('#edit-task-btn').css('pointer-events', 'auto');
+                }
+            });
+        });
+</script>
+
+<script>
+    $('.ui.dropdown').dropdown();
+    var text = document.getElementById('text-block');
+        text.style.height = 'auto';
+        text.style.height = text.scrollHeight+'px';
+</script>

@@ -1,0 +1,77 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model ICollection<CommentDTO>
+@{ 
+    UserDTO Me = Cache[User.Identity.Name] as UserDTO;
+}
+
+<div class="col-lg-12 zero-pad-left" style="padding-left: 36px !important;padding-right: 37px; margin-top:15px;">
+    <div class="shadow-div">
+        <div style="display:inline-block; vertical-align: middle; width:100%;margin-left: 6px; border: none;">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (CommentDTO comment in Model)
+                {
+                    <div class="bugs-div @if (!Me.IsAdmin && comment.UserID != Me.UserID) {<text>no-hover</text> } bugs-div-comments" style="border-bottom-style: none;" onClick="DeleteComment(this, @comment.CommentID)">
+                        <div style="display:inline-block;">
+                            <img src=@comment.User.AvatarPath class="profile-av" style="width: 40px; height: 40px; margin-bottom:0px !important;" />
+                            <div class="user-name" style="max-width: 200px; vertical-align:middle; margin-top: 0px;">
+                                <p class="zero-merg" style="overflow: hidden; width: 200px; font-size: 13px;">@comment.User.Name @comment.User.Surname</p>
+                                <p class="zero-merg" style="font-size: 12px; overflow: auto;max-width: 200px;">@comment.User.Email</p>
+                            </div>
+                        </div>
+                            <b class="word-break" style="margin-left: 0px; vertical-align:top; overflow-x: auto;">@comment.Text</b>
+                        
+                        <div>
+                            <label style="font-size: 11px;">@comment.CreationDate.ToString("dd/MM/yy h:mm tt")</label>
+                        </div>
+                    </div>
+                }
+
+                @*<div class="bugs-div">
+                        @if (bug.User != null)
+                            {
+                                <div class="user-info-block" style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; width: 23%;">
+                                    @{
+                                        string ava_url = bug.User.AvatarPath;
+                                    }
+                                    <img src=@ava_url class="users-av" style="margin-top: 0px !important;" />
+                                    <div class="users-info-helper" style="margin-top: 0px !important;display: inline-block;">
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 85%; display:block;">@bug.User.Name @bug.User.Surname</p>
+                                        <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 75%; display:block;">@bug.User.Email</p>
+                                    </div>
+                                </div>
+                                        }
+
+
+
+                                        }
+                    </div>*@
+            }
+        </div>
+        <div style="display: inline-block;margin-top: 10px;width: 100%;">
+            <input type="text" maxlength="140" name="Comment" id="CommentInput" class="form-control" style="width: 64%;margin-left: 12px;" />
+            <div>
+                <input type="button" value="Add comment" class="popup-button pull-left" style="color: #4D868D" onCLick="AddComment()" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+        function DeleteComment(el, CommentID) {
+            $.ajax({
+                url: '/Home/DeleteComment',
+                data: { CommentID: CommentID },
+                method: 'POST'
+            })
+            .success(function () {
+                $(el).hide();
+            })
+            .error(function (mess) {
+                //$(el).parent().parent().show();
+                //alert(mess);
+            })
+        }
+</script>

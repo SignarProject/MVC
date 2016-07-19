@@ -1,0 +1,202 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@model BugDTO
+@{
+    UserDTO user = Cache[User.Identity.Name] as UserDTO;
+    //string Title = (string)ViewData["Title"];
+    //string Description1 = (string)ViewData["Description"];
+    //int Priority = (int)ViewData["Priority"];
+    //int Status = (int)ViewData["Status"];
+    //int ProjectID = (int)ViewData["ProjectID"];
+    //int UserID;
+    //if (ViewData["UserID"] != null)
+    //{
+    //    UserID = (int)ViewData["UserID"];
+    //} else
+    //{
+    //    UserID = 0;
+    //}
+
+    //ICollection<AttachmentDTO> attachments = ViewData["Attachments"] as ICollection<AttachmentDTO>;
+}
+<div id="EditPopupTask" class="table-responsive popup-common">
+    @if (Model != null)
+    {
+    using (Ajax.BeginForm("EditTask", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "EditPopupTask" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger logo-margin error-ful-info" })
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control popup-field", placeholder = "Title", @Value = @Model.Subject })
+            </div>
+        </div>
+
+        <div class="row">
+            @{
+                List<ProjectDTO> m_projects = new List<ProjectDTO>();
+            }
+
+            <div id="project-buttonEdit">
+                @Html.Partial("~/Views/Popup/ProjectsDropdownEdit.cshtml", m_projects)
+            </div>
+            @Html.HiddenFor(m => m.ProjectID, new { @class = "project_id_edit", @Value = @Model.ProjectID })
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group" style="height: 20px;">
+                    @{
+                        List<UserDTO> m2 = new List<UserDTO>();
+                    }
+                    <div id="user-buttonEdit">
+                        @Html.Partial("~/Views/Popup/UsersOnProjectsDropdownEdit.cshtml", m2)
+                    </div>
+                    @Html.HiddenFor(m => m.AssigneeID, new { @class = "assignee_id_edit", @Value = @Model.AssigneeID })
+                </div>
+                <div class="advanced-search-link pull-right" style="display: inline-block; margin-top: -13px; z-index: 20; left: 70%; margin-top: 22px;" onClick="AssignToMeEdit()">
+                    Assign to me
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group" style="z-index: 5;">
+                    <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="PriorityDropdownEdit">
+                        <input type="hidden" name="priority">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Priority</div>
+                        <div class="menu" style="z-index: 10;" id="menu-dropdown-priority">
+                            <div class="item" data-value="0">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/critical_prior.png">
+                                <span style="color:rgb(205, 76, 36);  background-color:transparent!important;">Critical</span>
+                            </div>
+                            <div class="item" data-value="1">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/exclamation_prior.png">
+                                <span style="color:rgb(205, 76, 36);  background-color:transparent!important;">Urgent</span>
+                            </div>
+                            <div class="item" data-value="2">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/major_prior.png">
+                                <span style="color:#F69C00; background-color:transparent!important;">Major</span>
+                            </div>
+                            <div class="item" data-value="3">
+                                <img class="ui mini avatar image popup-av" src="~/Content/Priority_img/minor_prior.png">
+                                <span style="color:rgb(179, 171, 168);  background-color:transparent!important;">Minor</span>
+                            </div>
+                            @Html.HiddenFor(m => m.Priority, new { @class = "priority_n", @Value = @Model.Priority });
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container col-xs-6" id="wrap">
+                <div class="btn-group" style="z-index: 5;">
+                    <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown" id="StatusDropdownEdit" style="z-index: 20;">
+                        <input type="hidden" name="status">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Status</div>
+                        <div class="menu" style="z-index: 10;" id="menu-dropdown-status">
+                            <div class="item" data-value="0">
+                                <label class="bug-status-display bug-status-todo zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Open</label>
+                            </div>
+                            <div class="item" data-value="1">
+                                <label class="bug-status-display bug-status-in zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">In progress</label>
+                            </div>
+                            <div class="item" data-value="2">
+                                <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Done</label>
+                            </div>
+                            <div class="item" data-value="3">
+                                <label class="bug-status-display bug-status-testing zero-merg" style="border: 0;background-color: transparent !important; font-size: 14px !important;">Testing</label>
+                            </div>
+                            <div class="item" data-value="4">
+                                <label class="bug-status-display bug-status-done_close zero-merg" style="border: 0; background-color: transparent !important; font-size: 14px !important;">Closed</label>
+                            </div>
+                            @Html.HiddenFor(m => m.Status, new { @class = "status_n", @Value = @Model.Status })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control popup-field popup-text-area TextAreaEditTask", placeholder = "Description", Value = @Model.Description })
+                </div>
+            </div>
+
+            <p style="padding-left: 11px; font-weight:bold; font-size:13px;">
+                Attachments <i class="fa fa-plus fontbutton-style  fa-custom-button" style="padding: 3px 5px 2px 5px;font-size: 110%;border: solid 1px; border-radius: 20px;"></i>
+            </p>
+
+        </div>
+        @Html.HiddenFor(m => m.BugID, new { @Value = @Model.BugID });
+        <input type="button" value="Save" class="popup-button pull-right" style="color: #4D868D" onClick="CLickAjaxTaskEdit(this)" />
+                        }
+                        }
+</div>
+
+<style>
+    .edit-task-popup .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f044";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 20px;
+        vertical-align: middle;
+        font-weight: 100;
+    }
+</style>
+
+@*<script>
+    $('textarea.TextAreaEditTask').val(@Html.Raw(Description1));
+</script>*@
+
+@*<script>
+    $(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+    });
+</script>*@
+
+<script>
+    function AssignToMeEdit(){
+        $('.assignee_id_edit').val(@user.UserID);
+        $('#UsersDDEdit').dropdown('set selected', @user.UserID);
+    }
+</script>
+
+<script>
+    function CLickAjaxTaskEdit(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/EditTask",
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (result) {
+                //$(".popup-button").closest("#createUserPopupTask").dialog('close');
+                window.location.reload();
+            }
+        });
+
+        return false;
+
+    }
+</script>
+
+@if (Model != null)
+{
+<script>
+    @{
+        int EditStatus = (int)Model.Status;
+        int EditPrior = (int)Model.Priority;
+    }
+    $('#StatusDropdownEdit').dropdown('set selected', @EditStatus);
+    $('#PriorityDropdownEdit').dropdown('set selected', @EditPrior);
+</script>
+        }
+
+
+
