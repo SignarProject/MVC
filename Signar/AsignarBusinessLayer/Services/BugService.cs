@@ -11,7 +11,7 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class BugService : IService<BugDTO>, IPagingService<BugDTO>, ISearchService<BugDTO>, IDisposable
+    public class BugService : IExtendedService<BugDTO>, IDisposable
     {
         private DTOConverter _converter;
         
@@ -249,14 +249,14 @@ namespace AsignarBusinessLayer.Services
             return true;
         }
 
-        public ICollection<BugDTO> SearchBy(string value)
+        public ICollection<BugDTO> SearchBy(string value, ICollection<BugDTO> searchCollection)
         {
-            ICollection<Bug> searchResult = _dbContext.Bugs.Select(b => b).Where(b => b.Subject.Contains(value)).ToList();
+            ICollection<BugDTO> searchResult = searchCollection.Select(b => b).Where(b => b.Subject.Contains(value)).ToList();
             ICollection<BugDTO> dtoResult = new HashSet<BugDTO>();
 
-            foreach (var bug in searchResult)
+            foreach (var bug in searchCollection)
             {
-                dtoResult.Add(_converter.BugToDTO(bug));
+                dtoResult.Add(bug);
             }
 
             return dtoResult;

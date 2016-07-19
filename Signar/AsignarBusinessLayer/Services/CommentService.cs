@@ -11,7 +11,7 @@ using AsignarBusinessLayer.SortEnum;
 
 namespace AsignarBusinessLayer.Services
 {
-    public class CommentService : IExtendedService<CommentDTO>, IDisposable
+    public class CommentService : IService<CommentDTO>, IDisposable
     {
         private DTOConverter _converter;
 
@@ -69,11 +69,6 @@ namespace AsignarBusinessLayer.Services
             CommentDTO commentDTO = _converter.CommentToDTO(comment);
 
             return commentDTO;
-        }
-
-        public ICollection<CommentDTO> GetPage(int pageNumber, SortBy sortValue, int itemAtOnce)
-        {
-            throw new NotImplementedException();
         }
 
         public bool UpdateItem(CommentDTO updatedItem)

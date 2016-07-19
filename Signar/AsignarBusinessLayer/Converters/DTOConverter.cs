@@ -7,14 +7,13 @@ using AsignarBusinessLayer.AsignarDatabaseDTOs;
 using AsignarDataAccessLayer.AzureADBModel;
 using AsignarDataAccessLayer.SerializationSignatures;
 using AsignarDataAccessLayer.AzureASModel;
+using Newtonsoft.Json;
 
 namespace AsignarBusinessLayer.Converters
 {
     public class DTOConverter
     {
         private AsignarDBModel _dbContext;
-
-        private XMLConverter _xmlConvert;
 
         private AsignarBlobModel _storageContext;
 
@@ -150,35 +149,13 @@ namespace AsignarBusinessLayer.Converters
         {
             var filterDTO = new FilterDTO();
 
-            _xmlConvert = new XMLConverter();
-
             filterDTO.FilterID = filter.FilterID;
             filterDTO.UserID = filter.UserID;
             filterDTO.Title = filter.Title;
 
-            FilterSignature signature = _xmlConvert.DeserializeFilter(filter.FilterContent);
+            FilterSignature signature = JsonConvert.DeserializeObject<FilterSignature>(filter.FilterContent);
 
-            filterDTO.FilterSignarute.SearchString = signature.SearchString;
-
-            foreach(var project in signature.Projects)
-            {
-                filterDTO.FilterSignarute.Projects.Add(ProjectToDTO(project, true));
-            }
-
-            foreach(var assignee in signature.Assignees)
-            {
-                filterDTO.FilterSignarute.Assignees.Add(UserToDTO(assignee, true));
-            }
-
-            foreach(var priority in signature.Priorities)
-            {
-                filterDTO.FilterSignarute.Priorities.Add((PriorityDTO)priority);
-            }
-
-            foreach(var status in signature.Statuses)
-            {
-                filterDTO.FilterSignarute.Statuses.Add((StatusDTO)status);
-            }
+            filterDTO.FilterSignarute = FilterSignatureToDTO(signature);
 
             return filterDTO;
         }
@@ -190,32 +167,10 @@ namespace AsignarBusinessLayer.Converters
             newFilter.UserID = filterDTO.UserID;
             newFilter.User = _dbContext.Users.Find(filterDTO.UserID);
             newFilter.Title = filterDTO.Title;
+
+            var newSignature = FilterSignatureFromDTO(filterDTO.FilterSignarute);
             
-            var newSignature = new FilterSignature();
-
-            newSignature.SearchString = filterDTO.FilterSignarute.SearchString;
-
-            foreach(var project in filterDTO.FilterSignarute.Projects)
-            {
-                newSignature.Projects.Add(ProjectFromDTO(project));
-            }
-
-            foreach(var assignee in filterDTO.FilterSignarute.Assignees)
-            {
-                newSignature.Assignees.Add(UserFromDTO(assignee));
-            }
-
-            foreach(var priority in filterDTO.FilterSignarute.Priorities)
-            {
-                newSignature.Priorities.Add((Priority) priority);
-            }
-
-            foreach(var status in filterDTO.FilterSignarute.Statuses)
-            {
-                newSignature.Statuses.Add((Status)status);
-            }
-
-            newFilter.FilterContent = _xmlConvert.SerializeFilter(newSignature);
+            newFilter.FilterContent = JsonConvert.SerializeObject(newSignature);
 
             return newFilter;
         }
@@ -317,6 +272,64 @@ namespace AsignarBusinessLayer.Converters
             newUser.IsAdmin = userDTO.IsAdmin;
 
             return newUser;
+        }
+
+        private FilterSignatureDTO FilterSignatureToDTO(FilterSignature filterSignature)
+        {
+            var filterSignatureDTO = new FilterSignatureDTO();
+
+            filterSignatureDTO.SearchString = filterSignature.SearchString;
+            
+            foreach(var project in filterSignature.Projects)
+            {
+                filterSignatureDTO.Projects.Add(ProjectToDTO(project, true));
+            }
+
+            foreach(var assignee in filterSignature.Assignees)
+            {
+                filterSignatureDTO.Assignees.Add(UserToDTO(assignee, true));
+            }
+
+            foreach(var status in filterSignature.Statuses)
+            {
+                filterSignatureDTO.Statuses.Add((StatusDTO)status);
+            }
+
+            foreach(var priority in filterSignature.Priorities)
+            {
+                filterSignatureDTO.Priorities.Add((PriorityDTO)priority);
+            }
+
+            return filterSignatureDTO;
+        }
+
+        private FilterSignature FilterSignatureFromDTO(FilterSignatureDTO filterSignatureDTO)
+        {
+            var newfilterSignature = new FilterSignature();
+
+            newfilterSignature.SearchString = filterSignatureDTO.SearchString;
+
+            foreach (var project in filterSignatureDTO.Projects)
+            {
+                newfilterSignature.Projects.Add(ProjectFromDTO(project));
+            }
+
+            foreach (var assignee in filterSignatureDTO.Assignees)
+            {
+                newfilterSignature.Assignees.Add(UserFromDTO(assignee));
+            }
+
+            foreach (var status in filterSignatureDTO.Statuses)
+            {
+                newfilterSignature.Statuses.Add((Status)status);
+            }
+
+            foreach (var priority in filterSignatureDTO.Priorities)
+            {
+                newfilterSignature.Priorities.Add((Priority)priority);
+            }
+
+            return newfilterSignature;
         }
     }
 }

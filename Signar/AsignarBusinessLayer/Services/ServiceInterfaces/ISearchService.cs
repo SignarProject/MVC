@@ -8,6 +8,6 @@ namespace AsignarBusinessLayer.Services.ServiceInterfaces
 {
     interface ISearchService<T> where T : class
     {
-        ICollection<T> SearchBy(string value);
+        ICollection<T> SearchBy(string value, ICollection<T> searchCollection);
     }
 }

@@ -57,7 +57,7 @@ namespace Signar.Controllers
         [CustomAuthenticate]
         public ActionResult Login()
         {
-            var filterService = new FilterService();
+            /*var filterService = new FilterService();
 
             var filterDTO = new FilterDTO();
             filterDTO.Title = "The First Filter";
@@ -68,7 +68,7 @@ namespace Signar.Controllers
             filterDTO.FilterSignarute.Statuses.Add(StatusDTO.Open);
             filterDTO.FilterSignarute.Statuses.Add(StatusDTO.InProgress);
 
-            filterService.CreateItem(filterDTO);
+            filterService.CreateItem(filterDTO);*/
 
             if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
             //if (Request.Cookies["auth"] == null) return View();
