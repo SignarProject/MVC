@@ -35,9 +35,9 @@ namespace AsignarBusinessLayer.Services
 
         public bool DeleteItem(int id)
         {
-            Attachment attachment = _dbContext.Attachments.Find(id);
+            Comment com = _dbContext.Comments.Find(id);
 
-            _dbContext.Attachments.Remove(attachment);
+            _dbContext.Comments.Remove(com);
             _dbContext.SaveChanges();
 
             return true;

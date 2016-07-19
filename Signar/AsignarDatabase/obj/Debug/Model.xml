@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="AsignarDatabase.dll" />
-			<Metadata Name="FileName" Value="C:\GIT\MVC\SIGNAR\ASIGNARDATABASE\OBJ\DEBUG\ASIGNARDATABASE.DLL" />
+			<Metadata Name="FileName" Value="E:\2016\WEB\MVC\SIGNAR\ASIGNARDATABASE\OBJ\DEBUG\ASIGNARDATABASE.DLL" />
 			<Metadata Name="AssemblyName" Value="AsignarDatabase" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>

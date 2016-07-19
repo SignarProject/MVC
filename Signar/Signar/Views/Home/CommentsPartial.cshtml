@@ -13,13 +13,14 @@
                 {
                     <div class="bugs-div @if (!Me.IsAdmin && comment.UserID != Me.UserID) {<text>no-hover</text> } bugs-div-comments" style="border-bottom-style: none;" onClick="DeleteComment(this, @comment.CommentID)">
                         <div style="display:inline-block;">
-                            <img src=@comment.User.AvatarPath class="profile-av" style="width: 40px; height: 40px;" />
-                            <div class="user-name" style="max-width: 200px;">
-                                <p class="zero-merg; overflow: auto;">@comment.User.Name @comment.User.Surname</p>
-                                <p class="zero-merg" style="font-size: 12px; overflow: auto;">@comment.User.Email</p>
+                            <img src=@comment.User.AvatarPath class="profile-av" style="width: 40px; height: 40px; margin-bottom:0px !important;" />
+                            <div class="user-name" style="max-width: 200px; vertical-align:middle; margin-top: 0px;">
+                                <p class="zero-merg" style="overflow: hidden; width: 200px; font-size: 13px;">@comment.User.Name @comment.User.Surname</p>
+                                <p class="zero-merg" style="font-size: 12px; overflow: auto;max-width: 200px;">@comment.User.Email</p>
                             </div>
                         </div>
-                        @comment.Text
+                            <b class="word-break" style="margin-left: 0px; vertical-align:top; overflow-x: auto;">@comment.Text</b>
+                        
                         <div>
                             <label style="font-size: 11px;">@comment.CreationDate.ToString("dd/MM/yy h:mm tt")</label>
                         </div>

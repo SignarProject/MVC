@@ -69,11 +69,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-header pull-right">
                 <li class="navbar-form navSearchMenu">
-                    <div class="pull-left" style="display: none;" id="navbarSearch">
+                    @*<div class="pull-left" style="display: none;" id="navbarSearch">
                         <input type="text" class="form-control" placeholder="Search" id="navbarSearchField">
 
                     </div>
-                    <div class="icon-search navSearchIcon pull-right" onclick="showSearch()" />
+                    <div class="icon-search navSearchIcon pull-right" onclick="showSearch()" />*@
+                    <div class="icon-search navSearchIcon pull-right" onCLick="GoToSearch()"/>
                 </li>
                 @*<li class="navTextH">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "navTextH" })</li>*@
                 @*<li class="navTextH">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navTextH rightText" })</li>*@
@@ -161,4 +162,10 @@
                 }
             });
         }
+</script>
+
+<script>
+    function GoToSearch() {
+        location.href = "/Home/Search";
+    }
 </script>

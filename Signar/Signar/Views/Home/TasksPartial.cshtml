@@ -1,0 +1,90 @@
+﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
+@using Signar.Models
+@model ICollection<BugDTO>
+
+<div class="col-md-12 zero-pad-left" style="padding-right: 20px;">
+    <div class="shadow-div">
+        <div class="no-border-last" style="display:inline-block; vertical-align: middle; width:100%;">
+            @foreach (BugDTO bug in Model)
+            {
+                <div class="bugs-div" onClick="TaskClick(@bug.BugID)">
+                    @{
+                        switch ((int)@bug.Priority)
+                        {
+                            case 0:
+                                <img src="~/Content/Priority_img/critical_prior.png" style="vertical-align:top;" />
+                                break;
+                            case 1:
+                                <img src="~/Content/Priority_img/exclamation_prior.png" style="vertical-align:top;" />
+                                break;
+                            case 2:
+                                <img src="~/Content/Priority_img/major_prior.png" style="vertical-align:top;" />
+                                break;
+                            case 3:
+                                <img src="~/Content/Priority_img/minor_prior.png" style="vertical-align:top;" />
+                                break;
+                        }
+                    }
+
+                    <div class="bugs-descrip-block" style="width: 40%;">
+                        <label class="zero-merg inner-bugs-label">@bug.Prefix</label>
+                        @{
+                            switch ((int)@bug.Status)
+                            {
+                                case 0:
+                                    <label class="bug-status-display bug-status-todo zero-merg">Open</label>
+                                    break;
+                                case 1:
+                                    <label class="bug-status-display bug-status-in zero-merg">In progress</label>
+                                    break;
+                                case 2:
+                                    <label class="bug-status-display bug-status-done_close zero-merg">Done</label>
+                                    break;
+                                case 3:
+                                    <label class="bug-status-display bug-status-testing zero-merg">Testing</label>
+                                    break;
+                                case 4:
+                                    <label class="bug-status-display bug-status-done_close zero-merg">Closed</label>
+                                    break;
+                            }
+                        }
+                        <p class="bugs-descrip zero-merg" style="width: 100%;overflow:auto;">@bug.Subject</p>
+                    </div>
+                    <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:92px;">
+                        <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 14px; "></label> <label class="zero-merg inner-bugs-label" style="font-size: 14px; margin-left:1px; overflow:hidden;">@bug.Project.Name</label></p>
+                    </div>
+                    <div style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; min-width:92px;">
+                        <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px; ">Created: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px; margin-left:1px;">@bug.CreationDate.Date.ToString("dd/MM/yy")</label></p>
+                        <p style="margin-bottom: 0px;"><label class="zero-merg" style="font-size: 11px;">Updated: </label> <label class="zero-merg inner-bugs-label" style="font-size: 10px;">@bug.ModificationDate.Date.ToString("dd/MM/yy")</label></p>
+                    </div>
+                    @if (bug.User != null)
+                    {
+                        <div class="user-info-block" style="display:inline-block; vertical-align: middle;  width: 14%; max-height: 280px; width: 23%;">
+                            @{
+                                string ava_url = bug.User.AvatarPath;
+                            }
+                            <img src=@ava_url class="users-av" style="margin-top: 0px !important;" />
+                            <div class="users-info-helper" style="margin-top: 0px !important;display: inline-block;">
+                                <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 85%; display:block;">@bug.User.Name @bug.User.Surname</p>
+                                <p class="zero-merg no-text-overflow-project-user-info" style="font-size: 75%; display:block;">@bug.User.Email</p>
+                            </div>
+                        </div>
+                                }
+
+
+                </div>
+                                }
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="pull-left short-info">
+        <i class="fa fa-edit" style="font-size: 190%"></i> <label>Tasks: @Model.Count</label>
+    </div>
+</div>
+
+
+
+
