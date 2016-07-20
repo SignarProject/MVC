@@ -143,6 +143,86 @@ namespace Signar.Controllers
         }
 
         [HttpPost]
+        public ActionResult SuperSearch(string[] Priorities, string[] Statuses, string[] Users, string[] Projects, string Title, string Search)
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            if (Search == null) Search = "";
+            if (Title == null || Title == "") return new HttpStatusCodeResult(1, "Title can not be empty");
+
+            if (Statuses == null) Statuses = new string[0];
+            if (Priorities == null) Priorities = new string[0];
+            if (Users == null) Users = new string[0];
+            if (Projects == null) Projects = new string[0];
+
+            FilterDTO filter = new FilterDTO();
+            foreach (string s in Priorities)
+            {
+                filter.FilterSignarute.Priorities.Add((PriorityDTO)(int.Parse(s)));
+            }
+            foreach (string s in Statuses)
+            {
+                filter.FilterSignarute.Statuses.Add((StatusDTO)(int.Parse(s)));
+            }
+            foreach (string s in Users)
+            {
+                int id = int.Parse(s);
+                using (UserService userService = new UserService())
+                {
+                    filter.FilterSignarute.Assignees.Add(userService.GetItem(id));
+                }
+            }
+            foreach (string s in Projects)
+            {
+                int id = int.Parse(s);
+                using (ProjectService projectService = new ProjectService())
+                {
+                    filter.FilterSignarute.Projects.Add(projectService.GetItem(id));
+                }
+            }
+            filter.Title = Title;
+            filter.FilterSignarute.SearchString = Search;
+            filter.UserID = Me.UserID;
+            ICollection<BugDTO> bugs;
+            try
+            {
+                using (BugService bugService = new BugService())
+                {
+                    bugs = bugService.AdvancedSearch(filter);
+                }
+                return PartialView("~/Views/Home/TasksPartial.cshtml", bugs);
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(1, "Error during search. Please, try again");
+            }
+
+        }
+
+        public ActionResult GetAllFiltersPopup()
+        {
+            UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+            using (UserService userService = new UserService())
+            {
+                HttpContext.Cache[User.Identity.Name] = userService.GetItem(Me.UserID);
+            }
+            Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
+            if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
+
+            ICollection<FilterDTO> res = Me.Filters;
+            if(res == null) res = new List<FilterDTO>();
+            return PartialView("~/Views/Popup/ChooseFilter.cshtml", res);
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditUserData(EditUserDataModel model)
         {

@@ -844,7 +844,10 @@ border-top-color: rgba(0, 0, 0, 0.3) !important;
     }
 }
 
-
+.hover-active:hover{
+    cursor: pointer;
+    background-color: azure;
+}
 
 @media (min-width: 768px) {
     .double-container {
