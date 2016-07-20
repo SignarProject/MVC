@@ -142,7 +142,6 @@ namespace Signar.Controllers
 
         }
 
-        [HttpGet]
         public ActionResult SortBy(int SortBy, string Bugs)
         {
             UserDTO Me = HttpContext.Cache[User.Identity.Name] as UserDTO;
@@ -166,7 +165,7 @@ namespace Signar.Controllers
                     {
                         bgs.Add(bs.GetItem(BugID));
                     }
-                    res = bs.Sort(bgs, SortBy);
+                    res = bs.Sort(bgs, (AsignarBusinessLayer.SortEnum.SortBy)SortBy);
                 }
 
                 return PartialView("~/Views/Home/TasksPartial.cshtml", res);
