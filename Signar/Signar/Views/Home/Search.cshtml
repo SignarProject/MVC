@@ -211,7 +211,7 @@
 
 </div>
 
-<script>
+@*<script>
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -223,7 +223,7 @@
             }
         });
     });
-</script>
+</script>*@
 
 <script>
     function TaskClick(BugID) {
@@ -242,11 +242,16 @@
 
 <script>
     window.onload = function () {
+        @if (Model.filter.FilterID != 0){
+            <text>
         setUsers(@user_info);
         setProjects(@project_info);
         setPriors(@prior_info);
         setStatuses(@status_info);
+            </text>
+        }
         LoadAllFilters();
+        SuperSearch($('#SSButton'));
     };
 </script>
 
@@ -328,7 +333,7 @@
         $.ajax({
             type: "POST",
             url: "/Home/SuperSearch",
-            data: { Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray, Title: @Model.filter.Title, Search: $('#FilterSearch').val() },
+            data: { Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray, Title: '@Model.filter.Title', Search: $('#FilterSearch').val() },
             error: function (xhr, status, error) {
                 alert(error);
                 $(btnClicked).css('pointer-events', 'auto');
