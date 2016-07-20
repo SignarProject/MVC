@@ -1,6 +1,23 @@
 ﻿@using AsignarBusinessLayer.AsignarDatabaseDTOs
 @using Signar.Models
 @model ICollection<BugDTO>
+    @{ 
+        string bugs = "[";
+        foreach (BugDTO bug in Model)
+        {
+            int stat = bug.BugID;
+            bugs += stat.ToString() + ",";
+        }
+        if (bugs.Length > 0)
+        {
+            bugs = bugs.Remove(bugs.Length - 1);
+        }
+        bugs += "]";
+        if (bugs.Equals("]"))
+        {
+            bugs = "[]";
+        }
+    }
 
 <div class="col-md-12 zero-pad-left" style="padding-right: 20px;">
     <div class="shadow-div">
@@ -88,3 +105,23 @@
 
 
 
+<script>
+    $('#SortBy').dropdown({
+        onChange: function (val) {
+            $('#SortBy').css('pointer-events', 'none');
+            $.ajax({
+                type: "Get",
+                url: "/Home/SortBy",
+                data: {SortBy: val, Bugs: '@bugs'},
+                error: function (xhr, status, error) {
+                    alert(error);
+                    $('#SortBy').css('pointer-events', 'auto');
+                },
+                success: function (result) {
+                    $('#AllTasks').html(result);
+                    $('#SortBy').css('pointer-events', 'auto');
+                }
+            });
+        }
+    });
+</script>

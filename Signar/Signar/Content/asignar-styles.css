@@ -12,6 +12,10 @@ input:-ms-input-placeholder {
     color: #bbbbbb;
 }
 
+.dropdown-sortby{
+    height: 16px !important;
+}
+
 .popup-dropdown-1{
     padding: 0px !important;
     width: 100% !important;

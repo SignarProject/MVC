@@ -137,6 +137,7 @@
     min-height: 100px !important;
     box-shadow: none;
     background-color:rgb(248,252,252);
+    resize:vertical;
 }
 
 #createUserPopup2 {

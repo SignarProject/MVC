@@ -116,6 +116,24 @@
         project_info = project_info.Remove(project_info.Length - 1);
     }
     project_info += "]";
+
+
+    if (project_info.Equals("]"))
+    {
+        project_info = "[]";
+    }
+    if (user_info.Equals("]"))
+    {
+        user_info = "[]";
+    }
+    if (prior_info.Equals("]"))
+    {
+        prior_info = "[]";
+    }
+    if (status_info.Equals("]"))
+    {
+        status_info = "[]";
+    }
 }
 
 <div class="container container-form">
@@ -175,28 +193,39 @@
                 <div style="width: 150px; display:inline-block">
                     <i class="fa fa-repeat fontbutton-style  fa-custom-button"  onClick="setDefault()" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Default options"></i>
                     <i class="fa fa-filter fontbutton-style  fa-custom-button" id ="ChooseFilterButton"style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ChooseFilterPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Choose filter"></i>
-                    <i class="fa fa-save fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px;vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete filter"></i>
-                    
+                    <i class="fa fa-save fontbutton-style  fa-custom-button" onClick="ShowSaveFilterPopup()" id="AddFilterButton" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px;vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Save filter"></i>
+                    @{
+                        FilterInfoDTO mFilter = new FilterInfoDTO();
+                    }
+                    <div style="display: inline-block;" id="AddFilterDiv">
+                        @Html.Partial("~/Views/Popup/CreateNewFilter.cshtml", mFilter)
+                    </div>
                 </div>
                 <input type="button" id ="SSButton"value="Search" class="popup-button pull-right" style="color: #4D868D;margin-right: 19px !important; height: 40px;" onClick="SuperSearch(this)"/>
             </div>
 
             <div class="row">
-                <div class="pull-left" style="margin-top: 5px; margin-left: 0px;">
-                    <label class="short-info">Sort by:</label>
-                    <div class="dropdown" style="display: inline">
-                        <form style="display:inline">
-                            <button class="dropdown-toggle bootrap-btndrop-modif" type="submit" data-toggle="dropdown" style="background: transparent !important;">
-                                Title
-                                <span class="caret" style="border-top-color: #92c1ba"></span>
-                            </button>
-                            <ul class="dropdown-menu bootrap-dropdown-ul-modif" style="padding: 0px">
-                                <li><a href="#">Title</a></li>
-                                <li><a href="#">Status</a></li>
-                                <li><a href="#">Priority</a></li>
-                                <li><a href="#">Assignee</a></li>
-                            </ul>
-                        </form>
+                <div class="pull-left" style="margin-top: 0px; margin-left: 0px;">
+                    <div class="btn-group" style="z-index: 5;">
+                        <div class="btn btn-default ui fluid selection dropdown dropdown-toggle popup-dropdown dropdown-sortby" id="SortBy" style="z-index: 6; height: 16px !important;background-color: white !important; width: 110px;">
+                            <input type="hidden" name="SortBy">
+                            <i class="dropdown icon" style="background-color: white !important;"></i>
+                            <div class="default text" style="font-size: 12px; color:black;background-color: white !important;">Sort by</div>
+                            <div class="menu" style="z-index: 10;" id="menu-dropdown-status">
+                                <div class="item" data-value="1">
+                                    <label class="bug-status-display zero-merg" style="border: 0; background-color: transparent !important; font-size: 12px !important;color:black !important;">Title</label>
+                                </div>
+                                <div class="item" data-value="2">
+                                    <label class="bug-status-display zero-merg" style="border: 0; background-color: transparent !important; font-size: 12px !important;color:black !important;">Status</label>
+                                </div>
+                                <div class="item" data-value="3">
+                                    <label class="bug-status-display zero-merg" style="border: 0; background-color: transparent !important; font-size: 12px !important;color:black !important;">Priority</label>
+                                </div>
+                                <div class="item" data-value="4">
+                                    <label class="bug-status-display zero-merg" style="border: 0;background-color: transparent !important; font-size: 12px !important; color:black !important;">Assignee</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,13 +371,13 @@
                 $('#AllTasks').html(result);
                 //$(".popup-button").closest("#createUserPopup2").dialog('close');
                 $(btnClicked).css('pointer-events', 'auto');
+                $('#SortBy').dropdown('clear');
             }
         });
-
-        return false;
-
     }
 </script>
+
+
 
 <script>
     $('#FilterSearch').bind("enterKey",function(e){
@@ -392,5 +421,125 @@
             }
         });
         $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    function ShowSaveFilterPopup() {
+        $("#createFilterPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Save filter",
+            modal: true,
+            resizable: false,
+            open: MapFields(),
+            dialogClass: "create-filter-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        //{
+        //    text: "Create",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#AddFilterButton').css('pointer-events', 'none');
+        //$('#edit-task-btn').css('color', 'rgb(0, 0, 0, 0.3)');
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetAddFilterInfo",
+                error: function (xhr, status, error) {
+                },
+                success: function (result) {
+                    $('#AddFilterDiv').html(result);
+                    $('#AddFilterButton').css('pointer-events', 'auto');
+                }
+            });
+        });
+</script>
+
+<script>
+    function MapFields() {
+        var priorities = $("#priorSelectSearch").find("option:selected");
+        var prioritiesArray = [];
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+        }
+        var statuses = $("#statusSelectSearch").find("option:selected");
+        var statusesArray = [];
+        for (var i = 0; i < statuses.length; ++i) {
+            statusesArray.push(statuses[i].value);
+        }
+        var users = $("#userSelectSearch").find("option:selected");
+        var usersArray = [];
+        for (var i = 0; i < users.length; ++i) {
+            usersArray.push(users[i].value);
+        }
+        var projects = $("#projectSelectSearch").find("option:selected");
+        var projectsArray = [];
+        for (var i = 0; i < projects.length; ++i) {
+            projectsArray.push(projects[i].value);
+        }
+
+        $('#priorSelect').selectpicker('val', prioritiesArray);
+        $('#statusSelect').selectpicker('val', statusesArray);
+        $('#userSelect').selectpicker('val', usersArray);
+        $('#projectSelect').selectpicker('val', projectsArray);
+        $('#CreateFilterSearch').val($('#FilterSearch').val());
+    }
+</script>
+
+<script>
+    function CLickAjaxFilter(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        $(btnClicked).css('pointer-events', 'none');
+
+        var priorities = $("#priorSelect").find("option:selected");
+        var prioritiesArray = [];
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+        }
+        var statuses = $("#statusSelect").find("option:selected");
+        var statusesArray = [];
+        for (var i = 0; i < statuses.length; ++i) {
+            statusesArray.push(statuses[i].value);
+        }
+        var users = $("#userSelect").find("option:selected");
+        var usersArray = [];
+        for (var i = 0; i < users.length; ++i) {
+            usersArray.push(users[i].value);
+        }
+        var projects = $("#projectSelect").find("option:selected");
+        var projectsArray = [];
+        for (var i = 0; i < projects.length; ++i) {
+            projectsArray.push(projects[i].value);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/CreateNewFilter",
+            data: { Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray, Title: $('#CreateFilterTitle').val(), Search: $('#CreateFilterSearch').val() },
+            error: function (xhr, status, error) {
+                alert(error);
+                $(btnClicked).css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                $(".popup-button").closest("#createFilterPopup").dialog('close');
+                $(btnClicked).css('pointer-events', 'auto');
+            }
+        });
+
+        return false;
+
     }
 </script>
