@@ -153,7 +153,7 @@
                     <div class="shadow-div shadow-div-media" style="height: 64px;">
                         <div class="col-sm-7 col-xs-12" style="padding: 0px !important">
                             <div class="col-md-6 col-xs-12">
-                                @Html.TextBox("SearchString", Model.filter.FilterSignarute.SearchString, htmlAttributes: new { @class = "form-control popup-field", placeholder = "Search", id = "FilterSearch", style = "background-color: rgb(248,252,252) !important;"})
+                                @Html.TextBox("SearchString", Model.filter.FilterSignarute.SearchString, htmlAttributes: new { @class = "form-control popup-field", placeholder = "Search", id = "FilterSearch", style = "background-color: rgb(248,254,254) !important;"})
                             </div>
                             <div class="col-md-3 col-xs-12">
                                 @Html.DropDownList("Priority", new MultiSelectList(listItemsPriors, "Value", "Text"), new { @class = "selectpicker popup-dropdown popup-dropdown-1 white", data_placeholder = "Priority", id = "priorSelectSearch", multiple = "multiple", title = "Priorities", style = "background-color: white !important;" })
