@@ -266,19 +266,32 @@ namespace AsignarBusinessLayer.Services
 
         public ICollection<BugDTO> AdvancedSearch(FilterDTO searchingFilter)
         {
-            ICollection<BugDTO> resultCollection;
+            List<BugDTO> resultCollection = new List<BugDTO>();
 
-            ICollection<BugDTO> searchCollection = GetAllItems().Where(b => b.Subject.Contains(searchingFilter.FilterSignarute.SearchString)).Select(b => b).ToList();
+            ICollection<BugDTO> searchCollection;
 
-            var projectMatchList = new List<BugDTO>();
-
+            if (searchingFilter.FilterSignarute.SearchString.Equals(string.Empty) || searchingFilter.FilterSignarute.SearchString == null)
+            {
+                searchCollection = GetAllItems();
+            }
+            else
+            {
+                searchCollection = GetAllItems().Where(b => b.Subject.Contains(searchingFilter.FilterSignarute.SearchString)).Select(b => b).ToList();
+            }
+                        
             if (searchingFilter.FilterSignarute.Projects.Count > 0)
             {                
                 foreach (var project in searchingFilter.FilterSignarute.Projects)
                 {
-                    projectMatchList.Concat(searchCollection.Where(b => b.ProjectID.Equals(project.ProjectID)).Select(b => b).ToList());
+                    resultCollection.AddRange(searchCollection.Where(b => b.ProjectID.Equals(project.ProjectID)).Select(b => b));
                 }
+
+                resultCollection = resultCollection.Distinct().ToList();
             }                  
+            else
+            {
+                resultCollection = searchCollection.ToList();
+            }
 
             var assigneeMatchList = new List<BugDTO>();
 
@@ -286,38 +299,43 @@ namespace AsignarBusinessLayer.Services
             {                
                 foreach (var assignee in searchingFilter.FilterSignarute.Assignees)
                 {
-                    assigneeMatchList.Concat(searchCollection.Where(b => b.AssigneeID.Equals(assignee.UserID)).Select(b => b).ToList());
+                    assigneeMatchList.AddRange(searchCollection.Where(b => b.AssigneeID.Equals(assignee.UserID)).Select(b => b));
                 }
-            }
 
-            if (projectMatchList.Count > 0 && assigneeMatchList.Count > 0)
-            {
-               var intersectedList = projectMatchList.Intersect(assigneeMatchList);
+                assigneeMatchList = assigneeMatchList.Distinct().ToList();
+
+                resultCollection = resultCollection.Intersect(assigneeMatchList).ToList();
             }
 
             var statusMatchList = new List<BugDTO>();
 
-            if(searchingFilter.FilterSignarute.Statuses.Count != 0)
+            if(searchingFilter.FilterSignarute.Statuses.Count > 0)
             {
                 foreach (var status in searchingFilter.FilterSignarute.Statuses)
                 {
-                    statusMatchList.Concat(searchCollection.Where(b => b.Status.Equals((Status)status)).Select(b => b).ToList());
+                    statusMatchList.AddRange(searchCollection.Where(b => b.Status.Equals((Status)status)).Select(b => b));
                 }
+
+                statusMatchList = statusMatchList.Distinct().ToList();
+
+                resultCollection = resultCollection.Intersect(statusMatchList).ToList();
             }
 
             var priorityMatchList = new List<BugDTO>();
 
-            if(searchingFilter.FilterSignarute.Priorities.Count != 0)
+            if(searchingFilter.FilterSignarute.Priorities.Count > 0)
             {
+                foreach (var priority in searchingFilter.FilterSignarute.Priorities)
+                {
+                    priorityMatchList.AddRange(searchCollection.Where(b => b.Priority.Equals((Priority)priority)).Select(b => b));
+                }
 
-            }
+                priorityMatchList = priorityMatchList.Distinct().ToList();
 
-            foreach (var priority in searchingFilter.FilterSignarute.Priorities)
-            {
+                resultCollection = resultCollection.Intersect(priorityMatchList).ToList();
+            }                      
 
-            }
-
-            return null;
+            return resultCollection;
         }
     }
 }

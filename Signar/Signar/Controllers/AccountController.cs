@@ -82,9 +82,20 @@ namespace Signar.Controllers
                         filterService.CreateItem(filterDTO);
                     }
                 }
-            }*/            
-           
-            if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
+            }*/
+
+            /*
+            using (var filterService = new FilterService())
+            {
+                var filter = filterService.GetItem(13);
+
+                using (var bugService = new BugService())
+                {
+                    var bugCollection = bugService.AdvancedSearch(filter);
+                }
+            }*/
+
+                if (Request.Cookies["auth"] != null) return RedirectToAction("Dashboard", "Home", new { area = "" });                               
             //if (Request.Cookies["auth"] == null) return View();
             //foreach (System.Collections.DictionaryEntry _user in HttpContext.Cache)
             //{
