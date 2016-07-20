@@ -21,11 +21,6 @@ E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\postdeploy.sql
 E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\predeploy.sql
 E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
 E:\2016\WEB\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
-C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
-C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
-C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
-C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
-C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
 C:\git\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
 C:\git\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
 C:\git\MVC\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
@@ -35,3 +30,12 @@ C:\git\MVC\Signar\AsignarDatabase\obj\Debug\postdeploy.sql
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\predeploy.sql
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
 C:\git\MVC\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dacpac
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.dll
+C:\TeamProjectRepo\Signar\AsignarDatabase\bin\Debug\AsignarDatabase.pdb
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\Model.xml
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\refactor.xml
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\postdeploy.sql
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\predeploy.sql
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.dll
+C:\TeamProjectRepo\Signar\AsignarDatabase\obj\Debug\AsignarDatabase.pdb

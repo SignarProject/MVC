@@ -264,6 +264,41 @@ namespace AsignarBusinessLayer.Services
             return dtoResult;
         }
 
+        public ICollection<BugDTO> Sort(ICollection<BugDTO> bugs, SortBy value)
+        {
+            switch (value)
+            {
+                case SortBy.Title:
+                    {
+                        bugs = bugs.OrderBy(b => b.Subject).ToList();
+
+                        return bugs;
+                    }
+                case SortBy.Assignee:
+                    {
+                        bugs = bugs.OrderBy(b => b.User.Name).ToList();
+
+                        return bugs;
+                    }
+                case SortBy.Priority:
+                    {
+                        bugs = bugs.OrderBy(b => b.Priority).ToList();
+
+                        return bugs;
+                    }
+                case SortBy.Status:
+                    {
+                        bugs = bugs.OrderBy(b => b.Status).ToList();
+
+                        return bugs;
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+
         public ICollection<BugDTO> AdvancedSearch(FilterDTO searchingFilter)
         {
             List<BugDTO> resultCollection = new List<BugDTO>();
