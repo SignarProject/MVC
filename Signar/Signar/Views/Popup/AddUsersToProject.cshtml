@@ -28,13 +28,13 @@
                                     string ava_url = user.AvatarPath;
                                 }
                                 <img src=@ava_url class="users-av-smaller" />
-                                <dev style="display:inline-block;max-width: 250px;">
+                                <div style="display:inline-block;max-width: 250px;">
                                     <label class="no-text-overflow-project-user-info text-medium" style="width: auto; line-height: 14px;display:inline-block">@user.Name </label>
                                     <label class="no-text-overflow-project-user-info text-medium" style="width: auto; line-height: 14px;display:inline-block">@user.Surname</label>
                                     <p style="">
                                         <label class="text-small">@user.Email</label>
                                     </p>
-                                </dev>
+                                </div>
                                 @{
                                     string UserRole = "Common user";
                                     if (user.IsAdmin == true)

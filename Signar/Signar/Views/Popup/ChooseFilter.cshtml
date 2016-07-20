@@ -1,0 +1,36 @@
+﻿@using Signar.Models
+@using AsignarBusinessLayer.AsignarDatabaseDTOs;
+@model ICollection<FilterDTO>
+@{
+    UserDTO Me = Cache[User.Identity.Name] as UserDTO;
+}
+<div id="ChooseFilterPopup" class="table-responsive popup-common">
+    <div class="row">
+        <div class="col-xs-12" style="position:relative;">
+            <div class="ui-widget-content form-control popup-field popup-text-area" id="container-resizable" style="overflow-y:scroll; padding-left: 0px; position:relative; min-height: 175px !important; margin-bottom:5px;">
+                @foreach (FilterDTO filter in Model)
+                {
+                    <div class="popup-option-row hover-active" onClick="ChooseFilter(@filter.FilterID)">
+                        <div style="display:inline-block;max-width: 500px;">
+                            <label class="no-text-overflow-project-user-info text-medium" style="margin: 7px;width: auto; line-height: 20px;display:inline-block; vertical-align:middle; font-size:20px;">@filter.Title </label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .choose-filter-popup .ui-widget-header:before {
+        margin-left: 1em;
+        content: "\f0b0";
+        font-family: FontAwesome;
+        left: -1px;
+        position: absolute;
+        top: 15px;
+        color: rgb(248, 254, 254);
+        font-size: 18px;
+        font-weight: 100;
+    }
+</style>

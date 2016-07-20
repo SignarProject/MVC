@@ -84,7 +84,7 @@
     {
         status_info = status_info.Remove(status_info.Length - 1);
     }
-    status_info = "]";
+    status_info += "]";
     string prior_info = "[";
     foreach (PriorityDTO pr in Model.filter.FilterSignarute.Priorities)
     {
@@ -165,13 +165,20 @@
                     <div id="AddUsersToProjectPopupDiv">
                         @Html.Partial("~/Views/Popup/AddUsersToProject.cshtml", m1, new ViewDataDictionary { { "ProjectID", Model.ProjectID } })
                     </div>*@
+                
+                    @{ 
+                        ICollection<FilterDTO> mChooseFilter = new List<FilterDTO>();
+                    }
+                <div id="AllFiltersPopup">
+                    @Html.Partial("~/Views/Popup/ChooseFilter.cshtml", mChooseFilter)
+                </div>
                 <div style="width: 150px; display:inline-block">
-                    <i class="fa fa-repeat fontbutton-style  fa-custom-button" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Default options"></i>
-                    <i class="fa fa-filter fontbutton-style  fa-custom-button" style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Choose filter"></i>
+                    <i class="fa fa-repeat fontbutton-style  fa-custom-button"  onClick="setDefault()" style="padding: 5px 6px 4px 6px; margin: 24px 5px 5px 10px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Default options"></i>
+                    <i class="fa fa-filter fontbutton-style  fa-custom-button" id ="ChooseFilterButton"style="padding: 5px 6px 5px 7px; margin: 24px 5px 5px 10px;" onclick="ChooseFilterPopup()" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Choose filter"></i>
                     <i class="fa fa-save fontbutton-style  fa-custom-button" style="padding: 5px 7px 5px 7px; margin: 24px 5px 5px 10px;vertical-align: top; line-height: 15px;" onclick="" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Delete filter"></i>
                     
                 </div>
-                <input type="button" value="Search" class="popup-button pull-right" style="color: #4D868D;margin-right: 19px !important; height: 40px;" />
+                <input type="button" id ="SSButton"value="Search" class="popup-button pull-right" style="color: #4D868D;margin-right: 19px !important; height: 40px;" onClick="SuperSearch(this)"/>
             </div>
 
             <div class="row">
@@ -234,23 +241,151 @@
 </script>
 
 <script>
-    
-    $(document).ready(setUsers(@user_info));
+    window.onload = function () {
+        setUsers(@user_info);
+        setProjects(@project_info);
+        setPriors(@prior_info);
+        setStatuses(@status_info);
+        LoadAllFilters();
+    };
+</script>
+
+<script>
+    function LoadAllFilters(){
+        $('#ChooseFilterButton').css('pointer-events', 'none');
+        $.ajax({
+            type: "Post",
+            url: "/Home/GetAllFiltersPopup",
+            error: function (xhr, status, error) {
+                $('#ChooseFilterButton').css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                $('#AllFiltersPopup').html(result);
+                $('#ChooseFilterButton').css('pointer-events', 'auto');
+            }
+        });
+    }
 </script>
 
 <script>
     function setUsers(users) {
-        
-        //var wards = dsFilterOptions.users.split(",");
-        //var strWard = "[";
-        //for (i = 0; i < wards.length; i++) {
-        //    strWard += "'" + wards[i] + "',";
-        //}
-        //strWard = strWard.slice(0, -1); //remove last comma
-        //strWard += "]";
-        //alert(strWard);
-        alert(JSON.parse(users));
-        $('#userSelectSearch').selectpicker('val', JSON.parse(users));
+        $('#userSelectSearch').selectpicker('val', users);
     }
 </script>
 
+<script>
+    function setProjects(projects) {
+        $('#projectSelectSearch').selectpicker('val', projects);
+    }
+</script>
+
+<script>
+    function setStatuses(statuses) {
+        $('#statusSelectSearch').selectpicker('val', statuses);
+    }
+</script>
+
+<script>
+    function setPriors(priors) {
+        $('#priorSelectSearch').selectpicker('val', priors);
+    }
+</script>
+
+<script>
+    function setDefault() {
+        $('#priorSelectSearch').selectpicker('val', []);
+        $('#statusSelectSearch').selectpicker('val', []);
+        $('#userSelectSearch').selectpicker('val', []);
+        $('#projectSelectSearch').selectpicker('val', []);
+        $('#FilterSearch').val("");
+    }
+</script>
+
+<script>
+    function SuperSearch(btnClicked) {
+        $(btnClicked).css('pointer-events', 'none');
+
+        var priorities = $("#priorSelectSearch").find("option:selected");
+        var prioritiesArray = [];
+        for (var i = 0; i < priorities.length; ++i) {
+            prioritiesArray.push(priorities[i].value);
+        }
+        var statuses = $("#statusSelectSearch").find("option:selected");
+        var statusesArray = [];
+        for (var i = 0; i < statuses.length; ++i) {
+            statusesArray.push(statuses[i].value);
+        }
+        var users = $("#userSelectSearch").find("option:selected");
+        var usersArray = [];
+        for (var i = 0; i < users.length; ++i) {
+            usersArray.push(users[i].value);
+        }
+        var projects = $("#projectSelectSearch").find("option:selected");
+        var projectsArray = [];
+        for (var i = 0; i < projects.length; ++i) {
+            projectsArray.push(projects[i].value);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/SuperSearch",
+            data: { Priorities: prioritiesArray, Statuses: statusesArray, Users: usersArray, Projects: projectsArray, Title: @Model.filter.Title, Search: $('#FilterSearch').val() },
+            error: function (xhr, status, error) {
+                alert(error);
+                $(btnClicked).css('pointer-events', 'auto');
+            },
+            success: function (result) {
+                $('#AllTasks').html(result);
+                //$(".popup-button").closest("#createUserPopup2").dialog('close');
+                $(btnClicked).css('pointer-events', 'auto');
+            }
+        });
+
+        return false;
+
+    }
+</script>
+
+<script>
+    $('#FilterSearch').bind("enterKey",function(e){
+        SuperSearch($('#SSButton'));
+    });
+    $('#FilterSearch').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $(this).trigger("enterKey");
+        }
+    });
+</script>
+
+<script>
+    function ChooseFilter(FilterID){
+        document.location.href="/Home/Search/"+FilterID;
+    }
+</script>
+
+<script>
+    function ChooseFilterPopup() {
+        $("#ChooseFilterPopup").dialog({
+            width: 600,
+            fluid: true,
+            title: "Choose filter",
+            modal: true,
+            resizable: false,
+            dialogClass: "choose-filter-popup",
+            show: { effect: 'clip', duration: 350 },
+            hide: { effect: 'clip', duration: 350 },
+            buttons: [
+        //{
+        //    text: "Add users",
+        //    "class": 'popup-button',
+        //    click: function () {
+        //        $(this).dialog("close");
+        //    }
+        //},
+            ],
+            close: function () {
+            }
+        });
+        $("*").trigger('blur');
+    }
+</script>
