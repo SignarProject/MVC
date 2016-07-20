@@ -155,7 +155,6 @@ namespace Signar.Controllers
             if (Me == null) { Response.Cookies["auth"].Expires = DateTime.Now; Session.Abandon(); return RedirectToAction("Login", "Account"); }
 
             if (Search == null) Search = "";
-            if (Title == null || Title == "") return new HttpStatusCodeResult(1, "Title can not be empty");
 
             if (Statuses == null) Statuses = new string[0];
             if (Priorities == null) Priorities = new string[0];
