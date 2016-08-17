@@ -65,7 +65,7 @@ create table UsersToProjects
 (
 [UserID] INT NOT NULL FOREIGN KEY REFERENCES Users(UserID),
 [ProjectID] INT FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID),
-CONSTRAINT UserProject PRIMARY KEY NONCLUSTERED ([UserID], [ProjectID]),
+CONSTRAINT UserProject PRIMARY KEY CLUSTERED ([UserID], [ProjectID]),
 [Version] ROWVERSION
 )
 go
